@@ -51,18 +51,22 @@ const Nweet = ({ listObj, isOwner }) => {
           </>
         ) : (
           <>
-            <h4>{`${listObj.item}공구☞ ${listObj.itemname}`}</h4>
-            {listObj.attachmentUrl && <img src={listObj.attachmentUrl} />}
-            {isOwner && (
-              <div className="nweet__actions">
-                <span onClick={onDeleteClick}>
-                  <FontAwesomeIcon icon={faTrash} />
-                </span>
-                <span onClick={toggleEditing}>
-                  <FontAwesomeIcon icon={faPencilAlt} />
-                </span>
-              </div>
+            <div>
+              <h4>{`${listObj.item}공구☞ ${listObj.itemname}`}</h4>
+              <h4>{`${listObj.deadline}까지`}</h4>
+              <br></br>
+              {listObj.attachmentUrl && <img src={listObj.attachmentUrl} />}
+              {isOwner && (
+                <div className="nweet__actions">
+                  <span onClick={onDeleteClick}>
+                    <FontAwesomeIcon icon={faTrash} />
+                  </span>
+                  <span onClick={toggleEditing}>
+                    <FontAwesomeIcon icon={faPencilAlt} />
+                  </span>
+            </div>
             )}
+            </div>
           </>
         )
       }
