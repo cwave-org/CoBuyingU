@@ -3,21 +3,21 @@ import { dbService, storageService } from "../fbase";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrash, faPencilAlt } from "@fortawesome/free-solid-svg-icons";
 
-const Nweet = ({ nweetObj, isOwner }) => {
+const Nweet = ({ listObj, isOwner }) => {
   const [editing, setEditing] = useState(false);
-  const [newNweet, setNewNweet] = useState(nweetObj.text);
+  const [newList, setNewList] = useState(listObj.text);
   const onDeleteClick = async () => {
     const ok = window.confirm("Are you sure you want to delete this nweet?");
     if (ok) {
-      await dbService.doc(`nweets/${nweetObj.id}`).delete();
-      await storageService.refFromURL(nweetObj.attachmentUrl).delete();
+      await dbService.doc(`startlist/${listObj.id}`).delete();
+      await storageService.refFromURL(listObj.attachmentUrl).delete();
     }
   }
   const toggleEditing = () => setEditing(prev => !prev);
   const onSubmit = async (event) => {
     event.preventDefault();
-    await dbService.doc(`nweets/${nweetObj.id}`).update({
-      text: newNweet,
+    await dbService.doc(`startlist/${listObj.id}`).update({
+      text: newList,
     });
     setEditing(false);
   };
@@ -25,9 +25,10 @@ const Nweet = ({ nweetObj, isOwner }) => {
     const {
       target: { value },
     } = event;
-    setNewNweet(value);
+    setNewList(value);
   };
   return (
+    // className 뭐라 할까 css할때 헷갈릴까봐 아직 안바꿨어
     <div className="nweet">
       {
         editing ? (
@@ -36,7 +37,7 @@ const Nweet = ({ nweetObj, isOwner }) => {
               <input
                 type="text"
                 placeholder="Edit your nweet"
-                value={newNweet}
+                value={newList}
                 required
                 autoFocus
                 onChange={onChange}
@@ -50,8 +51,8 @@ const Nweet = ({ nweetObj, isOwner }) => {
           </>
         ) : (
           <>
-            <h4>{nweetObj.text}</h4>
-            {nweetObj.attachmentUrl && <img src={nweetObj.attachmentUrl} />}
+            <h4>{`${listObj.item}공구☞ ${listObj.itemname}`}</h4>
+            {listObj.attachmentUrl && <img src={listObj.attachmentUrl} />}
             {isOwner && (
               <div className="nweet__actions">
                 <span onClick={onDeleteClick}>

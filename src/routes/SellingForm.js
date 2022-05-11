@@ -23,7 +23,7 @@ const SellingForm = ({ userObj }) => {
       const response = await attachmentRef.putString(attachment, "data_url");
       attachmentUrl = await response.ref.getDownloadURL();
     }
-    const nweetObj = {
+    const listObj = {
       name: name,
       itemname: itemname,
       item : item,
@@ -34,7 +34,7 @@ const SellingForm = ({ userObj }) => {
       creatorId: userObj.uid,
       attachmentUrl,
     };
-    await dbService.collection("startlist").add(nweetObj);
+    await dbService.collection("startlist").add(listObj);
     setName("");
     setItemname("");
     setItem("");
