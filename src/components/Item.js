@@ -4,8 +4,6 @@ import {useNavigate } from "react-router-dom";
 const Item = ({ listObj, isBuyer}) => {
     const [newList, setNewList] = useState(listObj.text);
     let navigate = useNavigate();
-    if (isBuyer)    
-       console.log(listObj);
 
     return (
         <div className="Itemclass">

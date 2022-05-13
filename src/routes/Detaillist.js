@@ -1,6 +1,5 @@
 import { useNavigate } from "react-router-dom";
 import React from "react";
-import Nweet from "../components/Nweet";
 import { useLocation } from "react-router-dom";
 const Detaillist=()=>{
     const navigate=useNavigate();
@@ -13,6 +12,7 @@ const Detaillist=()=>{
 
     const location = useLocation();
     const {detailObj}=location.state;
+
     return(
         <>
             <div>

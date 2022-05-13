@@ -3,7 +3,7 @@ import { useLocation } from "react-router-dom";
 import { dbService, storageService } from "../fbase";
 
 const BuyingForm = ({userObj}) => {
-    console.log("temp");
+
     const [name, setName] = useState("");
     const [phonenumber, setPhonenumber] = useState("");
     const [count, setCount] = useState("");
@@ -14,7 +14,6 @@ const BuyingForm = ({userObj}) => {
     const [account_re, setAccount_re] = useState("");
 
     const location = useLocation();
-    console.log('state', location.state);
 
     const {detailObj}=location.state; // 입력 폼 정보 받아오기
 
@@ -45,7 +44,6 @@ const BuyingForm = ({userObj}) => {
     }
 
     const onChange = (event) => {
-        console.log(event.target.id);
         if(event.target.id == "nameform"){
             const {
                 target: { value },
