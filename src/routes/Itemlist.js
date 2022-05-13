@@ -1,38 +1,42 @@
 import { useNavigate } from "react-router-dom";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
+import { dbService } from "../fbase";
+import Item from "../components/Item";
 
-const Detaillist = () => {
+const Itemlist = ({ buyinglist }) => {
 
+    //전체 판매자 리스트 불러오기
+    const [lists, setLists] = useState([]);
+
+    useEffect(() => {
+        dbService.collection("joinlist").onSnapshot((snapshot) => {
+            const listArray = snapshot.docs.map((doc) => ({
+                id: doc.id,
+                ...doc.data(),
+            }));
+            setLists(listArray);
+        });
+    }, []);
+    
+    // 구매 항목 관련 정보 불러오기
     let navigate = useNavigate();
-    const onJoinlistClick = () => {
-        navigate("/buyinh/{deatilOjb.name}", { replace: false, state: { detailObj: detailObj } });
-    }
-    /*
-    const navigate = useNavigate();
-    const onJoinlistClick = () => {
-        navigate("/buying/items", { replace: false, state: { detailObj: detailObj } });
-    }
-    */
     const location = useLocation();
     const { detailObj } = location.state;
+
     return (
         <>
-            <div>
-                <h3>공구 명 : {detailObj.name}</h3>
-                <h3>상품 명 : {detailObj.itemname}</h3>
-                <h3>가격 : {detailObj.price}</h3>
-                <h3>마감기한 : {detailObj.deadline}</h3>
-                <h3>기타사항 : {detailObj.etc}</h3>
-                <h3>계좌 : {detailObj.account}</h3>
-            </div>
-            <div>
-                <button className="detaillist submit Btn" onClick={onJoinlistClick}>
-                    공구 참여하기
-
-                </button>
-            </div>
+            <div className="itemlistclass">
+                <h3>전체 리스트 불러오기</h3>
+                {lists.map((list) => (
+                    <Item
+                        key={list.id}
+                        listObj={list}
+                        isBuyer={list.randomidx === detailObj.randomidx}
+                    />
+                ))}
+            </div>           
         </>
-    );
+    )
 };
-export default Detaillist;
+export default Itemlist;

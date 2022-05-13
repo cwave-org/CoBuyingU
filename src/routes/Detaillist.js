@@ -7,11 +7,10 @@ const Detaillist=()=>{
     const onJoinlistClick = () => {
         navigate("/buying", { replace: false, state: { detailObj: detailObj } });
     }
-    /*
-    const onSubmitClick=()=>{   
-        navigate("/buying");
+    const onShowlistClick = () => {
+        navigate("/itemlist", { replace: false, state: { detailObj: detailObj } });
     }
-    */
+
     const location = useLocation();
     const {detailObj}=location.state;
     return(
@@ -27,6 +26,9 @@ const Detaillist=()=>{
             <div>
                 <button className="detaillist submit Btn" onClick={onJoinlistClick}>
                     공구 참여하기
+                </button>
+                <button className="detaillist show Btn" onClick={onShowlistClick}>
+                    공구 참여자 목록 보기
                 </button>
             </div>
         </> 

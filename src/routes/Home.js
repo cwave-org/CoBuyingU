@@ -2,11 +2,11 @@ import React, { useEffect, useState } from "react";
 import Nweet from "../components/Nweet";
 import { dbService, storageService } from "../fbase";
 import { useNavigate } from "react-router-dom";
-import { v4 as uuidv4 } from "uuid";
-import SellingForm from "./SellingForm";
+import Itemlist from "./Itemlist";
 
 const Home = ({ userObj }) => {
     const [lists, setLists] = useState([]);
+    const [joinlists, setJoinlists] = useState([]);
     const navigate=useNavigate();
     const onStartlistClick=()=>{
         navigate("/selling");
@@ -18,6 +18,15 @@ const Home = ({ userObj }) => {
                 ...doc.data(),
             }));
             setLists(listArray);
+        });
+    }, []);
+    useEffect(() => {
+        dbService.collection("joinlist").onSnapshot((snapshot) => {
+            const listArray = snapshot.docs.map((doc) => ({
+                id: doc.id,
+                ...doc.data(),
+            }));
+            setJoinlists(listArray);
         });
     }, []);
     return (
@@ -34,7 +43,6 @@ const Home = ({ userObj }) => {
                     />
                 ))}
             </div>
-
         </div>
     );
 };
