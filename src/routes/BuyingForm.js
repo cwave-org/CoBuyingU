@@ -3,6 +3,7 @@ import { useLocation } from "react-router-dom";
 import { dbService, storageService } from "../fbase";
 
 const BuyingForm = ({userObj}) => {
+    console.log("temp");
     const [name, setName] = useState("");
     const [phonenumber, setPhonenumber] = useState("");
     const [count, setCount] = useState("");
