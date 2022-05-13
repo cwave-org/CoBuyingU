@@ -1,33 +1,48 @@
 import React, { useEffect, useState } from "react";
 import Nweet from "../components/Nweet";
 import { dbService, storageService } from "../fbase";
-import { v4 as uuidv4 } from "uuid";
-import NweetFactory from "../components/NweetFactory";
+import { useNavigate } from "react-router-dom";
+import Itemlist from "./Itemlist";
 
 const Home = ({ userObj }) => {
-    const [nweets, setNweets] = useState([]);
+    const [lists, setLists] = useState([]);
+    const [joinlists, setJoinlists] = useState([]);
+    const navigate=useNavigate();
+    const onStartlistClick=()=>{
+        navigate("/selling");
+    }
     useEffect(() => {
-        dbService.collection("nweets").onSnapshot((snapshot) => {
-            const nweetArray = snapshot.docs.map((doc) => ({
+        dbService.collection("startlist").onSnapshot((snapshot) => {
+            const listArray = snapshot.docs.map((doc) => ({
                 id: doc.id,
                 ...doc.data(),
             }));
-            setNweets(nweetArray);
+            setLists(listArray);
+        });
+    }, []);
+    useEffect(() => {
+        dbService.collection("joinlist").onSnapshot((snapshot) => {
+            const listArray = snapshot.docs.map((doc) => ({
+                id: doc.id,
+                ...doc.data(),
+            }));
+            setJoinlists(listArray);
         });
     }, []);
     return (
         <div className="container">
-            <NweetFactory userObj={userObj} />
+            <button className="startlist Btn" onClick={onStartlistClick}>
+                공구 열기
+            </button>
             <div style={{ marginTop: 30 }}>
-                {nweets.map((nweet) => (
+                {lists.map((list) => (
                     <Nweet
-                        key={nweet.id}
-                        nweetObj={nweet}
-                        isOwner={nweet.creatorId === userObj.uid}
+                        key={list.id}
+                        listObj={list}
+                        isOwner={list.creatorId === userObj.uid}
                     />
                 ))}
             </div>
-
         </div>
     );
 };

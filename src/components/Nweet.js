@@ -2,22 +2,29 @@ import React, { useState } from "react";
 import { dbService, storageService } from "../fbase";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrash, faPencilAlt } from "@fortawesome/free-solid-svg-icons";
-
-const Nweet = ({ nweetObj, isOwner }) => {
+import { Link, Route, Router, Routes, useNavigate } from "react-router-dom";
+import Detaillist from "../routes/Detaillist";
+import { Navigate } from "react-router-dom";
+const Nweet = ({ listObj, isOwner }) => {
   const [editing, setEditing] = useState(false);
-  const [newNweet, setNewNweet] = useState(nweetObj.text);
+  const [newList, setNewList] = useState(listObj.text);
+  let navigate=useNavigate();
+  const onDetaillistClick=()=>{   
+    const detailObj="init";
+    navigate("/selling/detail", {replace: false, state:{detailObj : listObj} });   
+  }
   const onDeleteClick = async () => {
     const ok = window.confirm("Are you sure you want to delete this nweet?");
     if (ok) {
-      await dbService.doc(`nweets/${nweetObj.id}`).delete();
-      await storageService.refFromURL(nweetObj.attachmentUrl).delete();
+      await dbService.doc(`startlist/${listObj.id}`).delete();
+      await storageService.refFromURL(listObj.attachmentUrl).delete();
     }
   }
   const toggleEditing = () => setEditing(prev => !prev);
   const onSubmit = async (event) => {
     event.preventDefault();
-    await dbService.doc(`nweets/${nweetObj.id}`).update({
-      text: newNweet,
+    await dbService.doc(`startlist/${listObj.id}`).update({
+      text: newList,
     });
     setEditing(false);
   };
@@ -25,9 +32,10 @@ const Nweet = ({ nweetObj, isOwner }) => {
     const {
       target: { value },
     } = event;
-    setNewNweet(value);
+    setNewList(value);
   };
   return (
+    // className 뭐라 할까 css할때 헷갈릴까봐 아직 안바꿨어
     <div className="nweet">
       {
         editing ? (
@@ -36,7 +44,7 @@ const Nweet = ({ nweetObj, isOwner }) => {
               <input
                 type="text"
                 placeholder="Edit your nweet"
-                value={newNweet}
+                value={newList}
                 required
                 autoFocus
                 onChange={onChange}
@@ -50,18 +58,26 @@ const Nweet = ({ nweetObj, isOwner }) => {
           </>
         ) : (
           <>
-            <h4>{nweetObj.text}</h4>
-            {nweetObj.attachmentUrl && <img src={nweetObj.attachmentUrl} />}
-            {isOwner && (
-              <div className="nweet__actions">
-                <span onClick={onDeleteClick}>
-                  <FontAwesomeIcon icon={faTrash} />
-                </span>
-                <span onClick={toggleEditing}>
-                  <FontAwesomeIcon icon={faPencilAlt} />
-                </span>
-              </div>
+            <div>
+              <h4>{`${listObj.item}공구☞ ${listObj.itemname}`}</h4>
+              <h4>{`${listObj.deadline}까지`}</h4>
+              <button className="detaillist Btn" onClick={onDetaillistClick}>
+                자세히 보기
+                
+            </button>
+              <br></br>
+              {listObj.attachmentUrl && <img src={listObj.attachmentUrl} />}
+              {isOwner && (
+                <div className="nweet__actions">
+                  <span onClick={onDeleteClick}>
+                    <FontAwesomeIcon icon={faTrash} />
+                  </span>
+                  <span onClick={toggleEditing}>
+                    <FontAwesomeIcon icon={faPencilAlt} />
+                  </span>
+            </div>
             )}
+            </div>
           </>
         )
       }
