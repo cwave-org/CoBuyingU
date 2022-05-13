@@ -6,6 +6,7 @@ import Home from "../routes/Home";
 import Profile from "../routes/Profile";
 import SellingForm from "../routes/SellingForm";
 import Navigation from "./Navigation";
+import Detaillist from "../routes/Detaillist";
 
 const AppRouter = ({ refreshUser, isLoggedIn, userObj }) => {
     return (
@@ -26,6 +27,7 @@ const AppRouter = ({ refreshUser, isLoggedIn, userObj }) => {
                             <Route exact path="/profile" element={<Profile userObj={userObj} refreshUser={refreshUser} />} />
                             <Route exact path="/buying" element={<BuyingForm userObj={userObj}/>}/>
                             <Route exact path="/selling" element={<SellingForm userObj={userObj} />}/>
+                            <Route exact path="/selling/detail" element={<Detaillist />}/>
                         </>
 
                     ) : (
