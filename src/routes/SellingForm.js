@@ -32,6 +32,8 @@ const SellingForm = ({ userObj }) => {
       key:key,
       datetime: Date.now(),
       creatorId: userObj.uid,
+      account : account,
+      etc : etc,
       attachmentUrl,
     };
     await dbService.collection("startlist").add(listObj);

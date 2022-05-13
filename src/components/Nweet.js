@@ -11,9 +11,7 @@ const Nweet = ({ listObj, isOwner }) => {
   let navigate=useNavigate();
   const onDetaillistClick=()=>{   
     const detailObj="dd";
-    navigate("/selling/detail", {replace: false, state:{detailObj : listObj} });
-          
-         
+    navigate("/selling/detail", {replace: false, state:{detailObj : listObj} });   
   }
   const onDeleteClick = async () => {
     const ok = window.confirm("Are you sure you want to delete this nweet?");

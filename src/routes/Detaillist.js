@@ -10,6 +10,7 @@ const Detaillist=()=>{
         navigate("/buying");
       }
     const location = useLocation();
+    // console.log(detailObj.etc);
     const {detailObj}=location.state;
     return(
         <>
