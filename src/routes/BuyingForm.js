@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { useLocation } from "react-router-dom";
 import { dbService, storageService } from "../fbase";
 
 const BuyingForm = ({userObj}) => {
@@ -11,10 +12,16 @@ const BuyingForm = ({userObj}) => {
     const [account_date, setAccount_date] = useState("");
     const [account_re, setAccount_re] = useState("");
 
+    const location = useLocation();
+    console.log('state', location.state);
+
+    const {detailObj}=location.state; // 입력 폼 정보 받아오기
+
     const onSubmit = async (event) => {
         event.preventDefault();
 
         const BuyingObj = {
+            randomidx : detailObj.randomidx,
             name: name,
             phonenumber: phonenumber,
             count : count,

@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { v4 as uuidv4 } from "uuid";
 import { dbService, storageService } from "../fbase";
-let key=0;//새로고침될 때마다 재호출됨.
 
 const SellingForm = ({ userObj }) => {
   const [name, setName] = useState("");
@@ -24,12 +23,12 @@ const SellingForm = ({ userObj }) => {
       attachmentUrl = await response.ref.getDownloadURL();
     }
     const listObj = {
+      randomidx : Math.random(), // 어떤 글인지 추가
       name: name,
       itemname: itemname,
       item : item,
       price: price,
       deadline: deadline,
-      key:key,
       datetime: Date.now(),
       creatorId: userObj.uid,
       account : account,
@@ -45,8 +44,8 @@ const SellingForm = ({ userObj }) => {
     setAttachment("");
     setEtc("");
     setAccount("");
-    key=key+1;
   };
+
   const onChange_name = (event) => {
     const {
       target: { value },

@@ -10,7 +10,7 @@ const Nweet = ({ listObj, isOwner }) => {
   const [newList, setNewList] = useState(listObj.text);
   let navigate=useNavigate();
   const onDetaillistClick=()=>{   
-    const detailObj="dd";
+    const detailObj="init";
     navigate("/selling/detail", {replace: false, state:{detailObj : listObj} });   
   }
   const onDeleteClick = async () => {

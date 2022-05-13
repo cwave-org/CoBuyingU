@@ -1,20 +1,22 @@
 import { useNavigate } from "react-router-dom";
 import React from "react";
-import Nweet from "../components/Nweet";
 import { useLocation } from "react-router-dom";
-const Detaillist=()=>{
-    const navigate=useNavigate();
+
+const Detaillist = () => {
+
+    let navigate = useNavigate();
     const onJoinlistClick = () => {
-        navigate("/buying", { replace: false, state: { detailObj: detailObj } });
+        navigate("/buyinh/{deatilOjb.name}", { replace: false, state: { detailObj: detailObj } });
     }
     /*
-    const onSubmitClick=()=>{   
-        navigate("/buying");
+    const navigate = useNavigate();
+    const onJoinlistClick = () => {
+        navigate("/buying/items", { replace: false, state: { detailObj: detailObj } });
     }
     */
     const location = useLocation();
-    const {detailObj}=location.state;
-    return(
+    const { detailObj } = location.state;
+    return (
         <>
             <div>
                 <h3>공구 명 : {detailObj.name}</h3>
@@ -27,9 +29,10 @@ const Detaillist=()=>{
             <div>
                 <button className="detaillist submit Btn" onClick={onJoinlistClick}>
                     공구 참여하기
+
                 </button>
             </div>
-        </> 
+        </>
     );
 };
 export default Detaillist;
