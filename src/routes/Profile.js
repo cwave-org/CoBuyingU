@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { authService, dbService } from "../fbase";
 import { collection, query, where } from "@firebase/firestore";
+import Mylist from "../components/Mylist";
 
 const Profile = ({ refreshUser, userObj }) => {
     const navigate = useNavigate();
@@ -27,6 +28,18 @@ const Profile = ({ refreshUser, userObj }) => {
         }
     };
 
+    // 모든 startlist 불러오기
+    const [lists, setLists] = useState([]);
+    useEffect(() => {
+        dbService.collection("startlist").onSnapshot((snapshot) => {
+            const listArray = snapshot.docs.map((doc) => ({
+                id: doc.id,
+                ...doc.data(),
+            }));
+            setLists(listArray);
+        });
+    }, []);
+
     return (
         <div className="container">
             <form onSubmit={onSubmit} className="profileForm">
@@ -47,6 +60,19 @@ const Profile = ({ refreshUser, userObj }) => {
                     }}
                 />
             </form>
+            <h3>
+                내가 연 공구
+            </h3>
+            <div>
+                {lists.map((list) => (
+                    <Mylist
+                        key={list.id}
+                        listObj={list}
+                        isOwner={list.creatorId === userObj.uid}
+                    />
+                ))}
+            </div>
+
             <span className="formBtn cancelBtn logOut" onClick={onLogOutClick}>
                 Log Out
             </span>
