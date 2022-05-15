@@ -3,7 +3,6 @@ import { useNavigate } from "react-router-dom";
 import { authService, dbService } from "../fbase";
 import { collection, query, where } from "@firebase/firestore";
 import Mylist from "../components/Mylist";
-
 const Profile = ({ refreshUser, userObj }) => {
     const navigate = useNavigate();
     const [newDisplayName, setNewDisplayName] = useState(userObj.displayName);
@@ -65,11 +64,13 @@ const Profile = ({ refreshUser, userObj }) => {
             </h3>
             <div>
                 {lists.map((list) => (
+                    
                     <Mylist
                         key={list.id}
                         listObj={list}
                         isOwner={list.creatorId === userObj.uid}
                     />
+                    
                 ))}
             </div>
             <span className="formBtn cancelBtn logOut" onClick={onLogOutClick}>
