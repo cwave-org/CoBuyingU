@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 
 const Myjoinlist = ({ listObj, isOwner }) => {
-    console.log("join");
     const [newList, setNewList] = useState(listObj.text);
 
     let navigate = useNavigate();
@@ -17,8 +16,7 @@ const Myjoinlist = ({ listObj, isOwner }) => {
                 {isOwner ? (
                     <>
                         <div>
-                            <h1>주인</h1>
-                            <h4>품목 이름: {`${listObj.itemname}`}</h4>
+                            <h4>품목 이름: {`${listObj.randomidx}`}</h4>
                         </div>
                         <div>
                             <button className="detaillist show Btn" onClick={onShowdetailClick}>
