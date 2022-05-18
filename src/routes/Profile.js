@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { authService, dbService } from "../fbase";
-import { collection, query, where } from "@firebase/firestore";
 import Mylist from "../components/Mylist";
 const Profile = ({ refreshUser, userObj }) => {
     const navigate = useNavigate();
@@ -72,6 +71,7 @@ const Profile = ({ refreshUser, userObj }) => {
                     />
                     
                 ))}
+                               
             </div>
             <span className="formBtn cancelBtn logOut" onClick={onLogOutClick}>
                 Log Out
