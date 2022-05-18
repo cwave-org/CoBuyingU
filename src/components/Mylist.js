@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 
-const Mylist = ({ listObj, isOwner }) => {
+const Mylist = ({ listObj, isOwner,creatorId }) => {
     const [newList, setNewList] = useState(listObj.text);
 
     let navigate = useNavigate();
@@ -9,7 +9,7 @@ const Mylist = ({ listObj, isOwner }) => {
     const onShowlistClick = () => {
         navigate("/itemlist", { replace: false, state: { detailObj: listObj } });
     }
-
+console.log(creatorId);
     return (
         <>
             <div className="Itemclass">

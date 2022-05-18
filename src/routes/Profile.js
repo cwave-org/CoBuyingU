@@ -5,7 +5,7 @@ import { collection, query, where } from "@firebase/firestore";
 import Mylist from "../components/Mylist";
 import Myscrap from "../components/Myscrap";
 
-const Profile = ({ refreshUser, userObj }) => {
+const Profile = ({ refreshUser, userObj, checkObj }) => {
     const navigate = useNavigate();
     const [newDisplayName, setNewDisplayName] = useState(userObj.displayName);
     const onLogOutClick = () => {
@@ -40,7 +40,19 @@ const Profile = ({ refreshUser, userObj }) => {
             setLists(listArray);
         });
     }, []);
+/*
+    const [scraps, setScraps] = useState([]);
+    useEffect(() => {
+        dbService.doc(`startlist/${detailObj.id}`).collection("scrap").onSnapshot((snapshot) => {
+            const listArray = snapshot.docs.map((doc) => ({
+                id: doc.id,
+                ...doc.data(),
+            }));
+            setScraps(listArray);
+        });
+    }, []);*/
 
+    
     return (
         <div className="container">
             <form onSubmit={onSubmit} className="profileForm">
@@ -70,17 +82,20 @@ const Profile = ({ refreshUser, userObj }) => {
                         key={list.id}
                         listObj={list}
                         isOwner={list.creatorId === userObj.uid}
+                        creatorId={list.creatorId}
+                        
                     />
                 ))}
             </div>
 
             <h3>
                 스크랩 목록
+                
             </h3>
             <div>
                 {lists.map((list) => (
                     <Myscrap
-                        key={list.id}
+                    key={list.id}
                         listObj={list}
                         isOwner={list.creatorId === userObj.uid}
                         userObj={userObj}

@@ -2,9 +2,10 @@ import { useNavigate } from "react-router-dom";
 import React, { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 import { dbService } from "../fbase";
+import Myscrap from "../components/Myscrap";
 const Detaillist=({userObj})=>{
     const [check, setCheck] = useState(false);
-    const [checks, setChecks] = useState(false);
+    const [checks, setChecks] = useState([]);
     const navigate=useNavigate();
     const onJoinlistClick = () => {
         navigate("/buying", { replace: false, state: { detailObj: detailObj } });
@@ -24,17 +25,35 @@ const Detaillist=({userObj})=>{
     useEffect(() => {
         dbService.doc(`startlist/${detailObj.id}`).collection("scrap").onSnapshot((snapshot) => {
             const checkArray = snapshot.docs.map((doc) => ({
-              id: doc.id,
+              id: userObj.uid,
+              
               ...doc.data(),
             }));
             setChecks(checkArray);
           });
       }, []);
 
-      const onSubmitCheck = async (event) => {
-        console.log(checkObj.check);
-        console.log(check);
+      /*useEffect(() => {
+        dbService.collection("startlist").doc(`scrap/${userObj.id}`)
+        .where("scrap","==",true).get()
+        .then((querySnapshot)=>{
+            querySnapshot.forEach((doc)=>{
+                querySnapshot.forEach((doc)=>{
+                    const myobj={
+                        ...doc.data(),
+                        id: doc.id,
+                    }
+                    setChecks(prev=>[myobj,...prev]);
+            })
+            
+        })
+    }, [])
+ } );*/
+ 
+   
 
+      const onSubmitCheck = async (event) => {
+        //console.log(dbService.collection("startlist").doc(`scrap/${userObj.id}`));
         setCheck(!check);
         event.preventDefault();
         /*const checkObj= {
@@ -47,21 +66,26 @@ const Detaillist=({userObj})=>{
         //await dbService.doc(`startlist/${detailObj.id}`).collection("scrap").add(checkObj);
         await dbService.collection("startlist").doc(detailObj.id).collection("scrap").doc(userObj.uid).set(checkObj);
         await dbService.doc(`startlist/${detailObj.id}`).collection("scrap").doc(userObj.uid).update({
-            check:(check),
+            check:(!check),
           });
-
-    }
+          //console.log(dbService.doc(`startlist/${detailObj.id}`).collection("scrap").doc());
+          console.log(dbService.doc(`startlist/${detailObj.id}`).collection("scrap").doc(userObj.uid).id);
+          console.log(dbService.doc(`startlist/${detailObj.id}`).collection("scrap").doc());
+          dbService.collection("startlist").doc(detailObj.id).collection("scrap").doc(userObj.uid).get(checkObj);
+          //console.log(check);
+    };
 
     const onCancleCheck = async (event) =>{
-        console.log(checkObj.check);
-        console.log(check);
         event.preventDefault();
         setCheck(!check);
-        await dbService.doc(`startlist/${detailObj.id}`).collection("scrap").doc(userObj.uid).update({
-          check:(check),
-        });
-        
+        await dbService.doc(`startlist/${detailObj.id}`).collection("scrap").doc(userObj.uid).delete();
+        /*await dbService.doc(`startlist/${detailObj.id}`).collection("scrap").doc(userObj.uid).update({
+          check:(!check),
+        });*/
+        //console.log(dbService.doc(`startlist/${detailObj.id}`).collection("scrap").doc());
+        //console.log(dbService.doc(`startlist/${detailObj.id}`).collection("scrap").doc().id);
         //setEditing(false);
+        //console.log(check);
       };
 
     return(
@@ -99,6 +123,6 @@ const Detaillist=({userObj})=>{
 
             </div>
         </> 
-    );
+    )
 };
 export default Detaillist;

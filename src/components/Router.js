@@ -9,7 +9,7 @@ import Navigation from "./Navigation";
 import Detaillist from "../routes/Detaillist";
 import Itemlist from "../routes/Itemlist";
 
-const AppRouter = ({ refreshUser, isLoggedIn, userObj }) => {
+const AppRouter = ({ refreshUser, isLoggedIn, userObj, checkObj }) => {
     return (
         <Router>
             {isLoggedIn && <Navigation userObj={userObj} />}
