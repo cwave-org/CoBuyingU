@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { authService, dbService } from "../fbase";
 import { collection, query, where } from "@firebase/firestore";
 import Mylist from "../components/Mylist";
+import Myscrap from "../components/Myscrap";
 
 const Profile = ({ refreshUser, userObj }) => {
     const navigate = useNavigate();
@@ -69,6 +70,20 @@ const Profile = ({ refreshUser, userObj }) => {
                         key={list.id}
                         listObj={list}
                         isOwner={list.creatorId === userObj.uid}
+                    />
+                ))}
+            </div>
+
+            <h3>
+                스크랩 목록
+            </h3>
+            <div>
+                {lists.map((list) => (
+                    <Myscrap
+                        key={list.id}
+                        listObj={list}
+                        isOwner={list.creatorId === userObj.uid}
+                        userObj={userObj}
                     />
                 ))}
             </div>

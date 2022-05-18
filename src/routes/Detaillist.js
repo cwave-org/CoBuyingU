@@ -2,9 +2,9 @@ import { useNavigate } from "react-router-dom";
 import React, { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 import { dbService } from "../fbase";
-const Detaillist=({userObj,checkObj})=>{
+const Detaillist=({userObj})=>{
     const [check, setCheck] = useState(false);
-    const [checks, setChecks] = useState([]);
+    const [checks, setChecks] = useState(false);
     const navigate=useNavigate();
     const onJoinlistClick = () => {
         navigate("/buying", { replace: false, state: { detailObj: detailObj } });
@@ -12,25 +12,14 @@ const Detaillist=({userObj,checkObj})=>{
     const onShowlistClick = () => {
         navigate("/itemlist", { replace: false, state: { detailObj: detailObj } });
     }
-    
+    const checkObj= {
+        check:check,
+        createdAt: Date.now(),
+        creatorId: userObj.uid,
+        userName:userObj.displayName,
+    }
     const location = useLocation();
     const {detailObj}=location.state;
-
-    /*let checkState = async(event) => {
-        let checkObj = {
-            check:checked,
-            creatorId: detailObj.uid,
-            name: detailObj.name,
-            itemlist : detailObj.itemname,
-            price : detailObj.price,
-            deadline : detailObj.deadline,
-            etc : detailObj.etc,
-            account : detailObj.account,
-          };
-        
-        
-        await dbService.collection("mylist").add(checkObj);
-    }*/
 
     useEffect(() => {
         dbService.doc(`startlist/${detailObj.id}`).collection("scrap").onSnapshot((snapshot) => {
@@ -43,59 +32,37 @@ const Detaillist=({userObj,checkObj})=>{
       }, []);
 
       const onSubmitCheck = async (event) => {
+        console.log(checkObj.check);
+        console.log(check);
+
         setCheck(!check);
         event.preventDefault();
-        const checkObj= {
+        /*const checkObj= {
             check:check,
           createdAt: Date.now(),
           creatorId: userObj.uid,
           userName:userObj.displayName,
-        }
+        }*/
 
         //await dbService.doc(`startlist/${detailObj.id}`).collection("scrap").add(checkObj);
         await dbService.collection("startlist").doc(detailObj.id).collection("scrap").doc(userObj.uid).set(checkObj);
+        await dbService.doc(`startlist/${detailObj.id}`).collection("scrap").doc(userObj.uid).update({
+            check:(check),
+          });
 
     }
 
     const onCancleCheck = async (event) =>{
+        console.log(checkObj.check);
+        console.log(check);
         event.preventDefault();
         setCheck(!check);
         await dbService.doc(`startlist/${detailObj.id}`).collection("scrap").doc(userObj.uid).update({
-          check:check,
+          check:(check),
         });
+        
         //setEditing(false);
       };
-
-    /*const checkScrab = async(event) => {
-        setCheck(!check);
-
-        const checkObj = {
-            check:checked,
-            //creatorId: detailObj.uid,
-            name: detailObj.name,
-            itemlist : detailObj.itemname,
-            price : detailObj.price,
-            deadline : detailObj.deadline,
-            etc : detailObj.etc,
-            account : detailObj.account,
-          };
-        
-        
-        
-        event.preventDefault();
-        //await dbService.collection("mylist").add(checkObj);
-
-        if(checked===true){
-            await dbService.doc(`mylist/${checkObj.uid}`).update({
-                check:checked,
-              });
-        }
-        await dbService.doc(`mylist/${detailObj.id}`).add({
-          //text: newNweet,
-          checked:(!checked)
-        });
-      
-    }*/
 
     return(
         <>
@@ -116,18 +83,16 @@ const Detaillist=({userObj,checkObj})=>{
                 </button>
             </div>
             <div>
-                {check ? (
+                {checkObj.check? (
                     <>
                     <input type="checkbox" 
                     onClick={onCancleCheck}
-                    ></input>
+                    />
                     </>
                 ):(
                     <>
                     <input type="button" 
-                    onClick={onSubmitCheck}
-
-                    ></input>
+                    onClick={onSubmitCheck}/>
                     </>
                 )}
                 

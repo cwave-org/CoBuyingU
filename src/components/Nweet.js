@@ -11,7 +11,8 @@ const Nweet = ({ listObj, isOwner,userObj }) => {
   let navigate=useNavigate();
   const onDetaillistClick= ()=>{   
     const detailObj="init";
-    navigate("/selling/detail", {replace: false, state:{detailObj : listObj,userObj:userObj} });   
+    navigate("/selling/detail", {replace: false, state:{detailObj : listObj} }); 
+    
   }
   
   const onDeleteClick = async () => {
