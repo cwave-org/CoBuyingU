@@ -17,7 +17,6 @@ const BuyingForm = ({userObj}) => {
     const location = useLocation();
 
     const {detailObj}=location.state; // 입력 폼 정보 받아오기
-    console.log(detailObj.randomidx);
     const onSubmit = async (event) => {
         event.preventDefault();
 

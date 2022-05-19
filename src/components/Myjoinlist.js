@@ -10,6 +10,13 @@ const Myjoinlist = ({ listObj, isOwner }) => {
         navigate("/selling/detail", { replace: false, state: { detailObj: listObj } });
     }
 
+    const onShowbuyClick=()=>{   
+        const detailObj="init";
+        navigate("/buying/detail", {replace: false, state:{detailObj : listObj} });   
+      }
+
+    /*전체 리스트*/
+      
     return (
         <>
             <div className="Itemclass">
@@ -21,6 +28,9 @@ const Myjoinlist = ({ listObj, isOwner }) => {
                         <div>
                             <button className="detaillist show Btn" onClick={onShowdetailClick}>
                                 해당 공구 자세히보기
+                            </button>
+                            <button className="detaillist show Btn" onClick={onShowbuyClick}>
+                                내 정보 자세히보기
                             </button>
                         </div>
                     </>
