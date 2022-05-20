@@ -2,9 +2,13 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { authService, dbService } from "../fbase";
 import Mylist from "../components/Mylist";
+
+import Myscrap from "../components/Myscrap";
+
 import Myjoinlist from "../components/Myjoinlist";
 
-const Profile = ({ refreshUser, userObj }) => {
+
+const Profile = ({ refreshUser, userObj, checkObj }) => {
     const navigate = useNavigate();
     const [newDisplayName, setNewDisplayName] = useState(userObj.displayName);
     const onLogOutClick = () => {
@@ -39,6 +43,18 @@ const Profile = ({ refreshUser, userObj }) => {
             setLists(listArray);
         });
     }, []);
+/*
+    const [scraps, setScraps] = useState([]);
+    useEffect(() => {
+        dbService.doc(`startlist/${detailObj.id}`).collection("scrap").onSnapshot((snapshot) => {
+            const listArray = snapshot.docs.map((doc) => ({
+                id: doc.id,
+                ...doc.data(),
+            }));
+            setScraps(listArray);
+        });
+    }, []);*/
+
 
     // 모든 joinlist 불러오기
     const [lists2, setLists2] = useState([]);
@@ -51,6 +67,7 @@ const Profile = ({ refreshUser, userObj }) => {
             setLists2(listArray2);
         });
     }, []);
+
 
     return (
         <div className="container">
@@ -82,6 +99,23 @@ const Profile = ({ refreshUser, userObj }) => {
                         key={list.id}
                         listObj={list}
                         isOwner={list.creatorId === userObj.uid}
+                        creatorId={list.creatorId}
+                        
+                    />
+                ))}
+            </div>
+
+            <h3>
+                스크랩 목록
+                
+            </h3>
+            <div>
+                {lists.map((list) => (
+                    <Myscrap
+                    key={list.id}
+                        listObj={list}
+                        isOwner={list.creatorId === userObj.uid}
+                        userObj={userObj}
                     />
                     
                 ))}

@@ -1,16 +1,18 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 
-const Mylist = ({ listObj, isOwner }) => {
+
+const Mylist = ({ listObj, isOwner,creatorId }) => {
     const navigation = useNavigate();
     const onShowlist = () => {
         navigation("/itemlist", { replace: false, state: { buyerindex : listObj.randomidx , filename : listObj.itemname} });
     }
 
+
     const onShowdetailClick = () => {
         navigate("/selling/detail", { replace: false, state: { detailObj: listObj } });
     }
-
+console.log(creatorId);
     return (
         <>
             <div className="Itemclass">

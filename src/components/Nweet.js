@@ -5,14 +5,16 @@ import { faTrash, faPencilAlt } from "@fortawesome/free-solid-svg-icons";
 import { Link, Route, Router, Routes, useNavigate } from "react-router-dom";
 import Detaillist from "../routes/Detaillist";
 import { Navigate } from "react-router-dom";
-const Nweet = ({ listObj, isOwner }) => {
+const Nweet = ({ listObj, isOwner,userObj }) => {
   const [editing, setEditing] = useState(false);
   const [newList, setNewList] = useState(listObj.text);
   let navigate=useNavigate();
-  const onDetaillistClick=()=>{   
+  const onDetaillistClick= ()=>{   
     const detailObj="init";
-    navigate("/selling/detail", {replace: false, state:{detailObj : listObj} });   
+    navigate("/selling/detail", {replace: false, state:{detailObj : listObj} }); 
+    
   }
+  
   const onDeleteClick = async () => {
     const ok = window.confirm("Are you sure you want to delete this nweet?");
     if (ok) {

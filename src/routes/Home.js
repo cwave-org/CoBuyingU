@@ -38,6 +38,7 @@ const Home = ({ userObj }) => {
                 {lists.map((list) => (
                     <Nweet
                         key={list.id}
+                        userObj={userObj}
                         listObj={list}
                         isOwner={list.creatorId === userObj.uid}
                     />

@@ -1,7 +1,11 @@
 import { useNavigate } from "react-router-dom";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
-const Detaillist=()=>{
+import { dbService } from "../fbase";
+import Myscrap from "../components/Myscrap";
+const Detaillist=({userObj})=>{
+    const [check, setCheck] = useState(false);
+    const [checks, setChecks] = useState([]);
     const navigate=useNavigate();
     const onJoinlistClick = () => {
         navigate("/buying", { replace: false, state: { detailObj: detailObj } });
@@ -9,9 +13,80 @@ const Detaillist=()=>{
     const onShowlistClick = () => {
         navigate("/itemlist", { replace: false, state: { detailObj: detailObj } });
     }
-
+    const checkObj= {
+        check:check,
+        createdAt: Date.now(),
+        creatorId: userObj.uid,
+        userName:userObj.displayName,
+    }
     const location = useLocation();
     const {detailObj}=location.state;
+
+    useEffect(() => {
+        dbService.doc(`startlist/${detailObj.id}`).collection("scrap").onSnapshot((snapshot) => {
+            const checkArray = snapshot.docs.map((doc) => ({
+              id: userObj.uid,
+              
+              ...doc.data(),
+            }));
+            setChecks(checkArray);
+          });
+      }, []);
+
+      /*useEffect(() => {
+        dbService.collection("startlist").doc(`scrap/${userObj.id}`)
+        .where("scrap","==",true).get()
+        .then((querySnapshot)=>{
+            querySnapshot.forEach((doc)=>{
+                querySnapshot.forEach((doc)=>{
+                    const myobj={
+                        ...doc.data(),
+                        id: doc.id,
+                    }
+                    setChecks(prev=>[myobj,...prev]);
+            })
+            
+        })
+    }, [])
+ } );*/
+ 
+   
+
+      const onSubmitCheck = async (event) => {
+        //console.log(dbService.collection("startlist").doc(`scrap/${userObj.id}`));
+        setCheck(!check);
+        event.preventDefault();
+        /*const checkObj= {
+            check:check,
+          createdAt: Date.now(),
+          creatorId: userObj.uid,
+          userName:userObj.displayName,
+        }*/
+
+        //await dbService.doc(`startlist/${detailObj.id}`).collection("scrap").add(checkObj);
+        await dbService.collection("startlist").doc(detailObj.id).collection("scrap").doc(userObj.uid).set(checkObj);
+        await dbService.doc(`startlist/${detailObj.id}`).collection("scrap").doc(userObj.uid).update({
+            check:(!check),
+          });
+          //console.log(dbService.doc(`startlist/${detailObj.id}`).collection("scrap").doc());
+          console.log(dbService.doc(`startlist/${detailObj.id}`).collection("scrap").doc(userObj.uid).id);
+          console.log(dbService.doc(`startlist/${detailObj.id}`).collection("scrap").doc());
+          dbService.collection("startlist").doc(detailObj.id).collection("scrap").doc(userObj.uid).get(checkObj);
+          console.log(!check);
+    };
+
+    const onCancleCheck = async (event) =>{
+        event.preventDefault();
+        setCheck(!check);
+        await dbService.doc(`startlist/${detailObj.id}`).collection("scrap").doc(userObj.uid).delete();
+        /*await dbService.doc(`startlist/${detailObj.id}`).collection("scrap").doc(userObj.uid).update({
+          check:(!check),
+        });*/
+        //console.log(dbService.doc(`startlist/${detailObj.id}`).collection("scrap").doc());
+        //console.log(dbService.doc(`startlist/${detailObj.id}`).collection("scrap").doc().id);
+        //setEditing(false);
+        console.log(!check);
+      };
 
     return(
         <>
@@ -31,7 +106,23 @@ const Detaillist=()=>{
                     공구 참여자 목록 보기
                 </button>
             </div>
+            <div>
+                {checkObj.check? (
+                    <>
+                    <input type="checkbox" 
+                    onClick={onCancleCheck}
+                    />
+                    </>
+                ):(
+                    <>
+                    <input type="button" 
+                    onClick={onSubmitCheck}/>
+                    </>
+                )}
+                
+
+            </div>
         </> 
-    );
+    )
 };
 export default Detaillist;
