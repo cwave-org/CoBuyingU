@@ -8,6 +8,7 @@ import SellingForm from "../routes/SellingForm";
 import Navigation from "./Navigation";
 import Detaillist from "../routes/Detaillist";
 import Itemlist from "../routes/Itemlist";
+import Buydetaillist from "../routes/Buydetaillist";
 
 const AppRouter = ({ refreshUser, isLoggedIn, userObj, checkObj }) => {
     return (
@@ -30,6 +31,8 @@ const AppRouter = ({ refreshUser, isLoggedIn, userObj, checkObj }) => {
                             <Route exact path="/selling" element={<SellingForm userObj={userObj} />}/>
                             <Route exact path="/selling/detail" element={<Detaillist userObj={userObj} />}/>
                             <Route exact path="/itemlist" element={<Itemlist userObj={userObj}/>} />
+                            <Route exact path="/buying/detail" element={<Buydetaillist />} />
+
                         </>
                     ) : (
                         <>
