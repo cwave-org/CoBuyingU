@@ -1,13 +1,12 @@
-import React, { useState } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
+import React from "react";
+import { useNavigate } from "react-router-dom";
 
 const Mylist = ({ listObj, isOwner }) => {
-    //  const [newList, setNewList] = useState(listObj.text);
-    let navigate = useNavigate();
-
-    const onShowlistClick = () => {
-        navigate("/itemlist", { replace: false, state: { detailObj: listObj } });
+    const navigation = useNavigate();
+    const onShowlist = () => {
+        navigation("/itemlist", { replace: false, state: { buyerindex : listObj.randomidx , filename : listObj.itemname} });
     }
+
     const onShowdetailClick = () => {
         navigate("/selling/detail", { replace: false, state: { detailObj: listObj } });
     }
@@ -16,7 +15,7 @@ const Mylist = ({ listObj, isOwner }) => {
         <>
             <div className="Itemclass">
                 {isOwner ? (
-                    <>
+                    <>  
                         <div>
                             <h4>품목 이름: {`${listObj.itemname}`}</h4>
                         </div>
@@ -30,6 +29,7 @@ const Mylist = ({ listObj, isOwner }) => {
                                 공구 참여자 목록 보기
                             </button>
                         </div>
+
                     </>
                 ) : (<></>)}
             </div>

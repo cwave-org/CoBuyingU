@@ -77,12 +77,15 @@ const Profile = ({ refreshUser, userObj }) => {
             </h3>
             <div>
                 {lists.map((list) => (
+                    
                     <Mylist
                         key={list.id}
                         listObj={list}
                         isOwner={list.creatorId === userObj.uid}
                     />
+                    
                 ))}
+                               
             </div>
             <h3>
                 내가 참여한 공구
