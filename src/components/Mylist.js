@@ -2,8 +2,7 @@ import React, { useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 
 const Mylist = ({ listObj, isOwner }) => {
-    const [newList, setNewList] = useState(listObj.text);
-
+    //  const [newList, setNewList] = useState(listObj.text);
     let navigate = useNavigate();
 
     const onShowlistClick = () => {
