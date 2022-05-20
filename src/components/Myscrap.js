@@ -35,7 +35,6 @@ const Myscrap = ({ listObj, userObj}) => {
           if (doc.exists) {
             setBucket(!bucket);
           }
-          console.log(bucket);
         });
     });
  } , []);

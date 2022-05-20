@@ -72,7 +72,7 @@ const Detaillist=({userObj})=>{
           console.log(dbService.doc(`startlist/${detailObj.id}`).collection("scrap").doc(userObj.uid).id);
           console.log(dbService.doc(`startlist/${detailObj.id}`).collection("scrap").doc());
           dbService.collection("startlist").doc(detailObj.id).collection("scrap").doc(userObj.uid).get(checkObj);
-          //console.log(check);
+          console.log(!check);
     };
 
     const onCancleCheck = async (event) =>{
@@ -85,7 +85,7 @@ const Detaillist=({userObj})=>{
         //console.log(dbService.doc(`startlist/${detailObj.id}`).collection("scrap").doc());
         //console.log(dbService.doc(`startlist/${detailObj.id}`).collection("scrap").doc().id);
         //setEditing(false);
-        //console.log(check);
+        console.log(!check);
       };
 
     return(
