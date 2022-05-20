@@ -10,7 +10,7 @@ const Mylist = ({ listObj, isOwner,creatorId }) => {
 
 
     const onShowdetailClick = () => {
-        navigate("/selling/detail", { replace: false, state: { detailObj: listObj } });
+        navigation("/selling/detail", { replace: false, state: { detailObj: listObj } });
     }
 console.log(creatorId);
     return (
@@ -27,7 +27,7 @@ console.log(creatorId);
                             </button>
                         </div>
                         <div>
-                            <button className="detaillist show Btn" onClick={onShowlistClick}>
+                            <button className="detaillist show Btn" onClick={onShowlist }>
                                 공구 참여자 목록 보기
                             </button>
                         </div>
