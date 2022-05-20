@@ -12,11 +12,11 @@ const BuyingForm = ({userObj}) => {
     const [account_name, setAccount_name] = useState("");
     const [account_date, setAccount_date] = useState("");
     const [account_re, setAccount_re] = useState("");
+    
 
     const location = useLocation();
 
     const {detailObj}=location.state; // 입력 폼 정보 받아오기
-
     const onSubmit = async (event) => {
         event.preventDefault();
 
@@ -31,6 +31,7 @@ const BuyingForm = ({userObj}) => {
             account_date : account_date,
             account_name : account_name,
             account_re : account_re,
+            creatorId : userObj.uid,
         };
         await dbService.collection("joinlist").add(BuyingObj);
         setName("");
