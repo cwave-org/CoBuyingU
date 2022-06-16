@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 import { dbService } from "../fbase";
 import QnA from "../components/QnA";
+import Image from "next/image";
 
 const Detaillist=({userObj})=>{
     const [check, setCheck] = useState(false);
@@ -125,7 +126,8 @@ const Detaillist=({userObj})=>{
                   
         <div>
 
-            <h3>📢 공지사항</h3>
+            <h2>📢 공지사항</h2>
+            <br></br>
 
             <>
             <div>
@@ -157,6 +159,15 @@ const Detaillist=({userObj})=>{
                     onClick={onSubmitCheck}/>
                     </>
                 )}
+            </div>
+            
+            <div>
+                < a href={detailObj.link}>
+                <img 
+                src="img/kakaotalk.png"
+                height={50}
+                width={50}/>
+                </a>
             </div>
 
             <div>

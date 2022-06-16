@@ -11,6 +11,7 @@ const SellingForm = ({ userObj }) => {
   const [etc, setEtc] = useState("");
   const [account, setAccount] = useState("");
   const [attachment, setAttachment] = useState("");
+  const [link, setLink] = useState("");
   
   const onSubmit = async (event) => {
     event.preventDefault();
@@ -33,6 +34,7 @@ const SellingForm = ({ userObj }) => {
       creatorId: userObj.uid,
       account : account,
       etc : etc,
+      link : link,
       attachmentUrl,
     };
     await dbService.collection("startlist").add(listObj);
@@ -43,6 +45,7 @@ const SellingForm = ({ userObj }) => {
     setDeadline("");
     setAttachment("");
     setEtc("");
+    setLink("");
     setAccount("");
   };
 
@@ -75,6 +78,12 @@ const SellingForm = ({ userObj }) => {
       target: { value },
     } = event;
     setDeadline(value);
+  };
+  const onChange_link = (event) => {
+    const {
+      target: { value },
+    } = event;
+    setLink(value);
   };
   const onChange_etc = (event) => {
     const {
@@ -152,6 +161,16 @@ const SellingForm = ({ userObj }) => {
         onChange={onChange_deadline}
         type="date"
         placeholder="마감기한"
+        maxLength={120}
+      />
+      </p>
+
+      <p>오픈채팅방 링크 : 
+      <input
+        value={link}
+        onChange={onChange_link}
+        type="text"
+        placeholder="오픈채팅방링크"
         maxLength={120}
       />
       </p>
