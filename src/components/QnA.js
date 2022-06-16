@@ -1,4 +1,3 @@
-import { useNavigate } from "react-router-dom";
 import React, { useEffect, useState } from "react";
 import { dbService } from "../fbase";
 import Comment from "./Comment";

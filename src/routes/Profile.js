@@ -6,6 +6,7 @@ import Mylist from "../components/Mylist";
 import Myscrap from "../components/Myscrap";
 
 import Myjoinlist from "../components/Myjoinlist";
+import MyQnA from "../components/MyQnA";
 
 
 const Profile = ({ refreshUser, userObj, checkObj }) => {
@@ -133,6 +134,19 @@ const Profile = ({ refreshUser, userObj, checkObj }) => {
                     />
                 ))}
             </div>
+
+            <h3>
+                내가 문의한 공구
+            </h3>
+            {lists.map((list) => (
+                    <MyQnA
+                        key={list.id}
+                        listObj={list}
+                        isOwner={list.creatorId === userObj.uid}
+                        userObj={userObj}
+                    />
+                    
+                ))}
             <span className="formBtn cancelBtn logOut" onClick={onLogOutClick}>
                 Log Out
             </span>

@@ -16,7 +16,7 @@ const Nweet = ({ listObj, isOwner,userObj }) => {
   }
   
   const onDeleteClick = async () => {
-    const ok = window.confirm("Are you sure you want to delete this nweet?");
+    const ok = window.confirm("Are you sure you want to delete this list?");
     if (ok) {
       await dbService.doc(`startlist/${listObj.id}`).delete();
       await storageService.refFromURL(listObj.attachmentUrl).delete();

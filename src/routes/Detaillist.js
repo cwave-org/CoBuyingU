@@ -122,7 +122,12 @@ const Detaillist=({userObj})=>{
     };
       
     return(
-        <>
+                  
+        <div>
+
+            <h3>📢 공지사항</h3>
+
+            <>
             <div>
                 <h3>공구 명 : {detailObj.name}</h3>
                 <h3>상품 명 : {detailObj.itemname}</h3>
@@ -186,7 +191,9 @@ const Detaillist=({userObj})=>{
                />
               ))}
           </>
-        </> 
+
+          </>
+        </div> 
                 
     )
 };
