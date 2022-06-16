@@ -15,8 +15,8 @@ export default function QnA({qnaObj, isOwner,userObj, detailObj}) {
       <div>
         <div>
           <div>
-              <p>{qnaObj.userName}님의 질문입니다.</p>
-              <p>{qnaObj.text}</p>
+              <h3>{qnaObj.userName}님의 질문: {qnaObj.text}</h3>
+              <h4>{qnaObj.text}</h4>
           </div>
         
           {isOwner && (
@@ -28,6 +28,8 @@ export default function QnA({qnaObj, isOwner,userObj, detailObj}) {
                   </div>
             </div>
             )}
+
+
           
         </div>
 
@@ -35,6 +37,7 @@ export default function QnA({qnaObj, isOwner,userObj, detailObj}) {
           <Comment
             userObj={userObj}
             qnaObj={qnaObj}
+            detailObj={detailObj}
           />
         </div>
       </div>         
