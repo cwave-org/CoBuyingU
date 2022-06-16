@@ -2,10 +2,14 @@ import { useNavigate } from "react-router-dom";
 import React, { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 import { dbService } from "../fbase";
-import Myscrap from "../components/Myscrap";
+import QnA from "../components/QnA";
+
 const Detaillist=({userObj})=>{
     const [check, setCheck] = useState(false);
     const [checks, setChecks] = useState([]);
+    const [qna, setQna] = useState("");
+    const [qnas, setQnas] = useState([]);
+
     const navigate=useNavigate();
     const onJoinlistClick = () => {
         navigate("/buying", { replace: false, state: { detailObj: detailObj } });
@@ -88,6 +92,35 @@ const Detaillist=({userObj})=>{
         console.log(!check);
       };
 
+      useEffect(() => {
+        dbService.doc(`startlist/${detailObj.id}`).collection("QnA").onSnapshot((snapshot) => {
+            const qnaArray = snapshot.docs.map((doc) => ({
+              id: doc.id,
+              ...doc.data(),
+            }));
+            setQnas(qnaArray);
+          });
+      }, []);
+
+      const QnAonSubmit = async (event) => {
+        event.preventDefault();
+        await dbService.collection("startlist").doc(detailObj.id).collection("QnA").add({
+          text: qna,
+          createdAt: Date.now(),
+          creatorId: userObj.uid,
+          checked:false,
+          userName:userObj.displayName,
+        })
+        setQna("");
+    };
+
+    const QnAonChange = (event) => {
+        const {
+          target: { value },
+        } = event;
+        setQna(value);
+    };
+      
     return(
         <>
             <div>
@@ -119,10 +152,42 @@ const Detaillist=({userObj})=>{
                     onClick={onSubmitCheck}/>
                     </>
                 )}
-                
-
             </div>
+
+            <div>
+                <p>♥무엇이든지 물어보세요♥</p>
+                <>
+                <div>
+                    <form onSubmit={QnAonSubmit}>
+                        <input 
+                            type="text"
+                            placeholder="🙏🏼수정은 불가능하세요.🙏🏼"
+                            value={qna}
+                            onChange={QnAonChange}
+                        />
+
+                    <button 
+                        type="submit">
+                        Upload
+                    </button>
+                    </form>
+                </div>
+                </>
+            </div>
+            <>
+            {qnas.map((qna) => (
+                 <QnA
+                    key={qna.id}
+                    qnaObj={qna}
+                    isOwner={qna.creatorId === userObj.uid}
+                    userObj={userObj}
+                    detailObj={detailObj}
+                    
+               />
+              ))}
+          </>
         </> 
+                
     )
 };
 export default Detaillist;
