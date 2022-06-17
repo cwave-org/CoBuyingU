@@ -32,9 +32,11 @@ const Myscrap = ({ listObj, userObj}) => {
           // 도큐먼트 id 가져오기
           console.log(doc.id);
           console.log(bucket);
+          if(doc.id===userObj.uid){
           if (doc.exists) {
             setBucket(!bucket);
           }
+        }
         });
     });
  } , []);
