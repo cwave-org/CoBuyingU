@@ -1,0 +1,47 @@
+body {
+    background: linear-gradient(to top  ,#C5E0B4, #BBDCF7 , #E0C0F6);
+}
+.container{ 
+    padding: 30px;
+    width: 50%;
+    border-radius: 20px;
+   
+}
+.nweet{
+    text-align: center;
+    padding:5px;
+    margin-bottom: 30px;
+    background-color: white;
+    border-radius: 20px;
+}
+nav {
+    background: #AFB6F6;
+    width: 70%;
+    text-align: center;
+    border-radius: 30px;
+    margin: auto;
+}
+.dataillist.content{
+    text-align: center;
+    padding:5px;
+    margin-bottom: 30px;
+    background-color: white;
+    border-radius: 20px;
+}
+.itemname{
+    font-size: 10px;
+    
+}
+.itemBtn{
+    padding: 30px;
+    width: 50%;
+}
+
+.date{
+    font-size: 5px;
+}
+
+.image{
+    width: 30px;
+    height: 30px;
+}

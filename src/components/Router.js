@@ -10,15 +10,16 @@ import Detaillist from "../routes/Detaillist";
 import Itemlist from "../routes/Itemlist";
 import Buydetaillist from "../routes/Buydetaillist";
 
-const AppRouter = ({ refreshUser, isLoggedIn, userObj }) => {
+const AppRouter = ({ refreshUser, isLoggedIn, userObj, checkObj }) => {
     return (
         <Router>
             {isLoggedIn && <Navigation userObj={userObj} />}
-            <div style={{
+            <div
+                
+                style={{
                 maxWidth: 890,
                 width: "100%",
                 margin: "0 auto",
-                marginTop: 80,
                 display: "flex",
                 justifyContent: "center",
             }}>

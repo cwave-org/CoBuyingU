@@ -14,6 +14,8 @@ const SellingForm = ({ userObj }) => {
   const [attachment, setAttachment] = useState("");
   const navigate = useNavigate();
 
+  const [link, setLink] = useState("");
+
   const onSubmit = async (event) => {
     navigate("/");
     event.preventDefault();
@@ -34,8 +36,9 @@ const SellingForm = ({ userObj }) => {
       deadline: deadline,
       datetime: Date.now(),
       creatorId: userObj.uid,
-      account: account,
-      etc: etc,
+      account : account,
+      etc : etc,
+      link : link,
       attachmentUrl,
     };
     await dbService.collection("startlist").add(listObj);
@@ -46,6 +49,7 @@ const SellingForm = ({ userObj }) => {
     setDeadline("");
     setAttachment("");
     setEtc("");
+    setLink("");
     setAccount("");
   };
 
@@ -78,6 +82,12 @@ const SellingForm = ({ userObj }) => {
       target: { value },
     } = event;
     setDeadline(value);
+  };
+  const onChange_link = (event) => {
+    const {
+      target: { value },
+    } = event;
+    setLink(value);
   };
   const onChange_etc = (event) => {
     const {
@@ -164,15 +174,24 @@ const SellingForm = ({ userObj }) => {
         />
       </p>
 
-      <p>
-        기타사항 :
-        <input
-          value={etc}
-          onChange={onChange_etc}
-          type="text"
-          placeholder="기타사항"
-          maxLength={120}
-        />
+      <p>오픈채팅방 링크 : 
+      <input
+        value={link}
+        onChange={onChange_link}
+        type="text"
+        placeholder="오픈채팅방링크"
+        maxLength={120}
+      />
+      </p>
+
+      <p>기타사항 :
+      <input
+        value={etc}
+        onChange={onChange_etc}
+        type="text"
+        placeholder="기타사항"
+        maxLength={120}
+      />
       </p>
 
       <p>

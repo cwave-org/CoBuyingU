@@ -7,10 +7,6 @@ import Itemlist from "./Itemlist";
 const Home = ({ userObj }) => {
     const [lists, setLists] = useState([]);
     const [joinlists, setJoinlists] = useState([]);
-    const navigate=useNavigate();
-    const onStartlistClick=()=>{
-        navigate("/selling");
-    }
     useEffect(() => {
         dbService.collection("startlist").onSnapshot((snapshot) => {
             const listArray = snapshot.docs.map((doc) => ({
@@ -31,13 +27,11 @@ const Home = ({ userObj }) => {
     }, []);
     return (
         <div className="container">
-            <button className="startlist Btn" onClick={onStartlistClick}>
-                공구 열기
-            </button>
             <div style={{ marginTop: 30 }}>
                 {lists.map((list) => (
                     <Nweet
                         key={list.id}
+                        userObj={userObj}
                         listObj={list}
                         isOwner={list.creatorId === userObj.uid}
                     />
