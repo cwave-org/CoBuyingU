@@ -2,11 +2,13 @@ import React, { useEffect, useState } from "react";
 import { dbService } from "../fbase";
 import Comment from "./Comment";
 
-export default function QnA({qnaObj, isOwner,userObj, detailObj}) {
+export default function QnA({qnaObj, isOwner,userObj, detailObj,bucket}) {
+  console.log(qnaObj.text);
     const onQnADeleteClick = async () => {
       const ok = window.confirm("Are you sure you want to delete this nweet?");
         if (ok) {
           await dbService.doc(`startlist/${detailObj.id}`).collection("QnA").doc(`${qnaObj.id}`).delete();
+          bucket =false;
         }
       }
 

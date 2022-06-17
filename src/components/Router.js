@@ -10,7 +10,7 @@ import Detaillist from "../routes/Detaillist";
 import Itemlist from "../routes/Itemlist";
 import Buydetaillist from "../routes/Buydetaillist";
 
-const AppRouter = ({ refreshUser, isLoggedIn, userObj, checkObj }) => {
+const AppRouter = ({ refreshUser, isLoggedIn, userObj }) => {
     return (
         <Router>
             {isLoggedIn && <Navigation userObj={userObj} />}

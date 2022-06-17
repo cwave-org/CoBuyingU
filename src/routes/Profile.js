@@ -9,7 +9,7 @@ import Myjoinlist from "../components/Myjoinlist";
 import MyQnA from "../components/MyQnA";
 
 
-const Profile = ({ refreshUser, userObj, checkObj }) => {
+const Profile = ({ refreshUser, userObj, listObj}) => {
     const navigate = useNavigate();
     const [newDisplayName, setNewDisplayName] = useState(userObj.displayName);
     const onLogOutClick = () => {
@@ -56,6 +56,18 @@ const Profile = ({ refreshUser, userObj, checkObj }) => {
         });
     }, []);*/
 
+    // 모든 scrap불러오기
+    const [lists3, setLists3] = useState([]);
+    useEffect(() => {
+        dbService.doc(`startlist/${listObj}`).collection("QnA").onSnapshot((snapshot) => {
+            const listArray3 = snapshot.docs.map((doc) => ({
+                id: doc.id,
+                ...doc.data(),
+                
+            }));
+            setLists3(listArray3);
+        });
+    }, []);
 
     // 모든 joinlist 불러오기
     const [lists2, setLists2] = useState([]);

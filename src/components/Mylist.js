@@ -12,7 +12,7 @@ const Mylist = ({ listObj, isOwner,creatorId }) => {
     const onShowdetailClick = () => {
         navigation("/selling/detail", { replace: false, state: { detailObj: listObj } });
     }
-console.log(creatorId);
+//console.log(creatorId);
     return (
         <>
             <div className="Itemclass">

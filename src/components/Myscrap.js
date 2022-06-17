@@ -6,7 +6,7 @@ import { dbService } from "../fbase";
 const Myscrap = ({ listObj, userObj}) => {
     const [bucket, setBucket] = useState(false);
     const [scraps, setScraps]= useState([]);
-
+    console.log(listObj.id);
     useEffect(() => {
         dbService.doc(`startlist/${listObj.id}`).collection("scrap").onSnapshot((snapshot) => {
             const checkArray = snapshot.docs.map((doc) => ({

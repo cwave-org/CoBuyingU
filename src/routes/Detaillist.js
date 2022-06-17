@@ -38,22 +38,7 @@ const Detaillist=({userObj})=>{
           });
       }, []);
 
-      /*useEffect(() => {
-        dbService.collection("startlist").doc(`scrap/${userObj.id}`)
-        .where("scrap","==",true).get()
-        .then((querySnapshot)=>{
-            querySnapshot.forEach((doc)=>{
-                querySnapshot.forEach((doc)=>{
-                    const myobj={
-                        ...doc.data(),
-                        id: doc.id,
-                    }
-                    setChecks(prev=>[myobj,...prev]);
-            })
-            
-        })
-    }, [])
- } );*/
+      
  
    
 
@@ -103,15 +88,61 @@ const Detaillist=({userObj})=>{
           });
       }, []);
 
+      const qnaObj= {
+        text: qna,
+        createdAt: Date.now(),
+        creatorId: userObj.uid,
+        userName:userObj.displayName,
+    }
+    
+    const [bucket, setBucket] = useState(true);
+    
+      useEffect(() => {
+        dbService.doc(`startlist/${detailObj.id}`).collection("QnA").get()
+  .then((docs) => {
+    docs.forEach((doc) => {
+      // 도큐먼트 객체를 확인해보자!
+      //console.log(doc);
+      // 도큐먼트 데이터 가져오기
+      console.log(doc.data());
+      // 도큐먼트 id 가져오기
+      console.log(doc.exists);
+      console.log(bucket);
+
+      if (doc.exists) {
+        setBucket(!bucket);
+        console.log(doc.exists);
+      }
+      else{
+        setBucket(bucket);
+      }
+    
+    console.log(bucket);
+    });
+});
+} , []);
       const QnAonSubmit = async (event) => {
         event.preventDefault();
+        await dbService.collection("startlist").doc(detailObj.id).collection("QnA").doc(userObj.uid).set(qnaObj);
+        /*await dbService.doc(`startlist/${detailObj.id}`).collection("scrap").doc(userObj.uid).update({
+            check:(!check),
+          });*/
+          /*
         await dbService.collection("startlist").doc(detailObj.id).collection("QnA").add({
           text: qna,
           createdAt: Date.now(),
           creatorId: userObj.uid,
           checked:false,
           userName:userObj.displayName,
-        })
+        })*/
+        
+        dbService.collection("startlist").doc(detailObj.id).collection("scrap").doc(userObj.uid).get({
+            text: qna,
+            createdAt: Date.now(),
+            creatorId: userObj.uid,
+            checked:false,
+            userName:userObj.displayName,
+          })
         setQna("");
     };
 
@@ -174,6 +205,8 @@ const Detaillist=({userObj})=>{
                 <p>♥무엇이든지 물어보세요♥</p>
                 <>
                 <div>
+{bucket? 
+                    
                     <form onSubmit={QnAonSubmit}>
                         <input 
                             type="text"
@@ -181,12 +214,17 @@ const Detaillist=({userObj})=>{
                             value={qna}
                             onChange={QnAonChange}
                         />
-
+                        
                     <button 
                         type="submit">
                         Upload
                     </button>
                     </form>
+                    :
+                    <div>"🙏🏼원활한 QnA를 위해 인당 1 질문만 할수🙏🏼"</div>
+                }
+                
+
                 </div>
                 </>
             </div>
@@ -198,7 +236,6 @@ const Detaillist=({userObj})=>{
                     isOwner={qna.creatorId === userObj.uid}
                     userObj={userObj}
                     detailObj={detailObj}
-                    
                />
               ))}
           </>
