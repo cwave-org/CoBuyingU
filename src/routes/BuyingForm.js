@@ -44,45 +44,24 @@ const BuyingForm = ({ userObj }) => {
   };
 
   const onChange = (event) => {
-    if (event.target.id == "nameform") {
-      const {
+    const {
         target: { value },
       } = event;
+    if (event.target.id == "nameform") {
       setName(value);
     } else if (event.target.id == "phonenumberform") {
-      const {
-        target: { value },
-      } = event;
       setPhonenumber(value);
     } else if (event.target.id == "countform") {
-      const {
-        target: { value },
-      } = event;
       setCount(value);
     } else if (event.target.id == "sizeform") {
-      const {
-        target: { value },
-      } = event;
       setSize(value);
     } else if (event.target.id == "addressform") {
-      const {
-        target: { value },
-      } = event;
       setAddress(value);
     } else if (event.target.id == "accountnameform") {
-      const {
-        target: { value },
-      } = event;
       setAccount_name(value);
     } else if (event.target.id == "accountdateform") {
-      const {
-        target: { value },
-      } = event;
       setAccount_date(value);
     } else if (event.target.id == "accountreform") {
-      const {
-        target: { value },
-      } = event;
       setAccount_re(value);
     }
   };
