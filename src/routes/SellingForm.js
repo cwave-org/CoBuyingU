@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { v4 as uuidv4 } from "uuid";
 import { dbService, storageService } from "../fbase";
+import { useNavigate } from "react-router-dom";
 
 const SellingForm = ({ userObj }) => {
   const [name, setName] = useState("");
@@ -11,8 +12,10 @@ const SellingForm = ({ userObj }) => {
   const [etc, setEtc] = useState("");
   const [account, setAccount] = useState("");
   const [attachment, setAttachment] = useState("");
-  
+  const navigate = useNavigate();
+
   const onSubmit = async (event) => {
+    navigate("/");
     event.preventDefault();
     let attachmentUrl = "";
     if (attachment !== "") {
@@ -23,16 +26,16 @@ const SellingForm = ({ userObj }) => {
       attachmentUrl = await response.ref.getDownloadURL();
     }
     const listObj = {
-      randomidx : Math.random(), // 어떤 글인지 추가
+      randomidx: Math.random(), // 어떤 글인지 추가
       name: name,
       itemname: itemname,
-      item : item,
+      item: item,
       price: price,
       deadline: deadline,
       datetime: Date.now(),
       creatorId: userObj.uid,
-      account : account,
-      etc : etc,
+      account: account,
+      etc: etc,
       attachmentUrl,
     };
     await dbService.collection("startlist").add(listObj);
@@ -106,74 +109,81 @@ const SellingForm = ({ userObj }) => {
 
   return (
     <form onSubmit={onSubmit}>
-      <p>이름 : 
-      <input
-        value={name}
-        onChange={onChange_name}
-        type="text"
-        placeholder="이름"
-        maxLength={120}
-      />
+      <p>
+        이름 :
+        <input
+          value={name}
+          onChange={onChange_name}
+          type="text"
+          placeholder="이름"
+          maxLength={120}
+        />
       </p>
 
-      <p>상품이름 : 
-      <input
-        value={itemname}
-        onChange={onChange_itemname}
-        type="text"
-        placeholder="상품이름"
-        maxLength={120}
-      />
+      <p>
+        상품이름 :
+        <input
+          value={itemname}
+          onChange={onChange_itemname}
+          type="text"
+          placeholder="상품이름"
+          maxLength={120}
+        />
       </p>
 
-      <p>품목: 
-      <input
-        value={item}
-        onChange={onChange_item}
-        type="text"
-        placeholder="품목"
-        maxLength={120}
-      />
+      <p>
+        품목:
+        <input
+          value={item}
+          onChange={onChange_item}
+          type="text"
+          placeholder="품목"
+          maxLength={120}
+        />
       </p>
 
-      <p>가격(원) : 
-      <input
-        value={price}
-        onChange={onChange_price}
-        type="number"
-        placeholder="가격(원)"
-        maxLength={120}
-      />
+      <p>
+        가격(원) :
+        <input
+          value={price}
+          onChange={onChange_price}
+          type="number"
+          placeholder="가격(원)"
+          maxLength={120}
+        />
       </p>
 
-      <p>마감기한 : 
-      <input
-        value={deadline}
-        onChange={onChange_deadline}
-        type="date"
-        placeholder="마감기한"
-        maxLength={120}
-      />
+      <p>
+        마감기한 :
+        <input
+          value={deadline}
+          onChange={onChange_deadline}
+          type="date"
+          placeholder="마감기한"
+          maxLength={120}
+        />
       </p>
 
-      <p>기타사항 :
-      <input
-        value={etc}
-        onChange={onChange_etc}
-        type="text"
-        placeholder="기타사항"
-        maxLength={120}
-      />
+      <p>
+        기타사항 :
+        <input
+          value={etc}
+          onChange={onChange_etc}
+          type="text"
+          placeholder="기타사항"
+          maxLength={120}
+        />
       </p>
 
-      <p>계좌(은행/ 계좌번호/입금주명) : 
-      <input
-        value={account}
-        onChange={onChange_account}
-        type="text"
-        placeholder="계좌(은행/ 계좌번호/입금주명)"
-        maxLength={120}
-      />
+      <p>
+        계좌(은행/ 계좌번호/입금주명) :
+        <input
+          value={account}
+          onChange={onChange_account}
+          type="text"
+          placeholder="계좌(은행/ 계좌번호/입금주명)"
+          maxLength={120}
+        />
       </p>
 
       <input type="file" accept="image/*" onChange={onFileChange} />
@@ -184,7 +194,6 @@ const SellingForm = ({ userObj }) => {
           <button onClick={onClearAttachment}>Clear</button>
         </div>
       )}
-      
     </form>
   );
 };

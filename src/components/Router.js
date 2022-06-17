@@ -29,9 +29,10 @@ const AppRouter = ({ refreshUser, isLoggedIn, userObj }) => {
                             <Route exact path="/profile" element={<Profile userObj={userObj} refreshUser={refreshUser} />} />
                             <Route exact path="/buying" element={<BuyingForm userObj={userObj}/>}/>
                             <Route exact path="/selling" element={<SellingForm userObj={userObj} />}/>
-                            <Route exact path="/selling/detail" element={<Detaillist />}/>
+                            <Route exact path="/selling/detail" element={<Detaillist userObj={userObj} />}/>
                             <Route exact path="/itemlist" element={<Itemlist userObj={userObj}/>} />
                             <Route exact path="/buying/detail" element={<Buydetaillist />} />
+
                         </>
                     ) : (
                         <>
