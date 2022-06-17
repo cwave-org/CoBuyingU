@@ -60,15 +60,12 @@ const Nweet = ({ listObj, isOwner,userObj }) => {
           </>
         ) : (
           <>
-            <div>
-              <h4>{`${listObj.item}공구☞ ${listObj.itemname}`}</h4>
-              <h4>{`${listObj.deadline}까지`}</h4>
-              <button className="detaillist Btn" onClick={onDetaillistClick}>
-                자세히 보기
-                
-            </button>
+            <div className="itemBtn" onClick={onDetaillistClick}>
+              <h4 className="itemname">{`${listObj.itemname}`}</h4>
+              <h4 className="date">{`${listObj.deadline}`}</h4>
+              {listObj.attachmentUrl && <img className="image" src={listObj.attachmentUrl} />}
               <br></br>
-              {listObj.attachmentUrl && <img src={listObj.attachmentUrl} />}
+              
               {isOwner && (
                 <div className="nweet__actions">
                   <span onClick={onDeleteClick}>

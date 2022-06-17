@@ -106,72 +106,26 @@ const Detaillist = ({ userObj }) => {
     }
   };
 
-  return (
-    <div>
-      <h2>📢 공지사항</h2>
-      <br></br>
-
-      <>
-        <div>
-          <h3>공구 명 : {detailObj.name}</h3>
-          <h3>상품 명 : {detailObj.itemname}</h3>
-          <h3>가격 : {detailObj.price}</h3>
-          <h3>마감기한 : {detailObj.deadline}</h3>
-          <h3>기타사항 : {detailObj.etc}</h3>
-          <h3>계좌 : {detailObj.account}</h3>
-        </div>
-        <div>
-          <button className="detaillist submit Btn" onClick={onJoinlistClick}>
-            공구 참여하기
-          </button>
-          <button className="detaillist show Btn" onClick={onShowlistClick}>
-            공구 참여자 목록 보기
-          </button>
-        </div>
-        <div>
-          {!checked ? (
-            <input type="checkbox" onChange={check} checked></input>
-          ) : (
-            <input type="checkbox" onChange={check}></input>
-          )}
-        </div>
-
-        <div>
-          <a href={detailObj.link}>
-            <img src="img/kakaotalk.png" height={50} width={50} />
-          </a>
-        </div>
-
-        <div>
-          <p>♥무엇이든지 물어보세요♥</p>
-          <>
+    return(
+        <div className="dataillist content">
             <div>
-              <form onSubmit={QnAonSubmit}>
-                <input
-                  type="text"
-                  placeholder="🙏🏼수정은 불가능하세요.🙏🏼"
-                  value={qna}
-                  onChange={QnAonChange}
-                />
-
-                <button type="submit">Upload</button>
-              </form>
+                <h3>공구 명 : {detailObj.name}</h3>
+                <h3>상품 명 : {detailObj.itemname}</h3>
+                <h3>가격 : {detailObj.price}</h3>
+                <h3>마감기한 : {detailObj.deadline}</h3>
+                <h3>기타사항 : {detailObj.etc}</h3>
+                <h3>계좌 : {detailObj.account}</h3>
             </div>
-          </>
-        </div>
-        <>
-          {qnas.map((qna) => (
-            <QnA
-              key={qna.id}
-              qnaObj={qna}
-              isOwner={qna.creatorId === userObj.uid}
-              userObj={userObj}
-              detailObj={detailObj}
-            />
-          ))}
-        </>
-      </>
-    </div>
-  );
+            <div>
+                <button className="detaillist submit Btn" onClick={onJoinlistClick}>
+                    공구 참여하기
+                </button>
+                <button className="detaillist show Btn" onClick={onShowlistClick}>
+                    공구 참여자 목록 보기
+                </button>
+            </div>
+           
+        </div> 
+    );
 };
 export default Detaillist;
