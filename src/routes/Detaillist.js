@@ -2,13 +2,19 @@ import { useNavigate, useLocation } from "react-router-dom";
 import React, { useState, useEffect } from "react";
 import { dbService, storageService } from "../fbase";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+
+
+import { collection, where } from "firebase/firestore";
+
 import {
   faTrash,
   faPencilAlt,
   faStar,
 } from "@fortawesome/free-solid-svg-icons";
 import { faStar as FaStarRegular } from "@fortawesome/free-regular-svg-icons";
+
 import QnA from "../components/QnA";
+
 
 const Detaillist = ({ userObj }) => {
   const location = useLocation();
@@ -354,14 +360,21 @@ const Detaillist = ({ userObj }) => {
         </>
       ) : (
         <>
-          <div className="dataillist content">
+          <div className="detaillist_content">
             <div>
-              <h3>공구 명 : {itemObj.name}</h3>
-              <h3>상품 명 : {itemObj.itemname}</h3>
-              <h3>가격 : {itemObj.price}</h3>
-              <h3>마감기한 : {itemObj.deadline}</h3>
-              <h3>기타사항 : {itemObj.etc}</h3>
-              <h3>계좌 : {itemObj.account}</h3>
+
+            <h2>{detailObj.itemname}</h2>
+            
+            {detailObj.attachmentUrl && <img src={detailObj.attachmentUrl} className="detaillist_img"/>}
+            <h3>{detailObj.price}원</h3>
+              <p className="detaillist_font">
+              <b>판매자</b> &nbsp;&nbsp;&nbsp; {detailObj.name}<br></br>
+              <b>마감기한</b> &nbsp;&nbsp;&nbsp; {detailObj.deadline}<br></br>
+              <b>계좌</b> &nbsp;&nbsp;&nbsp;{detailObj.account}<br></br>
+              <b>기타사항</b> <br></br> {detailObj.etc}<br></br>
+
+              </p>
+
             </div>
             <div>
               <button
@@ -374,6 +387,7 @@ const Detaillist = ({ userObj }) => {
                 공구 참여자 목록 보기
               </button>
             </div>
+
             <div>
               {!checked ? (
                 <FontAwesomeIcon
@@ -387,8 +401,25 @@ const Detaillist = ({ userObj }) => {
                 ></FontAwesomeIcon>
               )}
             </div>
+
             <div>
-              <p>♥무엇이든지 물어보세요♥</p>
+            {detailObj.creatorId=== userObj.uid && (
+              <div className="nweet__actions">
+                <span onClick={onDeleteClick}>
+                  <FontAwesomeIcon icon={faTrash} />
+                </span>
+                <span onClick={toggleEditing}>
+                  <FontAwesomeIcon icon={faPencilAlt} />
+                </span>
+              </div>
+            )}
+          </div>
+<hr></hr>
+            <div >
+              <div className="detaillist_qna">
+              <h2 > &nbsp; QnA</h2>
+              </div>
+              
               <>
                 <div>
                   {!bucket ? (
@@ -404,7 +435,10 @@ const Detaillist = ({ userObj }) => {
                     </form>
                   ) : (
                     <div>"🙏🏼원활한 QnA를 위해 인당 1 질문만 할수🙏🏼"</div>
+
+
                   )}
+
                 </div>
               </>
             </div>
@@ -420,18 +454,7 @@ const Detaillist = ({ userObj }) => {
               ))}
             </>
           </div>
-          <div>
-            {userObj && (
-              <div className="nweet__actions">
-                <span onClick={onDeleteClick}>
-                  <FontAwesomeIcon icon={faTrash} />
-                </span>
-                <span onClick={toggleEditing}>
-                  <FontAwesomeIcon icon={faPencilAlt} />
-                </span>
-              </div>
-            )}
-          </div>
+          
         </>
       )}
     </>

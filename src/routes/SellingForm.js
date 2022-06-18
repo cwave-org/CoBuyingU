@@ -36,9 +36,9 @@ const SellingForm = ({ userObj }) => {
       deadline: deadline,
       datetime: Date.now(),
       creatorId: userObj.uid,
-      account : account,
-      etc : etc,
-      link : link,
+      account: account,
+      etc: etc,
+      link: link,
       attachmentUrl,
     };
     await dbService.collection("startlist").add(listObj);
@@ -118,73 +118,84 @@ const SellingForm = ({ userObj }) => {
   const onClearAttachment = () => setAttachment(null);
 
   return (
-    <form onSubmit={onSubmit}>
-      <p>
-        이름 :
-        <input
-          value={name}
-          onChange={onChange_name}
-          type="text"
-          placeholder="이름"
-          maxLength={120}
-        />
-      </p>
+    <form className="openjoin_container" onSubmit={onSubmit}>
+      <p>공구 열기</p>
+      <span># 이름: </span>
+      <input
+        value={name}
+        onChange={onChange_name}
+        type="text"
+        placeholder="이름"
+        maxLength={120}
+      />
+      <span># 상품이름: </span>
+      <input
+        value={itemname}
+        onChange={onChange_itemname}
+        type="text"
+        placeholder="상품이름"
+        maxLength={120}
+      />
 
-      <p>
-        상품이름 :
-        <input
-          value={itemname}
-          onChange={onChange_itemname}
-          type="text"
-          placeholder="상품이름"
-          maxLength={120}
-        />
-      </p>
+      <span># 품목: </span>
+      <input
+        value={item}
+        onChange={onChange_item}
+        type="text"
+        placeholder="품목"
+        maxLength={120}
+      />
 
-      <p>
-        품목:
-        <input
-          value={item}
-          onChange={onChange_item}
-          type="text"
-          placeholder="품목"
-          maxLength={120}
-        />
-      </p>
+      <span># 가격(원) : </span>
+      <input
+        value={price}
+        onChange={onChange_price}
+        type="number"
+        placeholder="가격(원)"
+        maxLength={120}
+      />
 
-      <p>
-        가격(원) :
-        <input
-          value={price}
-          onChange={onChange_price}
-          type="number"
-          placeholder="가격(원)"
-          maxLength={120}
-        />
-      </p>
+      <span># 마감기한 : </span>
+      <input
+        value={deadline}
+        onChange={onChange_deadline}
+        type="date"
+        placeholder="마감기한"
+        maxLength={120}
+      />
 
-      <p>
-        마감기한 :
-        <input
-          value={deadline}
-          onChange={onChange_deadline}
-          type="date"
-          placeholder="마감기한"
-          maxLength={120}
-        />
-      </p>
-
-      <p>오픈채팅방 링크 : 
+      <span className="openjoin_long"># 오픈채팅방 링크 : </span>
       <input
         value={link}
         onChange={onChange_link}
         type="text"
         placeholder="오픈채팅방링크"
         maxLength={120}
+        style={{ marginBottom: 5 }}
       />
-      </p>
 
-      <p>기타사항 :
+      <span className="openjoin_long"># 계좌(은행/ 계좌번호/입금주명) : </span>
+      <input
+        value={account}
+        onChange={onChange_account}
+        type="text"
+        placeholder="계좌(은행/ 계좌번호/입금주명)"
+        maxLength={120}
+        style={{ marginBottom: 5 }}
+      />
+
+      <br />
+      <span># 첨부파일 : </span>
+      <input type="file" accept="image/*" onChange={onFileChange} />
+      {attachment && (
+        <div>
+          <img src={attachment} width="50px" height="50px" />
+          <button onClick={onClearAttachment}>Clear</button>
+        </div>
+      )}
+
+      <br />
+      <span># 기타사항 : </span>
       <input
         value={etc}
         onChange={onChange_etc}
@@ -192,27 +203,7 @@ const SellingForm = ({ userObj }) => {
         placeholder="기타사항"
         maxLength={120}
       />
-      </p>
-
-      <p>
-        계좌(은행/ 계좌번호/입금주명) :
-        <input
-          value={account}
-          onChange={onChange_account}
-          type="text"
-          placeholder="계좌(은행/ 계좌번호/입금주명)"
-          maxLength={120}
-        />
-      </p>
-
-      <input type="file" accept="image/*" onChange={onFileChange} />
-      <input type="submit" value="제출하기" />
-      {attachment && (
-        <div>
-          <img src={attachment} width="50px" height="50px" />
-          <button onClick={onClearAttachment}>Clear</button>
-        </div>
-      )}
+      <input type="submit" value="제출" />
     </form>
   );
 };
