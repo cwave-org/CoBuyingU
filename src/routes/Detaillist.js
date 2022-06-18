@@ -92,6 +92,9 @@ const Detaillist = ({ userObj }) => {
     setItemname(value);
   };
   const onChange_item = (event) => {
+    const {
+      target: { value },
+    } = event;
     setItem(value);
   };
   const onChange_price = (event) => {
