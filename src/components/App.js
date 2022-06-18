@@ -40,7 +40,8 @@ function App() {
       ) : (
         "Initializing..."
       )}
-      <footer>&copy; C-WAVE all rights reserved  </footer>
+    
+      <footer className="footer">&copy; C-WAVE all rights reserved  </footer>
     </>
   );
 }
