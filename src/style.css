@@ -1,36 +1,53 @@
 body {
-    background: linear-gradient(to top  ,#C5E0B4, #BBDCF7 , #E0C0F6);
-    background-attachment: fixed;
+  background: linear-gradient(to top, #c5e0b4, #bbdcf7, #e0c0f6);
+  background-attachment: fixed;
 }
 
-.container{ 
-    margin-top: 70px;
-    padding: 10px;
-    width: 50%;
-    border-radius: 20px;
-    display: grid;
-    display: inline-grid;
+.container {
+  padding: 15px;
+  margin-top: 120px;
+  width: 50%;
+  border-radius: 20px;
+  display: grid;
+  display: inline-grid;
 }
-.formbox{
-    margin-top: 70px;
+.formbox {
+  margin-top: 70px;
 }
-.nweet{
-    text-align: center;
-    padding:5px;
-    margin-bottom: 20px;
-    background-color:rgba(255, 255, 255, 0.7);
-    border-radius: 20px;
+.nweet {
+  text-align: center;
+  padding: 5px;
+  margin-bottom: 20px;
+  background-color: rgba(255, 255, 255, 0.7);
+  border-radius: 20px;
 }
+
 nav {
-    background: #d4a4fee7;
-    width: 100%;
-    text-align: center;
-    border-radius: 0 0 5px 5px;
-    margin: auto;
-    position: fixed;
-    align-self: center;
-    z-index: 4;
+  background: #afb6f6;
+  height: 100px;
+  width: 100%;
+  border-radius: 0 0 5px 5px;
+  padding: 15px;
+  position: fixed;
+  align-self: center;
+  z-index: 4;
 }
+
+nav ul {
+  padding-left: 30%;
+  padding-right: 30%;
+}
+
+nav li {
+  display: inline-block;
+  margin: auto;
+  width: 100px;
+}
+
+nav span {
+  color: black;
+}
+
 .dataillist.content{
     text-align: center;
     align-self: center;
@@ -42,15 +59,14 @@ nav {
 }
 .itemname{
     font-size: 10px;
-    
 }
-.itemBtn{
-    padding: 30px;
-    width: 50%;
+.itemBtn {
+  padding: 30px;
+  width: 50%;
 }
 
-.date{
-    font-size: 5px;
+.date {
+  font-size: 5px;
 }
 
 .image{

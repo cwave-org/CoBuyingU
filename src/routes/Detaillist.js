@@ -3,7 +3,6 @@ import React, { useState, useEffect } from "react";
 import { dbService, storageService } from "../fbase";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-
 import { collection, where } from "firebase/firestore";
 
 import {
@@ -14,7 +13,6 @@ import {
 import { faStar as FaStarRegular } from "@fortawesome/free-regular-svg-icons";
 
 import QnA from "../components/QnA";
-
 
 const Detaillist = ({ userObj }) => {
   const location = useLocation();
@@ -365,7 +363,6 @@ const Detaillist = ({ userObj }) => {
         <>
           <div className="detaillist_content">
             <div>
-
               <h2 align="center">{detailObj.itemname}</h2>
 
               {detailObj.attachmentUrl && <img src={detailObj.attachmentUrl} className="detaillist_img" />}
@@ -395,7 +392,6 @@ const Detaillist = ({ userObj }) => {
                   <b>기타사항</b> <br></br> {detailObj.etc}<br></br>
                 </p>
               </div>
-
             </div>
 
             <div align="center">
@@ -454,10 +450,7 @@ const Detaillist = ({ userObj }) => {
                     </form>
                   ) : (
                     <div>"🙏🏼원활한 QnA를 위해 인당 1 질문만 할수🙏🏼"</div>
-
-
                   )}
-
                 </div>
               </>
             </div>
@@ -473,7 +466,6 @@ const Detaillist = ({ userObj }) => {
               ))}
             </>
           </div>
-
         </>
       )}
     </>
