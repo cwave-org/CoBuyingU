@@ -69,3 +69,14 @@ nav {
 #powerseller{
     color: rgb(47, 0, 93);
 }
+
+.footer {
+    position : fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    background-color: #AFB6F6;
+    color: white;
+    text-align: center;
+    
+}
