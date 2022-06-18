@@ -5,7 +5,6 @@ import { useNavigate } from "react-router-dom";
 const MyQnA = ({ listObj, userObj }) => {
   const [bucket, setBucket] = useState(false);
   const [myqnas, setMyqnas] = useState([]);
-  //console.log(listObj.id);
   const navigation = useNavigate();
 
   useEffect(() => {
@@ -20,10 +19,6 @@ const MyQnA = ({ listObj, userObj }) => {
         setMyqnas(checkArray);
       });
   }, []);
-
-  // console.log(listObj);
-
-  // if (dbService.doc(`startlist/${listObj.id}`).collection("scrap").doc(userObj.uid).get(check)){
   useEffect(() => {
     dbService
       .doc(`startlist/${listObj.id}`)
@@ -31,13 +26,6 @@ const MyQnA = ({ listObj, userObj }) => {
       .get()
       .then((docs) => {
         docs.forEach((doc) => {
-          // 도큐먼트 객체를 확인해보자!
-          //console.log(doc);
-          // 도큐먼트 데이터 가져오기
-          // console.log(doc.data());
-          // 도큐먼트 id 가져오기
-          // console.log(doc.id);
-          // console.log(bucket);
           if (doc.id === userObj.uid) {
             if (doc.exists) {
               setBucket(!bucket);

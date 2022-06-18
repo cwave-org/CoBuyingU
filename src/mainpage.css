@@ -9,7 +9,7 @@
     padding-right: 5%; */
     flex-wrap: wrap;
     align-items: center;
-    text-align: center;
+    /* text-align: center; */
 
 }
 .nweet img{
@@ -18,6 +18,10 @@
   align-content: center;
 
 }
+.detaillist.content{
+    margin-top: 70px;
+}
+
 .nweet {
     text-align: center;
     display:flex;
