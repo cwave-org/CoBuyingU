@@ -8,14 +8,13 @@ import Myscrap from "../components/Myscrap";
 import Myjoinlist from "../components/Myjoinlist";
 import MyQnA from "../components/MyQnA";
 
-const Profile = ({ refreshUser, userObj, listObj}) => {
-    const navigate = useNavigate();
-    const [newDisplayName, setNewDisplayName] = useState(userObj.displayName);
-    const onLogOutClick = () => {
-        authService.signOut();
-        navigate("/");
-    };
-
+const Profile = ({ refreshUser, userObj, listObj }) => {
+  const navigate = useNavigate();
+  const [newDisplayName, setNewDisplayName] = useState(userObj.displayName);
+  const onLogOutClick = () => {
+    authService.signOut();
+    navigate("/");
+  };
 
   const onChange = (event) => {
     const {
@@ -33,7 +32,6 @@ const Profile = ({ refreshUser, userObj, listObj}) => {
     }
   };
 
-
   // 모든 startlist 불러오기
   const [startlist, setStartlist] = useState([]);
   useEffect(() => {
@@ -45,7 +43,6 @@ const Profile = ({ refreshUser, userObj, listObj}) => {
       setStartlist(listArray);
     });
   }, []);
-  
 
   // 모든 joinlist 불러오기
   const [joinlist, setJoinlist] = useState([]);
@@ -93,17 +90,18 @@ const Profile = ({ refreshUser, userObj, listObj}) => {
       <div>
         {joinlist.map((list) => {
           console.log(list.creatorId, userObj.uid);
-          if (list.creatorId === userObj.uid){
-           
+          if (list.creatorId === userObj.uid) {
             return (
-              <Myjoinlist key={list.id} listObj={list} isOwner={list.creatorId === userObj.uid}/>
+              <Myjoinlist
+                key={list.id}
+                listObj={list}
+                isOwner={list.creatorId === userObj.uid}
+              />
             );
-          }
-          else{
+          } else {
             console.log("diff");
           }
         })}
-
       </div>
 
       <h3>스크랩 목록</h3>
@@ -117,7 +115,6 @@ const Profile = ({ refreshUser, userObj, listObj}) => {
           />
         ))}
       </div>
-      
 
       <h3>내가 문의한 공구</h3>
       {startlist.map((list) => (

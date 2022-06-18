@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import AppRouter from "./Router";
 import { authService } from "../fbase";
+import { deleteUser } from "firebase/auth";
 
 function App() {
   const [init, setInit] = useState(false);
@@ -14,8 +15,16 @@ function App() {
           uid: user.uid,
           updateProfile: (args) => user.updateProfile(args),
         });
-      }
-      else {
+        var email = user.email;
+        var emailIndex = email.indexOf("@") + 1;
+        var emailform = email.substring(emailIndex);
+
+        if (emailform !== "sookmyung.ac.kr") {
+          deleteUser(user);
+          setUserObj(null);
+          alert("You can only login using Sookmyung email.");
+        }
+      } else {
         setUserObj(null);
       }
       setInit(true);
@@ -40,7 +49,7 @@ function App() {
       ) : (
         "Initializing..."
       )}
-      <footer>&copy; C-WAVE all rights reserved  </footer>
+      <footer>&copy; C-WAVE all rights reserved </footer>
     </>
   );
 }
