@@ -1,7 +1,18 @@
 import React, { useEffect, useState } from "react";
 import Nweet from "../components/Nweet";
 import { dbService } from "../fbase";
-import { Card } from "react-bootstrap";
+import styled from 'styled-components';
+
+const PostListWrapper = styled.div`
+  display: grid;
+  place-items: center;
+  justify-content: space-evenly;
+  font-size:: small;
+  row-gap: 8x;
+  grid-template-columns: repeat(2, auto);
+
+
+`;
 
 const Home = ({ userObj }) => {
     const [lists, setLists] = useState([]);
@@ -26,15 +37,27 @@ const Home = ({ userObj }) => {
     }, []);
     return (
         <div className="container">
+           <PostListWrapper>
+          {lists.map((list) => (
+            <Nweet 
+                key={list.id} 
+                userObj={userObj}
+                listObj={list}
+                isOwner={list.creatorId === userObj.uid}
+                {...list} />
+          ))}
+        
+        </PostListWrapper>
             {/* <div style={{ marginTop: 30 }}> */}
-                {lists.map((list) => (
+                {/* {lists.map((list) => (
+                    
                     <Nweet
                         key={list.id}
                         userObj={userObj}
                         listObj={list}
                         isOwner={list.creatorId === userObj.uid}
                     />
-                ))}
+                ))} */}
             {/* </div> */}
         </div>
     );
