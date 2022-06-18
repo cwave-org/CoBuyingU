@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useLocation } from "react-router-dom";
-import { dbService} from "../fbase";
+import { dbService } from "../fbase";
 
 const BuyingForm = () => {
   const [name, setName] = useState("");
@@ -45,8 +45,8 @@ const BuyingForm = () => {
 
   const onChange = (event) => {
     const {
-        target: { value },
-      } = event;
+      target: { value },
+    } = event;
     if (event.target.id === "nameform") {
       setName(value);
     } else if (event.target.id === "phonenumberform") {
@@ -67,10 +67,10 @@ const BuyingForm = () => {
   };
 
   return (
-    <div className="container">
-      <h1>Buying Form</h1>
+    <div className="openjoin_container">
+      <p>공구 참여하기</p>
       <form onSubmit={onSubmit}>
-        <span>이름: </span>
+        <span># 이름: </span>
         <input
           id="nameform"
           type="text"
@@ -79,7 +79,7 @@ const BuyingForm = () => {
           value={name}
         />
         <br></br>
-        <span>전화번호: </span>
+        <span># 전화번호: </span>
         <input
           id="phonenumberform"
           type="tel"
@@ -88,7 +88,7 @@ const BuyingForm = () => {
           value={phonenumber}
         />
         <br></br>
-        <span>수량: </span>
+        <span># 수량: </span>
         <input
           id="countform"
           type="number"
@@ -97,7 +97,7 @@ const BuyingForm = () => {
           value={count}
         />
         <br></br>
-        <span>사이즈: </span>
+        <span># 사이즈: </span>
         <input
           id="sizeform"
           type="text"
@@ -106,7 +106,7 @@ const BuyingForm = () => {
           value={size}
         />
         <br></br>
-        <span>주소:</span>
+        <span># 주소:</span>
         <input
           id="addressform"
           type="text"
@@ -115,7 +115,7 @@ const BuyingForm = () => {
           value={address}
         />
         <br></br>
-        <span>입금자명: </span>
+        <span># 입금자명: </span>
         <input
           id="accountnameform"
           type="text"
@@ -124,7 +124,7 @@ const BuyingForm = () => {
           value={account_name}
         />
         <br></br>
-        <span>입금일자: </span>
+        <span># 입금일자: </span>
         <input
           id="accountdateform"
           type="date"
@@ -133,7 +133,9 @@ const BuyingForm = () => {
           value={account_date}
         />
         <br></br>
-        <span>환불계좌(은행/계좌번호/입금주명): </span>
+        <span className="openjoin_long">
+          # 환불계좌(은행/계좌번호/입금주명):{" "}
+        </span>
         <input
           id="accountreform"
           type="text"

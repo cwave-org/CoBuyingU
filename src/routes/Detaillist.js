@@ -2,19 +2,41 @@ import { useNavigate, useLocation } from "react-router-dom";
 import React, { useState, useEffect } from "react";
 import { dbService, storageService } from "../fbase";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faTrash, faPencilAlt } from "@fortawesome/free-solid-svg-icons";
-import { collection, where } from "firebase/firestore";
+import {
+  faTrash,
+  faPencilAlt,
+  faStar,
+} from "@fortawesome/free-solid-svg-icons";
+import { faStar as FaStarRegular } from "@fortawesome/free-regular-svg-icons";
 import QnA from "../components/QnA";
 
 const Detaillist = ({ userObj }) => {
   const location = useLocation();
   let { detailObj } = location.state;
+  const itemId = detailObj.id;
   const [editing, setEditing] = useState(false);
   const [checked, setChecked] = useState(true);
   const [qna, setQna] = useState("");
   const [qnas, setQnas] = useState([]);
   const [itemObj, setItemObj] = useState(detailObj);
   const navigate = useNavigate();
+  const [bucket, setBucket] = useState(false);
+
+  // 동기화
+  useEffect(async () => {
+    dbService.collection("startlist").onSnapshot((snapshot) => {
+      snapshot.docs.map((doc) => {
+        if (doc.id == itemId) {
+          const item = {
+            id: doc.id,
+            ...doc.data(),
+          };
+          setItemObj(item);
+        }
+      });
+    });
+  }, []);
+
   const onJoinlistClick = () => {
     navigate("/buying", { replace: false, state: { detailObj: detailObj } });
   };
@@ -24,13 +46,13 @@ const Detaillist = ({ userObj }) => {
 
   // Delete Cobuying Item
   const onDeleteClick = async () => {
-    const ok = window.confirm("Are you sure you want to delete this nweet?");
+    const ok = window.confirm("정말 공구를 삭제하실 건가요?");
     if (ok) {
       navigate("/");
       await dbService.doc(`startlist/${detailObj.id}`).delete();
       // await storageService.refFromURL(itemObj.attachmentUrl).delete();
     }
-  }
+  };
 
   // Edit Cobuying Item
   const [name, setName] = useState(itemObj.name);
@@ -44,7 +66,7 @@ const Detaillist = ({ userObj }) => {
   const toggleEditing = () => setEditing((prev) => !prev);
   const onSubmit = async (event) => {
     event.preventDefault();
-    await dbService.doc(`startlist/${detailObj.id}`).update({
+    await dbService.doc(`startlist/${itemId}`).update({
       name: name,
       itemname: itemname,
       item: item,
@@ -70,9 +92,6 @@ const Detaillist = ({ userObj }) => {
     setItemname(value);
   };
   const onChange_item = (event) => {
-    const {
-      target: { value },
-    } = event;
     setItem(value);
   };
   const onChange_price = (event) => {
@@ -115,59 +134,60 @@ const Detaillist = ({ userObj }) => {
   };
   const onClearAttachment = () => setAttachment(null);
 
-  useEffect(() => {
-    dbService.doc(`startlist/${detailObj.id}`).collection("QnA").onSnapshot((snapshot) => {
-      const qnaArray = snapshot.docs.map((doc) => ({
-        id: doc.id,
-        ...doc.data(),
-      }));
-      setQnas(qnaArray);
-    });
-  }, []);
-
   const qnaObj = {
     text: qna,
     createdAt: Date.now(),
     creatorId: userObj.uid,
     userName: userObj.displayName,
-  }
+  };
 
-  const [bucket, setBucket] = useState(true);
-
+  // 댓글
   useEffect(() => {
-    dbService.doc(`startlist/${detailObj.id}`).collection("QnA").get()
-      .then((docs) => {
-        docs.forEach((doc) => {
-          console.log(doc.data());
-          console.log(doc.exists);
-          console.log(bucket);
-
-          if (doc.exists) {
-            setBucket(!bucket);
-            console.log(doc.exists);
+    dbService
+      .doc(`startlist/${detailObj.id}`)
+      .collection("QnA")
+      .onSnapshot((snapshot) => {
+        setBucket(false);
+        setQnas([]);
+        snapshot.docs.map((doc) => {
+          // 이미 문의댓글을 달은 경우
+          if (doc.id == userObj.uid) {
+            setBucket(true);
           }
-          else {
-            setBucket(bucket);
-          }
-
-          console.log(bucket);
+          const qna = {
+            id: doc.id,
+            ...doc.data(),
+          };
+          setQnas((data) => [...data, qna]);
         });
       });
   }, []);
+
   const QnAonSubmit = async (event) => {
     event.preventDefault();
-    await dbService.collection("startlist").doc(detailObj.id).collection("QnA").doc(userObj.uid).set(qnaObj);
+    setBucket(true);
+    await dbService
+      .collection("startlist")
+      .doc(detailObj.id)
+      .collection("QnA")
+      .doc(userObj.uid)
+      .set(qnaObj);
 
-    dbService.collection("startlist").doc(detailObj.id).collection("scrap").doc(userObj.uid).get({
-      text: qna,
-      createdAt: Date.now(),
-      creatorId: userObj.uid,
-      checked: false,
-      userName: userObj.displayName,
-    })
+    dbService
+      .collection("startlist")
+      .doc(detailObj.id)
+      .collection("scrap")
+      .doc(userObj.uid)
+      .get({
+        text: qna,
+        createdAt: Date.now(),
+        creatorId: userObj.uid,
+        checked: false,
+        userName: userObj.displayName,
+      });
     setQna("");
   };
-/*
+  /*
   const QnAonSubmit = async (event) => {
     event.preventDefault();
     await dbService
@@ -196,36 +216,18 @@ const Detaillist = ({ userObj }) => {
       .doc(`startlist/${detailObj.id}`)
       .collection("scrap")
       .onSnapshot((snapshot) => {
-        const checkArray = snapshot.docs.map((doc) => ({
-          id: userObj.uid,
-
-          ...doc.data(),
-        }));
-        // 스크랩 여부 확인 후 체크박스 조정(?)
-        if (checkArray.length > 0) {
-          if (checkArray[0].id == userObj.uid) {
+        snapshot.docs.map((doc) => {
+          // 스크랩 여부 확인 후 체크박스 조정(?)
+          if (doc.id == userObj.uid) {
             setChecked(false);
           }
-        }
-      });
-  }, []);
-
-  useEffect(() => {
-    dbService
-      .doc(`startlist/${detailObj.id}`)
-      .collection("QnA")
-      .onSnapshot((snapshot) => {
-        const qnaArray = snapshot.docs.map((doc) => ({
-          id: doc.id,
-          ...doc.data(),
-        }));
-        setQnas(qnaArray);
+        });
       });
   }, []);
 
   const QnAonChange = (event) => {
     const {
-      target: {value},
+      target: { value },
     } = event;
     setQna(value);
   };
@@ -246,7 +248,6 @@ const Detaillist = ({ userObj }) => {
       dbService
         .doc(`startlist/${detailObj.id}/scrap/${userObj.uid}`)
         .get(checkObj);
-      console.log(!check);
     } else {
       // 스크랩 취소
       await dbService
@@ -256,7 +257,6 @@ const Detaillist = ({ userObj }) => {
         .delete();
     }
   };
-
   return (
     <>
       {editing ? (
@@ -340,7 +340,7 @@ const Detaillist = ({ userObj }) => {
             </p>
 
             <input type="file" accept="image/*" onChange={onFileChange} />
-            <input type="submit" value="수정하기" />
+            <input type="submit" value="수정하기" onSubmit={onSubmit} />
             {attachment && (
               <div>
                 <img src={attachment} width="50px" height="50px" />
@@ -356,27 +356,42 @@ const Detaillist = ({ userObj }) => {
         <>
           <div className="dataillist content">
             <div>
-              <h3>공구 명 : {detailObj.name}</h3>
-              <h3>상품 명 : {detailObj.itemname}</h3>
-              <h3>가격 : {detailObj.price}</h3>
-              <h3>마감기한 : {detailObj.deadline}</h3>
-              <h3>기타사항 : {detailObj.etc}</h3>
-              <h3>계좌 : {detailObj.account}</h3>
+              <h3>공구 명 : {itemObj.name}</h3>
+              <h3>상품 명 : {itemObj.itemname}</h3>
+              <h3>가격 : {itemObj.price}</h3>
+              <h3>마감기한 : {itemObj.deadline}</h3>
+              <h3>기타사항 : {itemObj.etc}</h3>
+              <h3>계좌 : {itemObj.account}</h3>
             </div>
             <div>
-              <button className="detaillist submit Btn" onClick={onJoinlistClick}>
+              <button
+                className="detaillist submit Btn"
+                onClick={onJoinlistClick}
+              >
                 공구 참여하기
               </button>
               <button className="detaillist show Btn" onClick={onShowlistClick}>
                 공구 참여자 목록 보기
               </button>
             </div>
-
+            <div>
+              {!checked ? (
+                <FontAwesomeIcon
+                  icon={faStar}
+                  onClick={check}
+                ></FontAwesomeIcon>
+              ) : (
+                <FontAwesomeIcon
+                  icon={FaStarRegular}
+                  onClick={check}
+                ></FontAwesomeIcon>
+              )}
+            </div>
             <div>
               <p>♥무엇이든지 물어보세요♥</p>
               <>
                 <div>
-                  {bucket ?
+                  {!bucket ? (
                     <form onSubmit={QnAonSubmit}>
                       <input
                         type="text"
@@ -385,14 +400,11 @@ const Detaillist = ({ userObj }) => {
                         onChange={QnAonChange}
                       />
 
-                      <button
-                        type="submit">
-                        Upload
-                      </button>
+                      <button type="submit">Upload</button>
                     </form>
-                    :
+                  ) : (
                     <div>"🙏🏼원활한 QnA를 위해 인당 1 질문만 할수🙏🏼"</div>
-                  }
+                  )}
                 </div>
               </>
             </div>
@@ -423,7 +435,6 @@ const Detaillist = ({ userObj }) => {
         </>
       )}
     </>
-  )
+  );
 };
 export default Detaillist;
-
