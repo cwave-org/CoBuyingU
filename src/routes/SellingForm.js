@@ -208,7 +208,7 @@ const SellingForm = ({ userObj }) => {
       </p>
 
       <p className="openjoin_que">
-      <span className="openjoin_long">✔️ 첨부파일 : </span>
+      <span className="openjoin_long">✔️ 사진 : </span>
       <input className="openjoin_input" type="file" accept="image/*" onChange={onFileChange}/>
       {attachment && (
         <div>
