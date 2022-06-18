@@ -366,10 +366,10 @@ const Detaillist = ({ userObj }) => {
           <div className="detaillist_content">
             <div>
 
-              <h2>{detailObj.itemname}</h2>
+              <h2 align="center">{detailObj.itemname}</h2>
 
               {detailObj.attachmentUrl && <img src={detailObj.attachmentUrl} className="detaillist_img" />}
-              <h3>{detailObj.price}원</h3>
+              <h3 align="center"> {detailObj.price}원</h3>
 
               <div className="detaillist_scr">
                 {!checked ? (
@@ -398,7 +398,7 @@ const Detaillist = ({ userObj }) => {
 
             </div>
 
-            <div>
+            <div align="center">
               <button
                 className="detaillist submit Btn"
                 onClick={onJoinlistClick}
