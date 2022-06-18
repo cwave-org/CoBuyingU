@@ -273,131 +273,133 @@ const Detaillist = ({ userObj }) => {
   return (
     <>
       {editing ? (
-        <div className="detaillist_content"  >
-<>
-          <form onSubmit={onSubmit}>
-          <p className="openjoin_que">
-       <span>✔️ 이름:</span>  
-        <input 
-          className="openjoin_input"
-          value={name}
-          onChange={onChange_name}
-          type="text"
-          placeholder={itemObj.name}
-          maxLength={120}
-        />
-      </p>
+        <div className="detaillist_content">
+          <>
+            <form onSubmit={onSubmit}>
+              <p className="openjoin_que">
+                <span>✔️ 이름:</span>
+                <input
+                  className="openjoin_input"
+                  value={name}
+                  onChange={onChange_name}
+                  type="text"
+                  placeholder={itemObj.name}
+                  maxLength={120}
+                />
+              </p>
 
-      <p className="openjoin_que">
-      <span>✔️ 상품이름: </span>
-      <input
-        className="openjoin_input"
-        value={itemname}
-        onChange={onChange_itemname}
-        type="text"
-        placeholder={itemObj.itemname}
-        maxLength={120}
-      />
-      </p>
+              <p className="openjoin_que">
+                <span>✔️ 상품이름: </span>
+                <input
+                  className="openjoin_input"
+                  value={itemname}
+                  onChange={onChange_itemname}
+                  type="text"
+                  placeholder={itemObj.itemname}
+                  maxLength={120}
+                />
+              </p>
 
-      <p className="openjoin_que">
-      <span>✔️ 품목: </span>
-      <input
-        className="openjoin_input"
-        value={item}
-        onChange={onChange_item}
-        type="text"
-        placeholder={itemObj.item}
-        maxLength={120}
-      />
-      </p>
+              <p className="openjoin_que">
+                <span>✔️ 품목: </span>
+                <input
+                  className="openjoin_input"
+                  value={item}
+                  onChange={onChange_item}
+                  type="text"
+                  placeholder={itemObj.item}
+                  maxLength={120}
+                />
+              </p>
 
-      <p className="openjoin_que">
-      <span>✔️ 가격(원): </span>
-      <input
-        className="openjoin_input"
-        value={price}
-        onChange={onChange_price}
-        type="number"
-        placeholder={itemObj.price}
-        maxLength={120}
-      />
-      </p>
+              <p className="openjoin_que">
+                <span>✔️ 가격(원): </span>
+                <input
+                  className="openjoin_input"
+                  value={price}
+                  onChange={onChange_price}
+                  type="number"
+                  placeholder={itemObj.price}
+                  maxLength={120}
+                />
+              </p>
 
-      <p className="openjoin_que">
-      <span>✔️ 마감기한 : </span>
-      <input
-        className="openjoin_input"
-        value={deadline}
-        onChange={onChange_deadline}
-        type="date"
-        placeholder={itemObj.deadline}
-        maxLength={120}
-      />
-      </p>
+              <p className="openjoin_que">
+                <span>✔️ 마감기한 : </span>
+                <input
+                  className="openjoin_input"
+                  value={deadline}
+                  onChange={onChange_deadline}
+                  type="date"
+                  placeholder={itemObj.deadline}
+                  maxLength={120}
+                />
+              </p>
 
-      <p className="openjoin_que">
-      <span className="openjoin_long">✔️ 오픈채팅방 링크 : </span>
-      <input
-        className="openjoin_input"
-        value={link}
-        onChange={onChange_link}
-        type="text"
-        placeholder={itemObj.link}
-        maxLength={150}
-        style={{ marginBottom: 5 }}
-      />
-      </p>
+              <p className="openjoin_que">
+                <span className="openjoin_long">✔️ 오픈채팅방 링크 : </span>
+                <input
+                  className="openjoin_input"
+                  value={link}
+                  onChange={onChange_link}
+                  type="text"
+                  placeholder={itemObj.link}
+                  maxLength={150}
+                  style={{ marginBottom: 5 }}
+                />
+              </p>
 
-      <p className="openjoin_que">
-      <span className="openjoin_long">✔️ 계좌(은행/ 계좌번호/입금주명) : </span>
-      <input
-        className="openjoin_input"
-        value={account}
-        onChange={onChange_account}
-        type="text"
-        placeholder={itemObj.account}
-        maxLength={120}
-        style={{ marginBottom: 5 }}
-      />
-      </p>
+              <p className="openjoin_que">
+                <span className="openjoin_long">
+                  ✔️ 계좌(은행/ 계좌번호/입금주명) :{" "}
+                </span>
+                <input
+                  className="openjoin_input"
+                  value={account}
+                  onChange={onChange_account}
+                  type="text"
+                  placeholder={itemObj.account}
+                  maxLength={120}
+                  style={{ marginBottom: 5 }}
+                />
+              </p>
 
-      <p className="openjoin_que">
-      <span className="openjoin_long">✔️ 기타사항 : </span>
-      <input
-        className="openjoin_input"
-        value={etc}
-        onChange={onChange_etc}
-        type="text"
-        placeholder={itemObj.etc}
-        maxLength={120}
-      />
-      <input type="submit" value="제출" />
-      </p>
+              <p className="openjoin_que">
+                <span className="openjoin_long">✔️ 기타사항 : </span>
+                <input
+                  className="openjoin_input"
+                  value={etc}
+                  onChange={onChange_etc}
+                  type="text"
+                  placeholder={itemObj.etc}
+                  maxLength={120}
+                />
+                <input type="submit" value="제출" />
+              </p>
 
-            <input type="file" accept="image/*" onChange={onFileChange} />
-            <input type="submit" value="수정하기" onSubmit={onSubmit} />
-            {attachment && (
-              <div>
-                <img src={attachment} width="50px" height="50px" />
-                <button onClick={onClearAttachment}>Clear</button>
-              </div>
-            )}
-          </form>
-        </>
-        <span onClick={toggleEditing} className="formBtn cancelBtn">
+              <input type="file" accept="image/*" onChange={onFileChange} />
+              <input type="submit" value="수정하기" onSubmit={onSubmit} />
+              {attachment && (
+                <div>
+                  <img src={attachment} width="50px" height="50px" />
+                  <button onClick={onClearAttachment}>Clear</button>
+                </div>
+              )}
+            </form>
+          </>
+          <span onClick={toggleEditing} className="formBtn cancelBtn">
             Cancel
           </span>
         </div>
-        
-        
       ) : (
         <>
           <div className="detaillist_content">
             <div>
               <h2 align="center">{detailObj.itemname}</h2>
 
-              {detailObj.attachmentUrl && <img src={detailObj.attachmentUrl} className="detaillist_img" />}
+              {detailObj.attachmentUrl && (
+                <img src={detailObj.attachmentUrl} className="detaillist_img" />
+              )}
               <h3 align="center"> {detailObj.price}원</h3>
 
               <div className="detaillist_scr">
@@ -405,23 +407,29 @@ const Detaillist = ({ userObj }) => {
                   <FontAwesomeIcon
                     icon={faStar}
                     onClick={check}
-                    size="2x" color={"#E4C6F5"}
+                    size="2x"
+                    color={"#E4C6F5"}
                   ></FontAwesomeIcon>
                 ) : (
                   <FontAwesomeIcon
                     icon={FaStarRegular}
                     onClick={check}
-                    size="2x" color={"#E4C6F5"}
+                    size="2x"
+                    color={"#E4C6F5"}
                   ></FontAwesomeIcon>
                 )}
               </div>
 
               <div className="detaillist_font">
-                <p >
-                  <b>판매자</b> &nbsp;&nbsp;&nbsp; {detailObj.name}<br></br>
-                  <b>마감기한</b> &nbsp;&nbsp;&nbsp; {detailObj.deadline}<br></br>
-                  <b>계좌</b> &nbsp;&nbsp;&nbsp;{detailObj.account}<br></br>
-                  <b>기타사항</b> <br></br> {detailObj.etc}<br></br>
+                <p>
+                  <b>판매자</b> &nbsp;&nbsp;&nbsp; {detailObj.name}
+                  <br></br>
+                  <b>마감기한</b> &nbsp;&nbsp;&nbsp; {detailObj.deadline}
+                  <br></br>
+                  <b>계좌</b> &nbsp;&nbsp;&nbsp;{detailObj.account}
+                  <br></br>
+                  <b>기타사항</b> <br></br> {detailObj.etc}
+                  <br></br>
                 </p>
               </div>
             </div>
@@ -442,18 +450,23 @@ const Detaillist = ({ userObj }) => {
               <div>
                 {detailObj.creatorId === userObj.uid && (
                   <div className="nweet__actions">
-                    <span className="detaillist_bar" onClick={toggleEditing} >
-                      <FontAwesomeIcon icon={faPencilAlt} size="2x" color={"#4B59A8"} />
+                    <span className="detaillist_bar" onClick={toggleEditing}>
+                      <FontAwesomeIcon
+                        icon={faPencilAlt}
+                        size="2x"
+                        color={"#4B59A8"}
+                      />
                     </span>
-                    <span className="detaillist_bar" onClick={onDeleteClick} >
-                      <FontAwesomeIcon icon={faTrash} size="2x" color={"#4B59A8"} />
+                    <span className="detaillist_bar" onClick={onDeleteClick}>
+                      <FontAwesomeIcon
+                        icon={faTrash}
+                        size="2x"
+                        color={"#4B59A8"}
+                      />
                     </span>
                     <span className="detaillist_bar">
-                      < a href={detailObj.link}>
-                        <img
-                          src="img/kakaotalk.png"
-                          height={30}
-                          width={30} />
+                      <a href={detailObj.link}>
+                        <img src="img/kakaotalk.png" height={30} width={30} />
                       </a>
                     </span>
                   </div>
@@ -462,11 +475,10 @@ const Detaillist = ({ userObj }) => {
             </div>
 
             <hr></hr>
-            <div >
+            <div>
               <div className="detaillist_qna">
-                <h2 > &nbsp; QnA</h2>
+                <h2> &nbsp; QnA</h2>
               </div>
-
               <>
                 <div>
                   {!bucket ? (
@@ -481,8 +493,9 @@ const Detaillist = ({ userObj }) => {
                       <button type="submit">Upload</button>
                     </form>
                   ) : (
-                    <div>"🙏🏼원활한 QnA를 위해 인당 1 질문만 할수🙏🏼"</div>
+                    <div>"🙏🏼원활한 QnA를 위해 1 질문만 가능합니다.🙏🏼"</div>
                   )}
+                  <br></br>
                 </div>
               </>
             </div>

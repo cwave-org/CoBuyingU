@@ -5,7 +5,7 @@ body {
 
 .container {
   padding: 15px;
-  margin-top: 120px;
+  margin-top: 100px;
   margin-bottom: 50px;
   width: 50%;
   border-radius: 20px;
@@ -19,14 +19,14 @@ body {
 
 .nweet {
   text-align: center;
-  padding: 5px;
+  padding: 10px;
   margin-bottom: 20px;
   background-color: rgba(255, 255, 255, 0.7);
   border-radius: 20px;
 }
 
 nav {
-  background: #afb6f6;
+  background: #e0c0f6;
   height: 100px;
   width: 100%;
   border-radius: 0 0 5px 5px;
@@ -37,14 +37,17 @@ nav {
 }
 
 nav ul {
-  padding-left: 30%;
-  padding-right: 30%;
+  /* padding-left: 30%;
+  padding-right: 30%; */
+  padding-left: 0%;
+  padding-right: 0%;
 }
 
 nav li {
   display: inline-block;
   margin: auto;
-  width: 100px;
+  width: auto;
+  /*width: 100px*/
 }
 
 nav span {
@@ -80,8 +83,9 @@ nav span {
 .home_power {
   background-color: rgba(255, 255, 255, 0.7);
   width: 100%;
-  display: flex;
-  justify-content: center;
+  height: 61px;
+  padding-top: 16px;
+  text-align: center;
   font-size: 20px;
 }
 

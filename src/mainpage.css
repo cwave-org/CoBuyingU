@@ -2,35 +2,33 @@
 .nweet{
     box-shadow: 0 1px 10px 0 rgb(247, 243, 243);
 } */
-.container{
-    /* margin-left: 5%;
+.container {
+  /* margin-left: 5%;
     margin-right: 5%;
     padding-left: 5%;
     padding-right: 5%; */
-    flex-wrap: wrap;
-    align-items: center;
-    /* text-align: center; */
-
+  flex-wrap: wrap;
+  align-items: center;
+  /* text-align: center; */
 }
-.nweet img{
+.nweet img {
   width: 50%;
-  height:auto;
+  height: auto;
   align-content: center;
-
 }
-.detaillist.content{
-    margin-top: 70px;
+.detaillist.content {
+  margin-top: 70px;
 }
 
 .nweet {
-    text-align: center;
-    display:flex;
-    width: 10rem;
-    height:10rem;
-  }
-.deadline{
-    font-size: xx-small;
+  text-align: center;
+  display: flex;
+  width: 10rem;
+  height: 10rem;
 }
-.name{
-    font-size: small;
+.deadline {
+  font-size: xx-small;
+}
+.name {
+  font-size: small;
 }

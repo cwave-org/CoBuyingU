@@ -1,85 +1,85 @@
-ul{
-    list-style:none;
-    padding-left:0px;
+ul {
+  list-style: none;
+  padding-left: 0px;
 }
 
-.detaillist_content{
-    width: 90%;
-    padding: 10px;
-    background-color: white;
-    border-radius: 10px;
-    margin: 5px;
-    margin-bottom: 10px;
-    padding-bottom: 15px;
+.detaillist_content {
+  width: 90%;
+  padding: 10px;
+  background-color: white;
+  border-radius: 10px;
+  margin: 5px;
+  margin-bottom: 50px;
+  margin-top: 120px;
+  padding-bottom: 15px;
 }
 
-.detaillist_qna{
-   text-align: left;
+.detaillist_qna {
+  text-align: left;
 }
 
-
-.detaillist_img{
-    width: 100%;
-    height: auto;
+.detaillist_img {
+  width: 100%;
+  height: auto;
 }
 
-.detaillist_font{
-    padding:10%;
-    text-align: left;
+.detaillist_font {
+  padding: 10%;
+  text-align: left;
 }
 
-.detaillist_qna_box{
-    text-align: left;
+.detaillist_qna_box {
+  text-align: left;
 }
 
-.detaillist_qna_trashbox{
-    display: flex;
-    flex-direction: column;
+.detaillist_qna_trashbox {
+  display: flex;
+  flex-direction: column;
 }
 
-.detaillist_qna_tras{
-    display: flex;
-    justify-content: space-between;
-    flex-direction: row;
+.detaillist_qna_tras {
+  display: flex;
+  justify-content: space-between;
+  flex-direction: row;
 }
 
-.detaillist_comment{
-    margin-left: auto;
-    width: 80%;
-    text-align: left;
+.detaillist_comment {
+  margin-left: auto;
+  width: 80%;
+  text-align: left;
 }
 
-.detaillist_comment1{
-    display: flex;
-    flex-direction: column;
-    margin-left: auto;
-    width: 80%;
-    text-align: left;
+.detaillist_comment1 {
+  display: flex;
+  flex-direction: column;
+  margin-left: auto;
+  width: 80%;
+  text-align: left;
 }
 
-.detaillist_comment2{
-    float: left;
+.detaillist_comment2 {
+  float: left;
 }
 
-.detaillist_comment3{
-    display: flex;
-    justify-content: space-between;
-    flex-direction: row;
+.detaillist_comment3 {
+  display: flex;
+  justify-content: space-between;
+  flex-direction: row;
 }
 
-.detaillist_imo{
-    display: flex;
-    flex-direction: row-reverse;
-    margin-right: auto;
-    padding: auto;
-    text-align: right;
+.detaillist_imo {
+  display: flex;
+  flex-direction: row-reverse;
+  margin-right: auto;
+  padding: auto;
+  text-align: right;
 }
 
-.detaillist_scr{
-    margin-right: 5%;
-    text-align: right;
+.detaillist_scr {
+  margin-right: 5%;
+  text-align: right;
 }
 
-.detaillist_bar{
-    margin-left: 10%;
+.detaillist_bar {
+  margin-left: 10%;
 }

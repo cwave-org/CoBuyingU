@@ -82,7 +82,9 @@ const MyQnA = ({ listObj, userObj }) => {
         {bucket ? (
           <>
             <div>
-              <h4 onClick={onClick}>품목 이름: {`${listObj.itemname}`}</h4>
+              <span className="myitem" onClick={onClick}>
+                품목 이름: {`${listObj.itemname}`}
+              </span>
             </div>
           </>
         ) : (
