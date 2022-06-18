@@ -1,0 +1,9 @@
+@import url('https://fonts.googleapis.com/css2?family=Gowun+Dodum&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Do+Hyeon&family=Jua&family=Nanum+Gothic&family=Noto+Sans+KR:wght@300&display=swap');
+* {
+    /*font-family: 'Gowun Dodum', sans-serif;
+    font-family: 'Do Hyeon', sans-serif;
+    font-family: 'Jua', sans-serif;
+    font-family: 'Nanum Gothic', sans-serif;*/
+    font-family: 'Noto Sans KR', sans-serif;
+}
