@@ -3,7 +3,6 @@ import React, { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 import { dbService } from "../fbase";
 import QnA from "../components/QnA";
-import Image from "next/image";
 
 const Detaillist=({userObj})=>{
     const [check, setCheck] = useState(false);
@@ -39,26 +38,14 @@ const Detaillist=({userObj})=>{
       }, []);
 
       
- 
-   
-
       const onSubmitCheck = async (event) => {
-        //console.log(dbService.collection("startlist").doc(`scrap/${userObj.id}`));
         setCheck(!check);
         event.preventDefault();
-        /*const checkObj= {
-            check:check,
-          createdAt: Date.now(),
-          creatorId: userObj.uid,
-          userName:userObj.displayName,
-        }*/
 
-        //await dbService.doc(`startlist/${detailObj.id}`).collection("scrap").add(checkObj);
         await dbService.collection("startlist").doc(detailObj.id).collection("scrap").doc(userObj.uid).set(checkObj);
         await dbService.doc(`startlist/${detailObj.id}`).collection("scrap").doc(userObj.uid).update({
             check:(!check),
           });
-          //console.log(dbService.doc(`startlist/${detailObj.id}`).collection("scrap").doc());
           console.log(dbService.doc(`startlist/${detailObj.id}`).collection("scrap").doc(userObj.uid).id);
           console.log(dbService.doc(`startlist/${detailObj.id}`).collection("scrap").doc());
           dbService.collection("startlist").doc(detailObj.id).collection("scrap").doc(userObj.uid).get(checkObj);
@@ -69,12 +56,6 @@ const Detaillist=({userObj})=>{
         event.preventDefault();
         setCheck(!check);
         await dbService.doc(`startlist/${detailObj.id}`).collection("scrap").doc(userObj.uid).delete();
-        /*await dbService.doc(`startlist/${detailObj.id}`).collection("scrap").doc(userObj.uid).update({
-          check:(!check),
-        });*/
-        //console.log(dbService.doc(`startlist/${detailObj.id}`).collection("scrap").doc());
-        //console.log(dbService.doc(`startlist/${detailObj.id}`).collection("scrap").doc().id);
-        //setEditing(false);
         console.log(!check);
       };
 
@@ -101,11 +82,7 @@ const Detaillist=({userObj})=>{
         dbService.doc(`startlist/${detailObj.id}`).collection("QnA").get()
   .then((docs) => {
     docs.forEach((doc) => {
-      // 도큐먼트 객체를 확인해보자!
-      //console.log(doc);
-      // 도큐먼트 데이터 가져오기
       console.log(doc.data());
-      // 도큐먼트 id 가져오기
       console.log(doc.exists);
       console.log(bucket);
 
@@ -124,17 +101,6 @@ const Detaillist=({userObj})=>{
       const QnAonSubmit = async (event) => {
         event.preventDefault();
         await dbService.collection("startlist").doc(detailObj.id).collection("QnA").doc(userObj.uid).set(qnaObj);
-        /*await dbService.doc(`startlist/${detailObj.id}`).collection("scrap").doc(userObj.uid).update({
-            check:(!check),
-          });*/
-          /*
-        await dbService.collection("startlist").doc(detailObj.id).collection("QnA").add({
-          text: qna,
-          createdAt: Date.now(),
-          creatorId: userObj.uid,
-          checked:false,
-          userName:userObj.displayName,
-        })*/
         
         dbService.collection("startlist").doc(detailObj.id).collection("scrap").doc(userObj.uid).get({
             text: qna,

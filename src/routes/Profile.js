@@ -44,17 +44,6 @@ const Profile = ({ refreshUser, userObj, listObj}) => {
             setLists(listArray);
         });
     }, []);
-/*
-    const [scraps, setScraps] = useState([]);
-    useEffect(() => {
-        dbService.doc(`startlist/${detailObj.id}`).collection("scrap").onSnapshot((snapshot) => {
-            const listArray = snapshot.docs.map((doc) => ({
-                id: doc.id,
-                ...doc.data(),
-            }));
-            setScraps(listArray);
-        });
-    }, []);*/
 
     // 모든 scrap불러오기
     const [lists3, setLists3] = useState([]);
