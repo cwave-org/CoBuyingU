@@ -31,7 +31,15 @@ nav {
     align-self: center;
     z-index: 4;
 }
-
+.dataillist.content{
+    text-align: center;
+    align-self: center;
+    margin-top: 80px;
+    padding:5px;
+    margin-bottom: 30px;
+    background-color: white;
+    border-radius: 20px;
+}
 .itemname{
     font-size: 10px;
     
