@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router-dom";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useLocation } from "react-router-dom";
 import { dbService } from "../fbase";
 
@@ -47,49 +47,49 @@ const Buydetaillist = () => {
     };
 
     const onChange = (event) => {
-        if (event.target.id == "nameform") {
+        if (event.target.id === "nameform") {
             const {
                 target: { value },
             } = event;
             setNewName(value);
         }
-        else if (event.target.id == "phonenumberform") {
+        else if (event.target.id === "phonenumberform") {
             const {
                 target: { value },
             } = event;
             setNewPhonenumber(value);
         }
-        else if (event.target.id == "countform") {
+        else if (event.target.id === "countform") {
             const {
                 target: { value },
             } = event;
             setNewCount(value);
         }
-        else if (event.target.id == "sizeform") {
+        else if (event.target.id === "sizeform") {
             const {
                 target: { value },
             } = event;
             setNewSize(value);
         }
-        else if (event.target.id == "addressform") {
+        else if (event.target.id === "addressform") {
             const {
                 target: { value },
             } = event;
             setNewAddress(value);
         }
-        else if (event.target.id == "accountnameform") {
+        else if (event.target.id === "accountnameform") {
             const {
                 target: { value },
             } = event;
             setNewAccount_name(value);
         }
-        else if (event.target.id == "accountdateform") {
+        else if (event.target.id === "accountdateform") {
             const {
                 target: { value },
             } = event;
             setNewAccount_date(value);
         }
-        else if (event.target.id == "accountreform") {
+        else if (event.target.id === "accountreform") {
             const {
                 target: { value },
             } = event;

@@ -8,6 +8,7 @@ const Itemlist = () => {
     const location = useLocation();
     const { buyerindex, filename } = location.state;
     const [lists, setLists] = useState([]);
+    const [excellist, setExcelList] = useState([]);
     useEffect(() => {
         dbService.collection("joinlist")
         .where("randomidx","==",buyerindex).get()
@@ -17,14 +18,19 @@ const Itemlist = () => {
                     ...doc.data(),
                     id: doc.id,
                 }
+                const excelobj={
+                    size: doc.data().size,
+                    count: doc.data().count,
+                }
                 setLists(prev=>[myobj,...prev]);
+                setExcelList(prev=>[excelobj,...prev]);
             })
         })
     }, [buyerindex]);
     return (
         <div className="itemlistclass">
             <h3>전체 리스트</h3>
-            <Excel exceldata={lists} name={filename}/>
+            <Excel exceldata={excellist} name={filename}/>
             <br></br>
             {lists.map((list) => (
                 <Item

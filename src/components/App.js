@@ -40,7 +40,7 @@ function App() {
       ) : (
         "Initializing..."
       )}
-      <footer>&copy; {new Date().getFullYear()} Nwitter</footer>
+      <footer>&copy; C-WAVE all rights reserved  </footer>
     </>
   );
 }

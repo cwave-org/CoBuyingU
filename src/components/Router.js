@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { HashRouter as Router, Route, Routes } from "react-router-dom";
 import Auth from "../routes/Auth";
 import BuyingForm from "../routes/BuyingForm";
@@ -14,11 +14,12 @@ const AppRouter = ({ refreshUser, isLoggedIn, userObj }) => {
     return (
         <Router>
             {isLoggedIn && <Navigation userObj={userObj} />}
-            <div style={{
+            <div
+                
+                style={{
                 maxWidth: 890,
                 width: "100%",
                 margin: "0 auto",
-                marginTop: 80,
                 display: "flex",
                 justifyContent: "center",
             }}>
