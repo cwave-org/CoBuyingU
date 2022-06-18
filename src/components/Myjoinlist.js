@@ -84,8 +84,10 @@ const Myjoinlist = ({ listObj, isOwner }) => {
               </button>
             </div>
           </>
-        ) : (<></>)}
-
+        ) : (
+          <>
+          </>
+        )}
       </div>
     </>
   );

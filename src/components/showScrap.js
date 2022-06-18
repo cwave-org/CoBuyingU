@@ -18,41 +18,23 @@ const showScrap = ({ listObj, userObj ,Id2}) => {
            
           });
       } , []);
-      
-
-     // if (dbService.doc(`startlist/${listObj.id}`).collection("scrap").doc(userObj.uid).get(check)){
-        
 
     if (dbService.doc(`startlist/${listObj.id}`).collection("scrap").doc().id==Id){
-       // console.log(dbService.doc(`startlist/${listObj.id}`).collection("scrap").doc());
-        //console.log(check="true");
-        //console.log(Id);
-    return (
+        return (
             <div className="Itemclass">
                 <>
-                
                     <div>
                     <h4>품목 이름: {`${listObj.name}`}</h4> 
-                            
-                        
                     </div>
-                    
                 </>  
-                
             </div>
-    );
-                        }
-    else{
-        //console.log(Id);
-        //console.log(dbService.doc(`startlist/${listObj.id}`).collection("scrap").doc(userObj.uid).id);
-        // console.log(dbService.doc(`startlist/${listObj.id}`).collection("scrap").doc());
-        return (
-            
-            <p>없어</p>
         );
     }
-
-    
+    else{
+        return (
+            <p>none</p>
+        );
+    }
 };
     
     
