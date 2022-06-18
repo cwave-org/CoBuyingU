@@ -15,10 +15,12 @@ export default function QnA({ qnaObj, isOwner, userObj, detailObj, bucket }) {
   }
 
 
+
   return (
     <div>
       <div>
         <div>
+
           <div className="detaillist_qna_tras">
             <div>
               <b>{qnaObj.userName}님의 질문</b>
@@ -51,8 +53,7 @@ export default function QnA({ qnaObj, isOwner, userObj, detailObj, bucket }) {
           qnaObj={qnaObj}
           detailObj={detailObj}
         />
-      </div>
+
     </div>
   );
-
-};
+}
