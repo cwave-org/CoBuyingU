@@ -366,19 +366,38 @@ const Detaillist = ({ userObj }) => {
           <div className="detaillist_content">
             <div>
 
-            <h2>{detailObj.itemname}</h2>
-            
-            {detailObj.attachmentUrl && <img src={detailObj.attachmentUrl} className="detaillist_img"/>}
-            <h3>{detailObj.price}원</h3>
-              <p className="detaillist_font">
-              <b>판매자</b> &nbsp;&nbsp;&nbsp; {detailObj.name}<br></br>
-              <b>마감기한</b> &nbsp;&nbsp;&nbsp; {detailObj.deadline}<br></br>
-              <b>계좌</b> &nbsp;&nbsp;&nbsp;{detailObj.account}<br></br>
-              <b>기타사항</b> <br></br> {detailObj.etc}<br></br>
+              <h2>{detailObj.itemname}</h2>
 
-              </p>
+              {detailObj.attachmentUrl && <img src={detailObj.attachmentUrl} className="detaillist_img" />}
+              <h3>{detailObj.price}원</h3>
+
+              <div className="detaillist_scr">
+                {!checked ? (
+                  <FontAwesomeIcon
+                    icon={faStar}
+                    onClick={check}
+                    size="2x" color={"#E4C6F5"}
+                  ></FontAwesomeIcon>
+                ) : (
+                  <FontAwesomeIcon
+                    icon={FaStarRegular}
+                    onClick={check}
+                    size="2x" color={"#E4C6F5"}
+                  ></FontAwesomeIcon>
+                )}
+              </div>
+
+              <div className="detaillist_font">
+                <p >
+                  <b>판매자</b> &nbsp;&nbsp;&nbsp; {detailObj.name}<br></br>
+                  <b>마감기한</b> &nbsp;&nbsp;&nbsp; {detailObj.deadline}<br></br>
+                  <b>계좌</b> &nbsp;&nbsp;&nbsp;{detailObj.account}<br></br>
+                  <b>기타사항</b> <br></br> {detailObj.etc}<br></br>
+                </p>
+              </div>
 
             </div>
+
             <div>
               <button
                 className="detaillist submit Btn"
@@ -390,39 +409,36 @@ const Detaillist = ({ userObj }) => {
                 공구 참여자 목록 보기
               </button>
             </div>
-
-            <div>
-              {!checked ? (
-                <FontAwesomeIcon
-                  icon={faStar}
-                  onClick={check}
-                ></FontAwesomeIcon>
-              ) : (
-                <FontAwesomeIcon
-                  icon={FaStarRegular}
-                  onClick={check}
-                ></FontAwesomeIcon>
-              )}
+            <br></br>
+            <div className="detaillist_imo">
+              <div>
+                {detailObj.creatorId === userObj.uid && (
+                  <div className="nweet__actions">
+                    <span className="detaillist_bar" onClick={toggleEditing} >
+                      <FontAwesomeIcon icon={faPencilAlt} size="2x" color={"#4B59A8"} />
+                    </span>
+                    <span className="detaillist_bar" onClick={onDeleteClick} >
+                      <FontAwesomeIcon icon={faTrash} size="2x" color={"#4B59A8"} />
+                    </span>
+                    <span className="detaillist_bar">
+                      < a href={detailObj.link}>
+                        <img
+                          src="img/kakaotalk.png"
+                          height={30}
+                          width={30} />
+                      </a>
+                    </span>
+                  </div>
+                )}
+              </div>
             </div>
 
-            <div>
-            {detailObj.creatorId=== userObj.uid && (
-              <div className="nweet__actions">
-                <span onClick={onDeleteClick}>
-                  <FontAwesomeIcon icon={faTrash} />
-                </span>
-                <span onClick={toggleEditing}>
-                  <FontAwesomeIcon icon={faPencilAlt} />
-                </span>
-              </div>
-            )}
-          </div>
-<hr></hr>
+            <hr></hr>
             <div >
               <div className="detaillist_qna">
-              <h2 > &nbsp; QnA</h2>
+                <h2 > &nbsp; QnA</h2>
               </div>
-              
+
               <>
                 <div>
                   {!bucket ? (
@@ -457,7 +473,7 @@ const Detaillist = ({ userObj }) => {
               ))}
             </>
           </div>
-          
+
         </>
       )}
     </>

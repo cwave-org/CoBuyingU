@@ -66,3 +66,19 @@ ul{
     flex-direction: row;
 }
 
+.detaillist_imo{
+    display: flex;
+    flex-direction: row-reverse;
+    margin-right: auto;
+    padding: auto;
+    text-align: right;
+}
+
+.detaillist_scr{
+    margin-right: 5%;
+    text-align: right;
+}
+
+.detaillist_bar{
+    margin-left: 10%;
+}
