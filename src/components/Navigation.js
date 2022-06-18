@@ -20,15 +20,11 @@ const Navigation = ({userObj}) => (
           </Link>
       </li>
       <li>
-        <Link to="/"
-          style={{
-            marginLeft: 10,
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "center",
-            fontSize: 12,
-          }}>
-          <FontAwesomeIcon icon={faTwitter} color={"#04AAFF"} size="2x" />
+
+        <Link to="/" style={{ marginRight: 10 }}>
+          <img width ="30%" src="img/noonsong.gif"></img>
+          <p>Main</p>
+
         </Link>
       </li>
       <li>

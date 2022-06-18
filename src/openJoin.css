@@ -1,0 +1,56 @@
+.openjoin_container {
+  background-color: white;
+  padding: 20px;
+  width: 60%;
+  border-radius: 20px;
+}
+
+.openjoin_container p {
+  font-size: 20px;
+  font-weight: bolder;
+}
+
+.openjoin_container span {
+  margin-right: 5px;
+  width: 80px;
+  height: 30px;
+  display: inline-block;
+}
+
+.openjoin_container input {
+  outline: none;
+  border-right: 0px;
+  border-top: 0px;
+  border-left: 0px;
+  border-width: 1px;
+  width: 320px;
+  height: 30px;
+  font-size: 15px;
+  border-bottom-color: grey;
+  padding-left: 5px;
+}
+
+.openjoin_container input[type="date"] {
+  outline: none;
+  width: fit-content;
+  height: 30px;
+  font-size: 15px;
+  padding-left: 10px;
+}
+
+.openjoin_container input[type="submit"] {
+  outline: none;
+  margin-top: 10px;
+  float: right;
+  width: 50px;
+  height: 30px;
+  font-size: 15px;
+  border: 0;
+  padding-left: 10px;
+  text-align: center;
+}
+
+.openjoin_container .openjoin_long {
+  width: 250px;
+  margin-top: 3px;
+}

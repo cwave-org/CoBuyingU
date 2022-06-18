@@ -69,8 +69,10 @@ const Myjoinlist = ({ listObj, isOwner }) => {
               제출한 폼 확인하기
             </span>
           </>
-        ) : (<></>)}
-
+        ) : (
+          <>
+          </>
+        )}
       </div>
     </>
   );

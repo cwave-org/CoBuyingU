@@ -38,6 +38,7 @@ const Comment= ({ userObj,qnaObj,detailObj }) => {
     return (
           <div>
             <div>
+              <div className="detaillist_comment">
               <form onSubmit={onSubmitComment}>
                   <input 
                     type="text"
@@ -50,6 +51,7 @@ const Comment= ({ userObj,qnaObj,detailObj }) => {
                   Upload
                   </button>
               </form>
+              </div>
 
               <>
                 {comments.map((comment) => (
