@@ -1,26 +1,34 @@
 import React, { useEffect, useState } from "react";
 import { dbService } from "../fbase";
+import { useNavigate } from "react-router-dom";
 
-const MyQnA = ({ listObj, userObj}) => {
-    const [bucket, setBucket] = useState(false);
-    const [myqnas, setMyqnas]= useState([]);
-    console.log(listObj.id);
-  
-    useEffect(() => {
-        dbService.doc(`startlist/${listObj.id}`).collection("QnA").onSnapshot((snapshot) => {
-            const checkArray = snapshot.docs.map((doc) => ({
-              id: userObj.uid,
-              ...doc.data(),
-            }));
-            setMyqnas(checkArray);
-          });
-      } , []);
+const MyQnA = ({ listObj, userObj }) => {
+  const [bucket, setBucket] = useState(false);
+  const [myqnas, setMyqnas] = useState([]);
+  console.log(listObj.id);
+  const navigation = useNavigate();
 
-      console.log(listObj);
+  useEffect(() => {
+    dbService
+      .doc(`startlist/${listObj.id}`)
+      .collection("QnA")
+      .onSnapshot((snapshot) => {
+        const checkArray = snapshot.docs.map((doc) => ({
+          id: userObj.uid,
+          ...doc.data(),
+        }));
+        setMyqnas(checkArray);
+      });
+  }, []);
 
-     // if (dbService.doc(`startlist/${listObj.id}`).collection("scrap").doc(userObj.uid).get(check)){
-    useEffect(() => {
-            dbService.doc(`startlist/${listObj.id}`).collection("QnA").get()
+  console.log(listObj);
+
+  // if (dbService.doc(`startlist/${listObj.id}`).collection("scrap").doc(userObj.uid).get(check)){
+  useEffect(() => {
+    dbService
+      .doc(`startlist/${listObj.id}`)
+      .collection("QnA")
+      .get()
       .then((docs) => {
         docs.forEach((doc) => {
           // 도큐먼트 객체를 확인해보자!
@@ -30,16 +38,16 @@ const MyQnA = ({ listObj, userObj}) => {
           // 도큐먼트 id 가져오기
           console.log(doc.id);
           console.log(bucket);
-          if(doc.id===userObj.uid){
+          if (doc.id === userObj.uid) {
             if (doc.exists) {
               setBucket(!bucket);
             }
           }
         });
-    });
- } , []);
+      });
+  }, []);
 
-/*
+  /*
     if (bucket.id==userObj.uid){
         //console.log(dbService.doc(`startlist/${listObj.id}`).collection("scrap").doc());
         //console.log(creatorId);
@@ -73,21 +81,28 @@ const MyQnA = ({ listObj, userObj}) => {
         );
     }*/
 
+  const onClick = () => {
+    navigation("/selling/detail", {
+      replace: false,
+      state: { detailObj: listObj },
+    });
+  };
 
-    return(
-<>
-            <div className="Itemclass">
-                {bucket ? (
-                    <>
-                        <div>
-                            <h4>품목 이름: {`${listObj.itemname}`}</h4>
-                        </div>
-                    </>
-                ) : (<></>)}
+  return (
+    <>
+      <div className="Itemclass">
+        {bucket ? (
+          <>
+            <div>
+              <h4 onClick={onClick}>품목 이름: {`${listObj.itemname}`}</h4>
             </div>
-        </>
-    )
+          </>
+        ) : (
+          <></>
+        )}
+      </div>
+    </>
+  );
 };
-    
-    
+
 export default MyQnA;
