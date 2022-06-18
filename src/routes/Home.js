@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Nweet from "../components/Nweet";
 import { dbService } from "../fbase";
-
+import { Card } from "react-bootstrap";
 
 const Home = ({ userObj }) => {
     const [lists, setLists] = useState([]);
@@ -26,7 +26,7 @@ const Home = ({ userObj }) => {
     }, []);
     return (
         <div className="container">
-            <div style={{ marginTop: 30 }}>
+            {/* <div style={{ marginTop: 30 }}> */}
                 {lists.map((list) => (
                     <Nweet
                         key={list.id}
@@ -35,7 +35,7 @@ const Home = ({ userObj }) => {
                         isOwner={list.creatorId === userObj.uid}
                     />
                 ))}
-            </div>
+            {/* </div> */}
         </div>
     );
 };

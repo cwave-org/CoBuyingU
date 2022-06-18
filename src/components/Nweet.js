@@ -3,7 +3,7 @@ import { dbService, storageService } from "../fbase";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrash } from "@fortawesome/free-solid-svg-icons";
 import { useNavigate } from "react-router-dom";
-
+import { Card,Button } from "react-bootstrap";
 const Nweet = ({ listObj, isOwner }) => {
   let navigate = useNavigate();
   const onDetaillistClick = () => {
@@ -25,12 +25,14 @@ const Nweet = ({ listObj, isOwner }) => {
     // className 뭐라 할까 css할때 헷갈릴까봐 아직 안바꿨어
     <div className="nweet">
       <>
-        <div>
+        <Card onClick={onDetaillistClick}>
           <h4>{`${listObj.item}공구☞ ${listObj.itemname}`}</h4>
           <h4>{`${listObj.deadline}까지`}</h4>
-          <button className="detaillist Btn" onClick={onDetaillistClick}>
-            자세히 보기
-          </button>
+          {/* <Button onClick={onDetaillistClick}> */}
+          {/* <button className="detaillist Btn" onClick={onDetaillistClick}> */}
+            {/* 자세히 보기 */}
+          {/* </button> */}
+          {/* </Button> */}
           <br></br>
           {listObj.attachmentUrl && <img src={listObj.attachmentUrl} />}
           {isOwner && (
@@ -40,7 +42,7 @@ const Nweet = ({ listObj, isOwner }) => {
               </span>
             </div>
           )}
-        </div>
+        </Card>
       </>
     </div>
   );
