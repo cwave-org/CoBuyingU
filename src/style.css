@@ -22,13 +22,7 @@ nav {
     border-radius: 30px;
     margin: auto;
 }
-.dataillist.content{
-    text-align: center;
-    padding:5px;
-    margin-bottom: 30px;
-    background-color: white;
-    border-radius: 20px;
-}
+
 .itemname{
     font-size: 10px;
     

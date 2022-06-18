@@ -14,7 +14,8 @@ const Navigation = ({userObj}) => (
       </li>
       <li>
         <Link to="/" style={{ marginRight: 10 }}>
-          <FontAwesomeIcon icon={faTwitter} color={"#04AAFF"} size="2x" />
+          <img width ="30%" src="img/noonsong.gif"></img>
+          <p>Main</p>
         </Link>
       </li>
       <li>
