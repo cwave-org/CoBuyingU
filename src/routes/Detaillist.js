@@ -32,6 +32,96 @@ const [itemObj,setItemObj]=useState(detailObj);
       await dbService.doc(`startlist/${detailObj.id}`).delete();
       // await storageService.refFromURL(itemObj.attachmentUrl).delete();
     }
+
+    const location = useLocation();
+    const {detailObj}=location.state;
+
+    useEffect(() => {
+        dbService.doc(`startlist/${detailObj.id}`).collection("scrap").onSnapshot((snapshot) => {
+            const checkArray = snapshot.docs.map((doc) => ({
+              id: userObj.uid,
+              
+              ...doc.data(),
+            }));
+            setChecks(checkArray);
+          });
+      }, []);
+
+      
+      const onSubmitCheck = async (event) => {
+        setCheck(!check);
+        event.preventDefault();
+
+        await dbService.collection("startlist").doc(detailObj.id).collection("scrap").doc(userObj.uid).set(checkObj);
+        await dbService.doc(`startlist/${detailObj.id}`).collection("scrap").doc(userObj.uid).update({
+            check:(!check),
+          });
+          console.log(dbService.doc(`startlist/${detailObj.id}`).collection("scrap").doc(userObj.uid).id);
+          console.log(dbService.doc(`startlist/${detailObj.id}`).collection("scrap").doc());
+          dbService.collection("startlist").doc(detailObj.id).collection("scrap").doc(userObj.uid).get(checkObj);
+          console.log(!check);
+    };
+
+    const onCancleCheck = async (event) =>{
+        event.preventDefault();
+        setCheck(!check);
+        await dbService.doc(`startlist/${detailObj.id}`).collection("scrap").doc(userObj.uid).delete();
+        console.log(!check);
+      };
+
+      useEffect(() => {
+        dbService.doc(`startlist/${detailObj.id}`).collection("QnA").onSnapshot((snapshot) => {
+            const qnaArray = snapshot.docs.map((doc) => ({
+              id: doc.id,
+              ...doc.data(),
+            }));
+            setQnas(qnaArray);
+          });
+      }, []);
+
+      const qnaObj= {
+        text: qna,
+        createdAt: Date.now(),
+        creatorId: userObj.uid,
+        userName:userObj.displayName,
+    }
+    
+    const [bucket, setBucket] = useState(true);
+    
+      useEffect(() => {
+        dbService.doc(`startlist/${detailObj.id}`).collection("QnA").get()
+  .then((docs) => {
+    docs.forEach((doc) => {
+      console.log(doc.data());
+      console.log(doc.exists);
+      console.log(bucket);
+
+      if (doc.exists) {
+        setBucket(!bucket);
+        console.log(doc.exists);
+      }
+      else{
+        setBucket(bucket);
+      }
+    
+    console.log(bucket);
+    });
+});
+} , []);
+      const QnAonSubmit = async (event) => {
+        event.preventDefault();
+        await dbService.collection("startlist").doc(detailObj.id).collection("QnA").doc(userObj.uid).set(qnaObj);
+        
+        dbService.collection("startlist").doc(detailObj.id).collection("scrap").doc(userObj.uid).get({
+            text: qna,
+            createdAt: Date.now(),
+            creatorId: userObj.uid,
+            checked:false,
+            userName:userObj.displayName,
+          })
+        setQna("");
+    };
+
   };
 
   // Edit Cobuying Item
@@ -58,6 +148,7 @@ const [itemObj,setItemObj]=useState(detailObj);
     });
     setEditing(false);
   };
+
 
   const onChange_name = (event) => {
     const {
@@ -333,7 +424,7 @@ const [itemObj,setItemObj]=useState(detailObj);
   //       .delete();
   //   }
   // };
-/*
+
     return(
         <div className="dataillist content">
             <div>
@@ -353,7 +444,50 @@ const [itemObj,setItemObj]=useState(detailObj);
                 </button>
             </div>
 
+
+            <div>
+                <p>♥무엇이든지 물어보세요♥</p>
+                <>
+                <div>
+{bucket? 
+                    
+                    <form onSubmit={QnAonSubmit}>
+                        <input 
+                            type="text"
+                            placeholder="🙏🏼수정은 불가능하세요.🙏🏼"
+                            value={qna}
+                            onChange={QnAonChange}
+                        />
+                        
+                    <button 
+                        type="submit">
+                        Upload
+                    </button>
+                    </form>
+                    :
+                    <div>"🙏🏼원활한 QnA를 위해 인당 1 질문만 할수🙏🏼"</div>
+                }
+                
+
+                </div>
+                </>
+            </div>
+            <>
+            {qnas.map((qna) => (
+                 <QnA
+                    key={qna.id}
+                    qnaObj={qna}
+                    isOwner={qna.creatorId === userObj.uid}
+                    userObj={userObj}
+                    detailObj={detailObj}
+               />
+              ))}
+          </>
+
+          </>
+
+
         </div> 
-    );*/
+    );
 };
 export default Detaillist;

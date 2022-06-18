@@ -3,37 +3,32 @@ import React, { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { dbService } from "../fbase";
 
-const Myscrap = ({ listObj, userObj }) => {
-  const [bucket, setBucket] = useState(false);
-  const [scraps, setScraps] = useState([]);
-  const navigation = useNavigate();
+const Myscrap = ({ listObj, userObj}) => {
+    const [bucket, setBucket] = useState(false);
+    const [scraps, setScraps]= useState([]);
+   
+    useEffect(() => {
+        dbService.doc(`startlist/${listObj.id}`).collection("scrap").onSnapshot((snapshot) => {
+            const checkArray = snapshot.docs.map((doc) => ({
+              id: userObj.uid,
+              ...doc.data(),
+            }));
+            setScraps(checkArray);
+           
+          });
+      } , []);
 
-  useEffect(() => {
-    dbService
-      .doc(`startlist/${listObj.id}`)
-      .collection("scrap")
-      .onSnapshot((snapshot) => {
-        const checkArray = snapshot.docs.map((doc) => ({
-          id: userObj.uid,
-          ...doc.data(),
-        }));
-        setScraps(checkArray);
-      });
-  }, []);
+      
 
-  // if (dbService.doc(`startlist/${listObj.id}`).collection("scrap").doc(userObj.uid).get(check)){
-  useEffect(() => {
-    dbService
-      .doc(`startlist/${listObj.id}`)
-      .collection("scrap")
-      .get()
+    useEffect(() => {
+            dbService.doc(`startlist/${listObj.id}`).collection("scrap").get()
       .then((docs) => {
         docs.forEach((doc) => {
-          if (doc.id === userObj.uid) {
-            if (doc.exists) {
-              setBucket(!bucket);
-            }
+          if(doc.id===userObj.uid){
+          if (doc.exists) {
+            setBucket(!bucket);
           }
+        }
         });
       });
   }, []);

@@ -8,13 +8,14 @@ import Myscrap from "../components/Myscrap";
 import Myjoinlist from "../components/Myjoinlist";
 import MyQnA from "../components/MyQnA";
 
-const Profile = ({ refreshUser, userObj, checkObj }) => {
-  const navigate = useNavigate();
-  const [newDisplayName, setNewDisplayName] = useState(userObj.displayName);
-  const onLogOutClick = () => {
-    authService.signOut();
-    navigate("/");
-  };
+const Profile = ({ refreshUser, userObj, listObj}) => {
+    const navigate = useNavigate();
+    const [newDisplayName, setNewDisplayName] = useState(userObj.displayName);
+    const onLogOutClick = () => {
+        authService.signOut();
+        navigate("/");
+    };
+
 
   const onChange = (event) => {
     const {
@@ -32,6 +33,7 @@ const Profile = ({ refreshUser, userObj, checkObj }) => {
     }
   };
 
+
   // 모든 startlist 불러오기
   const [startlist, setStartlist] = useState([]);
   useEffect(() => {
@@ -43,17 +45,7 @@ const Profile = ({ refreshUser, userObj, checkObj }) => {
       setStartlist(listArray);
     });
   }, []);
-  /*
-    const [scraps, setScraps] = useState([]);
-    useEffect(() => {
-        dbService.doc(`startlist/${detailObj.id}`).collection("scrap").onSnapshot((snapshot) => {
-            const listArray = snapshot.docs.map((doc) => ({
-                id: doc.id,
-                ...doc.data(),
-            }));
-            setScraps(listArray);
-        });
-    }, []);*/
+  
 
   // 모든 joinlist 불러오기
   const [joinlist, setJoinlist] = useState([]);

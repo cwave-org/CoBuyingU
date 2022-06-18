@@ -4,7 +4,8 @@ import { dbService } from "../fbase";
 const MyQnA = ({ listObj, userObj}) => {
     const [bucket, setBucket] = useState(false);
     const [myqnas, setMyqnas]= useState([]);
-
+    console.log(listObj.id);
+  
     useEffect(() => {
         dbService.doc(`startlist/${listObj.id}`).collection("QnA").onSnapshot((snapshot) => {
             const checkArray = snapshot.docs.map((doc) => ({
@@ -12,11 +13,10 @@ const MyQnA = ({ listObj, userObj}) => {
               ...doc.data(),
             }));
             setMyqnas(checkArray);
-           
           });
       } , []);
 
-      
+      console.log(listObj);
 
      // if (dbService.doc(`startlist/${listObj.id}`).collection("scrap").doc(userObj.uid).get(check)){
     useEffect(() => {
@@ -30,8 +30,10 @@ const MyQnA = ({ listObj, userObj}) => {
           // 도큐먼트 id 가져오기
           console.log(doc.id);
           console.log(bucket);
-          if (doc.exists) {
-            setBucket(!bucket);
+          if(doc.id===userObj.uid){
+            if (doc.exists) {
+              setBucket(!bucket);
+            }
           }
         });
     });

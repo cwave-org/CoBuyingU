@@ -1,7 +1,7 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 
-const Mylist = ({ listObj, creatorId }) => {
+const Mylist = ({ listObj, isOwner, creatorId }) => {
   const navigation = useNavigate();
   const onShowlist = () => {
     navigation("/itemlist", {
