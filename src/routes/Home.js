@@ -81,10 +81,11 @@ const Home = ({ userObj }) => {
 
     return (
         <div className="container">
-            <div>
-                <h3>파워공구자</h3>
-                <h3>{powerseller}: {powersellers}</h3>
+            <div className="home_power">
+                <p>👑 파워공구자 <span id="powerseller">{powerseller}</span>: {powersellers} 개 👑</p>
             </div>
+            <br></br>
+            <br></br>
             <PostListWrapper>
                 {lists.map((list) => (
                     <Nweet
