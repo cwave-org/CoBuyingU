@@ -9,10 +9,13 @@ import QnA from "../components/QnA";
 const Detaillist = ({ userObj }) => {
   const location = useLocation();
   let { detailObj } = location.state;
+  const [editing,setEditing]=useState(false);
+  const itemId=detailObj.id;
+
   const [checked, setChecked] = useState(true);
   const [qna, setQna] = useState("");
   const [qnas, setQnas] = useState([]);
-
+const [itemObj,setItemObj]=useState(detailObj);
   const navigate = useNavigate();
   const onJoinlistClick = () => {
     navigate("/buying", { replace: false, state: { detailObj: detailObj } });
@@ -242,94 +245,94 @@ const Detaillist = ({ userObj }) => {
     </>
   );
 
-  const checkObj = {
-    check: !checked,
-    createdAt: Date.now(),
-    creatorId: userObj.uid,
-    userName: userObj.displayName,
-  };
+  // const checkObj = {
+  //   check: !checked,
+  //   createdAt: Date.now(),
+  //   creatorId: userObj.uid,
+  //   userName: userObj.displayName,
+  // };
 
-  useEffect(() => {
-    dbService
-      .doc(`startlist/${detailObj.id}`)
-      .collection("scrap")
-      .onSnapshot((snapshot) => {
-        const checkArray = snapshot.docs.map((doc) => ({
-          id: userObj.uid,
+  // useEffect(() => {
+  //   dbService
+  //     .doc(`startlist/${detailObj.id}`)
+  //     .collection("scrap")
+  //     .onSnapshot((snapshot) => {
+  //       const checkArray = snapshot.docs.map((doc) => ({
+  //         id: userObj.uid,
 
-          ...doc.data(),
-        }));
-        // 스크랩 여부 확인 후 체크박스 조정(?)
-        if (checkArray.length > 0) {
-          if (checkArray[0].id == userObj.uid) {
-            setChecked(false);
-          }
-        }
-      });
-  }, []);
+  //         ...doc.data(),
+  //       }));
+  //       // 스크랩 여부 확인 후 체크박스 조정(?)
+  //       if (checkArray.length > 0) {
+  //         if (checkArray[0].id == userObj.uid) {
+  //           setChecked(false);
+  //         }
+  //       }
+  //     });
+  // }, []);
 
-  useEffect(() => {
-    dbService
-      .doc(`startlist/${detailObj.id}`)
-      .collection("QnA")
-      .onSnapshot((snapshot) => {
-        const qnaArray = snapshot.docs.map((doc) => ({
-          id: doc.id,
-          ...doc.data(),
-        }));
-        setQnas(qnaArray);
-      });
-  }, []);
+  // useEffect(() => {
+  //   dbService
+  //     .doc(`startlist/${detailObj.id}`)
+  //     .collection("QnA")
+  //     .onSnapshot((snapshot) => {
+  //       const qnaArray = snapshot.docs.map((doc) => ({
+  //         id: doc.id,
+  //         ...doc.data(),
+  //       }));
+  //       setQnas(qnaArray);
+  //     });
+  // }, []);
 
-  const QnAonSubmit = async (event) => {
-    event.preventDefault();
-    await dbService
-      .collection("startlist")
-      .doc(detailObj.id)
-      .collection("QnA")
-      .add({
-        text: qna,
-        createdAt: Date.now(),
-        creatorId: userObj.uid,
-        checked: false,
-        userName: userObj.displayName,
-      });
-    setQna("");
-  };
+  // const QnAonSubmit = async (event) => {
+  //   event.preventDefault();
+  //   await dbService
+  //     .collection("startlist")
+  //     .doc(detailObj.id)
+  //     .collection("QnA")
+  //     .add({
+  //       text: qna,
+  //       createdAt: Date.now(),
+  //       creatorId: userObj.uid,
+  //       checked: false,
+  //       userName: userObj.displayName,
+  //     });
+  //   setQna("");
+  // };
 
-  const QnAonChange = (event) => {
-    const {
-      target: { value },
-    } = event;
-    setQna(value);
-  };
+  // const QnAonChange = (event) => {
+  //   const {
+  //     target: { value },
+  //   } = event;
+  //   setQna(value);
+  // };
 
-  // 송금완료 체크박스
-  const check = async (event) => {
-    setChecked((current) => !current);
-    if (checked) {
-      // 스크랩
-      await dbService
-        .doc(`startlist/${detailObj.id}/scrap/${userObj.uid}`)
-        .set(checkObj);
-      await dbService
-        .doc(`startlist/${detailObj.id}/scrap/${userObj.uid}`)
-        .update({
-          check: !check,
-        });
-      dbService
-        .doc(`startlist/${detailObj.id}/scrap/${userObj.uid}`)
-        .get(checkObj);
-      console.log(!check);
-    } else {
-      // 스크랩 취소
-      await dbService
-        .doc(`startlist/${detailObj.id}`)
-        .collection("scrap")
-        .doc(userObj.uid)
-        .delete();
-    }
-  };
+  // // 송금완료 체크박스
+  // const check = async (event) => {
+  //   setChecked((current) => !current);
+  //   if (checked) {
+  //     // 스크랩
+  //     await dbService
+  //       .doc(`startlist/${detailObj.id}/scrap/${userObj.uid}`)
+  //       .set(checkObj);
+  //     await dbService
+  //       .doc(`startlist/${detailObj.id}/scrap/${userObj.uid}`)
+  //       .update({
+  //         check: !check,
+  //       });
+  //     dbService
+  //       .doc(`startlist/${detailObj.id}/scrap/${userObj.uid}`)
+  //       .get(checkObj);
+  //     console.log(!check);
+  //   } else {
+  //     // 스크랩 취소
+  //     await dbService
+  //       .doc(`startlist/${detailObj.id}`)
+  //       .collection("scrap")
+  //       .doc(userObj.uid)
+  //       .delete();
+  //   }
+  // };
 /*
     return(
         <div className="dataillist content">

@@ -39,8 +39,7 @@ const Myjoinlist = ({ listObj, isOwner }) => {
         })
     }, []);
     // setExist(!exist);
-    console.log(smlist.randomidx);
-=======
+
   /*
 const Myjoinlist = ({ listObj }) => {
   const [name, setName] = useState("");
@@ -125,8 +124,14 @@ const Myjoinlist = ({ listObj }) => {
                         </div>
                     </>
                 ) : (<></>)} */}
+
+  </div>
+  </>
+    );
+  };
+export default Myjoinlist;
 /*
-  return (
+return (
     <>
       <div className="Itemclass">
         {exist ? (
@@ -145,14 +150,15 @@ const Myjoinlist = ({ listObj }) => {
               <button className="detaillist show Btn" onClick={onShowbuyClick}>
                 내 정보 자세히보기
               </button>
-              */
-            </div>
-          </>
-        ) : (
-          <></>
-        )}
-      </div>
-    </>
-  );
-};
-export default Myjoinlist;
+              
+              </div>
+              </>
+            ) : (
+              <></>
+            )}
+          </div>
+        </>
+      );
+    };
+
+*/
