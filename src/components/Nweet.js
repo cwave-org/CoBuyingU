@@ -1,9 +1,6 @@
 import React from "react";
 import { dbService, storageService } from "../fbase";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faTrash } from "@fortawesome/free-solid-svg-icons";
 import { useNavigate } from "react-router-dom";
-import { Card,Button } from "react-bootstrap";
 const Nweet = ({ listObj, isOwner }) => {
   let navigate = useNavigate();
   const onDetaillistClick = () => {
@@ -14,35 +11,16 @@ const Nweet = ({ listObj, isOwner }) => {
     });
   };
 
-  const onDeleteClick = async () => {
-    const ok = window.confirm("Are you sure you want to delete this list?");
-    if (ok) {
-      await dbService.doc(`startlist/${listObj.id}`).delete();
-      await storageService.refFromURL(listObj.attachmentUrl).delete();
-    }
-  };
   return (
     // className 뭐라 할까 css할때 헷갈릴까봐 아직 안바꿨어
     <div className="nweet">
       <>
-        <Card onClick={onDetaillistClick}>
-          <h4>{`${listObj.item}공구☞ ${listObj.itemname}`}</h4>
-          <h4>{`${listObj.deadline}까지`}</h4>
-          {/* <Button onClick={onDetaillistClick}> */}
-          {/* <button className="detaillist Btn" onClick={onDetaillistClick}> */}
-            {/* 자세히 보기 */}
-          {/* </button> */}
-          {/* </Button> */}
-          <br></br>
-          {listObj.attachmentUrl && <img src={listObj.attachmentUrl} />}
-          {isOwner && (
-            <div className="nweet__actions">
-              <span onClick={onDeleteClick}>
-                <FontAwesomeIcon icon={faTrash} />
-              </span>
-            </div>
-          )}
-        </Card>
+        <div onClick={onDetaillistClick}>
+           {listObj.attachmentUrl && 
+          <img src={listObj.attachmentUrl} />}
+          <div className="name">{`${listObj.item}공구☞ ${listObj.itemname}`}</div>
+          <div className="deadline">{`${listObj.deadline}까지`}</div>
+        </div>
       </>
     </div>
   );

@@ -2,26 +2,34 @@ body {
     background: linear-gradient(to top  ,#C5E0B4, #BBDCF7 , #E0C0F6);
     background-attachment: fixed;
 }
+
 .container{ 
-    padding: 30px;
+    margin-top: 70px;
+    padding: 10px;
     width: 50%;
     border-radius: 20px;
     display: grid;
     display: inline-grid;
 }
+.formbox{
+    margin-top: 70px;
+}
 .nweet{
     text-align: center;
     padding:5px;
-    margin-bottom: 30px;
-    background-color: white;
-    /* border-radius: 20px; */
+    margin-bottom: 20px;
+    background-color:rgba(255, 255, 255, 0.7);
+    border-radius: 20px;
 }
 nav {
-    background: #AFB6F6;
-    width: 70%;
+    background: #d4a4fee7;
+    width: 100%;
     text-align: center;
-    border-radius: 30px;
+    border-radius: 0 0 5px 5px;
     margin: auto;
+    position: fixed;
+    align-self: center;
+    z-index: 4;
 }
 .dataillist.content{
     text-align: center;

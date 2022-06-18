@@ -22,6 +22,7 @@ const Auth = () => {
         await authService.signInWithPopup(provider);
     };
     return (
+        <div className="formbox">
         <div className="authContainer">
             <FontAwesomeIcon
                 icon={faTwitter}
@@ -38,6 +39,7 @@ const Auth = () => {
                     Continue with Github <FontAwesomeIcon icon={faGithub} />
                 </button>
             </div>
+        </div>
         </div>
     );
 };

@@ -2,3 +2,31 @@
 .nweet{
     box-shadow: 0 1px 10px 0 rgb(247, 243, 243);
 } */
+.container{
+    /* margin-left: 5%;
+    margin-right: 5%;
+    padding-left: 5%;
+    padding-right: 5%; */
+    flex-wrap: wrap;
+    align-items: center;
+    text-align: center;
+
+}
+.nweet img{
+  width: 50%;
+  height:auto;
+  align-content: center;
+
+}
+.nweet {
+    text-align: center;
+    display:flex;
+    width: 10rem;
+    height:10rem;
+  }
+.deadline{
+    font-size: xx-small;
+}
+.name{
+    font-size: small;
+}
