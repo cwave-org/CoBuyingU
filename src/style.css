@@ -6,14 +6,15 @@ body {
     padding: 30px;
     width: 50%;
     border-radius: 20px;
-   
+    display: grid;
+    display: inline-grid;
 }
 .nweet{
     text-align: center;
     padding:5px;
     margin-bottom: 30px;
     background-color: white;
-    border-radius: 20px;
+    /* border-radius: 20px; */
 }
 nav {
     background: #AFB6F6;
