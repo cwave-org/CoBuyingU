@@ -1,7 +1,7 @@
 .openjoin_container {
   background-color: white;
   padding: 20px;
-  width: 60%;
+  width: 90%;
   border-radius: 20px;
 }
 
@@ -53,4 +53,18 @@
 .openjoin_container .openjoin_long {
   width: 250px;
   margin-top: 3px;
+  font-size: 14px;
+}
+
+.openjoin_container .openjoin_input {
+  width: 70%;
+  border-top: none;
+  border-left: none;
+  border-right: none;
+  border-bottom: 1px solid black;
+}
+
+.openjoin_container .openjoin_que {
+  color:rgb(0, 0, 0);
+  font-size: 14px;
 }

@@ -4,12 +4,19 @@ ul{
 }
 
 .detaillist_content{
-    text-align: center;
+    /*text-align: center;
     padding:5px;
     width: 50%;
     margin-bottom: 30px;
     background-color: white;
-    border-radius: 20px;
+    border-radius: 20px;*/
+    width: 90%;
+    padding: 10px;
+    background-color: white;
+    border-radius: 10px;
+    margin: 5px;
+    margin-bottom: 10px;
+    padding-bottom: 15px;
 }
 
 .detaillist_qna{
@@ -66,3 +73,19 @@ ul{
     flex-direction: row;
 }
 
+.detaillist_imo{
+    display: flex;
+    flex-direction: row-reverse;
+    margin-right: auto;
+    padding: auto;
+    text-align: right;
+}
+
+.detaillist_scr{
+    margin-right: 5%;
+    text-align: right;
+}
+
+.detaillist_bar{
+    margin-left: 10%;
+}

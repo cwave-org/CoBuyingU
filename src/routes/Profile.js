@@ -58,76 +58,60 @@ const Profile = ({ refreshUser, userObj, listObj }) => {
 
   return (
     <div className="container">
-      <form onSubmit={onSubmit} className="profileForm">
-        <input
-          onChange={onChange}
-          type="text"
-          placeholder="Display name"
-          value={newDisplayName}
-          autoFocus
-          className="formInput"
-        />
-        <input
-          type="submit"
-          value="Update Profile"
-          className="formBtn"
-          style={{
-            marginTop: 10,
-          }}
-        />
-      </form>
-      <h3>내가 연 공구</h3>
-      <div>
-        {startlist.map((list) => {
-          if (list.creatorId === userObj.uid)
-            return (
-              <Mylist key={list.id} listObj={list} creatorId={list.creatorId} />
-            );
-        })}
+      <div className="myopen">
+        <div className="my_title">💙진행 공구 목록💙</div>
+        <hr/>
+        <div className="myopen_context">
+          {startlist.map((list) => {
+            if (list.creatorId === userObj.uid)
+              return (
+                <Mylist key={list.id} listObj={list} creatorId={list.creatorId} />
+              );
+          })}
+        </div>
+      </div>
+      <div className="myjoin">
+        <div className="my_title">💙참여 공구 목록💙</div>
+        <hr/>
+        <div className="myjoin_context">
+          {joinlist.map((list) => {
+            if (list.creatorId === userObj.uid){
+              return (
+                <Myjoinlist key={list.id} listObj={list} isOwner={list.creatorId === userObj.uid}/>
+              );
+            }
+          })}
+        </div>
+      </div>
+      <div className="myjoin">
+        <div className="my_title">💙스크랩💙</div>
+        <hr/>
+        <div className="myjoin_context">
+          {startlist.map((list) => (
+            <Myscrap
+            key={list.id}
+            listObj={list}
+            isOwner={list.creatorId === userObj.uid}
+            userObj={userObj}
+          />
+          ))}
+        </div>
       </div>
 
-      <h3>내가 참여한 공구</h3>
-      <div>
-        {joinlist.map((list) => {
-          console.log(list.creatorId, userObj.uid);
-          if (list.creatorId === userObj.uid) {
-            return (
-              <Myjoinlist
-                key={list.id}
-                listObj={list}
-                isOwner={list.creatorId === userObj.uid}
-              />
-            );
-          } else {
-            console.log("diff");
-          }
-        })}
-      </div>
-
-      <h3>스크랩 목록</h3>
-      <div>
+      <div className="myjoin">
+        <div className="my_title">💙문의한 공구💙</div>
+        <hr/>
+        <div className="myjoin_context">
         {startlist.map((list) => (
-          <Myscrap
+          <MyQnA
             key={list.id}
             listObj={list}
             isOwner={list.creatorId === userObj.uid}
             userObj={userObj}
           />
         ))}
+        </div>
       </div>
-
-      <h3>내가 문의한 공구</h3>
-      {startlist.map((list) => (
-        <MyQnA
-          key={list.id}
-          listObj={list}
-          isOwner={list.creatorId === userObj.uid}
-          userObj={userObj}
-        />
-      ))}
-      <span className="formBtn cancelBtn logOut" onClick={onLogOutClick}>
-        Log Out
-      </span>
     </div>
   );
 };

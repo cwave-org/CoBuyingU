@@ -10,13 +10,17 @@ const PostListWrapper = styled.div`
   font-size:: small;
   row-gap: 8x;
   grid-template-columns: repeat(2, auto);
-
-
 `;
 
 const Home = ({ userObj }) => {
     const [lists, setLists] = useState([]);
     const [joinlists, setJoinlists] = useState([]);
+
+    const [powerseller, setPowerseller] = useState("");
+    const [powersellers, setPowersellers] = useState(0);
+    const map1 = new Map();
+
+    // 모든 startlist 불러오기
     useEffect(() => {
         dbService.collection("startlist").onSnapshot((snapshot) => {
             const listArray = snapshot.docs.map((doc) => ({
@@ -26,6 +30,8 @@ const Home = ({ userObj }) => {
             setLists(listArray);
         });
     }, []);
+
+    // 모든 joinlist 불러오기
     useEffect(() => {
         dbService.collection("joinlist").onSnapshot((snapshot) => {
             const listArray = snapshot.docs.map((doc) => ({
@@ -35,21 +41,64 @@ const Home = ({ userObj }) => {
             setJoinlists(listArray);
         });
     }, []);
+
+    // 파워 공구자
+    useEffect(() => {
+        const listdb = dbService.collection("startlist")
+            .get()
+            .then((결과) => {
+                결과.forEach((doc) => {
+                    const creator = doc.data().creatorId;
+                    if (map1.get(creator) == undefined) {
+                        map1.set(creator, 1);
+                    }
+                    else { //있으면
+                        const creator = doc.data().creatorId;
+                        const index = map1.get(creator);
+                        map1.set(creator, index + 1);
+                    }
+                })
+            })
+    }, [])
+
+    // 파워 공구자 출력
+    useEffect(() => {
+        const startlistdb2 = dbService.collection("startlist")
+            .get()
+            .then((결과) => {
+                결과.forEach((doc) => {
+                    const creator = doc.data().creatorId;
+                    const cur = map1.get(creator);
+                    if (cur > powersellers) {
+                        setPowerseller(doc.data().name); //이름
+                        console.log(doc.data().name);
+                        setPowersellers(cur); //  개수
+                    }
+                })
+            })
+    }, [])
+
+
     return (
         <div className="container">
-           <PostListWrapper>
-          {lists.map((list) => (
-            <Nweet 
-                key={list.id} 
-                userObj={userObj}
-                listObj={list}
-                isOwner={list.creatorId === userObj.uid}
-                {...list} />
-          ))}
-        
-        </PostListWrapper>
+            <div className="home_power">
+                <p>👑 파워공구자 <span id="powerseller">{powerseller}</span>: {powersellers} 개 👑</p>
+            </div>
+            <br></br>
+            <br></br>
+            <PostListWrapper>
+                {lists.map((list) => (
+                    <Nweet
+                        key={list.id}
+                        userObj={userObj}
+                        listObj={list}
+                        isOwner={list.creatorId === userObj.uid}
+                        {...list} />
+                ))}
+
+            </PostListWrapper>
             {/* <div style={{ marginTop: 30 }}> */}
-                {/* {lists.map((list) => (
+            {/* {lists.map((list) => (
                     
                     <Nweet
                         key={list.id}

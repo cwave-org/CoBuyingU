@@ -9,6 +9,7 @@ import "./detaillist.css";
 import "./mainpage.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./openJoin.css";
+import "./mypage.css";
 ReactDOM.render(
   <React.StrictMode>
     <App />

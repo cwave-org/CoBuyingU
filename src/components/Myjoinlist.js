@@ -9,8 +9,6 @@ const Myjoinlist = ({ listObj, isOwner }) => {
   const [exist, setExist] = useState(false);
 
   let navigate = useNavigate();
-
-  console.log(isOwner);
   let myObj;
   useEffect(() => {
     let dblists = dbService
@@ -62,27 +60,14 @@ const Myjoinlist = ({ listObj, isOwner }) => {
   return (
     <>
       <div className="Itemclass">
-        <button className="detaillist show Btn" onClick={onShowdetailClick}>
-          해당 공구 자세히보기
-        </button>
-        <button className="detaillist show Btn" onClick={onShowbuyClick}>
-          내 정보 자세히보기
-        </button>
-
         { isOwner && exist ? (
           <>
-            <div>
-              {<h4>픔목이름: {`${name}`}</h4>}
-            </div>
-
-            <div>
-              <button className="detaillist show Btn" onClick={onShowdetailClick}>
-                해당 공구 자세히보기
-              </button>
-              <button className="detaillist show Btn" onClick={onShowbuyClick}>
-                내 정보 자세히보기
-              </button>
-            </div>
+            <span className="myitem" onClick={onShowdetailClick}>
+              {`${name}`}
+            </span>
+            <span className="myitemshow" onClick={onShowbuyClick}>
+              제출한 폼 확인하기
+            </span>
           </>
         ) : (
           <>

@@ -1,0 +1,40 @@
+.myopen{
+    padding: 10px;
+    background-color: white;
+    border-radius: 10px;
+    margin: 5px;
+    margin-bottom: 10px;
+    padding-bottom: 15px;
+}
+.myjoin{
+    padding: 10px;
+    background-color: white;
+    border-radius: 10px;
+    margin: 5px;
+    margin-bottom: 10px;
+    padding-bottom: 15px;
+}
+.my_title{
+    font-weight: bold;
+    text-align: left;
+    font-size: large;
+    margin-bottom: 3px;
+}
+.myopen_context{
+    font-size: medium;
+    padding-left: 15px;
+}
+.myjoin_context{
+    font-size: medium;
+    padding-left: 15px;
+}
+.myitem{
+    width: 50%;
+}
+.myitemshow{
+    width: 50%;
+    float: right;
+    text-align: right;
+    padding-right: 15px;
+
+}
