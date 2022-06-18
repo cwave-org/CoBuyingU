@@ -14,8 +14,6 @@ export default function QnA({ qnaObj, isOwner, userObj, detailObj, bucket }) {
     }
   }
 
-
-
   return (
     <div>
       <div>
@@ -25,7 +23,7 @@ export default function QnA({ qnaObj, isOwner, userObj, detailObj, bucket }) {
             <div>
               <b>{qnaObj.userName}님의 질문</b>
             </div>
-            
+
 
             <div >
               {isOwner && (
@@ -39,9 +37,9 @@ export default function QnA({ qnaObj, isOwner, userObj, detailObj, bucket }) {
 
           </div>
           <div className="detaillist_qna_box">
-          {qnaObj.text}
+            {qnaObj.text}
           </div>
-          
+
 
 
         </div>
@@ -53,7 +51,7 @@ export default function QnA({ qnaObj, isOwner, userObj, detailObj, bucket }) {
           qnaObj={qnaObj}
           detailObj={detailObj}
         />
-
+      </div>
     </div>
   );
 }
