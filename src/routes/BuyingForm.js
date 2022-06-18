@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useLocation } from "react-router-dom";
-import { dbService, storageService } from "../fbase";
+import { dbService} from "../fbase";
 
-const BuyingForm = ({ userObj }) => {
+const BuyingForm = () => {
   const [name, setName] = useState("");
   const [phonenumber, setPhonenumber] = useState("");
   const [count, setCount] = useState("");
@@ -47,21 +47,21 @@ const BuyingForm = ({ userObj }) => {
     const {
         target: { value },
       } = event;
-    if (event.target.id == "nameform") {
+    if (event.target.id === "nameform") {
       setName(value);
-    } else if (event.target.id == "phonenumberform") {
+    } else if (event.target.id === "phonenumberform") {
       setPhonenumber(value);
-    } else if (event.target.id == "countform") {
+    } else if (event.target.id === "countform") {
       setCount(value);
-    } else if (event.target.id == "sizeform") {
+    } else if (event.target.id === "sizeform") {
       setSize(value);
-    } else if (event.target.id == "addressform") {
+    } else if (event.target.id === "addressform") {
       setAddress(value);
-    } else if (event.target.id == "accountnameform") {
+    } else if (event.target.id === "accountnameform") {
       setAccount_name(value);
-    } else if (event.target.id == "accountdateform") {
+    } else if (event.target.id === "accountdateform") {
       setAccount_date(value);
-    } else if (event.target.id == "accountreform") {
+    } else if (event.target.id === "accountreform") {
       setAccount_re(value);
     }
   };
