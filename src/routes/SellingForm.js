@@ -122,8 +122,8 @@ const SellingForm = ({ userObj }) => {
       <p>공구 열기</p>
 
       <p className="openjoin_que">
-       <span>✔️ 이름:</span>  
-        <input 
+        <span>✔️ 이름:</span>
+        <input
           className="openjoin_input"
           value={name}
           onChange={onChange_name}
@@ -134,101 +134,108 @@ const SellingForm = ({ userObj }) => {
       </p>
 
       <p className="openjoin_que">
-      <span>✔️ 상품이름: </span>
-      <input
-        className="openjoin_input"
-        value={itemname}
-        onChange={onChange_itemname}
-        type="text"
-        placeholder="상품이름"
-        maxLength={120}
-      />
+        <span>✔️ 상품이름: </span>
+        <input
+          className="openjoin_input"
+          value={itemname}
+          onChange={onChange_itemname}
+          type="text"
+          placeholder="상품이름"
+          maxLength={120}
+        />
       </p>
 
       <p className="openjoin_que">
-      <span>✔️ 품목: </span>
-      <input
-        className="openjoin_input"
-        value={item}
-        onChange={onChange_item}
-        type="text"
-        placeholder="품목"
-        maxLength={120}
-      />
+        <span>✔️ 품목: </span>
+        <input
+          className="openjoin_input"
+          value={item}
+          onChange={onChange_item}
+          type="text"
+          placeholder="품목"
+          maxLength={120}
+        />
       </p>
 
       <p className="openjoin_que">
-      <span>✔️ 가격(원): </span>
-      <input
-        className="openjoin_input"
-        value={price}
-        onChange={onChange_price}
-        type="number"
-        placeholder="가격(원)"
-        maxLength={120}
-      />
+        <span>✔️ 가격(원): </span>
+        <input
+          className="openjoin_input"
+          value={price}
+          onChange={onChange_price}
+          type="number"
+          placeholder="가격(원)"
+          maxLength={120}
+        />
       </p>
 
       <p className="openjoin_que">
-      <span>✔️ 마감기한 : </span>
-      <input
-        className="openjoin_input"
-        value={deadline}
-        onChange={onChange_deadline}
-        type="date"
-        placeholder="마감기한"
-        maxLength={120}
-      />
+        <span>✔️ 마감기한: </span>
+        <input
+          className="openjoin_input"
+          value={deadline}
+          onChange={onChange_deadline}
+          type="date"
+          placeholder="마감기한"
+          maxLength={120}
+        />
       </p>
 
       <p className="openjoin_que">
-      <span className="openjoin_long">✔️ 오픈채팅방 링크 : </span>
-      <input
-        className="openjoin_input"
-        value={link}
-        onChange={onChange_link}
-        type="text"
-        placeholder="오픈채팅방링크"
-        maxLength={150}
-        style={{ marginBottom: 5 }}
-      />
+        <span className="openjoin_long">✔️ 오픈채팅방 링크: </span>
+        <input
+          className="openjoin_input"
+          value={link}
+          onChange={onChange_link}
+          type="text"
+          placeholder="오픈채팅방링크"
+          maxLength={150}
+          style={{ marginBottom: 5 }}
+        />
       </p>
 
       <p className="openjoin_que">
-      <span className="openjoin_long">✔️ 계좌(은행/ 계좌번호/입금주명) : </span>
-      <input
-        className="openjoin_input"
-        value={account}
-        onChange={onChange_account}
-        type="text"
-        placeholder="계좌(은행/ 계좌번호/입금주명)"
-        maxLength={120}
-        style={{ marginBottom: 5 }}
-      />
+        <span className="openjoin_long">
+          ✔️ 계좌(은행/ 계좌번호/입금주명):{" "}
+        </span>
+        <input
+          className="openjoin_input"
+          value={account}
+          onChange={onChange_account}
+          type="text"
+          placeholder="계좌(은행/ 계좌번호/입금주명)"
+          maxLength={120}
+          style={{ marginBottom: 5 }}
+        />
       </p>
 
       <p className="openjoin_que">
-      <span className="openjoin_long">✔️ 사진 : </span>
-      <input className="openjoin_input" type="file" accept="image/*" onChange={onFileChange}/>
-      {attachment && (
-        <div>
-          <img src={attachment} width="50px" height="50px" />
-          <button onClick={onClearAttachment}>Clear</button>
-        </div>
-      )}
+        <span className="openjoin_long">✔️ 사진 : </span>
+        <input
+          className="openjoin_input"
+          type="file"
+          accept="image/*"
+          onChange={onFileChange}
+        />
+        {attachment && (
+          <div>
+            <img src={attachment} width="50px" height="50px" />
+            <button onClick={onClearAttachment}>Clear</button>
+          </div>
+        )}
       </p>
 
       <p className="openjoin_que">
-      <span className="openjoin_long">✔️ 기타사항 : </span>
-      <input
-        className="openjoin_input"
-        value={etc}
-        onChange={onChange_etc}
-        type="text"
-        placeholder="기타사항"
-        maxLength={120}
-      />
-      <input type="submit" value="제출" />
+        <span className="openjoin_long">✔️ 기타사항 : </span>
+        <input
+          className="openjoin_input"
+          value={etc}
+          onChange={onChange_etc}
+          type="text"
+          placeholder="기타사항"
+          maxLength={120}
+        />
+        <input type="submit" value="제출" />
       </p>
     </form>
   );

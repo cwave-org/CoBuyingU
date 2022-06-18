@@ -1,4 +1,6 @@
 .openjoin_container {
+  margin-top: 120px;
+  margin-bottom: 50px;
   background-color: white;
   padding: 20px;
   width: 90%;
@@ -65,6 +67,6 @@
 }
 
 .openjoin_container .openjoin_que {
-  color:rgb(0, 0, 0);
+  color: rgb(0, 0, 0);
   font-size: 14px;
 }
