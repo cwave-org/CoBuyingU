@@ -98,8 +98,15 @@ const Buydetaillist = () => {
     };
 
     return (
-        <>
-            {editing ? (<>
+        <>         
+            {editing ? (
+             <div className="container">
+             
+             <div className="my_title">💙폼 제출 내용💙</div>
+             <hr/>    
+             <br/>
+             <div className="mydetail">
+    
                 <form onSubmit={onSubmit} className="container nweetEdit">
                     <span>이름: </span>
                     <input
@@ -177,24 +184,28 @@ const Buydetaillist = () => {
                 <button onClick={toggleEditing} className="cancelBtn">
                     Cancel
                 </button>
-            </>
+             </div>
+           </div>  
+            
             ) : (
-                <>
-                    <div>
-                        <h3>이름 : {newDetailObj.name}</h3>
-                        <h3>전화번호 : {newDetailObj.phonenumber}</h3>
-                        <h3>수량 : {newDetailObj.count}</h3>
-                        <h3>사이즈 : {newDetailObj.size}</h3>
-                        <h3>주소 : {newDetailObj.address}</h3>
-                        <h3>입금자명 : {newDetailObj.account_name}</h3>
-                        <h3>입금일자 : {newDetailObj.account_date}</h3>
-                        <h3>환불계좌 : {newDetailObj.account_re}</h3>
+                <div className="container">
+             <div className="mydetail">
+                <div className="my_title">💙폼 제출 내용💙</div>
+                 <hr/>    
+                        <div>이름 : {newDetailObj.name}</div>
+                        <div>전화번호 : {newDetailObj.phonenumber}</div>
+                        <div>수량 : {newDetailObj.count}</div>
+                        <div>사이즈 : {newDetailObj.size}</div>
+                        <div>주소 : {newDetailObj.address}</div>
+                        <div>입금자명 : {newDetailObj.account_name}</div>
+                        <div>입금일자 : {newDetailObj.account_date}</div>
+                        <div>환불계좌 : {newDetailObj.account_re}</div>
                     </div>
                     <div className="actions">
                         <button onClick={onDeleteClick}>TRASH</button>
                         <button onClick={toggleEditing}>EDIT</button>
                     </div>
-                </>
+               </div>
             )}
         </>
     );

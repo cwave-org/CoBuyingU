@@ -28,18 +28,33 @@ const Itemlist = () => {
         })
     }, [buyerindex]);
     return (
-        <div className="itemlistclass">
-            <h3>전체 리스트</h3>
-            <Excel exceldata={excellist} name={filename}/>
-            <br></br>
-            {lists.map((list) => (
-                <Item
-                    key={list.id}
-                    listObj={list}
-                    isBuyer={list.randomidx===buyerindex} 
-                />
-            ))}
-            </div>      
+        <div className="container">
+        <div className="joinerlist">
+        <div className="my_title">💙참여자 목록💙</div>
+        <hr/>
+        <Excel exceldata={excellist} name={filename}/>
+        <br/>
+        <div style={{marginBottom:'15px'}}>
+        <span style={{width: '15%', float:'right'}}>확인</span>
+        <span style={{width: '20%', float:'right'}}>구매자명</span>    
+        <span style={{width: '20%', float:'right'}}>입금자명</span>
+        <span style={{width: '25%', float:'right'}}>입금날짜</span>
+        <span style={{width: '20%', float:'right'}}>구매금액</span>
+        </div>
+        <br/>
+        <div className="joiner_context" >
+          {lists.map((list) => (
+            <Item
+            key={list.id}
+            listObj={list}
+            isBuyer={list.randomidx===buyerindex} 
+            />
+          ))}
+        </div>
+      </div>  
+
+      </div>
+         
     )
 };
 export default Itemlist;
