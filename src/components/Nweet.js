@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { dbService, storageService } from "../fbase";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrash } from "@fortawesome/free-solid-svg-icons";
@@ -7,7 +7,7 @@ import { useNavigate } from "react-router-dom";
 const Nweet = ({ listObj, isOwner }) => {
   let navigate = useNavigate();
   const onDetaillistClick = () => {
-    const detailObj = "init";
+    // const detailObj = "init";
     navigate("/selling/detail", {
       replace: false,
       state: { detailObj: listObj },
