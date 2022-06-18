@@ -29,7 +29,7 @@ const Detaillist = ({ userObj }) => {
   const [bucket, setBucket] = useState(false);
 
   // 동기화
-  useEffect(async () => {
+  useEffect(() => {
     dbService.collection("startlist").onSnapshot((snapshot) => {
       snapshot.docs.map((doc) => {
         if (doc.id == itemId) {
