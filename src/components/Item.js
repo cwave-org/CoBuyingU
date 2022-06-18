@@ -19,17 +19,20 @@ const Item = ({ listObj, isBuyer }) => {
       {isBuyer ? (
         <>
           <div style={{ display: "flex", flexDirection: "row" }}>
-            <div style={{ display: "flex", flexDirection: "row" }}>
-              <h4>송금 완료: </h4>
+            <span style={{width: '20%'}}>{`${listObj.count}`}</span>
+            <span style={{width: '25%'}}>{`${listObj.account_date}`}</span>
+            <span style={{width: '20%'}}>{`${listObj.name}`}</span>
+            <span style={{width: '20%'}}>{`${listObj.account_name}`}</span>
+
               {!checked ? (
-                <input type="checkbox" onChange={check} checked></input>
+                <input style={{width: '15%'}} type="checkbox" onChange={check} checked></input>
               ) : (
-                <input type="checkbox" onChange={check}></input>
+                <input style={{width: '15%'}} type="checkbox" onChange={check}></input>
               )}
             </div>
-            <h4>구매자 이름: {`${listObj.name}`}</h4>
+            
             <br></br>
-          </div>
+  
         </>
       ) : (
         <></>
