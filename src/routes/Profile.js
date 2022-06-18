@@ -89,6 +89,23 @@ const Profile = ({ refreshUser, userObj, listObj}) => {
         })}
       </div>
 
+      <h3>내가 참여한 공구</h3>
+      <div>
+        {joinlist.map((list) => {
+          console.log(list.creatorId, userObj.uid);
+          if (list.creatorId === userObj.uid){
+           
+            return (
+              <Myjoinlist key={list.id} listObj={list} isOwner={list.creatorId === userObj.uid}/>
+            );
+          }
+          else{
+            console.log("diff");
+          }
+        })}
+
+      </div>
+
       <h3>스크랩 목록</h3>
       <div>
         {startlist.map((list) => (
@@ -100,13 +117,7 @@ const Profile = ({ refreshUser, userObj, listObj}) => {
           />
         ))}
       </div>
-      <h3>내가 참여한 공구</h3>
-      <div>
-        {joinlist.map((list) => {
-          if (list.creatorId === userObj.uid)
-            return <Myjoinlist key={list.id} listObj={list} />;
-        })}
-      </div>
+      
 
       <h3>내가 문의한 공구</h3>
       {startlist.map((list) => (

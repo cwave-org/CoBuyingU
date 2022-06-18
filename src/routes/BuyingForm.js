@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useLocation } from "react-router-dom";
 import { dbService} from "../fbase";
 
-const BuyingForm = () => {
+const BuyingForm = ({userObj}) => {
   const [name, setName] = useState("");
   const [phonenumber, setPhonenumber] = useState("");
   const [count, setCount] = useState("");
@@ -27,6 +27,7 @@ const BuyingForm = () => {
       size: size,
       address: address,
       createdAt: Date.now(),
+      creatorId: userObj.uid,
       account_date: account_date,
       account_name: account_name,
       account_re: account_re,

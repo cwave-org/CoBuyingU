@@ -24,9 +24,9 @@ const showScrap = ({ listObj, userObj ,Id2}) => {
         
 
     if (dbService.doc(`startlist/${listObj.id}`).collection("scrap").doc().id==Id){
-        console.log(dbService.doc(`startlist/${listObj.id}`).collection("scrap").doc());
+       // console.log(dbService.doc(`startlist/${listObj.id}`).collection("scrap").doc());
         //console.log(check="true");
-        console.log(Id);
+        //console.log(Id);
     return (
             <div className="Itemclass">
                 <>
@@ -43,9 +43,9 @@ const showScrap = ({ listObj, userObj ,Id2}) => {
     );
                         }
     else{
-        console.log(Id);
-        console.log(dbService.doc(`startlist/${listObj.id}`).collection("scrap").doc(userObj.uid).id);
-        console.log(dbService.doc(`startlist/${listObj.id}`).collection("scrap").doc());
+        //console.log(Id);
+        //console.log(dbService.doc(`startlist/${listObj.id}`).collection("scrap").doc(userObj.uid).id);
+        // console.log(dbService.doc(`startlist/${listObj.id}`).collection("scrap").doc());
         return (
             
             <p>없어</p>
