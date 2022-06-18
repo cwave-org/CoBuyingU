@@ -2,7 +2,12 @@ import { useNavigate, useLocation } from "react-router-dom";
 import React, { useState, useEffect } from "react";
 import { dbService, storageService } from "../fbase";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faTrash, faPencilAlt } from "@fortawesome/free-solid-svg-icons";
+import {
+  faTrash,
+  faPencilAlt,
+  faStar,
+} from "@fortawesome/free-solid-svg-icons";
+import { faStar as FaStarRegular } from "@fortawesome/free-regular-svg-icons";
 import QnA from "../components/QnA";
 
 const Detaillist = ({ userObj }) => {
@@ -371,9 +376,15 @@ const Detaillist = ({ userObj }) => {
             </div>
             <div>
               {!checked ? (
-                <input type="checkbox" onChange={check} checked></input>
+                <FontAwesomeIcon
+                  icon={faStar}
+                  onClick={check}
+                ></FontAwesomeIcon>
               ) : (
-                <input type="checkbox" onChange={check}></input>
+                <FontAwesomeIcon
+                  icon={FaStarRegular}
+                  onClick={check}
+                ></FontAwesomeIcon>
               )}
             </div>
             <div>
