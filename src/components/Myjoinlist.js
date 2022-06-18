@@ -9,8 +9,6 @@ const Myjoinlist = ({ listObj, isOwner }) => {
   const [exist, setExist] = useState(false);
 
   let navigate = useNavigate();
-
-  console.log(isOwner);
   let myObj;
   useEffect(() => {
     let dblists = dbService
