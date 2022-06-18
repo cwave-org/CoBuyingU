@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useLocation } from "react-router-dom";
 import { dbService } from "../fbase";
 
-const BuyingForm = ({userObj}) => {
+const BuyingForm = ({ userObj }) => {
   const [name, setName] = useState("");
   const [phonenumber, setPhonenumber] = useState("");
   const [count, setCount] = useState("");
@@ -68,86 +68,108 @@ const BuyingForm = ({userObj}) => {
   };
 
   return (
-    <div className="openjoin_container">
+    <form className="openjoin_container" onSubmit={onSubmit}>
       <p>공구 참여하기</p>
-      <form onSubmit={onSubmit}>
-        <span># 이름: </span>
+
+      <p className="openjoin_que">
+        <span>✔️  이름: </span>
         <input
+          className="openjoin_input"
           id="nameform"
           type="text"
           placeholder="Write name"
           onChange={onChange}
           value={name}
         />
-        <br></br>
-        <span># 전화번호: </span>
+      </p>
+
+      <p className="openjoin_que">
+        <span>✔️ 전화번호: </span>
         <input
+          className="openjoin_input"
           id="phonenumberform"
           type="tel"
           placeholder="Write phone number"
           onChange={onChange}
           value={phonenumber}
         />
-        <br></br>
-        <span># 수량: </span>
+      </p>
+
+      <p className="openjoin_que">
+        <span>✔️ 수량: </span>
         <input
+          className="openjoin_input"
           id="countform"
           type="number"
           placeholder="수량을 입력하세요"
           onChange={onChange}
           value={count}
         />
-        <br></br>
-        <span># 사이즈: </span>
+      </p>
+
+      <p className="openjoin_que">
+        <span>✔️ 사이즈: </span>
         <input
+          className="openjoin_input"
           id="sizeform"
           type="text"
           placeholder="사이즈를 입력하세요"
           onChange={onChange}
           value={size}
         />
-        <br></br>
-        <span># 주소:</span>
+      </p>
+
+      <p className="openjoin_que">
+        <span>✔️ 주소:</span>
         <input
+          className="openjoin_input"
           id="addressform"
           type="text"
           placeholder="배송을 원하시면 주소를 입력해주세요"
           onChange={onChange}
           value={address}
         />
-        <br></br>
-        <span># 입금자명: </span>
+      </p>
+
+      <p className="openjoin_que">
+        <span>✔️ 입금자명: </span>
         <input
+          className="openjoin_input"
           id="accountnameform"
           type="text"
           placeholder="입금자명을 입력해주세요"
           onChange={onChange}
           value={account_name}
         />
-        <br></br>
-        <span># 입금일자: </span>
+      </p>
+
+      <p className="openjoin_que">
+        <span>✔️ 입금일자: </span>
         <input
+          className="openjoin_input"
           id="accountdateform"
           type="date"
           placeholder="입금일자를 입력해주세요"
           onChange={onChange}
           value={account_date}
         />
-        <br></br>
+      </p>
+
+      <p className="openjoin_que">
         <span className="openjoin_long">
-          # 환불계좌(은행/계좌번호/입금주명):{" "}
+          ✔️ 환불계좌(은행/계좌번호/입금주명):{" "}
         </span>
         <input
+          className="openjoin_input"
           id="accountreform"
           type="text"
           placeholder="환불계좌(은행/계좌번호/입금주명)을 입력해주세요"
           onChange={onChange}
           value={account_re}
         />
-        <br></br>
-        <input type="submit" />
-      </form>
-    </div>
+      </p>
+      <input type="submit" />
+    </form>
   );
 };
 
