@@ -45,7 +45,10 @@ const Detaillist = ({ userObj }) => {
     navigate("/buying", { replace: false, state: { detailObj: detailObj } });
   };
   const onShowlistClick = () => {
-    navigate("/itemlist", { replace: false, state: { detailObj: detailObj } });
+    navigate("/itemlist", {
+      replace: false,
+      state: { buyerindex: detailObj.randomidx, filename: detailObj.itemname },
+    });
   };
 
   // Delete Cobuying Item
@@ -450,7 +453,7 @@ const Detaillist = ({ userObj }) => {
               <div>
                 {detailObj.creatorId === userObj.uid && (
                   <div className="detaillist_user">
-                    <span  onClick={toggleEditing}>
+                    <span onClick={toggleEditing}>
                       <FontAwesomeIcon
                         icon={faPencilAlt}
                         size="2x"
@@ -467,9 +470,9 @@ const Detaillist = ({ userObj }) => {
                   </div>
                 )}
                 <span className="detaillist_bar">
-                      <a href={detailObj.link}>
-                        <img src="img/kakaotalk.png" height={30} width={30} />
-                      </a>
+                  <a href={detailObj.link}>
+                    <img src="img/kakaotalk.png" height={30} width={30} />
+                  </a>
                 </span>
               </div>
             </div>

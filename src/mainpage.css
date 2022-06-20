@@ -1,5 +1,5 @@
 /* 
-.nweet{
+.cobuyingItem{
     box-shadow: 0 1px 10px 0 rgb(247, 243, 243);
 } */
 .container {
@@ -11,7 +11,7 @@
   align-items: center;
   /* text-align: center; */
 }
-.nweet img {
+.cobuyingItem img {
   width: 50%;
   height: auto;
   align-content: center;
@@ -20,7 +20,7 @@
   margin-top: 70px;
 }
 
-.nweet {
+.cobuyingItem {
   text-align: center;
   display: flex;
   width: 10rem;

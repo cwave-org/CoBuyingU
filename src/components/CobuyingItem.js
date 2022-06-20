@@ -1,7 +1,7 @@
 import React from "react";
 import { dbService, storageService } from "../fbase";
 import { useNavigate } from "react-router-dom";
-const Nweet = ({ listObj, isOwner }) => {
+const CobuyingItem = ({ listObj, isOwner }) => {
   let navigate = useNavigate();
   const onDetaillistClick = () => {
     // const detailObj = "init";
@@ -13,7 +13,7 @@ const Nweet = ({ listObj, isOwner }) => {
 
   return (
     // className 뭐라 할까 css할때 헷갈릴까봐 아직 안바꿨어
-    <div className="nweet">
+    <div className="cobuyingItem">
       <>
         <div
           className="dfddfa"
@@ -60,4 +60,4 @@ const Nweet = ({ listObj, isOwner }) => {
     </div>
   );
 };
-export default Nweet;
+export default CobuyingItem;

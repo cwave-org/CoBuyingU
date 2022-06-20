@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import Nweet from "../components/Nweet";
+import CobuyingItem from "../components/CobuyingItem";
 import { dbService } from "../fbase";
 import styled from "styled-components";
 
@@ -92,7 +92,7 @@ const Home = ({ userObj }) => {
 
       <PostListWrapper>
         {lists.map((list) => (
-          <Nweet
+          <CobuyingItem
             key={list.id}
             userObj={userObj}
             listObj={list}
@@ -104,7 +104,7 @@ const Home = ({ userObj }) => {
       {/* <div style={{ marginTop: 30 }}> */}
       {/* {lists.map((list) => (
                     
-                    <Nweet
+                    <CobuyingItem
                         key={list.id}
                         userObj={userObj}
                         listObj={list}
