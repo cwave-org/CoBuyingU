@@ -425,9 +425,10 @@ const Detaillist = ({ userObj }) => {
               <button className="submit_Btn" onClick={onJoinlistClick}>
                 공구 참여하기
               </button>
-              <button className="submit_Btn" onClick={onShowlistClick}>
+              {detailObj.creatorId === userObj.uid && (<button className="submit_Btn" onClick={onShowlistClick}>
                 공구 참여자 목록 보기
-              </button>
+              </button>)}
+
             </div>
             <br></br>
             <div className="detaillist_imo">

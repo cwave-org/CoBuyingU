@@ -84,6 +84,8 @@ nav span {
   padding-top: 16px;
   text-align: center;
   font-size: 20px;
+  border-radius: 15px;
+
 }
 
 #powerseller {
@@ -118,6 +120,7 @@ button {
   margin: 5px;
   margin-top: 0px;
   margin-bottom: 0px;
+  border-radius: 5px;
 }
 
 .qna_input {
