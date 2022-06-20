@@ -280,7 +280,7 @@ const Detaillist = ({ userObj }) => {
           <>
             <form onSubmit={onSubmit}>
               <p className="openjoin_que">
-                <span>✔️ 이름:</span>
+                <span>✔️ 이름: </span>
                 <input
                   className="openjoin_input"
                   value={name}
@@ -398,12 +398,12 @@ const Detaillist = ({ userObj }) => {
         <>
           <div className="detaillist_content">
             <div>
-              <h2 align="center">{detailObj.itemname}</h2>
+              <h2 align="center">{itemObj.itemname}</h2>
 
-              {detailObj.attachmentUrl && (
-                <img src={detailObj.attachmentUrl} className="detaillist_img" />
+              {itemObj.attachmentUrl && (
+                <img src={itemObj.attachmentUrl} className="detaillist_img" />
               )}
-              <h3 align="center"> {detailObj.price}원</h3>
+              <h3 align="center"> {itemObj.price}원</h3>
 
               <div className="detaillist_scr">
                 {!checked ? (
@@ -425,13 +425,13 @@ const Detaillist = ({ userObj }) => {
 
               <div className="detaillist_font">
                 <p>
-                  <b>판매자</b> &nbsp;&nbsp;&nbsp; {detailObj.name}
+                  <b>판매자</b> &nbsp;&nbsp;&nbsp; {itemObj.name}
                   <br></br>
-                  <b>마감기한</b> &nbsp;&nbsp;&nbsp; {detailObj.deadline}
+                  <b>마감기한</b> &nbsp;&nbsp;&nbsp; {itemObj.deadline}
                   <br></br>
-                  <b>계좌</b> &nbsp;&nbsp;&nbsp;{detailObj.account}
+                  <b>계좌</b> &nbsp;&nbsp;&nbsp;{itemObj.account}
                   <br></br>
-                  <b>기타사항</b> <br></br> {detailObj.etc}
+                  <b>기타사항</b> <br></br> {itemObj.etc}
                   <br></br>
                 </p>
               </div>
