@@ -203,22 +203,6 @@ const Detaillist = ({ userObj }) => {
       });
     setQna("");
   };
-  /*
-  const QnAonSubmit = async (event) => {
-    event.preventDefault();
-    await dbService
-      .collection("startlist")
-      .doc(detailObj.id)
-      .collection("QnA")
-      .add({
-        text: qna,
-        createdAt: Date.now(),
-        creatorId: userObj.uid,
-        checked: false,
-        userName: userObj.displayName,
-      });
-    setQna("");
-  };*/
 
   const checkObj = {
     check: !checked,
@@ -273,6 +257,7 @@ const Detaillist = ({ userObj }) => {
         .delete();
     }
   };
+
   return (
     <>
       {editing ? (
@@ -432,19 +417,15 @@ const Detaillist = ({ userObj }) => {
                   <b>계좌</b> &nbsp;&nbsp;&nbsp;{itemObj.account}
                   <br></br>
                   <b>기타사항</b> <br></br> {itemObj.etc}
-                  <br></br>
                 </p>
               </div>
             </div>
 
             <div align="center">
-              <button
-                className="detaillist submit Btn"
-                onClick={onJoinlistClick}
-              >
+              <button className="submit_Btn" onClick={onJoinlistClick}>
                 공구 참여하기
               </button>
-              <button className="detaillist show Btn" onClick={onShowlistClick}>
+              <button className="submit_Btn" onClick={onShowlistClick}>
                 공구 참여자 목록 보기
               </button>
             </div>
@@ -487,6 +468,7 @@ const Detaillist = ({ userObj }) => {
                   {!bucket ? (
                     <form onSubmit={QnAonSubmit}>
                       <input
+                        className="qna_input"
                         type="text"
                         placeholder="🙏🏼수정은 불가능하세요.🙏🏼"
                         value={qna}
@@ -496,7 +478,7 @@ const Detaillist = ({ userObj }) => {
                       <button type="submit">Upload</button>
                     </form>
                   ) : (
-                    <div>"🙏🏼원활한 QnA를 위해 1 질문만 가능합니다.🙏🏼"</div>
+                    <div className="qna_text">🙏🏼원활한 QnA를 위해 하나의 질문만 가능합니다.🙏🏼</div>
                   )}
                   <br></br>
                 </div>
