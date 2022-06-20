@@ -258,6 +258,10 @@ const Detaillist = ({ userObj }) => {
     }
   };
 
+  const kakaoClick = () => {
+    navigate("/selling/detail");
+  };
+
   return (
     <>
       {editing ? (
@@ -273,6 +277,7 @@ const Detaillist = ({ userObj }) => {
                   type="text"
                   placeholder={itemObj.name}
                   maxLength={120}
+                  required
                 />
               </p>
 
@@ -285,6 +290,7 @@ const Detaillist = ({ userObj }) => {
                   type="text"
                   placeholder={itemObj.itemname}
                   maxLength={120}
+                  required
                 />
               </p>
 
@@ -297,6 +303,7 @@ const Detaillist = ({ userObj }) => {
                   type="text"
                   placeholder={itemObj.item}
                   maxLength={120}
+                  required
                 />
               </p>
 
@@ -309,6 +316,7 @@ const Detaillist = ({ userObj }) => {
                   type="number"
                   placeholder={itemObj.price}
                   maxLength={120}
+                  required
                 />
               </p>
 
@@ -321,6 +329,7 @@ const Detaillist = ({ userObj }) => {
                   type="date"
                   placeholder={itemObj.deadline}
                   maxLength={120}
+                  required
                 />
               </p>
 
@@ -349,6 +358,7 @@ const Detaillist = ({ userObj }) => {
                   placeholder={itemObj.account}
                   maxLength={120}
                   style={{ marginBottom: 5 }}
+                  required
                 />
               </p>
 
@@ -440,6 +450,7 @@ const Detaillist = ({ userObj }) => {
                         icon={faPencilAlt}
                         size="2x"
                         color={"#4B59A8"}
+                        title="수정"
                       />
                     </span>
                     <span className="detaillist_user" onClick={onDeleteClick}>
@@ -447,14 +458,18 @@ const Detaillist = ({ userObj }) => {
                         icon={faTrash}
                         size="2x"
                         color={"#4B59A8"}
+                        title="삭제"
                       />
                     </span>
                   </div>
                 )}
                 <span className="detaillist_bar">
+                  {detailObj.link ? 
                   <a href={detailObj.link}>
                     <img src="img/kakaotalk.png" height={30} width={30} />
-                  </a>
+                  </a> : 
+                    <img src="img/kakao_no.png" height={30} width={30} title="연결된 오픈채팅방이 없습니다."/>
+                 }
                 </span>
               </div>
             </div>

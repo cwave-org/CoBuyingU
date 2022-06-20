@@ -130,6 +130,7 @@ const SellingForm = ({ userObj }) => {
           type="text"
           placeholder="이름"
           maxLength={120}
+          required
         />
       </p>
 
@@ -142,6 +143,7 @@ const SellingForm = ({ userObj }) => {
           type="text"
           placeholder="상품이름"
           maxLength={120}
+          required
         />
       </p>
 
@@ -154,6 +156,7 @@ const SellingForm = ({ userObj }) => {
           type="text"
           placeholder="품목"
           maxLength={120}
+          required
         />
       </p>
 
@@ -166,6 +169,7 @@ const SellingForm = ({ userObj }) => {
           type="number"
           placeholder="가격(원)"
           maxLength={120}
+          required
         />
       </p>
 
@@ -178,6 +182,7 @@ const SellingForm = ({ userObj }) => {
           type="date"
           placeholder="마감기한"
           maxLength={120}
+          required
         />
       </p>
 
@@ -206,6 +211,7 @@ const SellingForm = ({ userObj }) => {
           placeholder="계좌(은행/ 계좌번호/입금주명)"
           maxLength={120}
           style={{ marginBottom: 5 }}
+          required
         />
       </p>
 
