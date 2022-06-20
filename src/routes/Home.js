@@ -24,7 +24,7 @@ const Home = ({ userObj }) => {
   useEffect(() => {
     dbService
     .collection("startlist")
-    .orderBy("deadline", "asc")
+    .orderBy("deadline", "desc")
     .onSnapshot((snapshot) => {
       const listArray = snapshot.docs.map((doc) => ({
         id: doc.id,
@@ -76,7 +76,6 @@ const Home = ({ userObj }) => {
           const cur = map1.get(creator);
           if (cur > powersellers) {
             setPowerseller(doc.data().name); //이름
-            console.log(doc.data().name);
             setPowersellers(cur); //  개수
           }
         });

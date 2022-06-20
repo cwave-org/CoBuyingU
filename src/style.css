@@ -132,3 +132,8 @@ button {
   margin-left: 5%;
   font-size: 14px;
 }
+
+.endthing{
+  opacity: 0.4;
+  filter: alpha(opacity=40);
+}
