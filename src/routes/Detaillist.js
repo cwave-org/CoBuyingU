@@ -280,7 +280,7 @@ const Detaillist = ({ userObj }) => {
           <>
             <form onSubmit={onSubmit}>
               <p className="openjoin_que">
-                <span>✔️ 이름:</span>
+                <span>✔️ 이름: </span>
                 <input
                   className="openjoin_input"
                   value={name}
