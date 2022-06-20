@@ -475,11 +475,10 @@ const Detaillist = ({ userObj }) => {
                         value={qna}
                         onChange={QnAonChange}
                       />
-
-                      <button type="submit">Upload</button>
+                      <button type="upload_Btn">Upload</button>
                     </form>
                   ) : (
-                    <div className="qna_text">🙏🏼원활한 QnA를 위해 하나의 질문만 가능합니다.🙏🏼</div>
+                    <div className="qna_text">🙏🏼 원활한 QnA를 위해 질문 하나만 가능합니다 🙏🏼</div>
                   )}
                   <br></br>
                 </div>

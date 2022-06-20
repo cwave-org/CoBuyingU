@@ -47,7 +47,7 @@ const Comment= ({ userObj,qnaObj,detailObj }) => {
                     onChange={onChangeComment}
                   />
         
-                  <button type="submit">
+                  <button type="submit" className="upload_Btn">
                   Upload
                   </button>
               </form>
