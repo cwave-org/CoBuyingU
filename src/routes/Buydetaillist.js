@@ -96,83 +96,99 @@ const Buydetaillist = () => {
   return (
     <>
       {editing ? (
-        <div className="container">
+        <div className="detaillist_content">
           <div className="my_title">💙폼 제출 내용💙</div>
           <hr />
-          <br />
-          <div className="mydetail">
-            <form onSubmit={onSubmit} className="container cobuyingItemEdit">
+          <>
+            <form onSubmit={onSubmit}>
+            <p className="openjoin_que">
               <span>이름: </span>
               <input
+                className="openjoin_input"
                 id="nameform"
                 type="text"
                 placeholder={newName}
                 onChange={onChange}
                 value={newName}
               />
-              <br></br>
+            </p>
+            <p className="openjoin_que">
               <span>전화번호: </span>
               <input
+                className="openjoin_input"
                 id="phonenumberform"
                 type="tel"
                 placeholder={newPhonenumber}
                 onChange={onChange}
                 value={newPhonenumber}
               />
-              <br></br>
+            </p>
+            <p className="openjoin_que">
               <span>수량: </span>
               <input
+                className="openjoin_input"
                 id="countform"
                 type="number"
                 placeholder={newCount}
                 onChange={onChange}
                 value={newCount}
               />
-              <br></br>
+            </p>
+            <p className="openjoin_que">
               <span>사이즈: </span>
               <input
+                className="openjoin_input"
                 id="sizeform"
                 type="text"
                 placeholder={newSize}
                 onChange={onChange}
                 value={newSize}
               />
-              <br></br>
+            </p>
+            <p className="openjoin_que">
               <span>주소:</span>
               <input
+                className="openjoin_input"
                 id="addressform"
                 type="text"
                 placeholder="배송을 원하시면 주소를 입력해주세요"
                 onChange={onChange}
                 value={newAddress}
               />
-              <br></br>
+            </p>
+            <p className="openjoin_que">
               <span>입금자명: </span>
               <input
+                className="openjoin_input"
                 id="accountnameform"
                 type="text"
                 placeholder="입금자명을 입력해주세요"
                 onChange={onChange}
                 value={newAccount_name}
               />
-              <br></br>
+            </p>
+            <p className="openjoin_que">
               <span>입금일자: </span>
               <input
+                className="openjoin_input"
                 id="accountdateform"
                 type="date"
                 placeholder="입금일자를 입력해주세요"
                 onChange={onChange}
                 value={newAccount_date}
               />
-              <br></br>
+            </p>
+            <p className="openjoin_que">
               <span>환불계좌(은행/계좌번호/입금주명): </span>
               <input
+                className="openjoin_input"
                 id="accountreform"
                 type="text"
                 placeholder="환불계좌(은행/계좌번호/입금주명)을 입력해주세요"
                 onChange={onChange}
                 value={newAccount_re}
               />
+            </p>
               <input
                 type="submit"
                 value="Update Contents"
@@ -182,7 +198,7 @@ const Buydetaillist = () => {
             <button onClick={toggleEditing} className="cancelBtn">
               Cancel
             </button>
-          </div>
+          </>
         </div>
       ) : (
         <div className="container">
