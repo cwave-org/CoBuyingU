@@ -425,9 +425,10 @@ const Detaillist = ({ userObj }) => {
               <button className="submit_Btn" onClick={onJoinlistClick}>
                 공구 참여하기
               </button>
-              <button className="submit_Btn" onClick={onShowlistClick}>
+              {detailObj.creatorId === userObj.uid && (<button className="submit_Btn" onClick={onShowlistClick}>
                 공구 참여자 목록 보기
-              </button>
+              </button>)}
+
             </div>
             <br></br>
             <div className="detaillist_imo">
@@ -474,11 +475,10 @@ const Detaillist = ({ userObj }) => {
                         value={qna}
                         onChange={QnAonChange}
                       />
-
-                      <button type="submit">Upload</button>
+                      <button type="upload_Btn">Upload</button>
                     </form>
                   ) : (
-                    <div className="qna_text">🙏🏼원활한 QnA를 위해 하나의 질문만 가능합니다.🙏🏼</div>
+                    <div className="qna_text">🙏🏼 원활한 QnA를 위해 질문 하나만 가능합니다 🙏🏼</div>
                   )}
                   <br></br>
                 </div>

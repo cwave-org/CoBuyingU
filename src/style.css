@@ -26,8 +26,8 @@ body {
 }
 
 nav {
-  background: #e0c0f6;
-  height: 100px;
+  background-color: #e0c0f6;
+  height: 90px;
   width: 100%;
   border-radius: 0 0 5px 5px;
   padding: 15px;
@@ -37,8 +37,6 @@ nav {
 }
 
 nav ul {
-  /* padding-left: 30%;
-  padding-right: 30%; */
   padding-left: 0%;
   padding-right: 0%;
 }
@@ -47,7 +45,6 @@ nav li {
   display: inline-block;
   margin: auto;
   width: auto;
-  /*width: 100px*/
 }
 
 nav span {
@@ -87,6 +84,8 @@ nav span {
   padding-top: 16px;
   text-align: center;
   font-size: 20px;
+  border-radius: 15px;
+
 }
 
 #powerseller {
@@ -121,6 +120,7 @@ button {
   margin: 5px;
   margin-top: 0px;
   margin-bottom: 0px;
+  border-radius: 5px;
 }
 
 .qna_input {
@@ -129,6 +129,40 @@ button {
 }
 
 .qna_text {
-  margin-left: 5%;
+  margin-top: 5%;
+  text-align: center;
   font-size: 14px;
+}
+
+.endthing{
+  opacity: 0.4;
+  filter: alpha(opacity=40);
+}
+
+.upload_Btn {
+  margin: 5px;
+  margin-top: 0px;
+  margin-bottom: 0px;
+  border-radius: 5px;
+  margin-left: 4px;
+}
+
+.cancel_Btn{
+  border-radius: 3px;
+  margin-top: 0px;
+  margin-bottom: 0px;
+  border-radius: 5px;
+  margin-left: 10%;
+  margin-right: 5%;
+}
+
+.update_Btn{
+  margin: 20px;
+  background: #bbdcf7;
+  color: rgb(85, 141, 245);
+  border: none;
+  border-radius: 3px;
+  display: inline-block;
+  align-items: center;
+  margin-left: 10%;
 }

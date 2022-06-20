@@ -204,15 +204,20 @@ const Buydetaillist = () => {
                   value={newAccount_re}
                 />
               </p>
+              <div className="buttons">
               <input
                 type="submit"
                 value="Update Contents"
-                className="formBtn"
+                className="update_Btn"
               />
+              <button onClick={toggleEditing} className="cancel_Btn">
+                Cancel
+              </button>
+            </div>
             </form>
-            <button onClick={toggleEditing} className="cancelBtn">
-              Cancel
-            </button>
+
+            
+
           </>
         </div>
       ) : (

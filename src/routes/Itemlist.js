@@ -26,7 +26,6 @@ const Itemlist = () => {
           };
           setLists((prev) => [myobj, ...prev]);
           setExcelList((prev) => [excelobj, ...prev]);
-          console.log("wowwwwwwwwwwwwwwwwwwwwwwwwwww");
         });
       });
   }, [buyerindex]);

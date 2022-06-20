@@ -5,7 +5,6 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrash, faPencilAlt } from "@fortawesome/free-solid-svg-icons";
 
 export default function QnA({ qnaObj, isOwner, userObj, detailObj, bucket }) {
-  console.log(qnaObj.text);
   const onQnADeleteClick = async () => {
     const ok = window.confirm("정말 삭제하실 건가요??");
     if (ok) {

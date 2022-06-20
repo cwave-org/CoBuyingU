@@ -22,7 +22,10 @@ const Home = ({ userObj }) => {
 
   // 모든 startlist 불러오기
   useEffect(() => {
-    dbService.collection("startlist").onSnapshot((snapshot) => {
+    dbService
+    .collection("startlist")
+    .orderBy("deadline", "desc")
+    .onSnapshot((snapshot) => {
       const listArray = snapshot.docs.map((doc) => ({
         id: doc.id,
         ...doc.data(),
@@ -73,7 +76,6 @@ const Home = ({ userObj }) => {
           const cur = map1.get(creator);
           if (cur > powersellers) {
             setPowerseller(doc.data().name); //이름
-            console.log(doc.data().name);
             setPowersellers(cur); //  개수
           }
         });
@@ -84,7 +86,7 @@ const Home = ({ userObj }) => {
     <div className="container">
       <div className="home_power">
         <p>
-          👑 파워공구자 <span id="powerseller">{powerseller}</span>:{" "}
+          👑 파워공구자 <span id="powerseller">{powerseller}</span>: {" "}
           {powersellers} 개 👑
         </p>
       </div>
@@ -101,17 +103,6 @@ const Home = ({ userObj }) => {
           />
         ))}
       </PostListWrapper>
-      {/* <div style={{ marginTop: 30 }}> */}
-      {/* {lists.map((list) => (
-                    
-                    <CobuyingItem
-                        key={list.id}
-                        userObj={userObj}
-                        listObj={list}
-                        isOwner={list.creatorId === userObj.uid}
-                    />
-                ))} */}
-      {/* </div> */}
     </div>
   );
 };

@@ -48,7 +48,7 @@ const Myscrap = ({ listObj, userObj }) => {
         {bucket ? (
           <>
             <div>
-              <h4 onClick={onClick}>품목 이름: {`${listObj.itemname}`}</h4>
+              <span onClick={onClick}>품목 이름: {`${listObj.itemname}`}</span>
             </div>
           </>
         ) : (
