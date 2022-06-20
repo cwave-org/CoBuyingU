@@ -83,6 +83,7 @@ const BuyingForm = ({ userObj }) => {
           placeholder="Write name"
           onChange={onChange}
           value={name}
+          required
         />
       </p>
 
@@ -95,6 +96,7 @@ const BuyingForm = ({ userObj }) => {
           placeholder="Write phone number"
           onChange={onChange}
           value={phonenumber}
+          required
         />
       </p>
 
@@ -107,6 +109,7 @@ const BuyingForm = ({ userObj }) => {
           placeholder="수량을 입력하세요"
           onChange={onChange}
           value={count}
+          required
         />
       </p>
 
@@ -119,6 +122,7 @@ const BuyingForm = ({ userObj }) => {
           placeholder="사이즈를 입력하세요"
           onChange={onChange}
           value={size}
+          required
         />
       </p>
 
@@ -143,6 +147,7 @@ const BuyingForm = ({ userObj }) => {
           placeholder="입금자명을 입력해주세요"
           onChange={onChange}
           value={account_name}
+          required
         />
       </p>
 
@@ -155,6 +160,7 @@ const BuyingForm = ({ userObj }) => {
           placeholder="입금일자를 입력해주세요"
           onChange={onChange}
           value={account_date}
+          required
         />
       </p>
 
@@ -169,6 +175,7 @@ const BuyingForm = ({ userObj }) => {
           placeholder="환불계좌(은행/계좌번호/입금주명)을 입력해주세요"
           onChange={onChange}
           value={account_re}
+          required
         />
       </p>
       <input type="submit" />
