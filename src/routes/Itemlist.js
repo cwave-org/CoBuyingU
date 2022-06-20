@@ -59,10 +59,10 @@ const Itemlist = () => {
           </div>
         </div>
       ) : (
-        <div className="container">
-          <div className="joinerlist">
-            <p>아직 참여자가 없습니다.</p>
-          </div>
+        <div>
+          <br /> <br /> <br /> <br />
+          <br />
+          <img width="100%" src="img/no_participation.png"></img>
         </div>
       )}
     </>

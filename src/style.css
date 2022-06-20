@@ -98,13 +98,13 @@ nav span {
   left: 0;
   bottom: 0;
   width: 100%;
-  background-color: #afb6f6;
+  background-color: #c3dfc0;
   color: white;
   text-align: center;
 }
 
-button{
-  margin : 20px;
+button {
+  margin: 20px;
   background: #bbdcf7;
   color: rgb(85, 141, 245);
   border: none;
@@ -117,18 +117,18 @@ button{
   color: white;
 }
 
-.submit_Btn{
+.submit_Btn {
   margin: 5px;
   margin-top: 0px;
   margin-bottom: 0px;
 }
 
-.qna_input{
+.qna_input {
   margin-left: 5%;
   margin-top: 3%;
 }
 
-.qna_text{
+.qna_text {
   margin-left: 5%;
   font-size: 14px;
 }

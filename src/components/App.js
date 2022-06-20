@@ -47,9 +47,9 @@ function App() {
           userObj={userObj}
         />
       ) : (
-        "Initializing..."
+        <img width="100%" src="img/cwave_black.png"></img>
       )}
-      <footer className="footer">&copy; C-WAVE all rights reserved  </footer>
+      <footer className="footer">&copy; C-WAVE all rights reserved </footer>
     </>
   );
 }
