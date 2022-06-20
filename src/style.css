@@ -102,3 +102,33 @@ nav span {
   color: white;
   text-align: center;
 }
+
+button{
+  margin : 20px;
+  background: #bbdcf7;
+  color: rgb(85, 141, 245);
+  border: none;
+  border-radius: 3px;
+  display: inline-block;
+}
+
+.Excelclass .btn {
+  background: #bbdcf7;
+  color: white;
+}
+
+.submit_Btn{
+  margin: 5px;
+  margin-top: 0px;
+  margin-bottom: 0px;
+}
+
+.qna_input{
+  margin-left: 5%;
+  margin-top: 3%;
+}
+
+.qna_text{
+  margin-left: 5%;
+  font-size: 14px;
+}

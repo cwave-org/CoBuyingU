@@ -4,8 +4,7 @@ const Excel = ({ exceldata,name }) => {
   
     return (
       <div className="Excelclass">
-      
-      <button>
+      <button className="btn">
         <CSVLink 
           data={data}
           filename={`${name}_엑셀.csv`} 
