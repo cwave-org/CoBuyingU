@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { dbService } from "../fbase";
 
 const BuyingForm = ({ userObj }) => {
@@ -13,6 +13,7 @@ const BuyingForm = ({ userObj }) => {
   const [account_re, setAccount_re] = useState("");
 
   const location = useLocation();
+  const navigate = useNavigate();
 
   const { detailObj } = location.state; // 입력 폼 정보 받아오기
 
@@ -42,6 +43,8 @@ const BuyingForm = ({ userObj }) => {
     setAccount_name("");
     setAccount_date("");
     setAccount_re("");
+
+    navigate("/");
   };
 
   const onChange = (event) => {
@@ -72,7 +75,7 @@ const BuyingForm = ({ userObj }) => {
       <p>공구 참여하기</p>
 
       <p className="openjoin_que">
-        <span>✔️  이름: </span>
+        <span>✔️ 이름: </span>
         <input
           className="openjoin_input"
           id="nameform"
