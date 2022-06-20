@@ -69,7 +69,7 @@ ul {
 
 .detaillist_imo {
   display: flex;
-  flex-direction: row-reverse;
+  flex-direction: column;
   margin-right: auto;
   padding: auto;
   text-align: right;
@@ -82,4 +82,8 @@ ul {
 
 .detaillist_bar {
   margin-left: 10%;
+}
+
+.detaillist_user{
+  margin-left: 1%;
 }

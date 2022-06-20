@@ -449,28 +449,28 @@ const Detaillist = ({ userObj }) => {
             <div className="detaillist_imo">
               <div>
                 {detailObj.creatorId === userObj.uid && (
-                  <div className="nweet__actions">
-                    <span className="detaillist_bar" onClick={toggleEditing}>
+                  <div className="detaillist_user">
+                    <span  onClick={toggleEditing}>
                       <FontAwesomeIcon
                         icon={faPencilAlt}
                         size="2x"
                         color={"#4B59A8"}
                       />
                     </span>
-                    <span className="detaillist_bar" onClick={onDeleteClick}>
+                    <span className="detaillist_user" onClick={onDeleteClick}>
                       <FontAwesomeIcon
                         icon={faTrash}
                         size="2x"
                         color={"#4B59A8"}
                       />
                     </span>
-                    <span className="detaillist_bar">
+                  </div>
+                )}
+                <span className="detaillist_bar">
                       <a href={detailObj.link}>
                         <img src="img/kakaotalk.png" height={30} width={30} />
                       </a>
-                    </span>
-                  </div>
-                )}
+                </span>
               </div>
             </div>
 
