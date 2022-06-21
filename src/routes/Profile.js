@@ -1,15 +1,11 @@
 import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
-import { authService, dbService } from "../fbase";
+import { dbService } from "../fbase";
 import Mylist from "../components/Mylist";
-
 import Myscrap from "../components/Myscrap";
-
 import Myjoinlist from "../components/Myjoinlist";
 import MyQnA from "../components/MyQnA";
 
 const Profile = ({ userObj, listObj, refreshUser }) => {
-  const navigate = useNavigate();
   const [newDisplayName, setNewDisplayName] = useState(userObj.displayName);
 
   // 모든 startlist 불러오기

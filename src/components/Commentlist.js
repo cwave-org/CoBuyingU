@@ -8,6 +8,7 @@ export default function Commentlist({
   isOwner,
   detailObj,
   qnaObj,
+  isOpener,
 }
 ) {
  
@@ -24,35 +25,25 @@ export default function Commentlist({
     }
   };
   return (
-
     <div>
-      <div className="detaillist_comment1">
-        {isOwner ? (
-          <div className="detaillist_comment2">
-            <div className="detaillist_qnacontent">
-              <img width="9%" src="img/chong.png"></img>
-              <b className="detaillist_chong">총대</b> &nbsp; {commentObj.text}
-              {isOwner && (
-                <span className="detaillist_trashbtn" onClick={onCommentDeleteClick}>
-                  <FontAwesomeIcon icon={faTrash} color={"#4B59A8"}/>
-                </span>
-              )}
-            </div>
-          </div>
-            ) : (
+      <div className="detaillist_qna_box">
+          {isOpener?(
             <span className="detaillist_qnacontent">
-              <img width="8%" src="img/noonsong.gif"></img>
-              <b>{commentObj.userName}</b> &nbsp; {commentObj.text}
-              {isOwner && (
-                <span className="detaillist_trashbtn" onClick={onCommentDeleteClick}>
-                  <FontAwesomeIcon icon={faTrash} color={"#4B59A8"}/>
-                </span>
-              )}
-            </span>
-        )}
-          </div>
-      
-    </div>
-
-      );
+             <img width="9%" src="img/chong.png"></img>
+              <b>총대</b>{' '}{commentObj.text}
+            </span>            
+          ):(
+          <span className="detaillist_qnacontent">
+          <img width="8%" src="img/noonsong.gif"></img>
+          <b>{commentObj.userName}</b> &nbsp; {commentObj.text}
+        </span>
+          )}
+          {isOwner && (
+            <span className="detaillist_trashbtn" onClick={onCommentDeleteClick}>
+            <FontAwesomeIcon icon={faTrash} color={"#4B59A8"} />
+          </span>)
+          }       
+        </div>
+      </div>
+  );
 };
