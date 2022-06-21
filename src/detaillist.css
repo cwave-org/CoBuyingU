@@ -45,7 +45,7 @@ ul {
 
 .detaillist_comment {
   margin-left: auto;
-  width: 80%;
+  width: 90%;
   text-align: left;
 }
 
@@ -53,7 +53,7 @@ ul {
   display: flex;
   flex-direction: column;
   margin-left: auto;
-  width: 80%;
+  width: 90%;
   text-align: left;
 }
 
@@ -86,4 +86,10 @@ ul {
 
 .detaillist_user{
   margin-left: 1%;
+}
+.detaillist_trashbtn{
+  float: right;
+}
+.detaillist_qnacontent{
+  width: 90%;
 }

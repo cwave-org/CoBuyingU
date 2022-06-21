@@ -7,6 +7,7 @@ export default function Commentlist({
   isOwner,
   detailObj,
   qnaObj,
+  isOpener,
 }) {
   const onCommentDeleteClick = async (event) => {
     if (isOwner) {
@@ -39,16 +40,26 @@ export default function Commentlist({
   return (
     <div>
       <div className="detaillist_comment1">
-        <div className="detaillist_comment2">
-          <b>{commentObj.userName}의 답변</b>
+          {isOpener?(
+            <span className="detaillist_comment2">
+             <b>총대</b>{' '}{commentObj.text}
+            </span>
+            
+          ):(
+          <span className="detaillist_qnacontent">
+          <img width="8%" src="img/noonsong.gif"></img>
+          {' '}{commentObj.text}
+        </span>
+          )}
+          
         </div>
         <div className="detaillist_comment3">
-          <label>{commentObj.text}</label>
-          <span onClick={onCommentDeleteClick}>
+          {isOwner&&(
+            <span onClick={onCommentDeleteClick}>
             <FontAwesomeIcon icon={faTrash} />
           </span>
+          )}
         </div>
       </div>
-    </div>
   );
 }
