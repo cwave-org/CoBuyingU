@@ -4,7 +4,7 @@ import Comment from "./Comment";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrash, faPencilAlt } from "@fortawesome/free-solid-svg-icons";
 
-export default function QnA({ qnaObj, isOwner, userObj, detailObj, bucket }) {
+export default function QnA({ qnaObj, isOwner, userObj, detailObj, bucket,isOpener }) {
   const onQnADeleteClick = async () => {
     const ok = window.confirm("정말 삭제하실 건가요??");
     if (ok) {
@@ -52,29 +52,19 @@ export default function QnA({ qnaObj, isOwner, userObj, detailObj, bucket }) {
 
   return (
     <div>
-      <div>
-        <div>
-          <div className="detaillist_qna_tras">
-            <div>
-              <b>{qnaObj.userName}님의 질문</b>
-            </div>
-
-            <div>
-              {isOwner && (
-                <div>
-                  <span onClick={onQnADeleteClick}>
-                    <FontAwesomeIcon icon={faTrash} />
-                  </span>
-                </div>
-              )}
-            </div>
-          </div>
-          <div className="detaillist_qna_box">{qnaObj.text}</div>
-        </div>
+      <div className="detaillist_qna_box">
+        <span className="detaillist_qnacontent">
+          <img width="8%" src="img/noonsong.gif"></img>
+          {' '}{qnaObj.text}
+        </span>
+        {isOwner && (
+        <span className="detaillist_trashbtn" onClick={onQnADeleteClick}>
+          <FontAwesomeIcon icon={faTrash} />
+        </span>
+        )}          
       </div>
-
       <div>
-        <Comment userObj={userObj} qnaObj={qnaObj} detailObj={detailObj} />
+        <Comment userObj={userObj} qnaObj={qnaObj} detailObj={detailObj} isOpener={isOpener} />
       </div>
     </div>
   );

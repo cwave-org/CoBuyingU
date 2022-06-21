@@ -3,7 +3,7 @@ import { dbService } from "../fbase";
 import Commentlist from "./Commentlist";
 
 
-const Comment= ({ userObj,qnaObj,detailObj }) => {
+const Comment= ({ userObj,qnaObj,detailObj,isOpener }) => {
     const [comment, setComment] = useState("");
     const [comments, setComments] = useState([]);
 
@@ -37,8 +37,8 @@ const Comment= ({ userObj,qnaObj,detailObj }) => {
       
     return (
           <div>
-            <div>
-              <div className="detaillist_comment">
+            <div className="detaillist_comment">
+              <span>
               <form onSubmit={onSubmitComment}>
                   <input 
                     type="text"
@@ -46,25 +46,21 @@ const Comment= ({ userObj,qnaObj,detailObj }) => {
                     value={comment}
                     onChange={onChangeComment}
                   />
-        
                   <button type="submit" className="upload_Btn">
                   Upload
                   </button>
               </form>
-              </div>
-
-              <>
-                {comments.map((comment) => (
+              </span>
+              {comments.map((comment) => (
                   <Commentlist
                     key={comment.id}
                     commentObj={comment}
                     isOwner={comment.creatorId === userObj.uid}
                     detailObj={detailObj}
                     qnaObj={qnaObj}
+                    isOpener={isOpener}
                   />
-                ))}
-              </>
-              
+                ))}   
             </div>
             <hr></hr>
 
