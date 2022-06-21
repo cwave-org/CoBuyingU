@@ -59,7 +59,7 @@ export default function QnA({ qnaObj, isOwner, userObj, detailObj, bucket,isOpen
         </span>
         {isOwner && (
         <span className="detaillist_trashbtn" onClick={onQnADeleteClick}>
-          <FontAwesomeIcon icon={faTrash} />
+          <FontAwesomeIcon icon={faTrash} color={"#4B59A8"} />
         </span>
         )}          
       </div>

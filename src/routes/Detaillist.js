@@ -461,7 +461,7 @@ const Detaillist = ({ userObj }) => {
                       <FontAwesomeIcon
                         icon={faPencilAlt}
                         size="2x"
-                        color={"#4B59A8"}
+                        color={"#C7D3F7"}
                         title="수정"
                       />
                     </span>
@@ -469,7 +469,7 @@ const Detaillist = ({ userObj }) => {
                       <FontAwesomeIcon
                         icon={faTrash}
                         size="2x"
-                        color={"#4B59A8"}
+                        color={"#C7D3F7"}
                         title="삭제"
                       />
                     </span>

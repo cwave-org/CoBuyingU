@@ -76,7 +76,7 @@ ul {
 }
 
 .detaillist_scr {
-  margin-right: 5%;
+  margin-right: 1%;
   text-align: right;
 }
 
@@ -91,5 +91,24 @@ ul {
   float: right;
 }
 .detaillist_qnacontent{
-  width: 90%;
+  width: 100%;
 }
+.detaillist_chong{
+  color:#1385e3;
+}
+
+
+.profile_edit{
+  display: flex;
+  width: 100%;
+  flex-direction: row;
+  justify-content: center;
+}
+.profile_text{
+  border:  none;
+}
+.profile_edit input:focus{
+  outline: 2px solid #bbdcf7;
+  border-radius: 5px;
+}
+
