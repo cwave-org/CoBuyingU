@@ -233,8 +233,8 @@ const SellingForm = ({ userObj }) => {
       </p>
 
       <p className="openjoin_que">
-        <span className="openjoin_long">✔️ 기타사항 : </span>
-        <input
+        <span className="openjoin_long">✔️ 구체사항 : </span>
+        <textarea
           className="openjoin_input"
           value={etc}
           onChange={onChange_etc}

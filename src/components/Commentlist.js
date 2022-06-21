@@ -2,6 +2,7 @@ import { dbService } from "../fbase";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrash } from "@fortawesome/free-solid-svg-icons";
 
+
 export default function Commentlist({
   commentObj,
   isOwner,
@@ -23,25 +24,35 @@ export default function Commentlist({
     }
   };
   return (
-    
-    <div>
-      <div className="detaillist_qna_box">
-          {isOwner?(
-            <span className="detaillist_qnacontent">
 
-             <b>총대</b>{' '}{commentObj.text}
-             <span className="etaillist_trashbtn" onClick={onCommentDeleteClick}>
-            <FontAwesomeIcon icon={faTrash} />
-          </span>
-            </span>            
-          ):(
-          <span className="detaillist_qnacontent">
-          <img width="8%" src="img/noonsong.gif"></img>
-          <b>{commentObj.userName}</b> &nbsp; {commentObj.text}
-        </span>
-          )}       
-        </div>
-      </div>
-    
-  );
+    <div>
+      <div className="detaillist_comment1">
+        {isOpener ? (
+          <div className="detaillist_comment2">
+            <div className="detaillist_qnacontent">
+              <img width="9%" src="img/chong.png"></img>
+              <b className="detaillist_chong">총대</b> &nbsp; {commentObj.text}
+              {isOwner && (
+                <span className="detaillist_trashbtn" onClick={onCommentDeleteClick}>
+                  <FontAwesomeIcon icon={faTrash} color={"#4B59A8"}/>
+                </span>
+              )}
+            </div>
+          </div>
+            ) : (
+            <span className="detaillist_qnacontent">
+              <img width="8%" src="img/noonsong.gif"></img>
+              <b>{commentObj.userName}</b> &nbsp; {commentObj.text}
+              {isOwner && (
+                <span className="detaillist_trashbtn" onClick={onCommentDeleteClick}>
+                  <FontAwesomeIcon icon={faTrash} color={"#4B59A8"}/>
+                </span>
+              )}
+            </span>
+        )}
+          </div>
+      
+    </div>
+
+      );
 };

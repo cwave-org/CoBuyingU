@@ -8,7 +8,7 @@ import Myscrap from "../components/Myscrap";
 import Myjoinlist from "../components/Myjoinlist";
 import MyQnA from "../components/MyQnA";
 
-const Profile = ({ userObj, listObj,refreshUser }) => {
+const Profile = ({ userObj, listObj, refreshUser }) => {
   const navigate = useNavigate();
   const [newDisplayName, setNewDisplayName] = useState(userObj.displayName);
 
@@ -37,40 +37,44 @@ const Profile = ({ userObj, listObj,refreshUser }) => {
   }, []);
 
   //이름 바꾸기
-  const onChange2 = (event) => {
+  const onChange = (event) => {
     const {
-        target: {value},
+      target: { value },
     } = event;
     setNewDisplayName(value);
-};
+  };
 
-const onSubmit2 = async (event) => {
-  event.preventDefault();
-  if(userObj.displayName !== newDisplayName){
+  const onSubmit = async (event) => {
+    event.preventDefault();
+    if (userObj.displayName !== newDisplayName) {
       await userObj.updateProfile({
-          displayName: newDisplayName,
+        displayName: newDisplayName,
       });
       refreshUser();
-  }
-};
+    }
+  };
 
   return (
     <div className="container">
-      <form onSubmit={onSubmit2}>
-            <div>
-              <input
-              onChange={onChange2}
+      <div className="profile_edit">
+        <form onSubmit={onSubmit}>
+          <div>
+            <input
+              className="profile_text"
+              onChange={onChange}
               type="text"
               autoFocus
-              placeholder="Display name"
+              placeholder="닉네임"
               value={newDisplayName}
-              />
-              <input
-              type="submit"
-              value="Change Your ID"
-              />
-            </div>
-          </form>
+            /> &nbsp;
+            <button>
+              Change Your ID
+            </button>
+          </div>
+        </form>
+      </div>
+      <br></br>
+
       <div className="myopen">
         <div className="my_title">💙진행 공구 목록💙</div>
         <hr />
