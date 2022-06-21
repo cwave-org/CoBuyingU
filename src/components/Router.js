@@ -30,7 +30,7 @@ const AppRouter = ({ refreshUser, isLoggedIn, userObj }) => {
               <Route
                 exact
                 path="/profile"
-                element={<Profile userObj={userObj} />}
+                element={<Profile userObj={userObj} refreshUser={refreshUser} />}
               />
               <Route
                 exact
