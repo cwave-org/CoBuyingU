@@ -2,7 +2,7 @@ import { dbService } from "../fbase";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrash, faPencilAlt, } from "@fortawesome/free-solid-svg-icons";
 
-export default function Commentlist({ commentObj, isOwner, detailObj, qnaObj, isOpener}) {
+export default function Commentlist({ commentObj, isOwner, detailObj, qnaObj, isOpener }) {
   const onCommentDeleteClick = async (event) => {
     if (isOwner) {
       event.preventDefault();
@@ -25,31 +25,31 @@ export default function Commentlist({ commentObj, isOwner, detailObj, qnaObj, is
   };
 
   return (
-    
+
     <div>
       <div className="detaillist_comment1">
-      {isOpener?(
-            <span className="detaillist_comment2">
-             <b>총대</b>{' '}{commentObj.text}
-            </span>
-            
-          ):(
+        {isOpener ? (
           <span className="detaillist_qnacontent">
-          <img width="8%" src="img/noonsong.gif"></img>
-          <b>{commentObj.userName}</b> &nbsp; {commentObj.text}
-        </span>
-          )}
-          </div>
-        <div className="detaillist_comment3">
-        {isOwner&&(
-            <span onClick={onCommentDeleteClick}>
+            <img width="8%" src="img/chong.png"></img>
+            <b>총대</b>{' '}{commentObj.text}
+          </span>
+
+        ) : (
+          <span className="detaillist_qnacontent">
+            <img width="8%" src="img/noonsong.gif"></img>
+            <b>{commentObj.userName}</b> &nbsp; {commentObj.text}
+          </span>
+        )}
+        <div>
+        {isOwner && (
+          <span onClick={onCommentDeleteClick}>
             <FontAwesomeIcon icon={faTrash} />
           </span>
-          )}
-        </div>
-
-
+        )}
       </div>
-    
+      </div>
+      
+    </div>
+
   );
 };

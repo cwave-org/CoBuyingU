@@ -426,7 +426,19 @@ const Detaillist = ({ userObj }) => {
                   <br></br>
                   <b>계좌</b> &nbsp;&nbsp;&nbsp;{itemObj.account}
                   <br></br>
-                  <b>기타사항</b> <br></br> {itemObj.etc}
+                  <b>오픈채팅방</b>
+                  <span className="detaillist_bar">
+                    {detailObj.link ?
+                      <a href={detailObj.link}>
+                        <img src="img/kakaotalk.png" height={20} width={20} />
+                      </a> :
+                      <img src="img/kakao_no.png" height={20} width={20} title="연결된 오픈채팅방이 없습니다." />
+                    }
+                  </span>
+                  <br></br> 
+                  <b>기타사항</b> <br></br> 
+                  {itemObj.etc}
+                  <br></br> 
                 </p>
               </div>
             </div>
@@ -463,14 +475,7 @@ const Detaillist = ({ userObj }) => {
                     </span>
                   </div>
                 )}
-                <span className="detaillist_bar">
-                  {detailObj.link ? 
-                  <a href={detailObj.link}>
-                    <img src="img/kakaotalk.png" height={30} width={30} />
-                  </a> : 
-                    <img src="img/kakao_no.png" height={30} width={30} title="연결된 오픈채팅방이 없습니다."/>
-                 }
-                </span>
+
               </div>
             </div>
 
@@ -502,7 +507,7 @@ const Detaillist = ({ userObj }) => {
             <>
               {qnas.map((qna) => (
                 <QnA
-                isOpener={detailObj.creatorId === userObj.uid}
+                  isOpener={detailObj.creatorId === userObj.uid}
                   key={qna.id}
                   qnaObj={qna}
                   isOwner={qna.creatorId === userObj.uid}
