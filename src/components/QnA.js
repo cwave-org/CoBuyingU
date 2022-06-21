@@ -2,7 +2,7 @@ import React from "react";
 import { dbService } from "../fbase";
 import Comment from "./Comment";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faTrash, faPencilAlt } from "@fortawesome/free-solid-svg-icons";
+import { faTrash } from "@fortawesome/free-solid-svg-icons";
 
 export default function QnA({ qnaObj, isOwner, userObj, detailObj, bucket,isOpener }) {
   const onQnADeleteClick = async () => {
@@ -51,7 +51,7 @@ export default function QnA({ qnaObj, isOwner, userObj, detailObj, bucket,isOpen
   };
 
   return (
-    <div>
+    <>
       <div className="detaillist_qna_box">
         <span className="detaillist_qnacontent">
           <img width="8%" src="img/noonsong.gif"></img>
@@ -63,9 +63,7 @@ export default function QnA({ qnaObj, isOwner, userObj, detailObj, bucket,isOpen
         </span>
         )}          
       </div>
-      <div>
         <Comment userObj={userObj} qnaObj={qnaObj} detailObj={detailObj} isOpener={isOpener} />
-      </div>
-    </div>
+    </>
   );
 }

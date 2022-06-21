@@ -7,6 +7,7 @@ export default function Commentlist({
   isOwner,
   detailObj,
   qnaObj,
+  isOpener,
 }
 ) {
  
@@ -26,20 +27,21 @@ export default function Commentlist({
     
     <div>
       <div className="detaillist_qna_box">
-          {isOwner?(
+          {isOpener?(
             <span className="detaillist_qnacontent">
-
              <b>총대</b>{' '}{commentObj.text}
-             <span className="etaillist_trashbtn" onClick={onCommentDeleteClick}>
-            <FontAwesomeIcon icon={faTrash} />
-          </span>
             </span>            
           ):(
           <span className="detaillist_qnacontent">
           <img width="8%" src="img/noonsong.gif"></img>
           <b>{commentObj.userName}</b> &nbsp; {commentObj.text}
         </span>
-          )}       
+          )}
+          {isOwner && (
+            <span className="detaillist_trashbtn" onClick={onCommentDeleteClick}>
+            <FontAwesomeIcon icon={faTrash} />
+          </span>)
+          }       
         </div>
       </div>
     

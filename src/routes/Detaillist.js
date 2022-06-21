@@ -1,10 +1,7 @@
 import { useNavigate, useLocation } from "react-router-dom";
 import React, { useState, useEffect } from "react";
-import { dbService, storageService } from "../fbase";
+import { dbService } from "../fbase";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-
-import { collection, where } from "firebase/firestore";
-
 import {
   faTrash,
   faPencilAlt,
@@ -30,7 +27,7 @@ const Detaillist = ({ userObj }) => {
   useEffect(() => {
     dbService.collection("startlist").onSnapshot((snapshot) => {
       snapshot.docs.map((doc) => {
-        if (doc.id == itemId) {
+        if (doc.id === itemId) {
           const item = {
             id: doc.id,
             ...doc.data(),
@@ -161,13 +158,13 @@ const Detaillist = ({ userObj }) => {
   useEffect(() => {
     dbService
       .doc(`startlist/${detailObj.id}`)
-      .collection("QnA")
+      .collection("QnA").orderBy('createdAt')
       .onSnapshot((snapshot) => {
         setBucket(false);
         setQnas([]);
         snapshot.docs.map((doc) => {
           // 이미 문의댓글을 달은 경우
-          if (doc.id == userObj.uid) {
+          if (doc.id === userObj.uid) {
             setBucket(true);
           }
           const qna = {
@@ -218,7 +215,7 @@ const Detaillist = ({ userObj }) => {
       .onSnapshot((snapshot) => {
         snapshot.docs.map((doc) => {
           // 스크랩 여부 확인 후 체크박스 조정(?)
-          if (doc.id == userObj.uid) {
+          if (doc.id === userObj.uid) {
             setChecked(false);
           }
         });
@@ -258,16 +255,11 @@ const Detaillist = ({ userObj }) => {
     }
   };
 
-  const kakaoClick = () => {
-    navigate("/selling/detail");
-  };
-
   return (
     <>
       {editing ? (
-        <div className="detaillist_content">
           <>
-            <form onSubmit={onSubmit}>
+            <form className="openjoin_container" onSubmit={onSubmit} >
               <p className="openjoin_que">
                 <span>✔️ 이름: </span>
                 <input
@@ -319,15 +311,14 @@ const Detaillist = ({ userObj }) => {
                   required
                 />
               </p>
-
               <p className="openjoin_que">
-                <span>✔️ 마감기한 : </span>
+                <span>✔️ 마감기한: </span>
                 <input
                   className="openjoin_input"
                   value={deadline}
                   onChange={onChange_deadline}
                   type="date"
-                  placeholder={itemObj.deadline}
+                  placeholder="마감기한"
                   maxLength={120}
                   required
                 />
@@ -361,7 +352,21 @@ const Detaillist = ({ userObj }) => {
                   required
                 />
               </p>
-
+              <p className="openjoin_que">
+                <span className="openjoin_long">✔️ 사진 : </span>
+                <input 
+                  className="openjoin_input"
+                  type="file" 
+                  accept="image/*" 
+                  onChange={onFileChange}
+                />
+                {attachment && (
+                  <div>
+                    <img src={attachment} width="50px" height="50px" />
+                    <button onClick={onClearAttachment}>Clear</button>
+                  </div>
+                )}
+              </p>
               <p className="openjoin_que">
                 <span className="openjoin_long">✔️ 기타사항 : </span>
                 <input
@@ -372,23 +377,13 @@ const Detaillist = ({ userObj }) => {
                   placeholder={itemObj.etc}
                   maxLength={120}
                 />
-                <input type="submit" value="제출" />
+                <br/><br/>
+                <input type="submit" value="취소" onSubmit={toggleEditing} style={{margin:'1%'}}/>
+                <input type="submit" value="수정" onSubmit={onSubmit} style={{margin:'1%'}}/>
               </p>
-
-              <input type="file" accept="image/*" onChange={onFileChange} />
-              <input type="submit" value="수정하기" onSubmit={onSubmit} />
-              {attachment && (
-                <div>
-                  <img src={attachment} width="50px" height="50px" />
-                  <button onClick={onClearAttachment}>Clear</button>
-                </div>
-              )}
             </form>
           </>
-          <span onClick={toggleEditing} className="formBtn cancelBtn">
-            Cancel
-          </span>
-        </div>
+
       ) : (
         <>
           <div className="detaillist_content">

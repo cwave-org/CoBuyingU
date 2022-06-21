@@ -1,15 +1,16 @@
 import { useEffect, useState } from "react";
-import { dbService } from "../fbase";
+import { dbService, firebaseInstance } from "../fbase";
 import Commentlist from "./Commentlist";
 
 
 const Comment= ({ userObj,qnaObj,detailObj,isOpener }) => {
     const [comment, setComment] = useState("");
     const [comments, setComments] = useState([]);
-
+    const timestamp=firebaseInstance.firestore.FieldValue.serverTimestamp;
     useEffect(() => {
-      dbService.doc(`startlist/${detailObj.id}`).collection("QnA").doc(`${qnaObj.id}`).collection("comments").onSnapshot((snapshot) => {
-          const commentArray = snapshot.docs.map((doc) => ({
+      dbService.doc(`startlist/${detailObj.id}`).collection("QnA").doc(`${qnaObj.id}`).collection("comments").orderBy('createdAt').onSnapshot((snapshot) => {
+          const commentArray = snapshot.docs.map((doc) => (
+            {
             id: doc.id,
             ...doc.data(),
           }));
@@ -21,7 +22,7 @@ const Comment= ({ userObj,qnaObj,detailObj,isOpener }) => {
           event.preventDefault();
           await dbService.doc(`startlist/${detailObj.id}`).collection("QnA").doc(`${qnaObj.id}`).collection("comments").add({
             text: comment,
-            createdAt: Date.now(),
+            createdAt: timestamp(),
             creatorId: userObj.uid,
             userName:userObj.displayName,
           });
@@ -53,22 +54,17 @@ const Comment= ({ userObj,qnaObj,detailObj,isOpener }) => {
               </span>
               {comments.map((comment) => (
                   <Commentlist
-                  userObj={userObj.uid}
+                    userObj={userObj.uid}
                     key={comment.id}
                     commentObj={comment}
                     isOwner={comment.creatorId === userObj.uid}
                     detailObj={detailObj}
                     qnaObj={qnaObj}
-                    isOpener={isOpener}
+                    isOpener={isOpener===comment.creatorId}
                   />
                 ))}   
             </div>
             <hr></hr>
-
-            <div>
-            
-          
-            </div>
           </div>
   );
 };
