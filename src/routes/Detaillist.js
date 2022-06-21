@@ -1,6 +1,7 @@
 import { useNavigate, useLocation } from "react-router-dom";
 import React, { useState, useEffect } from "react";
-import { dbService } from "../fbase";
+import { dbService,storageService } from "../fbase";
+import { v4 as uuidv4 } from "uuid";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faTrash,
@@ -70,7 +71,16 @@ const Detaillist = ({ userObj }) => {
   const [attachment, setAttachment] = useState(itemObj.attachmentUrl);
   const toggleEditing = () => setEditing((prev) => !prev);
   const onSubmit = async (event) => {
+    navigate("/");
     event.preventDefault();
+    let attachmentUrl = "";
+    if (attachment !== "") {
+      const attachmentRef = storageService
+        .ref()
+        .child(`${userObj.uid}/${uuidv4()}`);
+      const response = await attachmentRef.putString(attachment, "data_url");
+      attachmentUrl = await response.ref.getDownloadURL();
+    }
     await dbService.doc(`startlist/${itemId}`).update({
       name: name,
       itemname: itemname,
@@ -79,7 +89,7 @@ const Detaillist = ({ userObj }) => {
       deadline: deadline,
       account: account,
       etc: etc,
-      attachmentUrl: attachment,
+      attachmentUrl,
     });
     setEditing(false);
   };
