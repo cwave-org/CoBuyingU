@@ -2,6 +2,7 @@ import { dbService } from "../fbase";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrash } from "@fortawesome/free-solid-svg-icons";
 
+
 export default function Commentlist({
   commentObj,
   isOwner,
@@ -24,12 +25,12 @@ export default function Commentlist({
     }
   };
   return (
-    
     <div>
       <div className="detaillist_qna_box">
           {isOpener?(
             <span className="detaillist_qnacontent">
-             <b>총대</b>{' '}{commentObj.text}
+             <img width="9%" src="img/chong.png"></img>
+              <b>총대</b>{' '}{commentObj.text}
             </span>            
           ):(
           <span className="detaillist_qnacontent">
@@ -39,11 +40,10 @@ export default function Commentlist({
           )}
           {isOwner && (
             <span className="detaillist_trashbtn" onClick={onCommentDeleteClick}>
-            <FontAwesomeIcon icon={faTrash} />
+            <FontAwesomeIcon icon={faTrash} color={"#4B59A8"} />
           </span>)
           }       
         </div>
       </div>
-    
   );
 };
