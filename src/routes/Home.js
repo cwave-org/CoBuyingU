@@ -75,7 +75,7 @@ const Home = ({ userObj }) => {
           const creator = doc.data().creatorId;
           const cur = map1.get(creator);
           if (cur > powersellers) {
-            setPowerseller(doc.data().name); //이름
+            setPowerseller(doc.data().userName); //이름
             setPowersellers(cur); //  개수
           }
         });
