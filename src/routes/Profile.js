@@ -8,7 +8,7 @@ import Myscrap from "../components/Myscrap";
 import Myjoinlist from "../components/Myjoinlist";
 import MyQnA from "../components/MyQnA";
 
-const Profile = ({ userObj, listObj }) => {
+const Profile = ({ userObj, listObj,refreshUser }) => {
   const navigate = useNavigate();
   const [newDisplayName, setNewDisplayName] = useState(userObj.displayName);
 
@@ -36,8 +36,41 @@ const Profile = ({ userObj, listObj }) => {
     });
   }, []);
 
+  //이름 바꾸기
+  const onChange2 = (event) => {
+    const {
+        target: {value},
+    } = event;
+    setNewDisplayName(value);
+};
+
+const onSubmit2 = async (event) => {
+  event.preventDefault();
+  if(userObj.displayName !== newDisplayName){
+      await userObj.updateProfile({
+          displayName: newDisplayName,
+      });
+      refreshUser();
+  }
+};
+
   return (
     <div className="container">
+      <form onSubmit={onSubmit2}>
+            <div>
+              <input
+              onChange={onChange2}
+              type="text"
+              autoFocus
+              placeholder="Display name"
+              value={newDisplayName}
+              />
+              <input
+              type="submit"
+              value="Change Your ID"
+              />
+            </div>
+          </form>
       <div className="myopen">
         <div className="my_title">💙진행 공구 목록💙</div>
         <hr />
