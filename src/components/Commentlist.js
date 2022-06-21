@@ -27,7 +27,7 @@ export default function Commentlist({
 
     <div>
       <div className="detaillist_comment1">
-        {isOpener ? (
+        {isOwner ? (
           <div className="detaillist_comment2">
             <div className="detaillist_qnacontent">
               <img width="9%" src="img/chong.png"></img>
