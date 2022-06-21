@@ -1,8 +1,16 @@
 import { dbService } from "../fbase";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faTrash, faPencilAlt, } from "@fortawesome/free-solid-svg-icons";
+import { faTrash } from "@fortawesome/free-solid-svg-icons";
 
-export default function Commentlist({ commentObj, isOwner, detailObj, qnaObj, isOpener }) {
+
+export default function Commentlist({
+  commentObj,
+  isOwner,
+  detailObj,
+  qnaObj,
+}
+) {
+ 
   const onCommentDeleteClick = async (event) => {
     if (isOwner) {
       event.preventDefault();
@@ -15,15 +23,6 @@ export default function Commentlist({ commentObj, isOwner, detailObj, qnaObj, is
       window.confirm("You don't have permission.");
     }
   };
-
-  /*const CommentDelete = async (event) => {
-    await dbService.doc(`nweets/${nweetObj.id}`).collection("comments").doc(`${commentObj.id}`).delete();
-  };
-*/
-  const CommentDelete = () => {
-    dbService.doc(`startlist/${detailObj.id}`).collection("QnA").doc(`${qnaObj.id}`).collection("comments").doc(`${commentObj.id}`).delete();
-  };
-
   return (
 
     <div>

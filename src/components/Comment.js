@@ -53,6 +53,7 @@ const Comment= ({ userObj,qnaObj,detailObj,isOpener }) => {
               </span>
               {comments.map((comment) => (
                   <Commentlist
+                  userObj={userObj.uid}
                     key={comment.id}
                     commentObj={comment}
                     isOwner={comment.creatorId === userObj.uid}

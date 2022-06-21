@@ -507,7 +507,7 @@ const Detaillist = ({ userObj }) => {
             <>
               {qnas.map((qna) => (
                 <QnA
-                  isOpener={detailObj.creatorId === userObj.uid}
+                  isOpener={detailObj.creatorId}
                   key={qna.id}
                   qnaObj={qna}
                   isOwner={qna.creatorId === userObj.uid}

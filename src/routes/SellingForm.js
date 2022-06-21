@@ -40,6 +40,7 @@ const SellingForm = ({ userObj }) => {
       etc: etc,
       link: link,
       attachmentUrl,
+      userName:userObj.displayName,
     };
     await dbService.collection("startlist").add(listObj);
     setName("");
