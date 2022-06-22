@@ -9,18 +9,14 @@ const Buydetaillist = () => {
   const { detailObj } = location.state;
 
   const [editing, setEditing] = useState(false);
-  const [newName, setNewName] = useState(detailObj.name);
-  const [newPhonenumber, setNewPhonenumber] = useState(detailObj.phonenumber);
-  const [newCount, setNewCount] = useState(detailObj.count);
-  const [newSize, setNewSize] = useState(detailObj.size);
-  const [newAddress, setNewAddress] = useState(detailObj.address);
-  const [newAccount_name, setNewAccount_name] = useState(
-    detailObj.account_name
-  );
-  const [newAccount_date, setNewAccount_date] = useState(
-    detailObj.account_date
-  );
-  const [newAccount_re, setNewAccount_re] = useState(detailObj.account_re);
+  const [name, setName] = useState(detailObj.name);
+  const [phonenumber, setPhonenumber] = useState(detailObj.phonenumber);
+  const [count, setCount] = useState(detailObj.count);
+  const [size, setSize] = useState(detailObj.size);
+  const [address, setAddress] = useState(detailObj.address);
+  const [account_name, setAccount_name] = useState(detailObj.account_name);
+  const [account_date, setAccount_date] = useState(detailObj.account_date);
+  const [account_re, setAccount_re] = useState(detailObj.account_re);
 
   const [newDetailObj, setNewDetailObj] = useState(detailObj);
 
@@ -65,46 +61,25 @@ const Buydetaillist = () => {
   };
 
   const onChange = (event) => {
-    if (event.target.id === "nameform") {
-      const {
-        target: { value },
-      } = event;
-      setNewName(value);
-    } else if (event.target.id === "phonenumberform") {
-      const {
-        target: { value },
-      } = event;
-      setNewPhonenumber(value);
-    } else if (event.target.id === "countform") {
-      const {
-        target: { value },
-      } = event;
-      setNewCount(value);
-    } else if (event.target.id === "sizeform") {
-      const {
-        target: { value },
-      } = event;
-      setNewSize(value);
-    } else if (event.target.id === "addressform") {
-      const {
-        target: { value },
-      } = event;
-      setNewAddress(value);
-    } else if (event.target.id === "accountnameform") {
-      const {
-        target: { value },
-      } = event;
-      setNewAccount_name(value);
-    } else if (event.target.id === "accountdateform") {
-      const {
-        target: { value },
-      } = event;
-      setNewAccount_date(value);
-    } else if (event.target.id === "accountreform") {
-      const {
-        target: { value },
-      } = event;
-      setNewAccount_re(value);
+    const {
+      target: { value },
+    } = event;
+    if (event.target.id === "name") {
+      setName(value);
+    } else if (event.target.id === "phonenumber") {
+      setPhonenumber(value);
+    } else if (event.target.id === "count") {
+      setCount(value);
+    } else if (event.target.id === "size") {
+      setSize(value);
+    } else if (event.target.id === "address") {
+      setAddress(value);
+    } else if (event.target.id === "accountname") {
+      setAccount_name(value);
+    } else if (event.target.id === "accountdate") {
+      setAccount_date(value);
+    } else if (event.target.id === "accountre") {
+      setAccount_re(value);
     }
   };
 
@@ -120,7 +95,7 @@ const Buydetaillist = () => {
                 <span>이름: </span>
                 <input
                   className="openjoin_input"
-                  id="nameform"
+                  id="name"
                   type="text"
                   placeholder={newName}
                   onChange={onChange}
@@ -131,7 +106,7 @@ const Buydetaillist = () => {
                 <span>전화번호: </span>
                 <input
                   className="openjoin_input"
-                  id="phonenumberform"
+                  id="phonenumber"
                   type="tel"
                   placeholder={newPhonenumber}
                   onChange={onChange}
@@ -142,7 +117,7 @@ const Buydetaillist = () => {
                 <span>수량: </span>
                 <input
                   className="openjoin_input"
-                  id="countform"
+                  id="count"
                   type="number"
                   placeholder={newCount}
                   onChange={onChange}
@@ -153,7 +128,7 @@ const Buydetaillist = () => {
                 <span>사이즈: </span>
                 <input
                   className="openjoin_input"
-                  id="sizeform"
+                  id="size"
                   type="text"
                   placeholder={newSize}
                   onChange={onChange}
@@ -164,7 +139,7 @@ const Buydetaillist = () => {
                 <span>주소:</span>
                 <input
                   className="openjoin_input"
-                  id="addressform"
+                  id="address"
                   type="text"
                   placeholder="배송을 원하시면 주소를 입력해주세요"
                   onChange={onChange}
@@ -175,7 +150,7 @@ const Buydetaillist = () => {
                 <span>입금자명: </span>
                 <input
                   className="openjoin_input"
-                  id="accountnameform"
+                  id="accountname"
                   type="text"
                   placeholder="입금자명을 입력해주세요"
                   onChange={onChange}
@@ -186,7 +161,7 @@ const Buydetaillist = () => {
                 <span>입금일자: </span>
                 <input
                   className="openjoin_input"
-                  id="accountdateform"
+                  id="accountdate"
                   type="date"
                   placeholder="입금일자를 입력해주세요"
                   onChange={onChange}
@@ -197,7 +172,7 @@ const Buydetaillist = () => {
                 <span>환불계좌(은행/계좌번호/입금주명): </span>
                 <input
                   className="openjoin_input"
-                  id="accountreform"
+                  id="accountre"
                   type="text"
                   placeholder="환불계좌(은행/계좌번호/입금주명)을 입력해주세요"
                   onChange={onChange}

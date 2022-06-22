@@ -93,54 +93,30 @@ const Detaillist = ({ userObj }) => {
     });
     setEditing(false);
   };
-  const onChange_link = (event) => {
+
+  const onChange = (event) => {
     const {
       target: { value },
     } = event;
-    setLink(value);
+    if (event.target.id === "name") {
+      setName(value);
+    } else if (event.target.id === "itemname") {
+      setItemname(value);
+    } else if (event.target.id === "item") {
+      setItem(value);
+    } else if (event.target.id === "price") {
+      setPrice(value);
+    } else if (event.target.id === "deadline") {
+      setDeadline(value);
+    } else if (event.target.id === "link") {
+      setLink(value);
+    } else if (event.target.id === "etc") {
+      setEtc(value);
+    } else if (event.target.id === "account") {
+      setAccount(value);
+    }
   };
-  const onChange_name = (event) => {
-    const {
-      target: { value },
-    } = event;
-    setName(value);
-  };
-  const onChange_itemname = (event) => {
-    const {
-      target: { value },
-    } = event;
-    setItemname(value);
-  };
-  const onChange_item = (event) => {
-    const {
-      target: { value },
-    } = event;
-    setItem(value);
-  };
-  const onChange_price = (event) => {
-    const {
-      target: { value },
-    } = event;
-    setPrice(value);
-  };
-  const onChange_deadline = (event) => {
-    const {
-      target: { value },
-    } = event;
-    setDeadline(value);
-  };
-  const onChange_etc = (event) => {
-    const {
-      target: { value },
-    } = event;
-    setEtc(value);
-  };
-  const onChange_account = (event) => {
-    const {
-      target: { value },
-    } = event;
-    setAccount(value);
-  };
+
   const onFileChange = (event) => {
     const {
       target: { files },
@@ -274,9 +250,10 @@ const Detaillist = ({ userObj }) => {
             <p className="openjoin_que">
               <span>✔️ 이름: </span>
               <input
+                id="name"
                 className="openjoin_input"
                 value={name}
-                onChange={onChange_name}
+                onChange={onChange}
                 type="text"
                 placeholder={itemObj.name}
                 maxLength={120}
@@ -287,9 +264,10 @@ const Detaillist = ({ userObj }) => {
             <p className="openjoin_que">
               <span>✔️ 상품이름: </span>
               <input
+                id="itemname"
                 className="openjoin_input"
                 value={itemname}
-                onChange={onChange_itemname}
+                onChange={onChange}
                 type="text"
                 placeholder={itemObj.itemname}
                 maxLength={120}
@@ -300,9 +278,10 @@ const Detaillist = ({ userObj }) => {
             <p className="openjoin_que">
               <span>✔️ 품목: </span>
               <input
+                id="item"
                 className="openjoin_input"
                 value={item}
-                onChange={onChange_item}
+                onChange={onChange}
                 type="text"
                 placeholder={itemObj.item}
                 maxLength={120}
@@ -313,9 +292,10 @@ const Detaillist = ({ userObj }) => {
             <p className="openjoin_que">
               <span>✔️ 가격(원): </span>
               <input
+                id="price"
                 className="openjoin_input"
                 value={price}
-                onChange={onChange_price}
+                onChange={onChange}
                 type="number"
                 placeholder={itemObj.price}
                 maxLength={120}
@@ -325,9 +305,10 @@ const Detaillist = ({ userObj }) => {
             <p className="openjoin_que">
               <span>✔️ 마감기한: </span>
               <input
+                id="deadline"
                 className="openjoin_input"
                 value={deadline}
-                onChange={onChange_deadline}
+                onChange={onChange}
                 type="date"
                 placeholder="마감기한"
                 maxLength={120}
@@ -338,9 +319,10 @@ const Detaillist = ({ userObj }) => {
             <p className="openjoin_que">
               <span className="openjoin_long">✔️ 오픈채팅방 링크 : </span>
               <input
+                id="link"
                 className="openjoin_input"
                 value={link}
-                onChange={onChange_link}
+                onChange={onChange}
                 type="text"
                 placeholder={itemObj.link}
                 maxLength={150}
@@ -353,9 +335,10 @@ const Detaillist = ({ userObj }) => {
                 ✔️ 계좌(은행/ 계좌번호/입금주명) :{" "}
               </span>
               <input
+                id="account"
                 className="openjoin_input"
                 value={account}
-                onChange={onChange_account}
+                onChange={onChange}
                 type="text"
                 placeholder={itemObj.account}
                 maxLength={120}
@@ -381,9 +364,10 @@ const Detaillist = ({ userObj }) => {
             <p className="openjoin_que">
               <span className="openjoin_long">✔️ 기타사항 : </span>
               <input
+                id="etc"
                 className="openjoin_input"
                 value={etc}
-                onChange={onChange_etc}
+                onChange={onChange}
                 type="text"
                 placeholder={itemObj.etc}
                 maxLength={120}
