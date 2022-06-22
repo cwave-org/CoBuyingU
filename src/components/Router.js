@@ -9,6 +9,7 @@ import Navigation from "./Navigation";
 import Detaillist from "../routes/Detaillist";
 import Itemlist from "../routes/Itemlist";
 import Buydetaillist from "../routes/Buydetaillist";
+import JoinDone from "../routes/JoinDone";
 
 const AppRouter = ({ refreshUser, isLoggedIn, userObj }) => {
   return (
@@ -53,6 +54,12 @@ const AppRouter = ({ refreshUser, isLoggedIn, userObj }) => {
                 element={<Itemlist userObj={userObj} />}
               />
               <Route exact path="/buying/detail" element={<Buydetaillist />} />
+              <Route
+                exact
+                path="/itemlist"
+                element={<Itemlist userObj={userObj} />}
+              />
+              <Route exact path="/buying/done" element={<JoinDone />} />
             </>
           ) : (
             <>
