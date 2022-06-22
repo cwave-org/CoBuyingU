@@ -78,7 +78,7 @@ const BuyingForm = ({ userObj }) => {
   };
 
   return (
-    <form className="openjoin_container">
+    <form className="openjoin_container" onSubmit={onSubmit}>
       <p>공구 참여하기</p>
       <p className="openjoin_que">
         <span>✔️ 이름: </span>
@@ -181,7 +181,7 @@ const BuyingForm = ({ userObj }) => {
         <button className="default_Btn_Right" onClick={onCancel}>
           취소
         </button>
-        <button className="default_Btn_Right" onClick={onSubmit}>
+        <button className="default_Btn_Right" type="submit">
           제출
         </button>
       </div>

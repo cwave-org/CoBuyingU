@@ -98,7 +98,7 @@ const SellingForm = ({ userObj }) => {
   const onClearAttachment = () => setAttachment(null);
 
   return (
-    <form className="openjoin_container">
+    <form className="openjoin_container" onSubmit={onSubmit}>
       <p>공구 열기</p>
 
       <p className="openjoin_que">
@@ -213,17 +213,12 @@ const SellingForm = ({ userObj }) => {
             onChange={onFileChange}
           />
           {attachment && (
-            <>
-              <img
-                src={attachment}
-                width="100px"
-                height="100px"
-                style={{ marginRight: 5, marginTop: 5 }}
-              />
+            <div className="attatchment">
+              <img src={attachment} />
               <button className="default_Btn" onClick={onClearAttachment}>
                 Clear
               </button>
-            </>
+            </div>
           )}
         </div>
       </p>
@@ -244,7 +239,7 @@ const SellingForm = ({ userObj }) => {
         <button className="default_Btn_Right" onClick={onCancel}>
           취소
         </button>
-        <button className="default_Btn_Right" onClick={onSubmit}>
+        <button className="default_Btn_Right" type="submit">
           제출
         </button>
       </div>

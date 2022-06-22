@@ -71,8 +71,8 @@ const Detaillist = ({ userObj }) => {
   const [attachment, setAttachment] = useState(itemObj.attachmentUrl);
   const toggleEditing = () => setEditing((prev) => !prev);
   const onSubmit = async (event) => {
-    navigate("/");
     event.preventDefault();
+    toggleEditing();
     let attachmentUrl = "";
     if (attachment !== "") {
       const attachmentRef = storageService
@@ -91,7 +91,6 @@ const Detaillist = ({ userObj }) => {
       etc: etc,
       attachmentUrl,
     });
-    setEditing(false);
   };
 
   const onChange = (event) => {
@@ -355,8 +354,8 @@ const Detaillist = ({ userObj }) => {
                 onChange={onFileChange}
               />
               {attachment && (
-                <div>
-                  <img src={attachment} width="50px" height="50px" />
+                <div className="attatchment">
+                  <img src={attachment} />
                   <button onClick={onClearAttachment}>Clear</button>
                 </div>
               )}
@@ -374,18 +373,22 @@ const Detaillist = ({ userObj }) => {
               />
               <br />
               <br />
-              <input
-                type="submit"
-                value="취소"
-                onSubmit={toggleEditing}
-                style={{ margin: "1%" }}
-              />
-              <input
-                type="submit"
-                value="수정"
-                onSubmit={onSubmit}
-                style={{ margin: "1%" }}
-              />
+              <div>
+                <button
+                  className="default_Btn_Right"
+                  onClick={toggleEditing}
+                  style={{ margin: "1%" }}
+                >
+                  취소
+                </button>
+                <button
+                  className="default_Btn_Right"
+                  type="submit"
+                  style={{ margin: "1%" }}
+                >
+                  제출
+                </button>
+              </div>
             </p>
           </form>
         </>
@@ -450,15 +453,19 @@ const Detaillist = ({ userObj }) => {
             </div>
 
             <div align="center">
-              <button className="default_Btn_Center" onClick={onJoinlistClick}>
-                공구 참여하기
-              </button>
-              {detailObj.creatorId === userObj.uid && (
+              {detailObj.creatorId === userObj.uid ? (
                 <button
                   className="default_Btn_Center"
                   onClick={onShowlistClick}
                 >
                   공구 참여자 목록 보기
+                </button>
+              ) : (
+                <button
+                  className="default_Btn_Center"
+                  onClick={onJoinlistClick}
+                >
+                  공구 참여하기
                 </button>
               )}
             </div>

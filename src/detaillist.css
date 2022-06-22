@@ -84,31 +84,29 @@ ul {
   margin-left: 3%;
 }
 
-.detaillist_user{
+.detaillist_user {
   margin-left: 1%;
 }
-.detaillist_trashbtn{
+.detaillist_trashbtn {
   float: right;
 }
-.detaillist_qnacontent{
+.detaillist_qnacontent {
   width: 100%;
 }
-.detaillist_chong{
-  color:#1385e3;
+.detaillist_chong {
+  color: #1385e3;
 }
 
-
-.profile_edit{
+.profile_edit {
   display: flex;
   width: 100%;
   flex-direction: row;
   justify-content: center;
 }
-.profile_text{
-  border:  none;
+.profile_text {
+  border: none;
 }
-.profile_edit input:focus{
+.profile_edit input:focus {
   outline: 2px solid #bbdcf7;
   border-radius: 5px;
 }
-

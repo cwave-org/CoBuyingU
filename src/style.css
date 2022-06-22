@@ -205,3 +205,10 @@ button {
   align-items: center;
   margin-left: 10%;
 }
+
+.attatchment img {
+  width: 100px;
+  height: 100px;
+  margin-right: 5px;
+  margin-top: 5px;
+}
