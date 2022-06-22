@@ -44,7 +44,7 @@ const BuyingForm = ({ userObj }) => {
     setAccount_date("");
     setAccount_re("");
 
-    navigate("/");
+    navigate("/buying/done");
   };
 
   const onChange = (event) => {
