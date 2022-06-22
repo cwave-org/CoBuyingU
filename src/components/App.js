@@ -52,7 +52,6 @@ function App() {
         </div>
           
       )}
-      <footer className="footer">&copy; CWAVE all rights reserved </footer>
     </>
   );
 }

@@ -52,6 +52,13 @@
   text-align: center;
 }
 
+.openjoin_container input[type="file"] {
+  border-top: none;
+  border-left: none;
+  border-right: none;
+  border-bottom: none;
+}
+
 .openjoin_container .openjoin_long {
   width: 250px;
   margin-top: 3px;
@@ -71,7 +78,7 @@
   font-size: 14px;
 }
 
-.detaillist_content .openjoin_que .openjoin_input{
+.detaillist_content .openjoin_que .openjoin_input {
   border-right: 0px;
   border-top: 0px;
   border-left: 0px;

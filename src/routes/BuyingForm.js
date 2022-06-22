@@ -47,6 +47,13 @@ const BuyingForm = ({ userObj }) => {
     navigate("/buying/done");
   };
 
+  const onCancel = () => {
+    navigate("/selling/detail", {
+      replace: false,
+      state: { detailObj: detailObj },
+    });
+  };
+
   const onChange = (event) => {
     const {
       target: { value },
@@ -73,7 +80,6 @@ const BuyingForm = ({ userObj }) => {
   return (
     <form className="openjoin_container" onSubmit={onSubmit}>
       <p>공구 참여하기</p>
-
       <p className="openjoin_que">
         <span>✔️ 이름: </span>
         <input
@@ -86,7 +92,6 @@ const BuyingForm = ({ userObj }) => {
           required
         />
       </p>
-
       <p className="openjoin_que">
         <span>✔️ 전화번호: </span>
         <input
@@ -99,7 +104,6 @@ const BuyingForm = ({ userObj }) => {
           required
         />
       </p>
-
       <p className="openjoin_que">
         <span>✔️ 수량: </span>
         <input
@@ -112,7 +116,6 @@ const BuyingForm = ({ userObj }) => {
           required
         />
       </p>
-
       <p className="openjoin_que">
         <span>✔️ 사이즈: </span>
         <input
@@ -125,7 +128,6 @@ const BuyingForm = ({ userObj }) => {
           required
         />
       </p>
-
       <p className="openjoin_que">
         <span>✔️ 주소:</span>
         <input
@@ -137,7 +139,6 @@ const BuyingForm = ({ userObj }) => {
           value={address}
         />
       </p>
-
       <p className="openjoin_que">
         <span>✔️ 입금자명: </span>
         <input
@@ -150,7 +151,6 @@ const BuyingForm = ({ userObj }) => {
           required
         />
       </p>
-
       <p className="openjoin_que">
         <span>✔️ 입금일자: </span>
         <input
@@ -163,7 +163,6 @@ const BuyingForm = ({ userObj }) => {
           required
         />
       </p>
-
       <p className="openjoin_que">
         <span className="openjoin_long">
           ✔️ 환불계좌(은행/계좌번호/입금주명):{" "}
@@ -178,7 +177,14 @@ const BuyingForm = ({ userObj }) => {
           required
         />
       </p>
-      <input type="submit" />
+      <div>
+        <button className="default_Btn_Right" onClick={onCancel}>
+          취소
+        </button>
+        <button className="default_Btn_Right" type="submit">
+          제출
+        </button>
+      </div>
     </form>
   );
 };

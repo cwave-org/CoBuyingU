@@ -1,6 +1,6 @@
 import { useNavigate, useLocation } from "react-router-dom";
 import React, { useState, useEffect } from "react";
-import { dbService,storageService } from "../fbase";
+import { dbService, storageService } from "../fbase";
 import { v4 as uuidv4 } from "uuid";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -134,10 +134,10 @@ const Detaillist = ({ userObj }) => {
 
   // Edit Cobuying Item
   const toggleEditing = () => setEditing((prev) => !prev);
-  const onEditSubmit = async (event) => {
-    navigate("/");
-    // let attachmentUrl = itemObj.attachmentUrl;
+
+  const onSubmit = async (event) => {
     event.preventDefault();
+    toggleEditing();
     let attachmentUrl = "";
     if (newattachment !== "") {
       console.log("없어");
@@ -160,55 +160,30 @@ const Detaillist = ({ userObj }) => {
       etc: etc,
     });
   };
-  const onChange_link = (event) => {
+
+  const onChange = (event) => {
     const {
       target: { value },
     } = event;
-    setLink(value);
+    if (event.target.id === "name") {
+      setName(value);
+    } else if (event.target.id === "itemname") {
+      setItemname(value);
+    } else if (event.target.id === "item") {
+      setItem(value);
+    } else if (event.target.id === "price") {
+      setPrice(value);
+    } else if (event.target.id === "deadline") {
+      setDeadline(value);
+    } else if (event.target.id === "link") {
+      setLink(value);
+    } else if (event.target.id === "etc") {
+      setEtc(value);
+    } else if (event.target.id === "account") {
+      setAccount(value);
+    }
   };
-  const onChange_name = (event) => {
-    const {
-      target: { value },
-    } = event;
-    setName(value);
-    console.log(value);
-  };
-  const onChange_itemname = (event) => {
-    const {
-      target: { value },
-    } = event;
-    setItemname(value);
-  };
-  const onChange_item = (event) => {
-    const {
-      target: { value },
-    } = event;
-    setItem(value);
-  };
-  const onChange_price = (event) => {
-    const {
-      target: { value },
-    } = event;
-    setPrice(value);
-  };
-  const onChange_deadline = (event) => {
-    const {
-      target: { value },
-    } = event;
-    setDeadline(value);
-  };
-  const onChange_etc = (event) => {
-    const {
-      target: { value },
-    } = event;
-    setEtc(value);
-  };
-  const onChange_account = (event) => {
-    const {
-      target: { value },
-    } = event;
-    setAccount(value);
-  };
+
   const onFileChange = (event) => {
     const {
       target: { files },
@@ -236,7 +211,8 @@ const Detaillist = ({ userObj }) => {
   useEffect(() => {
     dbService
       .doc(`startlist/${detailObj.id}`)
-      .collection("QnA").orderBy('createdAt')
+      .collection("QnA")
+      .orderBy("createdAt")
       .onSnapshot((snapshot) => {
         setBucket(false);
         setQnas([]);
@@ -336,137 +312,152 @@ const Detaillist = ({ userObj }) => {
   return (
     <>
       {editing ? (
-          <>
-            <form className="openjoin_container" onSubmit={onEditSubmit} >
-              <p className="openjoin_que">
-                <span>✔️ 이름: </span>
-                <input
-                  className="openjoin_input"
-                  value={name}
-                  onChange={onChange_name}
-                  type="text"
-                  placeholder={itemObj.name}
-                  maxLength={120}
-                  required
-                />
-              </p>
+        <>
+          <form className="openjoin_container" onSubmit={onSubmit}>
+            <p className="openjoin_que">
+              <span>✔️ 이름: </span>
+              <input
+                id="name"
+                className="openjoin_input"
+                value={name}
+                onChange={onChange}
+                type="text"
+                placeholder={itemObj.name}
+                maxLength={120}
+                required
+              />
+            </p>
 
-              <p className="openjoin_que">
-                <span>✔️ 상품이름: </span>
-                <input
-                  className="openjoin_input"
-                  value={itemname}
-                  onChange={onChange_itemname}
-                  type="text"
-                  placeholder={itemObj.itemname}
-                  maxLength={120}
-                  required
-                />
-              </p>
+            <p className="openjoin_que">
+              <span>✔️ 상품이름: </span>
+              <input
+                id="itemname"
+                className="openjoin_input"
+                value={itemname}
+                onChange={onChange}
+                type="text"
+                placeholder={itemObj.itemname}
+                maxLength={120}
+                required
+              />
+            </p>
 
-              <p className="openjoin_que">
-                <span>✔️ 품목: </span>
-                <input
-                  className="openjoin_input"
-                  value={item}
-                  onChange={onChange_item}
-                  type="text"
-                  placeholder={itemObj.item}
-                  maxLength={120}
-                  required
-                />
-              </p>
+            <p className="openjoin_que">
+              <span>✔️ 품목: </span>
+              <input
+                id="item"
+                className="openjoin_input"
+                value={item}
+                onChange={onChange}
+                type="text"
+                placeholder={itemObj.item}
+                maxLength={120}
+                required
+              />
+            </p>
 
-              <p className="openjoin_que">
-                <span>✔️ 가격(원): </span>
-                <input
-                  className="openjoin_input"
-                  value={price}
-                  onChange={onChange_price}
-                  type="number"
-                  placeholder={itemObj.price}
-                  maxLength={120}
-                  required
-                />
-              </p>
-              <p className="openjoin_que">
-                <span>✔️ 마감기한: </span>
-                <input
-                  className="openjoin_input"
-                  value={deadline}
-                  onChange={onChange_deadline}
-                  type="date"
-                  placeholder="마감기한"
-                  maxLength={120}
-                  required
-                />
-              </p>
-
-              <p className="openjoin_que">
-                <span className="openjoin_long">✔️ 오픈채팅방 링크 : </span>
-                <input
-                  className="openjoin_input"
-                  value={link}
-                  onChange={onChange_link}
-                  type="text"
-                  placeholder={itemObj.link}
-                  maxLength={150}
-                  style={{ marginBottom: 5 }}
-                />
-              </p>
-
-              <p className="openjoin_que">
-                <span className="openjoin_long">
-                  ✔️ 계좌(은행/ 계좌번호/입금주명) :{" "}
-                </span>
-                <input
-                  className="openjoin_input"
-                  value={account}
-                  onChange={onChange_account}
-                  type="text"
-                  placeholder={itemObj.account}
-                  maxLength={120}
-                  style={{ marginBottom: 5 }}
-                  required
-                />
-              </p>
-              <p className="openjoin_que">
-                <span className="openjoin_long">✔️ 사진 : </span>
-                <input 
-                  className="openjoin_input"
-                  type="file" 
-                  accept="image/*" 
-                  onChange={onFileChange}
-                />
-                {newattachment?(
-                  <div>
-                    <img src={newattachment} width="50px" height="50px" />
-                    <button onClick={onClearAttachment}>Clear</button>
-                  </div>
-                ):(
-                  <div>
-                    <img src={attachment} width="50px" height="50px" />
-                    <button onClick={onClearAttachment}>Clear</button>
-                  </div>
-                )}
-              </p>
-              <p className="openjoin_que">
-                <span className="openjoin_long">✔️ 기타사항 : </span>
-                <input
-                  className="openjoin_input"
-                  value={etc}
-                  onChange={onChange_etc}
-                  type="text"
-                  placeholder={itemObj.etc}
-                  maxLength={120}
-                />
-                <br/><br/>
-                <input type="submit" value="취소" onSubmit={toggleEditing} style={{margin:'1%'}}/>
-                <input type="submit" value="수정" onSubmit={onEditSubmit} style={{margin:'1%'}}/>
-              </p>
-            </form>
-          </>
-
+            <p className="openjoin_que">
+              <span>✔️ 가격(원): </span>
+              <input
+                id="price"
+                className="openjoin_input"
+                value={price}
+                onChange={onChange}
+                type="number"
+                placeholder={itemObj.price}
+                maxLength={120}
+                required
+              />
+            </p>
+            <p className="openjoin_que">
+              <span>✔️ 마감기한: </span>
+              <input
+                id="deadline"
+                className="openjoin_input"
+                value={deadline}
+                onChange={onChange}
+                type="date"
+                placeholder="마감기한"
+                maxLength={120}
+                required
+              />
+            </p>
+            <p className="openjoin_que">
+              <span className="openjoin_long">✔️ 오픈채팅방 링크 : </span>
+              <input
+                id="link"
+                className="openjoin_input"
+                value={link}
+                onChange={onChange}
+                type="text"
+                placeholder={itemObj.link}
+                maxLength={150}
+                style={{ marginBottom: 5 }}
+              />
+            </p>
+            <p className="openjoin_que">
+              <span className="openjoin_long">
+                ✔️ 계좌(은행/ 계좌번호/입금주명) :{" "}
+              </span>
+              <input
+                id="account"
+                className="openjoin_input"
+                value={account}
+                onChange={onChange}
+                type="text"
+                placeholder={itemObj.account}
+                maxLength={120}
+                style={{ marginBottom: 5 }}
+                required
+              />
+            </p>
+            <p className="openjoin_que">
+              <span className="openjoin_long">✔️ 사진 : </span>
+              <input
+                className="openjoin_input"
+                type="file"
+                accept="image/*"
+                onChange={onFileChange}
+              />
+              {attachment && (
+                <div className="attatchment">
+                  <img src={attachment} />
+                  <button onClick={onClearAttachment}>Clear</button>
+                </div>
+              )}
+            </p>
+            <p className="openjoin_que">
+              <span className="openjoin_long">✔️ 기타사항 : </span>
+              <input
+                id="etc"
+                className="openjoin_input"
+                value={etc}
+                onChange={onChange}
+                type="text"
+                placeholder={itemObj.etc}
+                maxLength={120}
+              />
+              <br />
+              <br />
+              <div>
+                <button
+                  className="default_Btn_Right"
+                  onClick={toggleEditing}
+                  style={{ margin: "1%" }}
+                >
+                  취소
+                </button>
+                <button
+                  className="default_Btn_Right"
+                  type="submit"
+                  style={{ margin: "1%" }}
+                >
+                  제출
+                </button>
+              </div>
+            </p>
+          </form>
+        </>
       ) : (
         <>
           <div className="detaillist_content">
@@ -506,29 +497,43 @@ const Detaillist = ({ userObj }) => {
                   <br></br>
                   <b>오픈채팅방</b>
                   <span className="detaillist_bar">
-                    {detailObj.link ?
+                    {detailObj.link ? (
                       <a href={detailObj.link}>
                         <img src="img/kakaotalk.png" height={20} width={20} />
-                      </a> :
-                      <img src="img/kakao_no.png" height={20} width={20} title="연결된 오픈채팅방이 없습니다." />
-                    }
+                      </a>
+                    ) : (
+                      <img
+                        src="img/kakao_no.png"
+                        height={20}
+                        width={20}
+                        title="연결된 오픈채팅방이 없습니다."
+                      />
+                    )}
                   </span>
-                  <br></br> 
-                  <b>기타사항</b> <br></br> 
+                  <br></br>
+                  <b>기타사항</b> <br></br>
                   {itemObj.etc}
-                  <br></br> 
+                  <br></br>
                 </p>
               </div>
             </div>
 
             <div align="center">
-              <button className="submit_Btn" onClick={onJoinlistClick}>
-                공구 참여하기
-              </button>
-              {detailObj.creatorId === userObj.uid && (<button className="submit_Btn" onClick={onShowlistClick}>
-                공구 참여자 목록 보기
-              </button>)}
-
+              {detailObj.creatorId === userObj.uid ? (
+                <button
+                  className="default_Btn_Center"
+                  onClick={onShowlistClick}
+                >
+                  공구 참여자 목록 보기
+                </button>
+              ) : (
+                <button
+                  className="default_Btn_Center"
+                  onClick={onJoinlistClick}
+                >
+                  공구 참여하기
+                </button>
+              )}
             </div>
             <br></br>
             <div className="detaillist_imo">
@@ -553,7 +558,6 @@ const Detaillist = ({ userObj }) => {
                     </span>
                   </div>
                 )}
-
               </div>
             </div>
 
@@ -573,10 +577,14 @@ const Detaillist = ({ userObj }) => {
                         value={qna}
                         onChange={QnAonChange}
                       />
-                      <button type="upload_Btn">Upload</button>
+                      <button type="upload_Btn" className="upload_Btn">
+                        Upload
+                      </button>
                     </form>
                   ) : (
-                    <div className="qna_text">🙏🏼 원활한 QnA를 위해 질문 하나만 가능합니다 🙏🏼</div>
+                    <div className="qna_text">
+                      🙏🏼 원활한 QnA를 위해 질문 하나만 가능합니다 🙏🏼
+                    </div>
                   )}
                   <br></br>
                 </div>
