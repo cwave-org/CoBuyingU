@@ -1,9 +1,60 @@
-import React, { useState } from "react";
-import { dbService, storageService } from "../fbase";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-const CobuyingItem = ({ listObj, isOwner }) => {
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faStar } from "@fortawesome/free-solid-svg-icons";
+import { faStar as FaStarRegular } from "@fortawesome/free-regular-svg-icons";
+import { dbService } from "../fbase";
+
+const CobuyingItem = ({ userObj, listObj, isOwner }) => {
   let navigate = useNavigate();
   let today = new Date();
+  const [checked, setChecked] = useState(true);
+  const checkObj = {
+    check: !checked,
+    createdAt: Date.now(),
+    creatorId: userObj.uid,
+    userName: userObj.displayName,
+  };
+
+  useEffect(() => {
+    dbService
+      .doc(`startlist/${listObj.id}`)
+      .collection("scrap")
+      .onSnapshot((snapshot) => {
+        snapshot.docs.map((doc) => {
+          // 스크랩 여부 확인 후 체크박스 조정(?)
+          if (doc.id === userObj.uid) {
+            setChecked(false);
+          }
+        });
+      });
+  }, []);
+
+  // 스크랩 기능
+  const check = async (event) => {
+    setChecked((current) => !current);
+    if (checked) {
+      // 스크랩
+      await dbService
+        .doc(`startlist/${listObj.id}/scrap/${userObj.uid}`)
+        .set(checkObj);
+      await dbService
+        .doc(`startlist/${listObj.id}/scrap/${userObj.uid}`)
+        .update({
+          check: !check,
+        });
+      dbService
+        .doc(`startlist/${listObj.id}/scrap/${userObj.uid}`)
+        .get(checkObj);
+    } else {
+      // 스크랩 취소
+      await dbService
+        .doc(`startlist/${listObj.id}`)
+        .collection("scrap")
+        .doc(userObj.uid)
+        .delete();
+    }
+  };
 
   const onDetaillistClick = () => {
     navigate("/selling/detail", {
@@ -18,7 +69,6 @@ const CobuyingItem = ({ listObj, isOwner }) => {
       <>
         {today < new Date(listObj.deadline) ? (
           <div
-            className="dfddfa"
             style={{
               width: "100%",
               height: "100%",
@@ -27,12 +77,31 @@ const CobuyingItem = ({ listObj, isOwner }) => {
               justify: "center",
             }}
           >
+            <div className="home_scr">
+              {!checked ? (
+                <FontAwesomeIcon
+                  className="faglobe"
+                  icon={faStar}
+                  onClick={check}
+                  size="1x"
+                  color={"#ffffff"}
+                ></FontAwesomeIcon>
+              ) : (
+                <FontAwesomeIcon
+                  className="icon"
+                  icon={FaStarRegular}
+                  onClick={check}
+                  size="1x"
+                  color={"#ffffff"}
+                ></FontAwesomeIcon>
+              )}
+            </div>
             <div onClick={onDetaillistClick}>
               {listObj.attachmentUrl ? (
                 <img
                   style={{
-                    width: "80%",
-                    height: "80px",
+                    width: "100%",
+                    height: "85px",
                     marginBottom: 5,
                     borderRadius: 10,
                   }}
@@ -99,7 +168,8 @@ const CobuyingItem = ({ listObj, isOwner }) => {
               </div>
               <div className="deadline">{`${listObj.deadline}까지`}</div>
             </div>
-          </div>)}
+          </div>
+        )}
       </>
     </div>
   );

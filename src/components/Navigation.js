@@ -7,7 +7,6 @@ const Navigation = ({ userObj }) => {
   const navigate = useNavigate();
   const logOut = (event) => {
     authService.signOut();
-    navigate("/");
   };
   return (
     <>
@@ -52,23 +51,28 @@ const Navigation = ({ userObj }) => {
                     alignItems: "center",
                   }}
                 >
-                  <div
+                  <Link
+                    to="/"
                     style={{
+                      fontSize: 10,
                       display: "flex",
                       flexDirection: "row",
                       alignItems: "center",
+                      fontSize: 10,
+                      textDecoration: "none",
+                      textAlign: "center",
                     }}
                   >
                     <h1 style={{ fontSize: 20, marginRight: 10 }}>⍈</h1>
                     <span style={{ fontSize: 10 }} onClick={logOut}>
                       LogOut
                     </span>
-                  </div>
+                  </Link>
+
                   <Link
                     to="/profile"
                     style={{
                       display: "flex",
-                      flexDirection: "column",
                       alignItems: "center",
                       fontSize: 10,
                       textDecoration: "none",
@@ -84,7 +88,7 @@ const Navigation = ({ userObj }) => {
                       }}
                     >
                       <img width="30px" src="img/noonsong.gif"></img>
-                      <span>&nbsp;Profile</span>
+                      <span>&nbsp;&nbsp;Profile</span>
                     </div>
                   </Link>
                 </div>

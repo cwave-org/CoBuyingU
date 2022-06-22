@@ -2,23 +2,12 @@ import { faExpeditedssl } from "@fortawesome/free-brands-svg-icons";
 import React, { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { dbService } from "../fbase";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faStar } from "@fortawesome/free-solid-svg-icons";
 
 const Myscrap = ({ listObj, userObj }) => {
   const [bucket, setBucket] = useState(false);
-  const [scraps, setScraps] = useState([]);
   const navigation = useNavigate();
-  useEffect(() => {
-    dbService
-      .doc(`startlist/${listObj.id}`)
-      .collection("scrap")
-      .onSnapshot((snapshot) => {
-        const checkArray = snapshot.docs.map((doc) => ({
-          id: userObj.uid,
-          ...doc.data(),
-        }));
-        setScraps(checkArray);
-      });
-  }, []);
 
   useEffect(() => {
     dbService
@@ -36,19 +25,38 @@ const Myscrap = ({ listObj, userObj }) => {
       });
   }, []);
 
+  // 스크랩 기능
+  const check = async (event) => {
+    setBucket((current) => !current);
+
+    // 스크랩 취소
+    await dbService
+      .doc(`startlist/${listObj.id}`)
+      .collection("scrap")
+      .doc(userObj.uid)
+      .delete();
+  };
+
   const onClick = () => {
     navigation("/selling/detail", {
       replace: false,
       state: { detailObj: listObj },
     });
   };
+
   return (
     <>
       <div className="Itemclass">
         {bucket ? (
           <>
-            <div>
+            <div style={{ display: "flex", flexDirection: "row" }}>
               <span onClick={onClick}>품목 이름: {`${listObj.itemname}`}</span>
+              <FontAwesomeIcon
+                icon={faStar}
+                onClick={check}
+                size="1x"
+                color={"#E4C6F5"}
+              ></FontAwesomeIcon>
             </div>
           </>
         ) : (

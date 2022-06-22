@@ -23,6 +23,24 @@ body {
   margin-bottom: 20px;
   background-color: rgba(255, 255, 255, 0.7);
   border-radius: 20px;
+  position: relative;
+  z-index: 0;
+}
+
+.home_scr {
+  background-color: rgb(255, 255, 255, 0.3);
+
+  position: absolute;
+  height: 16px;
+  width: 17px;
+  top: 15px;
+  right: 15px;
+  display: inline-flex;
+  z-index: 3;
+}
+
+.home_scr icon {
+  margin: auto;
 }
 
 nav {
@@ -60,9 +78,11 @@ nav span {
   background-color: white;
   border-radius: 20px;
 }
+
 .itemname {
   font-size: 10px;
 }
+
 .itemBtn {
   padding: 30px;
   width: 50%;
@@ -85,7 +105,6 @@ nav span {
   text-align: center;
   font-size: 20px;
   border-radius: 15px;
-
 }
 
 #powerseller {
@@ -93,9 +112,6 @@ nav span {
 }
 
 .footer {
-  position: fixed;
-  left: 0;
-  bottom: 0;
   width: 100%;
   background-color: #c3dfc0;
   color: white;
@@ -116,7 +132,15 @@ button {
   color: white;
 }
 
-.submit_Btn {
+.default_Btn_Right {
+  margin: 5px;
+  margin-top: 0px;
+  margin-bottom: 0px;
+  border-radius: 5px;
+  float: right;
+}
+
+.default_Btn_Center {
   margin: 5px;
   margin-top: 0px;
   margin-bottom: 0px;
@@ -134,7 +158,7 @@ button {
   font-size: 14px;
 }
 
-.endthing{
+.endthing {
   opacity: 0.4;
   filter: alpha(opacity=40);
 }
@@ -147,7 +171,7 @@ button {
   margin-left: 4px;
 }
 
-.cancel_Btn{
+.cancel_Btn {
   border-radius: 3px;
   margin-top: 0px;
   margin-bottom: 0px;
@@ -156,7 +180,7 @@ button {
   margin-right: 5%;
 }
 
-.update_Btn{
+.update_Btn {
   margin: 20px;
   background: #bbdcf7;
   color: rgb(85, 141, 245);
