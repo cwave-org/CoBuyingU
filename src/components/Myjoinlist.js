@@ -7,7 +7,7 @@ import { dbService } from "../fbase";
 const Myjoinlist = ({ listObj, isOwner }) => {
   const [name, setName] = useState("");
   const [exist, setExist] = useState(false);
-
+  const [link,setLink]=useState("");
   let navigate = useNavigate();
   let myObj;
   useEffect(() => {
@@ -17,6 +17,7 @@ const Myjoinlist = ({ listObj, isOwner }) => {
       .then((querySnapshot) => {
         querySnapshot.forEach((doc) => {
           if (doc.data().randomidx == `${listObj.randomidx}`) {
+            setLink(doc.data().link);
             myObj = {
               id: doc.id,
               ...doc.data(),
@@ -48,7 +49,9 @@ const Myjoinlist = ({ listObj, isOwner }) => {
       state: { detailObj: myObj },
     });
   };
+  const onKakaoClick=()=>{
 
+  }
   const onShowbuyClick = () => {
     const detailObj = "init";
     navigate("/buying/detail", {
@@ -62,11 +65,17 @@ const Myjoinlist = ({ listObj, isOwner }) => {
       <div className="Itemclass">
         { isOwner && exist ? (
           <>
-            <span className="myitem" onClick={onShowdetailClick}>
+            <span className="mysubform" onClick={onShowdetailClick}>
               {`${name}`}
             </span>
-            <span className="myitemshow" onClick={onShowbuyClick}>
-              제출한 폼 확인하기
+            <span className="myformshow" onClick={onShowbuyClick}>
+              제출 폼 확인
+            </span>
+            <span className="myitemOka">
+              오카방
+              <a href={link}>
+                <img src="img/kakaotalk.png" height={20} width={20} />
+              </a>
             </span>
           </>
         ) : (
@@ -78,74 +87,3 @@ const Myjoinlist = ({ listObj, isOwner }) => {
   );
 };
 export default Myjoinlist;
-/*
-return (
-    <>
-      <div className="Itemclass">
-        {exist ? (
-          <>
-            <div>
-              <h4>픔목이름: {`${name}`}</h4>
-            </div>
-
-            <div>
-              <button
-                className="detaillist show Btn"
-                onClick={onShowdetailClick}
-              >
-                해당 공구 자세히보기
-              </button>
-              <button className="detaillist show Btn" onClick={onShowbuyClick}>
-                내 정보 자세히보기
-              </button>
-              
-              </div>
-              </>
-            ) : (
-              <></>
-            )}
-          </div>
-        </>
-      );
-    };
-
-*/
-
-/*
-const Myjoinlist = ({ listObj }) => {
-    const [name, setName] = useState("");
-    const [exist, setExist] = useState(false);
-    const [smlist,setSmlist]=useState([""]);
-    let navigate = useNavigate();
-    let myObj;
-
-    useEffect(() => {
-        let dblists = dbService
-            .collection("startlist")
-            //.where("randomidx", "==",`${listObj.randomidx}` )
-            .get().then((querySnapshot) => {
-                querySnapshot.forEach((doc) => {
-                    if (doc.data().randomidx == `${listObj.randomidx}`) {
-                        myObj = {
-                            id: doc.id,
-                            ...doc.data(),
-                        };
-                        setExist(true);
-                        setName(myObj.name);
-                    }
-                })
-            });
-        dbService.collection("startlist")
-        .where("randomidx","==",listObj.randomidx).get()
-        .then((q)=>{
-            q.forEach((d)=>{
-                const m={
-                    ...d.data(),
-                    id: d.id,
-                }
-                setSmlist(m);
-            })
-        })
-    }, []);
-    // setExist(!exist);
-*/

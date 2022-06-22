@@ -10,6 +10,7 @@ import Detaillist from "../routes/Detaillist";
 import Itemlist from "../routes/Itemlist";
 import Buydetaillist from "../routes/Buydetaillist";
 import JoinDone from "../routes/JoinDone";
+// import Kakao from "../routes/Kakao";
 
 const AppRouter = ({ refreshUser, isLoggedIn, userObj }) => {
   return (
@@ -60,6 +61,7 @@ const AppRouter = ({ refreshUser, isLoggedIn, userObj }) => {
                 element={<Itemlist userObj={userObj} />}
               />
               <Route exact path="/buying/done" element={<JoinDone />} />
+              {/* <Route exact path="/share" element={<Kakao />} /> */}
             </>
           ) : (
             <>

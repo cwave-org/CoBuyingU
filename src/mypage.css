@@ -38,6 +38,23 @@
     padding-right: 15px;
 
 }
+.mysubform{
+    width: 50%;
+    float:left;
+    /* text-align: right; */
+}
+.myitemOka{
+    float:left;
+    text-align: center;
+    width:20%;
+}
+.myformshow{
+    width: 30%;
+    float: left;
+    text-align: right;
+    padding-right: 15px;
+
+}
 
 .myjoin hr{
     background-color: #1a2260;

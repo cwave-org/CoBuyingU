@@ -44,7 +44,7 @@ const BuyingForm = ({ userObj }) => {
     setAccount_date("");
     setAccount_re("");
 
-    navigate("/buying/done");
+    navigate("/buying/done", { replace: false, state: { link: detailObj.link } });
   };
 
   const onCancel = () => {

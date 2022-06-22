@@ -7,12 +7,15 @@ import {
   faTrash,
   faPencilAlt,
   faStar,
+  faShareFromSquare,
 } from "@fortawesome/free-solid-svg-icons";
 import { faStar as FaStarRegular } from "@fortawesome/free-regular-svg-icons";
-
+import Kakao from "../components/Kakao";
 import QnA from "../components/QnA";
 
+
 const Detaillist = ({ userObj }) => {
+  const [shareclick,setShareClick]=useState(false);
   const location = useLocation();
   let { detailObj } = location.state;
   const itemId = detailObj.id;
@@ -140,7 +143,6 @@ const Detaillist = ({ userObj }) => {
     toggleEditing();
     let attachmentUrl = "";
     if (newattachment !== "") {
-      console.log("없어");
       const attachmentRef = storageService
         .ref()
         .child(`${userObj.uid}/${uuidv4()}`);
@@ -308,7 +310,9 @@ const Detaillist = ({ userObj }) => {
         .delete();
     }
   };
-
+  const onShareClick=()=>{
+    setShareClick(true);
+  }
   return (
     <>
       {editing ? (
@@ -537,9 +541,20 @@ const Detaillist = ({ userObj }) => {
             </div>
             <br></br>
             <div className="detaillist_imo">
-              <div>
+            <div className="detaillist_user">
+                <span onClick={onShareClick} style={{float:"inlineEnd"}}>
+                <FontAwesomeIcon 
+                  size="2x"
+                  color={"#C7D3F7"}
+                  icon={faShareFromSquare}
+                   />
+                </span>
+                {
+                  shareclick&&(
+                  <Kakao detailObj={detailObj}/>)
+                }
                 {detailObj.creatorId === userObj.uid && (
-                  <div className="detaillist_user">
+                    <>
                     <span onClick={toggleEditing}>
                       <FontAwesomeIcon
                         icon={faPencilAlt}
@@ -556,7 +571,7 @@ const Detaillist = ({ userObj }) => {
                         title="삭제"
                       />
                     </span>
-                  </div>
+                  </>
                 )}
               </div>
             </div>

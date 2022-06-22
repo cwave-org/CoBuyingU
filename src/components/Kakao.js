@@ -1,44 +1,23 @@
-const Kakao=()=>{
-    // const img='public/img/chong.png';
-    const onSharekakao=()=>{
-        window.Kakao.Link.sendDefault({
-            objectType: 'feed',
-            content: {
-              title: '딸기 치즈 케익',
-              description: '#케익 #딸기 #삼평동 #카페 #분위기 #소개팅',
-              imageUrl:
-                'http://k.kakaocdn.net/dn/Q2iNx/btqgeRgV54P/VLdBs9cvyn8BJXB3o7N8UK/kakaolink40_original.png',
-              link: {
-                mobileWebUrl: 'https://developers.kakao.com',
-                webUrl: 'https://developers.kakao.com',
-              },
-            },
-            social: {
-              likeCount: 286,
-              commentCount: 45,
-              sharedCount: 845,
-            },
-            buttons: [
-              {
-                title: '웹으로 보기',
-                link: {
-                  mobileWebUrl: 'https://developers.kakao.com',
-                  webUrl: 'https://developers.kakao.com',
-                },
-              },
-              {
-                title: '앱으로 보기',
-                link: {
-                  mobileWebUrl: 'https://developers.kakao.com',
-                  webUrl: 'https://developers.kakao.com',
-                },
-              },
-            ],
-          })
+import { useEffect } from "react";
+
+export default function Kakao({detailObj}){
+
+  useEffect(()=>{
+    window.Kakao.Link.sendCustom(
+      {
+      templateId: 78627,
+      templateArgs: {
+        'THU' : detailObj.attachmentUrl,
+        'item': detailObj.item,
+        'price':detailObj.price,
+        'deadline':detailObj.deadline,
+      }
     }
-    return(
-        
-       <button onClick={onSharekakao}>공유해봐</button>
-    );
+    )
+    
+  },[])
+    // const img='public/img/chong.png';
+  return(
+    <></>
+  );
 }
-export default Kakao;
