@@ -9,7 +9,11 @@ import "./mainpage.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./openJoin.css";
 import "./mypage.css";
-<script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
+
+window.Kakao.init('0dac4f0cc838fab4e0aa05850497272f');
+      // Kakao.isInitialized();
+
+
 ReactDOM.render(
   <React.StrictMode>
     <App />
