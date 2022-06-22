@@ -49,7 +49,6 @@ function App() {
       ) : (
         <img width="100%" src="img/cwave_black.png"></img>
       )}
-      <footer className="footer">&copy; CWAVE all rights reserved </footer>
     </>
   );
 }

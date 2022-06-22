@@ -50,12 +50,15 @@ const Myscrap = ({ listObj, userObj }) => {
         {bucket ? (
           <>
             <div style={{ display: "flex", flexDirection: "row" }}>
-              <span onClick={onClick}>품목 이름: {`${listObj.itemname}`}</span>
+              <span onClick={onClick} style={{ width: "90%" }}>
+                품목 이름: {`${listObj.itemname}`}
+              </span>
               <FontAwesomeIcon
                 icon={faStar}
                 onClick={check}
                 size="1x"
                 color={"#E4C6F5"}
+                style={{ width: "10%" }}
               ></FontAwesomeIcon>
             </div>
           </>

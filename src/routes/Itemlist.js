@@ -58,9 +58,16 @@ const Itemlist = () => {
           </div>
         </div>
       ) : (
-        <div>
-          <br /> <br /> <br /> <br />
-          <br />
+        <div
+          style={{
+            width: "90%",
+            height: "fit-content",
+            padding: "10px",
+            backgroundColor: " rgb(255, 255, 255)",
+            borderRadius: "10px",
+            marginTop: "120px",
+          }}
+        >
           <img width="100%" src="img/no_participation.png"></img>
         </div>
       )}

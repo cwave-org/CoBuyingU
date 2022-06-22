@@ -218,7 +218,7 @@ const SellingForm = ({ userObj }) => {
                 src={attachment}
                 width="100px"
                 height="100px"
-                style={{ marginRight: 5 }}
+                style={{ marginRight: 5, marginTop: 5 }}
               />
               <button className="default_Btn" onClick={onClearAttachment}>
                 Clear
