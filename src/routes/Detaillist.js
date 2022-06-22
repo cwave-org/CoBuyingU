@@ -52,11 +52,74 @@ const Detaillist = ({ userObj }) => {
   // Delete Cobuying Item
   const onDeleteClick = async () => {
     const ok = window.confirm("정말 공구를 삭제하실 건가요?");
-    if (ok) {
+    /*if (ok) {
+
       navigate("/");
       await dbService.doc(`startlist/${detailObj.id}`).delete();
       // await storageService.refFromURL(itemObj.attachmentUrl).delete();
+    }*/
+    if (ok) {
+      navigate("/");
+      async function deleteCollection(dbService, collectionPath) {
+        const collectionRef = dbService.collection(collectionPath);
+        const query = collectionRef;
+        //debugger
+        return new Promise((resolve, reject) => {
+          deleteQueryBatch(dbService, query, resolve).catch(reject);
+        });
+      }
+
+      async function deleteCollection2(dbService, collectionPath) {
+        const collectionRef = dbService.collection(collectionPath);
+        const query = collectionRef;
+        //debugger
+        return new Promise((resolve, reject) => {
+          deleteQueryBatch(dbService, query, resolve).catch(reject);
+        });
+      }
+      
+      async function deleteQueryBatch(dbService, query, resolve) {
+        const snapshot = await query.get();
+      
+        const batchSize = snapshot.size;
+        if (batchSize === 0) {
+          // When there are no documents left, we are done
+          resolve();
+          return;
+        }
+      
+        // Delete documents in a batch
+        const batch = dbService.batch();
+        snapshot.docs.forEach((doc) => {
+          batch.delete(doc.ref);
+        });
+        await batch.commit();
+      
+        // Recurse on the next process tick, to avoid
+        // exploding the stack.
+        process.nextTick(() => {
+          deleteQueryBatch(dbService, query, resolve);
+        });
+      }
+
+      
+      //await dbService.doc(`startlist/${detailObj.id}`).delete();
+      deleteCollection(dbService, `startlist/${detailObj.id}/QnA/${qnaObj.id}/comments`)
+      await dbService
+        .doc(`startlist/${detailObj.id}`)
+        .collection("QnA")
+        .doc(`${qnaObj.id}`)
+        .delete();
+     deleteCollection2(dbService, `startlist/${detailObj.id}/QnA`)
+      await dbService
+        .doc(`startlist/${detailObj.id}`)
+        .delete();
+      deleteCollection2(dbService, `startlist/${detailObj.id}/acrap`)
+      await dbService
+        .doc(`startlist/${detailObj.id}`)
+        .delete();
     }
+    //await storageService.refFromURL(itemObj.attachmentUrl).delete();
   };
 
   // Edit Cobuying Item
