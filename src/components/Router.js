@@ -61,7 +61,6 @@ const AppRouter = ({ refreshUser, isLoggedIn, userObj }) => {
                 element={<Itemlist userObj={userObj} />}
               />
               <Route exact path="/buying/done" element={<JoinDone />} />
-              {/* <Route exact path="/share" element={<Kakao />} /> */}
             </>
           ) : (
             <>
