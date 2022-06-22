@@ -11,7 +11,7 @@ export default function Kakao({detailObj}){
         'item': detailObj.item,
         'price':detailObj.price,
         'deadline':detailObj.deadline,
-        'detail':detailObj.id,
+        // 'detail':detailObj.id,
         }
       }
     )   
