@@ -57,7 +57,7 @@ const CobuyingItem = ({ userObj, listObj, isOwner }) => {
   };
 
   const onDetaillistClick = () => {
-    navigate(`/selling/detail/${listObj.id}`, {
+    navigate(`/selling/detail`, {
       replace: false,
       state: { detailObj: listObj },
     });
