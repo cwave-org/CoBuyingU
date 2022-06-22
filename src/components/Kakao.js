@@ -11,13 +11,11 @@ export default function Kakao({detailObj}){
         'item': detailObj.item,
         'price':detailObj.price,
         'deadline':detailObj.deadline,
-        'detail':detailObj.name,
+        'detail':detailObj.id,
+        }
       }
-    }
-    )
-    
+    )   
   },[])
-    // const img='public/img/chong.png';
   return(
     <></>
   );
