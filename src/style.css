@@ -211,21 +211,20 @@ button {
   height: 100px;
   margin-right: 5px;
   margin-top: 5px;
+}
 
 #rotating_img {
   animation: rotate_image 10s linear infinite;
   transform-origin: 50% 50%;
-
 }
 
-
-@keyframes rotate_image{
-	100% {
-    	transform: rotate(360deg);
-    }
+@keyframes rotate_image {
+  100% {
+    transform: rotate(360deg);
+  }
 }
 
-.ini{
-  text-align:center;
+.ini {
+  text-align: center;
   margin-top: 50%;
 }
