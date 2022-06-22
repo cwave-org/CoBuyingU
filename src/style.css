@@ -166,3 +166,21 @@ button {
   align-items: center;
   margin-left: 10%;
 }
+
+#rotating_img {
+  animation: rotate_image 10s linear infinite;
+  transform-origin: 50% 50%;
+
+}
+
+
+@keyframes rotate_image{
+	100% {
+    	transform: rotate(360deg);
+    }
+}
+
+.ini{
+  text-align:center;
+  margin-top: 50%;
+}
