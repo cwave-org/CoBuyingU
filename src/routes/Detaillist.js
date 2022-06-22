@@ -23,7 +23,16 @@ const Detaillist = ({ userObj }) => {
   const [itemObj, setItemObj] = useState(detailObj);
   const navigate = useNavigate();
   const [bucket, setBucket] = useState(false);
-
+  const [name, setName] = useState(itemObj.name);
+  const [itemname, setItemname] = useState(itemObj.itemname);
+  const [item, setItem] = useState(itemObj.item);
+  const [price, setPrice] = useState(itemObj.price);
+  const [deadline, setDeadline] = useState(itemObj.deadline);
+  const [etc, setEtc] = useState(itemObj.etc);
+  const [account, setAccount] = useState(itemObj.account);
+  const [link, setLink] = useState("");
+  const [attachment, setAttachment] = useState(itemObj.attachmentUrl);
+  const[newattachment,setNewAttachment]=useState("");
   // 동기화
   useEffect(() => {
     dbService.collection("startlist").onSnapshot((snapshot) => {
@@ -37,6 +46,7 @@ const Detaillist = ({ userObj }) => {
         }
       });
     });
+
   }, []);
 
   const onJoinlistClick = () => {
@@ -60,26 +70,22 @@ const Detaillist = ({ userObj }) => {
   };
 
   // Edit Cobuying Item
-  const [name, setName] = useState(itemObj.name);
-  const [itemname, setItemname] = useState(itemObj.itemname);
-  const [item, setItem] = useState(itemObj.item);
-  const [price, setPrice] = useState(itemObj.price);
-  const [deadline, setDeadline] = useState(itemObj.deadline);
-  const [etc, setEtc] = useState(itemObj.etc);
-  const [account, setAccount] = useState(itemObj.account);
-  const [link, setLink] = useState("");
-  const [attachment, setAttachment] = useState(itemObj.attachmentUrl);
   const toggleEditing = () => setEditing((prev) => !prev);
-  const onSubmit = async (event) => {
+  const onEditSubmit = async (event) => {
     navigate("/");
+    // let attachmentUrl = itemObj.attachmentUrl;
     event.preventDefault();
     let attachmentUrl = "";
-    if (attachment !== "") {
+    if (newattachment !== "") {
+      console.log("없어");
       const attachmentRef = storageService
         .ref()
         .child(`${userObj.uid}/${uuidv4()}`);
-      const response = await attachmentRef.putString(attachment, "data_url");
+      const response = await attachmentRef.putString(newattachment, "data_url");
       attachmentUrl = await response.ref.getDownloadURL();
+      await dbService.doc(`startlist/${itemId}`).update({
+        attachmentUrl,
+      })
     }
     await dbService.doc(`startlist/${itemId}`).update({
       name: name,
@@ -89,9 +95,7 @@ const Detaillist = ({ userObj }) => {
       deadline: deadline,
       account: account,
       etc: etc,
-      attachmentUrl,
     });
-    setEditing(false);
   };
   const onChange_link = (event) => {
     const {
@@ -104,6 +108,7 @@ const Detaillist = ({ userObj }) => {
       target: { value },
     } = event;
     setName(value);
+    console.log(value);
   };
   const onChange_itemname = (event) => {
     const {
@@ -151,7 +156,7 @@ const Detaillist = ({ userObj }) => {
       const {
         currentTarget: { result },
       } = finishedEvent;
-      setAttachment(result);
+      setNewAttachment(result);
     };
     reader.readAsDataURL(theFile);
   };
@@ -269,7 +274,7 @@ const Detaillist = ({ userObj }) => {
     <>
       {editing ? (
           <>
-            <form className="openjoin_container" onSubmit={onSubmit} >
+            <form className="openjoin_container" onSubmit={onEditSubmit} >
               <p className="openjoin_que">
                 <span>✔️ 이름: </span>
                 <input
@@ -370,7 +375,12 @@ const Detaillist = ({ userObj }) => {
                   accept="image/*" 
                   onChange={onFileChange}
                 />
-                {attachment && (
+                {newattachment?(
+                  <div>
+                    <img src={newattachment} width="50px" height="50px" />
+                    <button onClick={onClearAttachment}>Clear</button>
+                  </div>
+                ):(
                   <div>
                     <img src={attachment} width="50px" height="50px" />
                     <button onClick={onClearAttachment}>Clear</button>
@@ -389,7 +399,7 @@ const Detaillist = ({ userObj }) => {
                 />
                 <br/><br/>
                 <input type="submit" value="취소" onSubmit={toggleEditing} style={{margin:'1%'}}/>
-                <input type="submit" value="수정" onSubmit={onSubmit} style={{margin:'1%'}}/>
+                <input type="submit" value="수정" onSubmit={onEditSubmit} style={{margin:'1%'}}/>
               </p>
             </form>
           </>
