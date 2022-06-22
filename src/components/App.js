@@ -47,7 +47,10 @@ function App() {
           userObj={userObj}
         />
       ) : (
-        <img width="100%" src="img/cwave_black.png"></img>
+        <div className="ini">
+          <img id="rotating_img" width="80%" src="img/logo4.png"></img>
+        </div>
+          
       )}
     </>
   );

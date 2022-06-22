@@ -23,7 +23,16 @@ const Detaillist = ({ userObj }) => {
   const [itemObj, setItemObj] = useState(detailObj);
   const navigate = useNavigate();
   const [bucket, setBucket] = useState(false);
-
+  const [name, setName] = useState(itemObj.name);
+  const [itemname, setItemname] = useState(itemObj.itemname);
+  const [item, setItem] = useState(itemObj.item);
+  const [price, setPrice] = useState(itemObj.price);
+  const [deadline, setDeadline] = useState(itemObj.deadline);
+  const [etc, setEtc] = useState(itemObj.etc);
+  const [account, setAccount] = useState(itemObj.account);
+  const [link, setLink] = useState("");
+  const [attachment, setAttachment] = useState(itemObj.attachmentUrl);
+  const[newattachment,setNewAttachment]=useState("");
   // 동기화
   useEffect(() => {
     dbService.collection("startlist").onSnapshot((snapshot) => {
@@ -37,6 +46,7 @@ const Detaillist = ({ userObj }) => {
         }
       });
     });
+
   }, []);
 
   const onJoinlistClick = () => {
@@ -52,34 +62,93 @@ const Detaillist = ({ userObj }) => {
   // Delete Cobuying Item
   const onDeleteClick = async () => {
     const ok = window.confirm("정말 공구를 삭제하실 건가요?");
-    if (ok) {
+    /*if (ok) {
+
       navigate("/");
       await dbService.doc(`startlist/${detailObj.id}`).delete();
       // await storageService.refFromURL(itemObj.attachmentUrl).delete();
+    }*/
+    if (ok) {
+      navigate("/");
+      async function deleteCollection(dbService, collectionPath) {
+        const collectionRef = dbService.collection(collectionPath);
+        const query = collectionRef;
+        //debugger
+        return new Promise((resolve, reject) => {
+          deleteQueryBatch(dbService, query, resolve).catch(reject);
+        });
+      }
+
+      async function deleteCollection2(dbService, collectionPath) {
+        const collectionRef = dbService.collection(collectionPath);
+        const query = collectionRef;
+        //debugger
+        return new Promise((resolve, reject) => {
+          deleteQueryBatch(dbService, query, resolve).catch(reject);
+        });
+      }
+      
+      async function deleteQueryBatch(dbService, query, resolve) {
+        const snapshot = await query.get();
+      
+        const batchSize = snapshot.size;
+        if (batchSize === 0) {
+          // When there are no documents left, we are done
+          resolve();
+          return;
+        }
+      
+        // Delete documents in a batch
+        const batch = dbService.batch();
+        snapshot.docs.forEach((doc) => {
+          batch.delete(doc.ref);
+        });
+        await batch.commit();
+      
+        // Recurse on the next process tick, to avoid
+        // exploding the stack.
+        process.nextTick(() => {
+          deleteQueryBatch(dbService, query, resolve);
+        });
+      }
+
+      
+      //await dbService.doc(`startlist/${detailObj.id}`).delete();
+      deleteCollection(dbService, `startlist/${detailObj.id}/QnA/${qnaObj.id}/comments`)
+      await dbService
+        .doc(`startlist/${detailObj.id}`)
+        .collection("QnA")
+        .doc(`${qnaObj.id}`)
+        .delete();
+     deleteCollection2(dbService, `startlist/${detailObj.id}/QnA`)
+      await dbService
+        .doc(`startlist/${detailObj.id}`)
+        .delete();
+      deleteCollection2(dbService, `startlist/${detailObj.id}/acrap`)
+      await dbService
+        .doc(`startlist/${detailObj.id}`)
+        .delete();
     }
+    //await storageService.refFromURL(itemObj.attachmentUrl).delete();
   };
 
   // Edit Cobuying Item
-  const [name, setName] = useState(itemObj.name);
-  const [itemname, setItemname] = useState(itemObj.itemname);
-  const [item, setItem] = useState(itemObj.item);
-  const [price, setPrice] = useState(itemObj.price);
-  const [deadline, setDeadline] = useState(itemObj.deadline);
-  const [etc, setEtc] = useState(itemObj.etc);
-  const [account, setAccount] = useState(itemObj.account);
-  const [link, setLink] = useState("");
-  const [attachment, setAttachment] = useState(itemObj.attachmentUrl);
   const toggleEditing = () => setEditing((prev) => !prev);
+
   const onSubmit = async (event) => {
     event.preventDefault();
     toggleEditing();
     let attachmentUrl = "";
-    if (attachment !== "") {
+    if (newattachment !== "") {
+      console.log("없어");
       const attachmentRef = storageService
         .ref()
         .child(`${userObj.uid}/${uuidv4()}`);
-      const response = await attachmentRef.putString(attachment, "data_url");
+      const response = await attachmentRef.putString(newattachment, "data_url");
       attachmentUrl = await response.ref.getDownloadURL();
+      await dbService.doc(`startlist/${itemId}`).update({
+        attachmentUrl,
+      })
     }
     await dbService.doc(`startlist/${itemId}`).update({
       name: name,
@@ -89,7 +158,6 @@ const Detaillist = ({ userObj }) => {
       deadline: deadline,
       account: account,
       etc: etc,
-      attachmentUrl,
     });
   };
 
@@ -126,7 +194,7 @@ const Detaillist = ({ userObj }) => {
       const {
         currentTarget: { result },
       } = finishedEvent;
-      setAttachment(result);
+      setNewAttachment(result);
     };
     reader.readAsDataURL(theFile);
   };
@@ -314,7 +382,6 @@ const Detaillist = ({ userObj }) => {
                 required
               />
             </p>
-
             <p className="openjoin_que">
               <span className="openjoin_long">✔️ 오픈채팅방 링크 : </span>
               <input
@@ -328,7 +395,6 @@ const Detaillist = ({ userObj }) => {
                 style={{ marginBottom: 5 }}
               />
             </p>
-
             <p className="openjoin_que">
               <span className="openjoin_long">
                 ✔️ 계좌(은행/ 계좌번호/입금주명) :{" "}
