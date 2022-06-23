@@ -50,7 +50,6 @@ function App() {
         <div className="ini">
           <img id="rotating_img" width="80%" src="img/logo4.png"></img>
         </div>
-          
       )}
     </>
   );

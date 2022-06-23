@@ -13,9 +13,8 @@ import { faStar as FaStarRegular } from "@fortawesome/free-regular-svg-icons";
 import Kakao from "../components/Kakao";
 import QnA from "../components/QnA";
 
-
 const Detaillist = ({ userObj }) => {
-  const [shareclick,setShareClick]=useState(false);
+  const [shareclick, setShareClick] = useState(false);
   const location = useLocation();
   let { detailObj } = location.state;
   const itemId = detailObj.id;
@@ -35,7 +34,7 @@ const Detaillist = ({ userObj }) => {
   const [account, setAccount] = useState(itemObj.account);
   const [link, setLink] = useState("");
   const [attachment, setAttachment] = useState(itemObj.attachmentUrl);
-  const[newattachment,setNewAttachment]=useState("");
+  const [newattachment, setNewAttachment] = useState("");
   // 동기화
   useEffect(() => {
     dbService.collection("startlist").onSnapshot((snapshot) => {
@@ -49,7 +48,6 @@ const Detaillist = ({ userObj }) => {
         }
       });
     });
-
   }, []);
 
   const onJoinlistClick = () => {
@@ -90,24 +88,24 @@ const Detaillist = ({ userObj }) => {
           deleteQueryBatch(dbService, query, resolve).catch(reject);
         });
       }
-      
+
       async function deleteQueryBatch(dbService, query, resolve) {
         const snapshot = await query.get();
-      
+
         const batchSize = snapshot.size;
         if (batchSize === 0) {
           // When there are no documents left, we are done
           resolve();
           return;
         }
-      
+
         // Delete documents in a batch
         const batch = dbService.batch();
         snapshot.docs.forEach((doc) => {
           batch.delete(doc.ref);
         });
         await batch.commit();
-      
+
         // Recurse on the next process tick, to avoid
         // exploding the stack.
         process.nextTick(() => {
@@ -115,22 +113,20 @@ const Detaillist = ({ userObj }) => {
         });
       }
 
-      
       //await dbService.doc(`startlist/${detailObj.id}`).delete();
-      deleteCollection(dbService, `startlist/${detailObj.id}/QnA/${qnaObj.id}/comments`)
+      deleteCollection(
+        dbService,
+        `startlist/${detailObj.id}/QnA/${qnaObj.id}/comments`
+      );
       await dbService
         .doc(`startlist/${detailObj.id}`)
         .collection("QnA")
         .doc(`${qnaObj.id}`)
         .delete();
-     deleteCollection2(dbService, `startlist/${detailObj.id}/QnA`)
-      await dbService
-        .doc(`startlist/${detailObj.id}`)
-        .delete();
-      deleteCollection2(dbService, `startlist/${detailObj.id}/acrap`)
-      await dbService
-        .doc(`startlist/${detailObj.id}`)
-        .delete();
+      deleteCollection2(dbService, `startlist/${detailObj.id}/QnA`);
+      await dbService.doc(`startlist/${detailObj.id}`).delete();
+      deleteCollection2(dbService, `startlist/${detailObj.id}/acrap`);
+      await dbService.doc(`startlist/${detailObj.id}`).delete();
     }
     //await storageService.refFromURL(itemObj.attachmentUrl).delete();
   };
@@ -150,7 +146,7 @@ const Detaillist = ({ userObj }) => {
       attachmentUrl = await response.ref.getDownloadURL();
       await dbService.doc(`startlist/${itemId}`).update({
         attachmentUrl,
-      })
+      });
     }
     await dbService.doc(`startlist/${itemId}`).update({
       name: name,
@@ -310,9 +306,9 @@ const Detaillist = ({ userObj }) => {
         .delete();
     }
   };
-  const onShareClick=()=>{
+  const onShareClick = () => {
     setShareClick(true);
-  }
+  };
   return (
     <>
       {editing ? (
@@ -493,13 +489,13 @@ const Detaillist = ({ userObj }) => {
 
               <div className="detaillist_font">
                 <p>
-                  <b>판매자</b> &nbsp;&nbsp;&nbsp; {itemObj.name}
+                  <b>✔️ 판매자</b> &nbsp;&nbsp;&nbsp; {itemObj.name}
                   <br></br>
-                  <b>마감기한</b> &nbsp;&nbsp;&nbsp; {itemObj.deadline}
+                  <b>✔️ 마감기한</b> &nbsp;&nbsp;&nbsp; {itemObj.deadline}
                   <br></br>
-                  <b>계좌</b> &nbsp;&nbsp;&nbsp;{itemObj.account}
+                  <b>✔️ 계좌</b> &nbsp;&nbsp;&nbsp;{itemObj.account}
                   <br></br>
-                  <b>오픈채팅방</b>
+                  <b>✔️ 오픈채팅방</b>
                   <span className="detaillist_bar">
                     {detailObj.link ? (
                       <a href={detailObj.link}>
@@ -515,8 +511,8 @@ const Detaillist = ({ userObj }) => {
                     )}
                   </span>
                   <br></br>
-                  <b>기타사항</b> <br></br>
-                  {itemObj.etc}
+                  <b>✔️ 기타사항</b> <br></br>
+                  <div style={{ paddingLeft: 25 }}>:&{itemObj.etc}</div>
                   <br></br>
                 </p>
               </div>
@@ -541,20 +537,17 @@ const Detaillist = ({ userObj }) => {
             </div>
             <br></br>
             <div className="detaillist_imo">
-            <div className="detaillist_user">
-                <span onClick={onShareClick} style={{float:"inlineEnd"}}>
-                <FontAwesomeIcon 
-                  size="2x"
-                  color={"#C7D3F7"}
-                  icon={faShareFromSquare}
-                   />
+              <div className="detaillist_user">
+                <span onClick={onShareClick} style={{ float: "inlineEnd" }}>
+                  <FontAwesomeIcon
+                    size="2x"
+                    color={"#C7D3F7"}
+                    icon={faShareFromSquare}
+                  />
                 </span>
-                {
-                  shareclick&&(
-                  <Kakao detailObj={detailObj}/>)
-                }
+                {shareclick && <Kakao detailObj={detailObj} />}
                 {detailObj.creatorId === userObj.uid && (
-                    <>
+                  <>
                     <span onClick={toggleEditing}>
                       <FontAwesomeIcon
                         icon={faPencilAlt}
