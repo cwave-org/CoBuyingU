@@ -3,7 +3,7 @@ import React, { useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import { dbService } from "../fbase";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faTrash, faPencilAlt } from "@fortawesome/free-solid-svg-icons";
+import { faPencilAlt } from "@fortawesome/free-solid-svg-icons";
 
 const Buydetaillist = () => {
   const navigate = useNavigate();
@@ -36,14 +36,6 @@ const Buydetaillist = () => {
       });
     });
   }, []);
-
-  const onDeleteClick = async () => {
-    const ok = window.confirm("정말 삭제하실 건가요?");
-    if (ok) {
-      await dbService.doc(`joinlist/${detailObj.id}`).delete();
-    }
-    navigate("/profile", {});
-  };
 
   const toggleEditing = () => setEditing((prev) => !prev);
 
@@ -251,13 +243,6 @@ const Buydetaillist = () => {
               color={"#C7D3F7"}
               title="수정"
               onClick={toggleEditing}
-            />
-            <FontAwesomeIcon
-              icon={faTrash}
-              size="1x"
-              color={"#C7D3F7"}
-              title="삭제"
-              onClick={onDeleteClick}
             />
           </div>
         </div>

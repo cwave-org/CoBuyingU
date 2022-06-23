@@ -10,12 +10,13 @@ const Itemlist = () => {
   const [lists, setLists] = useState([]);
   const [excellist, setExcelList] = useState([]);
   useEffect(() => {
-    dbService
-      .collection("joinlist")
-      .where("randomidx", "==", buyerindex)
-      .get()
-      .then((querySnapshot) => {
-        querySnapshot.forEach((doc) => {
+    dbService.collection("joinlist").onSnapshot((snapshot) => {
+      setLists([]);
+      setExcelList([]);
+      console.log("out here");
+      snapshot.docs.map((doc) => {
+        console.log("in here");
+        if (doc.data().randomidx == buyerindex) {
           const myobj = {
             ...doc.data(),
             id: doc.id,
@@ -26,9 +27,11 @@ const Itemlist = () => {
           };
           setLists((prev) => [myobj, ...prev]);
           setExcelList((prev) => [excelobj, ...prev]);
-        });
+        }
       });
-  }, [buyerindex]);
+    });
+  }, []);
+
   return (
     <>
       {lists.length > 0 ? (
@@ -38,12 +41,23 @@ const Itemlist = () => {
             <hr />
             <Excel exceldata={excellist} name={filename} />
             <br />
-            <div style={{ marginBottom: "15px" }}>
-              <span style={{ width: "15%", float: "right" }}>확인</span>
+            <div style={{ marginBottom: "15px", fontSize: 12 }}>
+              <span
+                style={{ width: "10%", float: "right", textAlign: "center" }}
+              >
+                삭제
+              </span>
+              <span
+                style={{ width: "10%", float: "right", textAlign: "center" }}
+              >
+                확인
+              </span>
               <span style={{ width: "20%", float: "right" }}>구매자명</span>
               <span style={{ width: "20%", float: "right" }}>입금자명</span>
-              <span style={{ width: "25%", float: "right" }}>입금날짜</span>
-              <span style={{ width: "20%", float: "right" }}>구매금액</span>
+              <span style={{ width: "24%", float: "right" }}>입금날짜</span>
+              <span style={{ width: "16%", float: "right" }}>
+                구매금액
+              </span>{" "}
             </div>
             <br />
             <div className="joiner_context">
