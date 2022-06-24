@@ -23,15 +23,15 @@ const Home = ({ userObj }) => {
   // 모든 startlist 불러오기
   useEffect(() => {
     dbService
-    .collection("startlist")
-    .orderBy("deadline", "desc")
-    .onSnapshot((snapshot) => {
-      const listArray = snapshot.docs.map((doc) => ({
-        id: doc.id,
-        ...doc.data(),
-      }));
-      setLists(listArray);
-    });
+      .collection("startlist")
+      .orderBy("deadline", "desc")
+      .onSnapshot((snapshot) => {
+        const listArray = snapshot.docs.map((doc) => ({
+          id: doc.id,
+          ...doc.data(),
+        }));
+        setLists(listArray);
+      });
   }, []);
 
   // 모든 joinlist 불러오기
@@ -45,12 +45,12 @@ const Home = ({ userObj }) => {
     });
   }, []);
 
-  var power_cnt=0; // 최대 갯수
-  var power_name= null;
+  var power_cnt = 0; // 최대 갯수
+  var power_name = null;
 
   // 파워 공구자
   useEffect(() => {
-    power_cnt=0;
+    power_cnt = 0;
     const listdb = dbService
       .collection("startlist")
       .get()
@@ -58,35 +58,25 @@ const Home = ({ userObj }) => {
         결과.forEach((doc) => {
           const creator = doc.data().creatorId;
           if (map1.get(creator) == undefined) {
-             map1.set(creator, 1);
-          } 
+            map1.set(creator, 1);
+          }
           else { //있으면
             const creator = doc.data().creatorId;
             const index = map1.get(creator);
             map1.set(creator, index + 1);
           }
-          
-          if (map1.get(creator) > power_cnt){
+
+          if (map1.get(creator) > power_cnt) {
             power_cnt = map1.get(creator);
             power_name = doc.data().userName;
           }
         });
 
-    setPowerseller(power_name);
-    setPowersellers(power_cnt);
-    // const iter1 =map1.entries();
-   
-    /*
-    console.log(iter1.next().value, powersellers);
-    if (iter1.next().value > powersellers){
-      console.log("in");
-      powersellers = iter1.next().value;
-      console.log(iter1.value);
-    }
-    */
+        setPowerseller(power_name);
+        setPowersellers(power_cnt);
       });
   });
-  
+
 
   return (
     <div className="container">

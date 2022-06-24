@@ -33,7 +33,9 @@ const BuyingForm = ({ userObj }) => {
       account_name: account_name,
       account_re: account_re,
       deposit_complete: false,
+      deleted : false,
     };
+
     await dbService.collection("joinlist").add(BuyingObj);
     setName("");
     setPhonenumber("");
@@ -43,7 +45,6 @@ const BuyingForm = ({ userObj }) => {
     setAccount_name("");
     setAccount_date("");
     setAccount_re("");
-
     navigate("/buying/done", { replace: false, state: { link: detailObj.link } });
   };
 

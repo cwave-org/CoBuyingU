@@ -520,12 +520,14 @@ const Detaillist = ({ userObj }) => {
 
             <div align="center">
               {detailObj.creatorId === userObj.uid ? (
-                <button
-                  className="default_Btn_Center"
-                  onClick={onShowlistClick}
-                >
-                  공구 참여자 목록 보기
-                </button>
+                <>
+                  <button
+                    className="default_Btn_Center"
+                    onClick={onShowlistClick}
+                  >
+                    공구 참여자 목록 보기
+                  </button>
+                </>
               ) : (
                 <button
                   className="default_Btn_Center"
