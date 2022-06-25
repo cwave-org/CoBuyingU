@@ -83,7 +83,7 @@ const Detaillist = ({ userObj}) => {
   const onDeleteClick = async () => {
     const ok = window.confirm("정말 공구를 삭제하실 건가요?");
     if (ok) {
-      //navigate("/");
+      navigate("/");
       async function deleteCollection(dbService, collectionPath) {
         const collectionRef = dbService.collection(collectionPath);
         const query = collectionRef;
