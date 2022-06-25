@@ -39,17 +39,17 @@ const Comment= ({ userObj,qnaObj,detailObj,isOpener }) => {
       
     return (
           <div>
-            <div className="detaillist_comment">
               <span>
               <form onSubmit={onSubmitComment}>
-                  <input 
+                  <input
+                  className="comment_text"
                     type="text"
                     placeholder="답변을 달아주세요"
                     value={comment}
                     onChange={onChangeComment}
                   />
                   <button type="submit" className="upload_Btn">
-                  Upload
+                  💬
                   </button>
               </form>
               </span>
@@ -59,12 +59,11 @@ const Comment= ({ userObj,qnaObj,detailObj,isOpener }) => {
                     key={comment.id}
                     commentObj={comment}
                     isOwner={comment.creatorId === userObj.uid}
-                    detailObj={detailObj}
+                    detailObj={id}
                     qnaObj={qnaObj}
                     isOpener={isOpener===comment.creatorId}
                   />
                 ))}   
-            </div>
             <hr></hr>
           </div>
   );

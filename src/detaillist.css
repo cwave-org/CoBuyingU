@@ -16,6 +16,7 @@ ul {
 
 .detaillist_qna {
   text-align: left;
+  margin-bottom: 5%;
 }
 
 .detaillist_img {
@@ -29,6 +30,8 @@ ul {
 }
 
 .detaillist_qna_box {
+  /* margin-left: 10%; */
+  margin-bottom: 1%;
   text-align: left;
 }
 
@@ -43,12 +46,29 @@ ul {
   flex-direction: row;
 }
 
-.detaillist_comment {
-  margin-left: auto;
-  width: 90%;
-  text-align: left;
+.comment_trashbtn{
+  position: absolute;
+  left: 87%;
+  transform: translateY(-100%);
+}
+.detaillist_trashbtn {
+  position: absolute;
+  left: 87%;
 }
 
+.detaillist_comment {
+  margin-left: 10%;
+  /* width: 90%; */
+  text-align: left;
+}
+.comment_text{
+  width:75%;
+  margin-left: 15%;
+}
+.comment_retext{
+  width:75%;
+  margin-left: 15%;
+}
 .detaillist_comment1 {
   display: flex;
   flex-direction: column;
@@ -87,11 +107,10 @@ ul {
 .detaillist_user {
   margin-left: 1%;
 }
-.detaillist_trashbtn {
-  float: right;
-}
+
 .detaillist_qnacontent {
-  width: 100%;
+  width: 95%;
+  margin-left: 5%;
 }
 .detaillist_chong {
   color: #1385e3;
@@ -109,4 +128,7 @@ ul {
 .profile_edit input:focus {
   outline: 2px solid #bbdcf7;
   border-radius: 5px;
+}
+.need_enter{
+  white-space: pre-wrap;
 }
