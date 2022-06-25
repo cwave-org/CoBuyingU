@@ -35,42 +35,8 @@ const MyQnA = ({ listObj, userObj }) => {
       });
   }, []);
 
-  /*
-    if (bucket.id==userObj.uid){
-        //console.log(dbService.doc(`startlist/${listObj.id}`).collection("scrap").doc());
-        //console.log(creatorId);
-        //console.log(Id);
-        //dbService.doc(`startlist/${listObj.id}`).collection("scrap").doc(userObj.uid).id==userObj.uid
-        console.log(scraps);
-        //console.log(scraps[0].id);
-
-    return (
-            <div className="Itemclass">
-                <>
-                
-                    <div>
-                    <h4>품목 이름: {`${listObj.name}`}</h4> 
-                            
-                        
-                    </div>
-                    
-                </>  
-                
-            </div>
-    );
-                        }
-    else{
-        //console.log(creatorId);
-        console.log(scraps.creatorId);
-        //console.log(dbService.doc(`startlist/${listObj.id}`).collection("scrap").doc());
-        return (
-            
-            <p>없어</p>
-        );
-    }*/
-
   const onClick = () => {
-    navigation("/selling/detail", {
+    navigation(`/selling/detail/${listObj.id}`, {
       replace: false,
       state: { detailObj: listObj },
     });

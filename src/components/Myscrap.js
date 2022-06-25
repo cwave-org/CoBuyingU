@@ -38,7 +38,7 @@ const Myscrap = ({ listObj, userObj }) => {
   };
 
   const onClick = () => {
-    navigation("/selling/detail", {
+    navigation(`/selling/detail/${listObj.id}`, {
       replace: false,
       state: { detailObj: listObj },
     });

@@ -299,8 +299,8 @@ const Detaillist = ({ userObj}) => {
                   <br></br>
                   <b>✔️ 오픈채팅방</b>
                   <span className="detaillist_bar">
-                    {detailObj.link ? (
-                      <a href={detailObj.link}>
+                    {itemObj.link ? (
+                      <a href={itemObj.link}>
                         <img src="img/kakaotalk.png" height={20} width={20} />
                       </a>
                     ) : (
@@ -321,7 +321,7 @@ const Detaillist = ({ userObj}) => {
             </div>
 
             <div align="center">
-              {detailObj.creatorId === userObj.uid ? (
+              {itemObj.creatorId === userObj.uid ? (
                 <>
                   <button
                     className="default_Btn_Center"
@@ -349,8 +349,8 @@ const Detaillist = ({ userObj}) => {
                     icon={faShareFromSquare}
                   />
                 </span>
-                {shareclick && <Kakao url={id} detailObj={detailObj} />}
-                {detailObj.creatorId === userObj.uid && (
+                {shareclick && <Kakao url={id} detailObj={itemObj} />}
+                {itemObj.creatorId === userObj.uid && (
                   <>
                     <span onClick={toggleEditing}>
                       <FontAwesomeIcon

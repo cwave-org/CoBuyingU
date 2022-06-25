@@ -44,14 +44,9 @@ const Myjoinlist = ({ listObj, isOwner }) => {
         });
       });
 
-    navigate("/selling/detail", {
-      replace: false,
-      state: { detailObj: myObj },
-    });
+    navigate(`/selling/detail/${myObj.id}`);
   };
-  const onKakaoClick=()=>{
 
-  }
   const onShowbuyClick = () => {
     const detailObj = "init";
     navigate("/buying/detail", {
