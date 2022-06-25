@@ -43,11 +43,7 @@ const Profile = ({ userObj, listObj, refreshUser }) => {
 
   const onSubmit = async (event) => {
     event.preventDefault();
-    //user에 업로드
-    await dbService.doc(`user/${userObj.uid}`).set({
-      displayName: userObj.displayName,
-      uid: userObj.uid,
-    });
+    
     // dbService.doc(`user/${userObj.uid}`).get(userObj);
     if (userObj.displayName !== newDisplayName) {
       const IDcheck = await dbService
@@ -55,6 +51,11 @@ const Profile = ({ userObj, listObj, refreshUser }) => {
         .where("displayName", "==", newDisplayName)
         .get();
       if (IDcheck.docs.length == 0 && newDisplayName.length > 0) {
+        //user에 업로드
+    await dbService.doc(`user/${userObj.uid}`).set({
+      displayName: userObj.displayName,
+      uid: userObj.uid,
+    });
         await userObj.updateProfile({
           displayName: newDisplayName,
         });
