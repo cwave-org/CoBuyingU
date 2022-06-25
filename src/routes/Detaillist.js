@@ -291,30 +291,14 @@ const Detaillist = ({ userObj}) => {
 
               <div className="detaillist_font">
                 <p>
-                  <b>✔️ 판매자</b> &nbsp;&nbsp;&nbsp; {itemObj.name}
+                  <b>✔️ 판매자</b> &nbsp;&nbsp;&nbsp; {itemObj.userName}
                   <br></br>
                   <b>✔️ 마감기한</b> &nbsp;&nbsp;&nbsp; {itemObj.deadline}
                   <br></br>
                   <b>✔️ 계좌</b> &nbsp;&nbsp;&nbsp;{itemObj.account}
                   <br></br>
-                  <b>✔️ 오픈채팅방</b>
-                  <span className="detaillist_bar">
-                    {detailObj.link ? (
-                      <a href={detailObj.link}>
-                        <img src="img/kakaotalk.png" height={20} width={20} />
-                      </a>
-                    ) : (
-                      <img
-                        src="img/kakao_no.png"
-                        height={20}
-                        width={20}
-                        title="연결된 오픈채팅방이 없습니다."
-                      />
-                    )}
-                  </span>
-                  <br></br>
                   <b>✔️ 기타사항</b> <br></br>
-                  <div style={{ paddingLeft: 25 }}>: {itemObj.etc}</div>
+                  <div style={{ paddingLeft: 25 }}><br></br> {itemObj.etc}</div>
                   <br></br>
                 </p>
               </div>
