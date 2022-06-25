@@ -4,7 +4,6 @@ import { dbService, storageService } from "../fbase";
 import { useNavigate } from "react-router-dom";
 
 const SellingForm = ({ userObj }) => {
-  const [name, setName] = useState("");
   const [itemname, setItemname] = useState("");
   const [item, setItem] = useState("");
   const [price, setPrice] = useState("");
@@ -29,7 +28,6 @@ const SellingForm = ({ userObj }) => {
     }
     const listObj = {
       randomidx: Math.random(), // 어떤 글인지 추가
-      name: name,
       itemname: itemname,
       item: item,
       price: price,
@@ -43,7 +41,6 @@ const SellingForm = ({ userObj }) => {
       userName: userObj.displayName,
     };
     await dbService.collection("startlist").add(listObj);
-    setName("");
     setItemname("");
     setItem("");
     setPrice("");
@@ -62,9 +59,7 @@ const SellingForm = ({ userObj }) => {
     const {
       target: { value },
     } = event;
-    if (event.target.id === "name") {
-      setName(value);
-    } else if (event.target.id === "itemname") {
+    if (event.target.id === "itemname") {
       setItemname(value);
     } else if (event.target.id === "item") {
       setItem(value);
@@ -100,20 +95,6 @@ const SellingForm = ({ userObj }) => {
   return (
     <form className="openjoin_container" onSubmit={onSubmit}>
       <p>공구 열기</p>
-
-      <p className="openjoin_que">
-        <span>✔️ 이름:</span>
-        <input
-          id="name"
-          className="openjoin_input"
-          value={name}
-          onChange={onChange}
-          type="text"
-          placeholder="이름"
-          maxLength={120}
-          required
-        />
-      </p>
 
       <p className="openjoin_que">
         <span>✔️ 상품이름: </span>
@@ -231,8 +212,8 @@ const SellingForm = ({ userObj }) => {
           value={etc}
           onChange={onChange}
           type="text"
-          placeholder="기타사항"
-          maxLength={120}
+          placeholder="최대 길이는 1000자입니다."
+          maxLength={10000}
         />
       </p>
       <div>
