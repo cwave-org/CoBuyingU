@@ -46,7 +46,7 @@ const AppRouter = ({ refreshUser, isLoggedIn, userObj }) => {
               />
               <Route
                 exact
-                path="/selling/detail"
+                path="/selling/detail/:id"
                 element={<Detaillist userObj={userObj} />}
               />
               <Route

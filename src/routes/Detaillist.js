@@ -13,7 +13,7 @@ import { faStar as FaStarRegular } from "@fortawesome/free-regular-svg-icons";
 import Kakao from "../components/Kakao";
 import QnA from "../components/QnA";
 
-const Detaillist = ({ userObj }) => {
+const Detaillist = ({ userObj}) => {
   const [shareclick, setShareClick] = useState(false);
   const location = useLocation();
   let { detailObj } = location.state;
@@ -462,6 +462,7 @@ const Detaillist = ({ userObj }) => {
         <>
           <div className="detaillist_content">
             <div>
+              
               <h2 align="center">{itemObj.itemname}</h2>
 
               {itemObj.attachmentUrl && (
