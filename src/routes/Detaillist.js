@@ -83,7 +83,7 @@ const Detaillist = ({ userObj}) => {
   const onDeleteClick = async () => {
     const ok = window.confirm("정말 공구를 삭제하실 건가요?");
     if (ok) {
-      navigate("/");
+      //navigate("/");
       async function deleteCollection(dbService, collectionPath) {
         const collectionRef = dbService.collection(collectionPath);
         const query = collectionRef;
@@ -124,20 +124,19 @@ const Detaillist = ({ userObj}) => {
         process.nextTick(() => {
           deleteQueryBatch(dbService, query, resolve);
         });
-      }
+      } 
 
       //await dbService.doc(`startlist/${id}`).delete();
-      deleteCollection(
-        dbService,
-        `startlist/${detailObj}/QnA/${id}/comments`
-      );
+      deleteCollection(dbService, `startlist/${id}/QnA/${qnaObj.creatorId}/comments`);
       await dbService
-        .doc(`startlist/${detailObj}`)
+        .doc(`startlist/${id}`)
         .collection("QnA")
-        .doc(`${id}`)
+        .doc(`${qnaObj.creatorId}`)
         .delete();
-      deleteCollection2(dbService, `startlist/${detailObj}/QnA`);
-      await dbService.doc(`startlist/${detailObj}`).delete();
+
+
+      deleteCollection2(dbService, `startlist/${id}/QnA`);
+      await dbService.doc(`startlist/${id}`).delete();
       
       deleteCollection2(dbService, `startlist/${id}/scrap`);
       await dbService.doc(`startlist/${id}`).delete();
@@ -187,7 +186,6 @@ const Detaillist = ({ userObj}) => {
       .collection("QnA")
       .doc(userObj.uid)
       .set(qnaObj);
-
     dbService
       .collection("startlist")
       .doc(id)

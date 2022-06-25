@@ -40,6 +40,7 @@ export default function QnA({ qnaObj, isOwner, userObj, detailObj, bucket,isOpen
           deleteQueryBatch(dbService, query, resolve);
         });
       }
+      
       deleteCollection(dbService, `startlist/${detailObj}/QnA/${qnaObj.id}/comments`)
       await dbService
         .doc(`startlist/${detailObj}`)
