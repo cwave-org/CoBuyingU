@@ -10,6 +10,7 @@ import Detaillist from "../routes/Detaillist";
 import Itemlist from "../routes/Itemlist";
 import Buydetaillist from "../routes/Buydetaillist";
 import JoinDone from "../routes/JoinDone";
+import EditForm from "../routes/EditForm";
 // import Kakao from "../routes/Kakao";
 
 const AppRouter = ({ refreshUser, isLoggedIn, userObj }) => {
@@ -44,6 +45,7 @@ const AppRouter = ({ refreshUser, isLoggedIn, userObj }) => {
                 path="/selling"
                 element={<SellingForm userObj={userObj} />}
               />
+              <Route exact path="/selling/edit" element={<EditForm userObj={userObj} />} />
               <Route
                 exact
                 path="/selling/detail/:id"
