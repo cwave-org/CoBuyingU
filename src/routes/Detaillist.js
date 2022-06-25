@@ -12,30 +12,33 @@ import {
 import { faStar as FaStarRegular } from "@fortawesome/free-regular-svg-icons";
 import Kakao from "../components/Kakao";
 import QnA from "../components/QnA";
+import { useParams } from "react-router-dom";
 
 const Detaillist = ({ userObj}) => {
+  const {id} = useParams();
   const [isLodded, setIsLodded]=useState(false);
   const [shareclick, setShareClick] = useState(false);
-  const location = useLocation();
-  let { detailObj } = location.state;
-  const itemId = detailObj.id;
+  const [detailObj, setDetailObj]=useState([]);
+  useEffect(()=>{
+    dbService
+  .collection("startlist").doc(id).get()
+  .then((doc)=>{
+    setDetailObj(doc.data());
+    const item = {
+      id: doc.id,
+      ...doc.data(),
+    };
+    setItemObj(item);
+    setIsLodded(true); 
+  })
+  },[]);
+  
+  const itemId =id;
   const [editing, setEditing] = useState(false);
   const [checked, setChecked] = useState(true);
   const [qna, setQna] = useState("");
   const [qnas, setQnas] = useState([]);
-  const [itemObj, setItemObj] = useState(detailObj);
-  const navigate = useNavigate();
-  const [bucket, setBucket] = useState(false);
-  const [name, setName] = useState(itemObj.name);
-  const [itemname, setItemname] = useState(itemObj.itemname);
-  const [item, setItem] = useState(itemObj.item);
-  const [price, setPrice] = useState(itemObj.price);
-  const [deadline, setDeadline] = useState(itemObj.deadline);
-  const [etc, setEtc] = useState(itemObj.etc);
-  const [account, setAccount] = useState(itemObj.account);
-  const [link, setLink] = useState("");
-  const [attachment, setAttachment] = useState(itemObj.attachmentUrl);
-  const [newattachment, setNewAttachment] = useState("");
+ 
   // 동기화
   useEffect(() => {
     dbService.collection("startlist").onSnapshot((snapshot) => {
@@ -48,9 +51,24 @@ const Detaillist = ({ userObj}) => {
           setItemObj(item);
           setIsLodded(true);
         }
+        else if (doc.id == id) {
+          const item = {
+            id: doc.id,
+            ...doc.data(),
+          };
+          setItemObj(item);
+          console.log("아니");
+          setIsLodded(true);
+        }
       });
     });
   }, []);
+  const [itemObj, setItemObj] = useState(detailObj);
+  const navigate = useNavigate();
+  const toggleEditing = () => {
+    navigate("/selling/edit", { replace: false, state: { itemObj: itemObj, itemId:id } });
+  }
+  const [bucket, setBucket] = useState(false);
 
   const onJoinlistClick = () => {
     navigate("/buying", { replace: false, state: { detailObj: detailObj } });
@@ -65,12 +83,6 @@ const Detaillist = ({ userObj}) => {
   // Delete Cobuying Item
   const onDeleteClick = async () => {
     const ok = window.confirm("정말 공구를 삭제하실 건가요?");
-    /*if (ok) {
-
-      navigate("/");
-      await dbService.doc(`startlist/${detailObj.id}`).delete();
-      // await storageService.refFromURL(itemObj.attachmentUrl).delete();
-    }*/
     if (ok) {
       navigate("/");
       async function deleteCollection(dbService, collectionPath) {
@@ -115,90 +127,26 @@ const Detaillist = ({ userObj}) => {
         });
       }
 
-      //await dbService.doc(`startlist/${detailObj.id}`).delete();
+      //await dbService.doc(`startlist/${id}`).delete();
       deleteCollection(
         dbService,
-        `startlist/${detailObj.id}/QnA/${qnaObj.id}/comments`
+        `startlist/${id}/QnA/${qnaObj.id}/comments`
       );
       await dbService
-        .doc(`startlist/${detailObj.id}`)
+        .doc(`startlist/${id}`)
         .collection("QnA")
         .doc(`${qnaObj.id}`)
         .delete();
-      deleteCollection2(dbService, `startlist/${detailObj.id}/QnA`);
-      await dbService.doc(`startlist/${detailObj.id}`).delete();
-      deleteCollection2(dbService, `startlist/${detailObj.id}/acrap`);
-      await dbService.doc(`startlist/${detailObj.id}`).delete();
+      deleteCollection2(dbService, `startlist/${id}/QnA`);
+      await dbService.doc(`startlist/${id}`).delete();
+      deleteCollection2(dbService, `startlist/${id}/acrap`);
+      await dbService.doc(`startlist/${id}`).delete();
     }
     //await storageService.refFromURL(itemObj.attachmentUrl).delete();
   };
 
   // Edit Cobuying Item
-  const toggleEditing = () => setEditing((prev) => !prev);
-
-  const onSubmit = async (event) => {
-    event.preventDefault();
-    toggleEditing();
-    let attachmentUrl = "";
-    if (newattachment !== "") {
-      const attachmentRef = storageService
-        .ref()
-        .child(`${userObj.uid}/${uuidv4()}`);
-      const response = await attachmentRef.putString(newattachment, "data_url");
-      attachmentUrl = await response.ref.getDownloadURL();
-      await dbService.doc(`startlist/${itemId}`).update({
-        attachmentUrl,
-      });
-    }
-    await dbService.doc(`startlist/${itemId}`).update({
-      name: name,
-      itemname: itemname,
-      item: item,
-      price: price,
-      deadline: deadline,
-      account: account,
-      etc: etc,
-    });
-  };
-
-  const onChange = (event) => {
-    const {
-      target: { value },
-    } = event;
-    if (event.target.id === "name") {
-      setName(value);
-    } else if (event.target.id === "itemname") {
-      setItemname(value);
-    } else if (event.target.id === "item") {
-      setItem(value);
-    } else if (event.target.id === "price") {
-      setPrice(value);
-    } else if (event.target.id === "deadline") {
-      setDeadline(value);
-    } else if (event.target.id === "link") {
-      setLink(value);
-    } else if (event.target.id === "etc") {
-      setEtc(value);
-    } else if (event.target.id === "account") {
-      setAccount(value);
-    }
-  };
-
-  const onFileChange = (event) => {
-    const {
-      target: { files },
-    } = event;
-    const theFile = files[0];
-    const reader = new FileReader();
-    reader.onloadend = (finishedEvent) => {
-      const {
-        currentTarget: { result },
-      } = finishedEvent;
-      setNewAttachment(result);
-    };
-    reader.readAsDataURL(theFile);
-  };
-  const onClearAttachment = () => setAttachment(null);
+ 
 
   const qnaObj = {
     text: qna,
@@ -210,7 +158,7 @@ const Detaillist = ({ userObj}) => {
   // 댓글
   useEffect(() => {
     dbService
-      .doc(`startlist/${detailObj.id}`)
+      .doc(`startlist/${id}`)
       .collection("QnA")
       .orderBy("createdAt")
       .onSnapshot((snapshot) => {
@@ -235,14 +183,14 @@ const Detaillist = ({ userObj}) => {
     setBucket(true);
     await dbService
       .collection("startlist")
-      .doc(detailObj.id)
+      .doc(id)
       .collection("QnA")
       .doc(userObj.uid)
       .set(qnaObj);
 
     dbService
       .collection("startlist")
-      .doc(detailObj.id)
+      .doc(id)
       .collection("scrap")
       .doc(userObj.uid)
       .get({
@@ -264,7 +212,7 @@ const Detaillist = ({ userObj}) => {
 
   useEffect(() => {
     dbService
-      .doc(`startlist/${detailObj.id}`)
+      .doc(`startlist/${id}`)
       .collection("scrap")
       .onSnapshot((snapshot) => {
         snapshot.docs.map((doc) => {
@@ -289,20 +237,20 @@ const Detaillist = ({ userObj}) => {
     if (checked) {
       // 스크랩
       await dbService
-        .doc(`startlist/${detailObj.id}/scrap/${userObj.uid}`)
+        .doc(`startlist/${id}/scrap/${userObj.uid}`)
         .set(checkObj);
       await dbService
-        .doc(`startlist/${detailObj.id}/scrap/${userObj.uid}`)
+        .doc(`startlist/${id}/scrap/${userObj.uid}`)
         .update({
           check: !check,
         });
       dbService
-        .doc(`startlist/${detailObj.id}/scrap/${userObj.uid}`)
+        .doc(`startlist/${id}/scrap/${userObj.uid}`)
         .get(checkObj);
     } else {
       // 스크랩 취소
       await dbService
-        .doc(`startlist/${detailObj.id}`)
+        .doc(`startlist/${id}`)
         .collection("scrap")
         .doc(userObj.uid)
         .delete();
@@ -313,159 +261,9 @@ const Detaillist = ({ userObj}) => {
   };
   return (
     <>
-      {editing ? (
-        <>
-          <form className="openjoin_container" onSubmit={onSubmit}>
-            <p className="openjoin_que">
-              <span>✔️ 이름: </span>
-              <input
-                id="name"
-                className="openjoin_input"
-                value={name}
-                onChange={onChange}
-                type="text"
-                placeholder={itemObj.name}
-                maxLength={120}
-                required
-              />
-            </p>
-
-            <p className="openjoin_que">
-              <span>✔️ 상품이름: </span>
-              <input
-                id="itemname"
-                className="openjoin_input"
-                value={itemname}
-                onChange={onChange}
-                type="text"
-                placeholder={itemObj.itemname}
-                maxLength={120}
-                required
-              />
-            </p>
-
-            <p className="openjoin_que">
-              <span>✔️ 품목: </span>
-              <input
-                id="item"
-                className="openjoin_input"
-                value={item}
-                onChange={onChange}
-                type="text"
-                placeholder={itemObj.item}
-                maxLength={120}
-                required
-              />
-            </p>
-
-            <p className="openjoin_que">
-              <span>✔️ 가격(원): </span>
-              <input
-                id="price"
-                className="openjoin_input"
-                value={price}
-                onChange={onChange}
-                type="number"
-                placeholder={itemObj.price}
-                maxLength={120}
-                required
-              />
-            </p>
-            <p className="openjoin_que">
-              <span>✔️ 마감기한: </span>
-              <input
-                id="deadline"
-                className="openjoin_input"
-                value={deadline}
-                onChange={onChange}
-                type="date"
-                placeholder="마감기한"
-                maxLength={120}
-                required
-              />
-            </p>
-            <p className="openjoin_que">
-              <span className="openjoin_long">✔️ 오픈채팅방 링크 : </span>
-              <input
-                id="link"
-                className="openjoin_input"
-                value={link}
-                onChange={onChange}
-                type="text"
-                placeholder={itemObj.link}
-                maxLength={150}
-                style={{ marginBottom: 5 }}
-              />
-            </p>
-            <p className="openjoin_que">
-              <span className="openjoin_long">
-                ✔️ 계좌(은행/ 계좌번호/입금주명) :{" "}
-              </span>
-              <input
-                id="account"
-                className="openjoin_input"
-                value={account}
-                onChange={onChange}
-                type="text"
-                placeholder={itemObj.account}
-                maxLength={120}
-                style={{ marginBottom: 5 }}
-                required
-              />
-            </p>
-            <p className="openjoin_que">
-              <span className="openjoin_long">✔️ 사진 : </span>
-              <input
-                className="openjoin_input"
-                type="file"
-                accept="image/*"
-                onChange={onFileChange}
-              />
-              {attachment && (
-                <div className="attatchment">
-                  <img src={attachment} />
-                  <button onClick={onClearAttachment}>Clear</button>
-                </div>
-              )}
-            </p>
-            <p className="openjoin_que">
-              <span className="openjoin_long">✔️ 기타사항 : </span>
-              <input
-                id="etc"
-                className="openjoin_input"
-                value={etc}
-                onChange={onChange}
-                type="text"
-                placeholder={itemObj.etc}
-                maxLength={120}
-              />
-              <br />
-              <br />
-              <div>
-                <button
-                  className="default_Btn_Right"
-                  onClick={toggleEditing}
-                  style={{ margin: "1%" }}
-                >
-                  취소
-                </button>
-                <button
-                  className="default_Btn_Right"
-                  type="submit"
-                  style={{ margin: "1%" }}
-                >
-                  제출
-                </button>
-              </div>
-            </p>
-          </form>
-        </>
-      ) : (
-        <>
-          {isLodded?(
+      {isLodded?(
             <div className="detaillist_content">
-            <div>
-              
+            <div> 
               <h2 align="center">{itemObj.itemname}</h2>
 
               {itemObj.attachmentUrl && (
@@ -516,7 +314,7 @@ const Detaillist = ({ userObj}) => {
                   </span>
                   <br></br>
                   <b>✔️ 기타사항</b> <br></br>
-                  <div style={{ paddingLeft: 25 }}>:&{itemObj.etc}</div>
+                  <div style={{ paddingLeft: 25 }}>: {itemObj.etc}</div>
                   <br></br>
                 </p>
               </div>
@@ -622,8 +420,6 @@ const Detaillist = ({ userObj}) => {
           <img id="rotating_img" width="80%" src="img/logo4.png"></img>
         </div>
       )} 
-    </>
-     )}
     </>
   );
 };
