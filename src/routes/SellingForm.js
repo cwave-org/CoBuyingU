@@ -205,7 +205,7 @@ const SellingForm = ({ userObj }) => {
       </p>
 
       <p className="openjoin_que">
-        <span className="openjoin_long">✔️ 구체사항 : </span>
+        <span className="openjoin_long">✔️ 기타사항 : </span>
         <textarea
           id="etc"
           className="openjoin_input"

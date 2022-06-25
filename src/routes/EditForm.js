@@ -8,14 +8,13 @@ const EditForm=({itemObj, userObj, itemId})=>{
     itemObj = location.state.itemObj;
     itemId=location.state.itemId;
     const [editing, setEditing] = useState(false);
-    const [name, setName] = useState(itemObj.name);
     const [itemname, setItemname] = useState(itemObj.itemname);
     const [item, setItem] = useState(itemObj.item);
     const [price, setPrice] = useState(itemObj.price);
     const [deadline, setDeadline] = useState(itemObj.deadline);
     const [etc, setEtc] = useState(itemObj.etc);
     const [account, setAccount] = useState(itemObj.account);
-    const [link, setLink] = useState("");
+    const [link, setLink] = useState(itemObj.link);
     const [attachment, setAttachment] = useState(itemObj.attachmentUrl);
     const toggleEditing = () => setEditing((prev) => !prev);
     const [newattachment, setNewAttachment] = useState("");
@@ -37,7 +36,6 @@ const EditForm=({itemObj, userObj, itemId})=>{
         });
       }
       await dbService.doc(`startlist/${itemId}`).update({
-        name: name,
         itemname: itemname,
         item: item,
         price: price,
@@ -56,9 +54,7 @@ const EditForm=({itemObj, userObj, itemId})=>{
         const {
           target: { value },
         } = event;
-        if (event.target.id === "name") {
-          setName(value);
-        } else if (event.target.id === "itemname") {
+        if (event.target.id === "itemname") {
           setItemname(value);
         } else if (event.target.id === "item") {
           setItem(value);
@@ -92,20 +88,7 @@ const EditForm=({itemObj, userObj, itemId})=>{
     return(
         <>
         <form className="openjoin_container" onSubmit={onSubmit}>
-            <p className="openjoin_que">
-              <span>✔️ 이름: </span>
-              <input
-                id="name"
-                className="openjoin_input"
-                value={name}
-                onChange={onChange}
-                type="text"
-                placeholder={itemObj.name}
-                maxLength={120}
-                required
-              />
-            </p>
-
+            
             <p className="openjoin_que">
               <span>✔️ 상품이름: </span>
               <input
@@ -206,7 +189,7 @@ const EditForm=({itemObj, userObj, itemId})=>{
             </p>
             <p className="openjoin_que">
               <span className="openjoin_long">✔️ 기타사항 : </span>
-              <input
+              <textarea
                 id="etc"
                 className="openjoin_input"
                 value={etc}
