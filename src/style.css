@@ -37,7 +37,12 @@ body {
 }
 
 .formbox {
-  margin-top: 70px;
+  margin-top: 50%;
+  text-align: center;
+  vertical-align: bottom;
+}
+.formbox_logintext{
+  font-size: 2vmin;
 }
 
 .cobuyingItem {
