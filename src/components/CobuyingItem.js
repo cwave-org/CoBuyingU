@@ -80,15 +80,16 @@ const CobuyingItem = ({ userObj, listObj, isOwner }) => {
             <div className="home_scr">
               {!checked ? (
                 <FontAwesomeIcon
-                  className="faglobe"
+                  className="fa-globe"
                   icon={faStar}
                   onClick={check}
                   size="1x"
                   color={"#ffffff"}
+                  aria-hidden="true"
                 ></FontAwesomeIcon>
               ) : (
                 <FontAwesomeIcon
-                  className="icon"
+                  className="fa-globe"
                   icon={FaStarRegular}
                   onClick={check}
                   size="1x"
