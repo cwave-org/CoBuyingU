@@ -124,6 +124,7 @@ const Profile = ({ userObj, listObj, refreshUser }) => {
                   key={list.id}
                   listObj={list}
                   isOwner={list.creatorId === userObj.uid}
+                  userObj={userObj}
                 />
               );
             }

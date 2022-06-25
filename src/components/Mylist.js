@@ -10,7 +10,7 @@ const Mylist = ({ listObj, isOwner, creatorId }) => {
     });
   };
   const onShowdetailClick = () => {
-    navigation("/selling/detail", {
+    navigation(`/selling/detail/${listObj.id}`, {
       replace: false,
       state: { detailObj: listObj },
     });
