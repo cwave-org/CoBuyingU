@@ -1,7 +1,7 @@
 import React from "react";
-import { authService, firebaseInstance } from "../fbase";
+import { authService, dbService, firebaseInstance } from "../fbase";
 
-const Auth = () => {
+const Auth = ({userObj}) => {
   const onSocialClick = async (event) => {
     const {
       target: { name },
@@ -9,6 +9,8 @@ const Auth = () => {
     let provider;
     provider = new firebaseInstance.auth.GoogleAuthProvider();
     await authService.signInWithPopup(provider);
+    /*await dbService.collection("user").add(userObj);
+    console.log(userObj);*/
   };
   return (
     <div className="formbox">

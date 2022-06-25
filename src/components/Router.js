@@ -64,7 +64,7 @@ const AppRouter = ({ refreshUser, isLoggedIn, userObj }) => {
             </>
           ) : (
             <>
-              <Route exact path="/" element={<Auth />} />
+              <Route exact path="/" element={<Auth userObj={userObj}/>} />
             </>
           )}
         </Routes>
