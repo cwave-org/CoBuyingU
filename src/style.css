@@ -168,8 +168,11 @@ button {
 }
 
 .qna_input {
+  /* width: 67%; */
   margin-left: 5%;
-  margin-top: 3%;
+  width:85%;
+  /* height: %; */
+  /* margin-top: 3%; */
 }
 
 .qna_text {
@@ -184,11 +187,13 @@ button {
 }
 
 .upload_Btn {
-  margin: 5px;
+  width: 10%;
+  text-align: right;
+  /* margin: 5px; */
   margin-top: 0px;
-  margin-bottom: 0px;
+  /* margin-bottom: 0px; */
   border-radius: 5px;
-  margin-left: 4px;
+  /* margin-left: 5%; */
 }
 
 .cancel_Btn {

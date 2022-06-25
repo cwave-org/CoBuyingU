@@ -57,7 +57,6 @@ const Detaillist = ({ userObj}) => {
             ...doc.data(),
           };
           setItemObj(item);
-          console.log("아니");
           setIsLodded(true);
         }
       });
@@ -298,7 +297,7 @@ const Detaillist = ({ userObj}) => {
                   <b>✔️ 계좌</b> &nbsp;&nbsp;&nbsp;{itemObj.account}
                   <br></br>
                   <b>✔️ 기타사항</b> <br></br>
-                  <div style={{ paddingLeft: 25 }}><br></br> {itemObj.etc}</div>
+                  <div className="need_enter" style={{ paddingLeft: "3%", paddingRight:"3%" }}><br></br> {itemObj.etc}</div>
                   <br></br>
                 </p>
               </div>
@@ -374,7 +373,7 @@ const Detaillist = ({ userObj}) => {
                         onChange={QnAonChange}
                       />
                       <button type="upload_Btn" className="upload_Btn">
-                        Upload
+                       💬
                       </button>
                     </form>
                   ) : (
@@ -394,7 +393,7 @@ const Detaillist = ({ userObj}) => {
                   qnaObj={qna}
                   isOwner={qna.creatorId === userObj.uid}
                   userObj={userObj}
-                  detailObj={detailObj}
+                  detailObj={id}
                 />
               ))}
             </>
