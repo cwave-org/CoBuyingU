@@ -129,16 +129,17 @@ const Detaillist = ({ userObj}) => {
       //await dbService.doc(`startlist/${id}`).delete();
       deleteCollection(
         dbService,
-        `startlist/${id}/QnA/${qnaObj.id}/comments`
+        `startlist/${detailObj}/QnA/${id}/comments`
       );
       await dbService
-        .doc(`startlist/${id}`)
+        .doc(`startlist/${detailObj}`)
         .collection("QnA")
-        .doc(`${qnaObj.id}`)
+        .doc(`${id}`)
         .delete();
-      deleteCollection2(dbService, `startlist/${id}/QnA`);
-      await dbService.doc(`startlist/${id}`).delete();
-      deleteCollection2(dbService, `startlist/${id}/acrap`);
+      deleteCollection2(dbService, `startlist/${detailObj}/QnA`);
+      await dbService.doc(`startlist/${detailObj}`).delete();
+      
+      deleteCollection2(dbService, `startlist/${id}/scrap`);
       await dbService.doc(`startlist/${id}`).delete();
     }
     //await storageService.refFromURL(itemObj.attachmentUrl).delete();
