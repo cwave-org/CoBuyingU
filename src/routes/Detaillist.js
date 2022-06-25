@@ -349,7 +349,7 @@ const Detaillist = ({ userObj}) => {
                     icon={faShareFromSquare}
                   />
                 </span>
-                {shareclick && <Kakao detailObj={detailObj} />}
+                {shareclick && <Kakao url={id} detailObj={detailObj} />}
                 {detailObj.creatorId === userObj.uid && (
                   <>
                     <span onClick={toggleEditing}>

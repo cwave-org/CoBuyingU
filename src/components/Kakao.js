@@ -1,8 +1,7 @@
 import { useEffect } from "react";
 
-export default function Kakao({detailObj}){
+export default function Kakao({detailObj, url}){
   useEffect(()=>{
-    console.log(detailObj.id);
     window.Kakao.Link.sendCustom(
       {
       templateId: 78627,
@@ -11,7 +10,7 @@ export default function Kakao({detailObj}){
         'item': detailObj.item,
         'price':detailObj.price,
         'deadline':detailObj.deadline,
-        'detail':detailObj.id,
+        'detail':url,
         }
       }
     )   
