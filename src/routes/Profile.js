@@ -33,7 +33,8 @@ const Profile = ({ userObj, listObj, refreshUser }) => {
   }, []);
 
   //이름 바꾸기
-  const onChange = (event) => {
+  const onChange = async (event) => {
+    //event.preventDefault();
     const {
       target: { value },
     } = event;
@@ -42,12 +43,33 @@ const Profile = ({ userObj, listObj, refreshUser }) => {
 
   const onSubmit = async (event) => {
     event.preventDefault();
+    //user에 업로드
+    await dbService.doc(`user/${userObj.uid}`).set({
+      displayName: userObj.displayName,
+      uid: userObj.uid,
+    });
+    // dbService.doc(`user/${userObj.uid}`).get(userObj);
     if (userObj.displayName !== newDisplayName) {
-      await userObj.updateProfile({
-        displayName: newDisplayName,
-      });
-      refreshUser();
+      const IDcheck = await dbService
+        .collection("user")
+        .where("displayName", "==", newDisplayName)
+        .get();
+      if (IDcheck.docs.length == 0 && newDisplayName.length > 0) {
+        await userObj.updateProfile({
+          displayName: newDisplayName,
+        });
+        refreshUser();
+        alert("닉네임 변경완료!");
+      }
+      else{
+        if (newDisplayName.length != 0)
+        alert("중복된 닉네임입니다.");
+      }
     }
+    else {
+        alert("같은 닉네임입니다.");
+    }
+
   };
 
   return (

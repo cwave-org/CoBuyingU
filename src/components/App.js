@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from "react";
 import AppRouter from "./Router";
-import { authService } from "../fbase";
+import { authService, dbService } from "../fbase";
 import { deleteUser } from "firebase/auth";
 
 function App() {
   const [init, setInit] = useState(false);
   const [userObj, setUserObj] = useState(null);
 
-  useEffect(() => {
+  useEffect( () => {
     authService.onAuthStateChanged((user) => {
       if (user) {
         setUserObj({
@@ -15,10 +15,10 @@ function App() {
           uid: user.uid,
           updateProfile: (args) => user.updateProfile(args),
         });
+        
         var email = user.email;
         var emailIndex = email.indexOf("@") + 1;
         var emailform = email.substring(emailIndex);
-
         if (emailform !== "sookmyung.ac.kr") {
           deleteUser(user);
           setUserObj(null);
@@ -28,9 +28,10 @@ function App() {
         setUserObj(null);
       }
       setInit(true);
-    });
-  }, []);
-  const refreshUser = () => {
+    });   
+  }, 
+  []);
+  const refreshUser = async(event) => {
     const user = authService.currentUser;
     setUserObj({
       displayName: user.displayName,
