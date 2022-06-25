@@ -305,7 +305,7 @@ const Detaillist = ({ userObj}) => {
             </div>
 
             <div align="center">
-              {detailObj.creatorId === userObj.uid ? (
+              {itemObj.creatorId === userObj.uid ? (
                 <>
                   <button
                     className="default_Btn_Center"
@@ -333,8 +333,8 @@ const Detaillist = ({ userObj}) => {
                     icon={faShareFromSquare}
                   />
                 </span>
-                {shareclick && <Kakao url={id} detailObj={detailObj} />}
-                {detailObj.creatorId === userObj.uid && (
+                {shareclick && <Kakao url={id} detailObj={itemObj} />}
+                {itemObj.creatorId === userObj.uid && (
                   <>
                     <span onClick={toggleEditing}>
                       <FontAwesomeIcon
