@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { v4 as uuidv4 } from "uuid";
 import { dbService, storageService } from "../fbase";
 import { useNavigate } from "react-router-dom";
+import AddPhoto from "../components/SOOM/AddPhoto";
 
 const SellingForm = ({ userObj }) => {
   const [itemname, setItemname] = useState("");
@@ -165,6 +166,7 @@ const SellingForm = ({ userObj }) => {
           style={{ marginBottom: 5 }}
         />
       </p>
+      <AddPhoto />
 
       <p className="openjoin_que">
         <span className="openjoin_long">
