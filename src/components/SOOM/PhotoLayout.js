@@ -1,4 +1,5 @@
 import React from "react";
+import { useEffect } from "react";
 import { useState } from "react";
 import { useRef } from "react";
 import styled from "styled-components";
@@ -22,14 +23,21 @@ const TextArea=styled.textarea`
     resize: none;
     border: none;
 `;
-const PhotoLayout=()=>{
+const PhotoLayout=(props)=>{
     const ta=useRef();
-    const [attachment, setAttachment] = useState("");
-    const handleResizeHeight=()=>{
-        // console.log(num);
+    const [attachment, setAttachment] = useState('');
+    const [detail,setDetail]=useState('');
+    useEffect(()=>{
+        props.setData([{id:props.id,url:attachment,content:detail}, ...props.data]);
+    },[detail,attachment,props]);
+    const handleResizeHeight=(event)=>{
         if(ta.current.scrollHeight>60){
             ta.current.style.height=ta.current.scrollHeight+'px';
         }
+        const {
+            target: { value },
+          } = event;
+        setDetail(value);
     }
     const onFileChange = (event) => {
         const {
@@ -48,7 +56,7 @@ const PhotoLayout=()=>{
       const onClearAttachment = () => setAttachment(null);
     
     return(
-        <Layout>
+        <Layout id={props.id}>
             <Add>
             <Half>
                 <input

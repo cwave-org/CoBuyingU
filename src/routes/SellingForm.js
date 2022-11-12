@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import AddPhoto from "../components/SOOM/AddPhoto";
 
 const SellingForm = ({ userObj }) => {
+  const [eachdata,setEachData]=useState("");
   const [itemname, setItemname] = useState("");
   const [item, setItem] = useState("");
   const [price, setPrice] = useState("");
@@ -57,6 +58,7 @@ const SellingForm = ({ userObj }) => {
   };
 
   const onChange = (event) => {
+    console.log(eachdata);
     const {
       target: { value },
     } = event;
@@ -166,7 +168,9 @@ const SellingForm = ({ userObj }) => {
           style={{ marginBottom: 5 }}
         />
       </p>
-      <AddPhoto />
+      {/* 나연씨 각 옵션마다 그 안에 아래 컴포넌트를 넣어주면 될겁니당
+      근데 각 옵션에 따라 선언되는게 꼬인다면.. 내 코드에서 약간 수정필요할수도 있어서 에러나면 걍 나한테 말해죵!!*/}
+      <AddPhoto setEachData={setEachData} />
 
       <p className="openjoin_que">
         <span className="openjoin_long">
