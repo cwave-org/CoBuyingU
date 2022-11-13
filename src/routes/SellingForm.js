@@ -3,6 +3,7 @@ import { v4 as uuidv4 } from "uuid";
 import { dbService, storageService } from "../fbase";
 import { useNavigate } from "react-router-dom";
 import AddPhoto from "../components/SOOM/AddPhoto";
+import SellingItemFactory from "../components/SellingItemFactory";
 
 const SellingForm = ({ userObj }) => {
   const [eachdata,setEachData]=useState("");
@@ -222,6 +223,9 @@ const SellingForm = ({ userObj }) => {
           maxLength={10000}
         />
       </p>
+      <div style={{ marginTop: "50px", marginBottom: "50px" }}>
+        <SellingItemFactory userObj={userObj} />
+      </div>
       <div>
         <button className="default_Btn_Right" onClick={onCancel}>
           취소

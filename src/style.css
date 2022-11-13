@@ -41,7 +41,7 @@ body {
   text-align: center;
   vertical-align: bottom;
 }
-.formbox_logintext{
+.formbox_logintext {
   font-size: 2vmin;
 }
 
@@ -171,6 +171,14 @@ button {
   /* float: right; */
 }
 
+.default_Btn_Left {
+  margin: 5px;
+  margin-top: 0px;
+  margin-bottom: 0px;
+  border-radius: 5px;
+  float: left;
+}
+
 .default_Btn_Center {
   margin: 5px;
   margin-top: 0px;
@@ -181,7 +189,7 @@ button {
 .qna_input {
   /* width: 67%; */
   margin-left: 5%;
-  width:85%;
+  width: 85%;
   /* height: %; */
   /* margin-top: 3%; */
 }
@@ -250,9 +258,9 @@ button {
   margin-top: 50%;
 }
 
-.fa-globe{
-  border-radius: 50% ;
-  background-color:rgb(0, 0, 0, 0.3) ;
+.fa-globe {
+  border-radius: 50%;
+  background-color: rgb(0, 0, 0, 0.3);
 }
 
 #star-five {
@@ -277,7 +285,7 @@ button {
   top: -45px;
   left: -65px;
   display: block;
-  content: '';
+  content: "";
   transform: rotate(-35deg);
 }
 #star-five:after {
@@ -292,5 +300,5 @@ button {
   border-bottom: 70px solid pink;
   border-left: 100px solid transparent;
   transform: rotate(-70deg);
-  content: '';
+  content: "";
 }
