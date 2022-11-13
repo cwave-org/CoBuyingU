@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { dbService } from "../fbase";
+import { dbService, storageService } from "../fbase";
 import SellingItem from "./SellingItem";
 
 const SellingItemFactory = (props) => {
@@ -31,21 +31,24 @@ const SellingItemFactory = (props) => {
     );
   };
   const onClickDone = async () => {
-    console.log(data);
-    const itemObj={
-      sellingId:props.itemID,
-      data:data
-    };
-    // const itemObj = {
-    //   itemIndex: Math.random(),
-    //   creatorId: props.uid,
-    //   itemname: data.itemname,
-    //   price: data.price,
-    //   itemDetail: details.length,
-    // };
-    // await dbService.collection("itemlist").add(itemObj);
-    await dbService.collection(`itemlist`).add(itemObj);
-    // setItemname("");
+    //각 itemlist 컬렉션에, 공구 폼 열때 만든 randomidx로 doc명 지정해서 생성하는 형식입니당
+    for (var i=0;i<data.length;i++){
+      let attachmentUrl = "";
+      for(var j=0; j<data[i].itemDetails.length;j++){
+        if(data[i].itemDetails[j].url!==""){
+          const attachmentRef = storageService
+            .ref()
+            .child(`${props.userObj.uid}/${props.itemID}/${i}/${j}`);
+            //스토리지에는 공대표의 uid 폴더 안의 공구항목randomidx 폴더명으로 들어가용
+          const response = await attachmentRef.putString(data[i].itemDetails[j].url, "data_url");
+          attachmentUrl = await response.ref.getDownloadURL();
+          data[i].itemDetails[j].url=attachmentUrl;
+        }
+      }
+    }
+    await dbService.doc(`itemlist/${props.itemID}`).set({data});
+
+    
   };
 
   return (

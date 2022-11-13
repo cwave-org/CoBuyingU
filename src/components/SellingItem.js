@@ -5,11 +5,9 @@ import AddPhoto from "./SOOM/AddPhoto";
 const SellingItem = (props) => {
   const [itemname, setItemname] = useState("");
   const [price, setPrice] = useState();
-  const [itemDetails, setItemsDetails] = useState([]);
-  const [id, setId] = useState(1);
-  const [details, setDetails] = useState([]);
-  const [eachdata,setEachData]=useState([]);
-  const [each,setEach]=useState('');
+  const [itemDetails, setItemsDetails] = useState('');
+  const [data,setData]=useState([]);
+
   useEffect(() => {
     props.setData([
       {
@@ -23,16 +21,11 @@ const SellingItem = (props) => {
   }, [itemname, price, itemDetails, props]);
 
   useEffect(()=>{
-    setItemsDetails([
-      {
-        id:props.id,
-        data:each
-      }
-    ]);
+    setItemsDetails(data);
     // setItemsDetails(eachdata,...itemDetails);
     // console.log(itemDetails);
     // console.log(each);
-  },[each]);
+  },[data]);
 
   const onChange = (event) => {
     const {
@@ -45,23 +38,23 @@ const SellingItem = (props) => {
     }
   };
 
-  const addDetail = () => {
-    setId(id + 1);
-    setDetails(details.concat());
-  };
+  // const addDetail = () => {
+  //   setId(id + 1);
+  //   setDetails(details.concat());
+  // };
 
-  const onCLickDone = async () => {
-    console.log(props);
-    const itemObj = {
-      itemIndex: Math.random(),
-      creatorId: props.uid,
-      itemname: itemname,
-      price: price,
-      itemDetail: details.length,
-    };
-    await dbService.collection("itemlist").add(itemObj);
-    setItemname("");
-  };
+  // const onCLickDone = async () => {
+  //   console.log(props);
+  //   const itemObj = {
+  //     itemIndex: Math.random(),
+  //     creatorId: props.uid,
+  //     itemname: itemname,
+  //     price: price,
+  //     itemDetail: details.length,
+  //   };
+  //   await dbService.collection("itemlist").add(itemObj);
+  //   setItemname("");
+  // };
 
   return (
     <div className="item_container">
@@ -93,7 +86,7 @@ const SellingItem = (props) => {
         />
       </p>
      
-      <AddPhoto setEachData={setEachData} id={props.id} eachdata={eachdata} setEach={setEach}/>
+      <AddPhoto id={props.id} data={data} setData={setData}/>
 
       
     </div>

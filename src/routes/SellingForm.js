@@ -12,7 +12,6 @@ const SellingForm = ({ userObj }) => {
   const [etc, setEtc] = useState("");
   const [account, setAccount] = useState("");
   const [attachment, setAttachment] = useState("");
-  const [eachdata,setEachData]=useState("");
   const [itemID,setItemID]=useState(0);
   const navigate = useNavigate();
 
@@ -224,7 +223,7 @@ const SellingForm = ({ userObj }) => {
         />
       </p>
       <div style={{ marginTop: "50px", marginBottom: "50px" }}>
-        <SellingItemFactory userObj={userObj} setEachData={setEachData} itemID={itemID} />
+        <SellingItemFactory userObj={userObj} itemID={itemID} />
       </div>
       <div>
         <button className="default_Btn_Right" onClick={onCancel}>
