@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
+import { dbService } from "../fbase";
 import SellingItem from "./SellingItem";
 
 const SellingItemFactory = (props) => {
@@ -14,10 +15,9 @@ const SellingItemFactory = (props) => {
     />,
   ]);
 
-  useEffect(() => {}, []);
-
   const addItem = () => {
     setId(id + 1);
+    console.log(data);
     setItems(
       items.concat(
         <SellingItem
@@ -30,8 +30,22 @@ const SellingItemFactory = (props) => {
       )
     );
   };
-  const onClickDone = () => {
-    props.setEachData(data);
+  const onClickDone = async () => {
+    console.log(data);
+    const itemObj={
+      sellingId:props.itemID,
+      data:data
+    };
+    // const itemObj = {
+    //   itemIndex: Math.random(),
+    //   creatorId: props.uid,
+    //   itemname: data.itemname,
+    //   price: data.price,
+    //   itemDetail: details.length,
+    // };
+    // await dbService.collection("itemlist").add(itemObj);
+    await dbService.collection(`itemlist`).add(itemObj);
+    // setItemname("");
   };
 
   return (

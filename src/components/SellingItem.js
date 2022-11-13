@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { dbService } from "../fbase";
+import AddPhoto from "./SOOM/AddPhoto";
 
 const SellingItem = (props) => {
   const [itemname, setItemname] = useState("");
@@ -7,7 +8,8 @@ const SellingItem = (props) => {
   const [itemDetails, setItemsDetails] = useState([]);
   const [id, setId] = useState(1);
   const [details, setDetails] = useState([]);
-
+  const [eachdata,setEachData]=useState([]);
+  const [each,setEach]=useState('');
   useEffect(() => {
     props.setData([
       {
@@ -19,6 +21,18 @@ const SellingItem = (props) => {
       ...props.data,
     ]);
   }, [itemname, price, itemDetails, props]);
+
+  useEffect(()=>{
+    setItemsDetails([
+      {
+        id:props.id,
+        data:each
+      }
+    ]);
+    // setItemsDetails(eachdata,...itemDetails);
+    // console.log(itemDetails);
+    // console.log(each);
+  },[each]);
 
   const onChange = (event) => {
     const {
@@ -78,16 +92,10 @@ const SellingItem = (props) => {
           required
         />
       </p>
+     
+      <AddPhoto setEachData={setEachData} id={props.id} eachdata={eachdata} setEach={setEach}/>
 
-      <div>
-        <button className="default_Btn_Left" onClick={addDetail}>
-          상품 설명 추가
-        </button>
-        <button className="default_Btn_Right" onClick={onCLickDone}>
-          완료
-        </button>
-        <br />
-      </div>
+      
     </div>
   );
 };

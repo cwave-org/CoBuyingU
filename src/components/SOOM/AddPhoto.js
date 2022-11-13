@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import styled from "styled-components";
 import PhotoLayout from "./PhotoLayout";
 const Container=styled.div`
@@ -30,7 +30,7 @@ const AddPhoto=(props)=>{
         }
     }
     const onClickDone=()=>{
-        props.setEachData(data);
+        props.setEach(data);
     }
     return (
         <Container>

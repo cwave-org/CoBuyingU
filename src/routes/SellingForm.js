@@ -1,12 +1,10 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { v4 as uuidv4 } from "uuid";
 import { dbService, storageService } from "../fbase";
 import { useNavigate } from "react-router-dom";
-import AddPhoto from "../components/SOOM/AddPhoto";
 import SellingItemFactory from "../components/SellingItemFactory";
 
 const SellingForm = ({ userObj }) => {
-  const [eachdata,setEachData]=useState("");
   const [itemname, setItemname] = useState("");
   const [item, setItem] = useState("");
   const [price, setPrice] = useState("");
@@ -14,10 +12,14 @@ const SellingForm = ({ userObj }) => {
   const [etc, setEtc] = useState("");
   const [account, setAccount] = useState("");
   const [attachment, setAttachment] = useState("");
+  const [eachdata,setEachData]=useState("");
+  const [itemID,setItemID]=useState(0);
   const navigate = useNavigate();
 
   const [link, setLink] = useState("");
-
+  useEffect(()=>{
+    setItemID(Math.random());
+  },[]);
   const onSubmit = async (event) => {
     navigate("/");
     event.preventDefault();
@@ -30,7 +32,8 @@ const SellingForm = ({ userObj }) => {
       attachmentUrl = await response.ref.getDownloadURL();
     }
     const listObj = {
-      randomidx: Math.random(), // 어떤 글인지 추가
+      randomidx:itemID,
+      // randomidx: Math.random(), // 어떤 글인지 추가
       itemname: itemname,
       item: item,
       price: price,
@@ -44,6 +47,7 @@ const SellingForm = ({ userObj }) => {
       userName: userObj.displayName,
     };
     await dbService.collection("startlist").add(listObj);
+    // setItemID(listObj.randomidx);
     setItemname("");
     setItem("");
     setPrice("");
@@ -59,7 +63,6 @@ const SellingForm = ({ userObj }) => {
   };
 
   const onChange = (event) => {
-    console.log(eachdata);
     const {
       target: { value },
     } = event;
@@ -169,9 +172,6 @@ const SellingForm = ({ userObj }) => {
           style={{ marginBottom: 5 }}
         />
       </p>
-      {/* 나연씨 각 옵션마다 그 안에 아래 컴포넌트를 넣어주면 될겁니당
-      근데 각 옵션에 따라 선언되는게 꼬인다면.. 내 코드에서 약간 수정필요할수도 있어서 에러나면 걍 나한테 말해죵!!*/}
-      <AddPhoto setEachData={setEachData} />
 
       <p className="openjoin_que">
         <span className="openjoin_long">
@@ -202,7 +202,7 @@ const SellingForm = ({ userObj }) => {
           />
           {attachment && (
             <div className="attatchment">
-              <img src={attachment} />
+              <img src={attachment} alt="대표사진"/>
               <button className="default_Btn" onClick={onClearAttachment}>
                 Clear
               </button>
@@ -224,7 +224,7 @@ const SellingForm = ({ userObj }) => {
         />
       </p>
       <div style={{ marginTop: "50px", marginBottom: "50px" }}>
-        <SellingItemFactory userObj={userObj} />
+        <SellingItemFactory userObj={userObj} setEachData={setEachData} itemID={itemID} />
       </div>
       <div>
         <button className="default_Btn_Right" onClick={onCancel}>
