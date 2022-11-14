@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { dbService } from "../fbase";
+import AddPhoto from "./SOOM/AddPhoto";
 
 const SellingItem = (props) => {
   const [itemname, setItemname] = useState("");
   const [price, setPrice] = useState();
-  const [itemDetails, setItemsDetails] = useState([]);
-  const [id, setId] = useState(1);
-  const [details, setDetails] = useState([]);
+  const [itemDetails, setItemsDetails] = useState('');
+  const [data,setData]=useState([]);
 
   useEffect(() => {
     props.setData([
@@ -20,6 +20,13 @@ const SellingItem = (props) => {
     ]);
   }, [itemname, price, itemDetails, props]);
 
+  useEffect(()=>{
+    setItemsDetails(data);
+    // setItemsDetails(eachdata,...itemDetails);
+    // console.log(itemDetails);
+    // console.log(each);
+  },[data]);
+
   const onChange = (event) => {
     const {
       target: { value },
@@ -31,23 +38,23 @@ const SellingItem = (props) => {
     }
   };
 
-  const addDetail = () => {
-    setId(id + 1);
-    setDetails(details.concat());
-  };
+  // const addDetail = () => {
+  //   setId(id + 1);
+  //   setDetails(details.concat());
+  // };
 
-  const onCLickDone = async () => {
-    console.log(props);
-    const itemObj = {
-      itemIndex: Math.random(),
-      creatorId: props.uid,
-      itemname: itemname,
-      price: price,
-      itemDetail: details.length,
-    };
-    await dbService.collection("itemlist").add(itemObj);
-    setItemname("");
-  };
+  // const onCLickDone = async () => {
+  //   console.log(props);
+  //   const itemObj = {
+  //     itemIndex: Math.random(),
+  //     creatorId: props.uid,
+  //     itemname: itemname,
+  //     price: price,
+  //     itemDetail: details.length,
+  //   };
+  //   await dbService.collection("itemlist").add(itemObj);
+  //   setItemname("");
+  // };
 
   return (
     <div className="item_container">
@@ -78,16 +85,10 @@ const SellingItem = (props) => {
           required
         />
       </p>
+     
+      <AddPhoto id={props.id} data={data} setData={setData}/>
 
-      <div>
-        <button className="default_Btn_Left" onClick={addDetail}>
-          상품 설명 추가
-        </button>
-        <button className="default_Btn_Right" onClick={onCLickDone}>
-          완료
-        </button>
-        <br />
-      </div>
+      
     </div>
   );
 };

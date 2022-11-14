@@ -29,7 +29,7 @@ const PhotoLayout=(props)=>{
     const [detail,setDetail]=useState('');
     useEffect(()=>{
         props.setData([{id:props.id,url:attachment,content:detail}, ...props.data]);
-    },[detail,attachment,props]);
+    },[detail,attachment,props.id]);
     const handleResizeHeight=(event)=>{
         if(ta.current.scrollHeight>60){
             ta.current.style.height=ta.current.scrollHeight+'px';

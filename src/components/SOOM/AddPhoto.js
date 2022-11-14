@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import styled from "styled-components";
 import PhotoLayout from "./PhotoLayout";
 const Container=styled.div`
@@ -19,26 +19,25 @@ const Btn=styled.button`
 `;
 const AddPhoto=(props)=>{
     const [id,setId]=useState(1);
-    const [data,setData]=useState([]);
-    const [detail,setDetail]=useState([<PhotoLayout key={id} id={id} setData={setData} data={data}/>]);
+    const [detail,setDetail]=useState([<PhotoLayout key={id} id={id} setData={props.setData} data={props.data}/>]);
     const onClickAdd=()=>{
         setId(id+1);
         if(id>=3){
             window.alert('품목당 상세 설명은 세개까지 가능합니다.');
         }else{
-            setDetail(detail.concat(<PhotoLayout key={id+1} id={id+1} setData={setData} data={data} />));
+            setDetail(detail.concat(<PhotoLayout key={id+1} id={id+1} setData={props.setData} data={props.data} />));
         }
     }
-    const onClickDone=()=>{
-        props.setEachData(data);
-    }
+    // const onClickDone=()=>{
+    //     props.setEach(props.data);
+    // }
     return (
         <Container>
             <div>상품 A 상세 설명 (최대 3개) </div>
             {detail}
             <BtnCon>
                 <Btn onClick={onClickAdd}>사진추가</Btn>
-                <Btn onClick={onClickDone}>완료</Btn>
+                {/* <Btn onClick={onClickDone}>완료</Btn> */}
             </BtnCon>
         </Container>
     );
