@@ -78,23 +78,26 @@ const BuyingForm = ({ userObj }) => {
     }
   };
 
+
+
   return (
     <form className="openjoin_container" onSubmit={onSubmit}>
       <p>공구 참여하기</p>
+      <p>✔️ 입금자 명 </p>
       <p className="openjoin_que">
-        <span>✔️ 이름: </span>
         <input
           className="openjoin_input"
-          id="nameform"
+          id="accountnameform"
           type="text"
-          placeholder="Write name"
+          placeholder="입금자명을 입력해주세요"
           onChange={onChange}
-          value={name}
+          value={account_name}
           required
         />
       </p>
+
+      <p>✔️ 전화번호 </p>
       <p className="openjoin_que">
-        <span>✔️ 전화번호: </span>
         <input
           className="openjoin_input"
           id="phonenumberform"
@@ -105,6 +108,60 @@ const BuyingForm = ({ userObj }) => {
           required
         />
       </p>
+
+      <p>✔️ 입금 날짜 : 시간 : 분 </p>
+      <p className="openjoin_que">
+        <input
+          className="openjoin_input"
+          id="accountdateform"
+          type="datetime-local"
+          onChange={onChange}
+          value={account_date}
+          required
+        />
+      </p>
+
+      <p>✔️ 배송여부</p>
+      <input type="radio" name="theme" value="site"/>현장배부
+      <input type="radio" name="theme" value="parcel"/>택배배송
+
+      <p>✔️ 헌장배부 날짜 </p>
+      <p className="openjoin_que">
+        <input
+          className="openjoin_input"
+          id="accountdateform"
+          type="date"
+          onChange={onChange}
+          value={account_date}
+          required
+        />
+      </p>
+
+      <p>✔️ 집주소 </p>
+      <p className="openjoin_que">
+        <input
+          className="openjoin_input"
+          id="addressform"
+          type="text"
+          placeholder="상세주소를 입력하세요"
+          onChange={onChange}
+          value={address}
+        />
+      </p>
+
+      <p>✔️ 환불계좌(은행/계좌번호/입금주명)</p>
+      <p className="openjoin_que">
+        <input
+          className="openjoin_input"
+          id="accountreform"
+          type="text"
+          placeholder="환불계좌(은행/계좌번호/입금주명)을 입력해주세요"
+          onChange={onChange}
+          value={account_re}
+          required
+        />
+      </p>
+
       <p className="openjoin_que">
         <span>✔️ 수량: </span>
         <input
@@ -129,55 +186,7 @@ const BuyingForm = ({ userObj }) => {
           required
         />
       </p>
-      <p className="openjoin_que">
-        <span>✔️ 주소:</span>
-        <input
-          className="openjoin_input"
-          id="addressform"
-          type="text"
-          placeholder="배송을 원하시면 주소를 입력해주세요"
-          onChange={onChange}
-          value={address}
-        />
-      </p>
-      <p className="openjoin_que">
-        <span>✔️ 입금자명: </span>
-        <input
-          className="openjoin_input"
-          id="accountnameform"
-          type="text"
-          placeholder="입금자명을 입력해주세요"
-          onChange={onChange}
-          value={account_name}
-          required
-        />
-      </p>
-      <p className="openjoin_que">
-        <span>✔️ 입금일자: </span>
-        <input
-          className="openjoin_input"
-          id="accountdateform"
-          type="date"
-          placeholder="입금일자를 입력해주세요"
-          onChange={onChange}
-          value={account_date}
-          required
-        />
-      </p>
-      <p className="openjoin_que">
-        <span className="openjoin_long">
-          ✔️ 환불계좌(은행/계좌번호/입금주명):{" "}
-        </span>
-        <input
-          className="openjoin_input"
-          id="accountreform"
-          type="text"
-          placeholder="환불계좌(은행/계좌번호/입금주명)을 입력해주세요"
-          onChange={onChange}
-          value={account_re}
-          required
-        />
-      </p>
+
       <div>
         <button className="default_Btn_Right" onClick={onCancel}>
           취소

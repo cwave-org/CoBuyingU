@@ -6,6 +6,7 @@ import AddPhoto from "../components/SOOM/AddPhoto";
 import SellingItemFactory from "../components/SellingItemFactory";
 
 const SellingForm = ({ userObj }) => {
+  const [name, setName] = useState("");
   const [eachdata,setEachData]=useState("");
   const [itemname, setItemname] = useState("");
   const [item, setItem] = useState("");
@@ -14,6 +15,7 @@ const SellingForm = ({ userObj }) => {
   const [etc, setEtc] = useState("");
   const [account, setAccount] = useState("");
   const [attachment, setAttachment] = useState("");
+  const [notice, setNotice] = useState("");
   const navigate = useNavigate();
 
   const [link, setLink] = useState("");
@@ -31,6 +33,7 @@ const SellingForm = ({ userObj }) => {
     }
     const listObj = {
       randomidx: Math.random(), // 어떤 글인지 추가
+      name: name,// 공대표 이름 추가
       itemname: itemname,
       item: item,
       price: price,
@@ -39,12 +42,14 @@ const SellingForm = ({ userObj }) => {
       creatorId: userObj.uid,
       account: account,
       etc: etc,
+      notice: notice,
       link: link,
       attachmentUrl,
       userName: userObj.displayName,
     };
     await dbService.collection("startlist").add(listObj);
     setItemname("");
+    setName("");
     setItem("");
     setPrice("");
     setDeadline("");
@@ -52,6 +57,7 @@ const SellingForm = ({ userObj }) => {
     setEtc("");
     setLink("");
     setAccount("");
+    setNotice("");
   };
 
   const onCancel = () => {
@@ -65,7 +71,10 @@ const SellingForm = ({ userObj }) => {
     } = event;
     if (event.target.id === "itemname") {
       setItemname(value);
-    } else if (event.target.id === "item") {
+    } 
+    else if (event.target.id === "nameform") {
+      setName(value);
+    }else if (event.target.id === "item") {
       setItem(value);
     } else if (event.target.id === "price") {
       setPrice(value);
@@ -77,6 +86,9 @@ const SellingForm = ({ userObj }) => {
       setEtc(value);
     } else if (event.target.id === "account") {
       setAccount(value);
+    }
+    else if (event.target.id === "notice") {
+      setNotice(value);
     }
   };
 
@@ -100,8 +112,8 @@ const SellingForm = ({ userObj }) => {
     <form className="openjoin_container" onSubmit={onSubmit}>
       <p>공구 열기</p>
 
+      <p>✔️ 상품이름 </p>
       <p className="openjoin_que">
-        <span>✔️ 상품이름: </span>
         <input
           id="itemname"
           className="openjoin_input"
@@ -114,85 +126,21 @@ const SellingForm = ({ userObj }) => {
         />
       </p>
 
+      <p>✔️ 공대표 이름 </p>
       <p className="openjoin_que">
-        <span>✔️ 품목: </span>
         <input
-          id="item"
           className="openjoin_input"
-          value={item}
-          onChange={onChange}
+          id="nameform"
           type="text"
-          placeholder="품목"
-          maxLength={120}
+          placeholder={userObj.displayName}
+          onChange={onChange}
+          value={name}
           required
         />
       </p>
 
+      <p>✔️ 대표사진 </p>
       <p className="openjoin_que">
-        <span>✔️ 가격(원): </span>
-        <input
-          id="price"
-          className="openjoin_input"
-          value={price}
-          onChange={onChange}
-          type="number"
-          placeholder="가격(원)"
-          maxLength={120}
-          required
-        />
-      </p>
-
-      <p className="openjoin_que">
-        <span>✔️ 마감기한: </span>
-        <input
-          id="deadline"
-          className="openjoin_input"
-          value={deadline}
-          onChange={onChange}
-          type="date"
-          placeholder="마감기한"
-          maxLength={120}
-          required
-        />
-      </p>
-
-      <p className="openjoin_que">
-        <span className="openjoin_long">✔️ 오픈채팅방 링크: </span>
-        <input
-          id="link"
-          className="openjoin_input"
-          value={link}
-          onChange={onChange}
-          type="text"
-          placeholder="오픈채팅방링크"
-          maxLength={150}
-          style={{ marginBottom: 5 }}
-        />
-      </p>
-      {/* 나연씨 각 옵션마다 그 안에 아래 컴포넌트를 넣어주면 될겁니당
-      근데 각 옵션에 따라 선언되는게 꼬인다면.. 내 코드에서 약간 수정필요할수도 있어서 에러나면 걍 나한테 말해죵!!*/}
-      <AddPhoto setEachData={setEachData} />
-
-      <p className="openjoin_que">
-        <span className="openjoin_long">
-          ✔️ 계좌(은행/ 계좌번호/입금주명):{" "}
-        </span>
-        <input
-          id="account"
-          className="openjoin_input"
-          value={account}
-          onChange={onChange}
-          type="text"
-          placeholder="계좌(은행/ 계좌번호/입금주명)"
-          maxLength={120}
-          style={{ marginBottom: 5 }}
-          required
-        />
-      </p>
-
-      <p className="openjoin_que">
-        <span className="openjoin_long">✔️ 사진 : </span>
-
         <div>
           <input
             className="openjoin_input"
@@ -211,12 +159,94 @@ const SellingForm = ({ userObj }) => {
         </div>
       </p>
 
+      <p>✔️ 마감기한 </p>
       <p className="openjoin_que">
-        <span className="openjoin_long">✔️ 기타사항 : </span>
+        <input
+          id="deadline"
+          className="openjoin_input"
+          value={deadline}
+          onChange={onChange}
+          type="date"
+          placeholder="마감기한"
+          maxLength={120}
+          required
+        />
+      </p>
+
+      <p>✔️ 카테고리 </p>  
+      <p>문구류</p>
+
+      <p>✔️ 오픈채팅방 링크 </p>
+      <p className="openjoin_que">
+        <input
+          id="link"
+          className="openjoin_input"
+          value={link}
+          onChange={onChange}
+          type="text"
+          placeholder="오픈채팅방링크"
+          maxLength={150}
+          style={{ marginBottom: 5 }}
+        />
+      </p>
+
+      <p> ✔️ 계좌(은행/ 계좌번호/입금주명) </p>
+      <p className="openjoin_que">
+        <input
+          id="account"
+          className="openjoin_input"
+          value={account}
+          onChange={onChange}
+          type="text"
+          placeholder="계좌(은행/ 계좌번호/입금주명)"
+          maxLength={120}
+          style={{ marginBottom: 5 }}
+          required
+        />
+      </p>
+
+
+      {/*<p className="openjoin_que">
+        <span>✔️ 가격(원): </span>
+        <input
+          id="price"
+          className="openjoin_input"
+          value={price}
+          onChange={onChange}
+          type="number"
+          placeholder="가격(원)"
+          maxLength={120}
+          required
+        />
+          </p>*/}
+
+      
+      
+      {/* 나연씨 각 옵션마다 그 안에 아래 컴포넌트를 넣어주면 될겁니당
+      근데 각 옵션에 따라 선언되는게 꼬인다면.. 내 코드에서 약간 수정필요할수도 있어서 에러나면 걍 나한테 말해죵!!*/}
+      <AddPhoto setEachData={setEachData} />
+
+
+
+      <p>✔️ 상세설명 </p>
+      <p className="openjoin_que">
         <textarea
           id="etc"
           className="openjoin_input"
           value={etc}
+          onChange={onChange}
+          type="text"
+          placeholder="최대 길이는 1000자입니다."
+          maxLength={10000}
+        />
+      </p>
+
+      <p>✔️ 주의사항 </p>
+      <p className="openjoin_que">
+        <textarea
+          id="notice"
+          className="openjoin_input"
+          value={notice}
           onChange={onChange}
           type="text"
           placeholder="최대 길이는 1000자입니다."
