@@ -36,11 +36,6 @@ const Half=styled.div`
     justify-content: space-around;
 `;
 const EachDetail=({eachObj})=>{
-    const [item,setItem]=useState([]);
-
-    // useEffect(()=>{
-    //     console.log(item);
-    // },[item]);
 
     return(
         <Container>

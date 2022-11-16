@@ -38,6 +38,7 @@ const SellingItem = (props) => {
         itemname: itemname,
         price: price,
         itemDetails: itemDetails,
+        count:0
       },
       ...props.data,
     ]);

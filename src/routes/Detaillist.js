@@ -420,6 +420,7 @@ const DetailArea=styled.div`
   border-radius:7px;
   margin: 2px 4px 15px;
   padding: 3px 5px;
+  white-space: pre-wrap;
 `;
 const Title=styled.div`
   font-weight: 700;
