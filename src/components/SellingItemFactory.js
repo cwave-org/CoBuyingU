@@ -65,7 +65,7 @@ const SellingItemFactory = (props) => {
       }
     }
     await dbService.doc(`itemlist/${props.itemID}`).set({data});
-
+    props.setClicked(true);
     
   };
 

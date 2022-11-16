@@ -106,11 +106,13 @@ const CobuyingItem = ({ userObj, listObj, isOwner }) => {
                     marginBottom: 5,
                     borderRadius: 10,
                   }}
+                  alt="썸네일"
                   src={listObj.attachmentUrl}
                 />
               ) : (
                 <>
                   <img
+                    alt="썸네일"
                     style={{ width: "100%", height: "40%", marginBottom: 5 }}
                     src="img/transparent.png"
                   />
@@ -119,13 +121,13 @@ const CobuyingItem = ({ userObj, listObj, isOwner }) => {
               <div className="name">
                 {
                   <>
-                    상품명: {listObj.itemname}
+                    {listObj.itemname}
                     <br />
-                    분류: {listObj.item}
+                    {/* 분류: {listObj.item} */}
                   </>
                 }
               </div>
-              <div className="deadline">{`${listObj.deadline}까지`}</div>
+              <div className="deadline">{listObj.deadline}까지</div>
             </div>
           </div>
         ) : (

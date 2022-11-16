@@ -11,13 +11,16 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { faStar as FaStarRegular } from "@fortawesome/free-regular-svg-icons";
 import Kakao from "../components/Kakao";
+import styled from "styled-components";
 import QnA from "../components/QnA";
 import { useParams } from "react-router-dom";
+import EachDetail from "../components/SOOM/EachDetail";
 
 const Detaillist = ({ userObj }) => {
   const { id } = useParams();
   const [isLodded, setIsLodded] = useState(false);
   const [shareclick, setShareClick] = useState(false);
+<<<<<<< HEAD
   const [detailObj, setDetailObj] = useState([]);
   useEffect(() => {
     dbService
@@ -41,6 +44,38 @@ const Detaillist = ({ userObj }) => {
   const [qna, setQna] = useState("");
   const [qnas, setQnas] = useState([]);
 
+=======
+  const [detailObj, setDetailObj]=useState([]);
+  const itemId =id;
+  const [editing, setEditing] = useState(false);
+  const [checked, setChecked] = useState(true);
+  const [qna, setQna] = useState("");
+  const [qnas, setQnas] = useState([]);
+  const [itemObj, setItemObj] = useState(detailObj);
+  const [eachObj,setEachObj]=useState();
+  const navigate = useNavigate();
+  useEffect(()=>{
+    dbService
+  .collection("startlist").doc(id).get()
+  .then((doc)=>{
+    setDetailObj(doc.data());
+    const item = {
+      id: doc.id,
+      ...doc.data(),
+    };
+    setItemObj(item);
+    setIsLodded(true);
+    dbService.collection("itemlist").doc(item.randomidx.toString()).get()
+    .then((doc)=>{
+      setEachObj(doc.data().data.reverse());
+    })
+  })
+  },[]);
+
+//  useEffect(()=>{
+ 
+//  },[eachId]);
+>>>>>>> main
   // 동기화
   useEffect(() => {
     dbService.collection("startlist").onSnapshot((snapshot) => {
@@ -63,8 +98,6 @@ const Detaillist = ({ userObj }) => {
       });
     });
   }, []);
-  const [itemObj, setItemObj] = useState(detailObj);
-  const navigate = useNavigate();
   const toggleEditing = () => {
     navigate("/selling/edit", {
       replace: false,
@@ -258,6 +291,7 @@ const Detaillist = ({ userObj }) => {
   };
   return (
     <>
+<<<<<<< HEAD
       {isLodded ? (
         <div className="detaillist_content">
           <div>
@@ -267,6 +301,16 @@ const Detaillist = ({ userObj }) => {
               <img src={itemObj.attachmentUrl} className="detaillist_img" />
             )}
             <h3 align="center"> {itemObj.price}원</h3>
+=======
+      {isLodded?(
+            <div className="detaillist_content">
+            <div> 
+              <Title>{itemObj.itemname}</Title>
+              {itemObj.attachmentUrl && (
+                <img src={itemObj.attachmentUrl} className="detaillist_img" alt="메인사진"/>
+              )}
+              {/* <h3 align="center"> {itemObj.price}원</h3> */}
+>>>>>>> main
 
             <div className="detaillist_scr">
               {!checked ? (
@@ -286,6 +330,7 @@ const Detaillist = ({ userObj }) => {
               )}
             </div>
 
+<<<<<<< HEAD
             <div className="detaillist_font">
               <p>
                 <b>✔️ 판매자</b> &nbsp;&nbsp;&nbsp; {itemObj.userName}
@@ -303,6 +348,25 @@ const Detaillist = ({ userObj }) => {
                 </div>
                 <br></br>
               </p>
+=======
+              <Container>
+                 <b>✔️ 판매자</b> &nbsp;&nbsp;&nbsp; {itemObj.userName}
+                  <br></br>
+                  <b>✔️ 마감기한</b> &nbsp;&nbsp;&nbsp; {itemObj.deadline}
+                  <br></br>
+                  <b>✔️ 계좌</b> &nbsp;&nbsp;&nbsp;{itemObj.account}
+                  <br></br>
+                  <b>✔️ 상세사항</b>
+                  <DetailArea>{itemObj.etc}</DetailArea>
+                  <b>✔️ 주의사항</b>
+                  <DetailArea>{itemObj.notice}</DetailArea>
+                  <b>✔️ 상품 옵션</b>
+                <EachDetail eachObj={eachObj}/>
+              </Container>
+              {/* <div className="detaillist_font"> */}
+                 
+              {/* </div> */}
+>>>>>>> main
             </div>
           </div>
 
@@ -400,10 +464,26 @@ const Detaillist = ({ userObj }) => {
         </div>
       ) : (
         <div className="ini">
-          <img id="rotating_img" width="80%" src="img/logo4.png"></img>
+          <img id="rotating_img" width="80%" src="img/logo4.png" alt="로딩"></img>
         </div>
       )}
     </>
   );
 };
 export default Detaillist;
+
+const Container =styled.div`
+  margin: 20px 8px 30px;
+  padding: 7px 1px;
+`;
+const DetailArea=styled.div`
+  background-color:#f9f9f9;
+  border-radius:7px;
+  margin: 2px 4px 15px;
+  padding: 3px 5px;
+`;
+const Title=styled.div`
+  font-weight: 700;
+  font-size: 25px;
+  text-align: center;
+`;

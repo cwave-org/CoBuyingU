@@ -22,7 +22,8 @@ const Btn=styled.button`
 const AddPhoto=(props)=>{
     const [id,setId]=useState(1);
     const [detail,setDetail]=useState([<PhotoLayout key={id} id={id} setData={props.setData} data={props.data}/>]);
-    const onClickAdd=()=>{
+    const onClickAdd=(event)=>{
+        event.preventDefault();
         setId(id+1);
         if(id>=3){
             window.alert('품목당 상세 설명은 세개까지 가능합니다.');

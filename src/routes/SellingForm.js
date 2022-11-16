@@ -3,7 +3,6 @@ import { v4 as uuidv4 } from "uuid";
 import { dbService, storageService } from "../fbase";
 import { useNavigate } from "react-router-dom";
 import SellingItemFactory from "../components/SellingItemFactory";
-import AddPhoto from "../components/SOOM/AddPhoto";
 import styled from "styled-components";
 
 const EachContainer=styled.div`
@@ -38,7 +37,7 @@ const Notice=styled.div`
 const SellingForm = ({ userObj }) => {
 
   const [name, setName] = useState("");
-  const [data,setData]=useState("");
+  const [clicked,setClicked]=useState(false);
   const [itemname, setItemname] = useState("");
   const [item, setItem] = useState("");
   const [price, setPrice] = useState("");
@@ -55,46 +54,49 @@ const SellingForm = ({ userObj }) => {
   useEffect(()=>{
     setItemID(Math.random());
   },[]);
-  const onSubmit = async (event) => {
-    navigate("/");
-    event.preventDefault();
-    let attachmentUrl = "";
-    if (attachment !== "") {
-      const attachmentRef = storageService
-        .ref()
-        .child(`${userObj.uid}/${uuidv4()}`);
-      const response = await attachmentRef.putString(attachment, "data_url");
-      attachmentUrl = await response.ref.getDownloadURL();
-    }
-    const listObj = {
-      randomidx:itemID,
-      // randomidx: Math.random(), // 어떤 글인지 추가
-      name: name,// 공대표 이름 추가
-      itemname: itemname,
-      item: item,
-      price: price,
-      deadline: deadline,
-      datetime: Date.now(),
-      creatorId: userObj.uid,
-      account: account,
-      etc: etc,
-      notice: notice,
-      link: link,
-      attachmentUrl,
-      userName: userObj.displayName,
-    };
-    await dbService.collection("startlist").add(listObj);
-    // setItemID(listObj.randomidx);
-    setItemname("");
-    setName("");
-    setItem("");
-    setPrice("");
-    setDeadline("");
-    setAttachment("");
-    setEtc("");
-    setLink("");
-    setAccount("");
-    setNotice("");
+  const onFormSubmit = async (event) => {
+    // if(clicked){
+      navigate("/");
+      let attachmentUrl = "";
+      if (attachment !== "") {
+        const attachmentRef = storageService
+          .ref()
+          .child(`${userObj.uid}/${uuidv4()}`);
+        const response = await attachmentRef.putString(attachment, "data_url");
+        attachmentUrl = await response.ref.getDownloadURL();
+      }
+      const listObj = {
+        randomidx:itemID,
+        // randomidx: Math.random(), // 어떤 글인지 추가
+        name: name,// 공대표 이름 추가
+        itemname: itemname,
+        item: item,
+        price: price,
+        deadline: deadline,
+        datetime: Date.now(),
+        creatorId: userObj.uid,
+        account: account,
+        etc: etc,
+        notice: notice,
+        link: link,
+        attachmentUrl,
+        userName: userObj.displayName,
+      };
+      await dbService.collection("startlist").add(listObj);
+      // setItemID(listObj.randomidx);
+      setItemname("");
+      setName("");
+      setItem("");
+      setPrice("");
+      setDeadline("");
+      setAttachment("");
+      setEtc("");
+      setLink("");
+      setAccount("");
+      setNotice("");
+    // }else{
+      // window.alert("상품추가 완료버튼을 눌러주셔야 제출 가능합니다");
+    // }
   };
 
   const onCancel = () => {
@@ -150,18 +152,16 @@ const SellingForm = ({ userObj }) => {
     reader.readAsDataURL(theFile);
   };
   const onClearAttachment = () => setAttachment(null);
-
-  const handleResizeHeight=(event)=>{
-    if(ta.current.scrollHeight>60){
-        ta.current.style.height=ta.current.scrollHeight+'px';
+  const onCheckForm=()=>{
+    if (clicked){
+      onFormSubmit();
     }
-    const {
-        target: { value },
-      } = event;
-    // setDetail(value);
-}
+    else{ 
+      window.alert("상품추가 완료버튼을 눌러주셔야 제출 가능합니다");
+    }
+  }
   return (
-    <form className="openjoin_container" onSubmit={onSubmit}>
+    <form className="openjoin_container">
       <p>공구 열기</p>
       <EachContainer>
         <EachTitle>
@@ -267,7 +267,7 @@ const SellingForm = ({ userObj }) => {
 
     <EachContainer>
       <EachTitle>
-        ✔️ 계좌(은행/ 계좌번호/입금주명)
+        ✔️ 계좌(은행/계좌번호/입금주명)
       </EachTitle>
       <EachDetail>
         <input
@@ -326,14 +326,14 @@ const SellingForm = ({ userObj }) => {
       <EachTitle>
         ✔️ 상품목록 <Notice>작성후 하단의 완료버튼을 눌러주세요</Notice>
       </EachTitle>
-      <SellingItemFactory userObj={userObj} itemID={itemID} />
+      <SellingItemFactory userObj={userObj} itemID={itemID} setClicked={setClicked} />
     </EachContainer>
       
       <div>
         <button className="default_Btn_Right" onClick={onCancel}>
           취소
         </button>
-        <button className="default_Btn_Right" type="submit">
+        <button className="default_Btn_Right" onClick={onCheckForm}>
           제출
         </button>
       </div>
