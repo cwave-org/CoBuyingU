@@ -1,13 +1,44 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { v4 as uuidv4 } from "uuid";
 import { dbService, storageService } from "../fbase";
 import { useNavigate } from "react-router-dom";
 import SellingItemFactory from "../components/SellingItemFactory";
+import AddPhoto from "../components/SOOM/AddPhoto";
+import styled from "styled-components";
+
+const EachContainer=styled.div`
+  width: 100%;
+  margin: 3px 3px 15px;
+`;
+const EachTitle=styled.div`
+  font-weight: 600;
+  position: relative;
+`
+const EachDetail=styled.div`
+  margin-top: 1px;
+`;
+const Detail1=styled(EachDetail)`
+  /* padding: 3px; */
+  margin-top: 7px;
+`;
+const DetailArea=styled.textarea`
+  padding: 3px 5px;
+  border-radius: 5px;
+  resize: none;
+  background-color: #F6F6F6;
+`;
+const Notice=styled.div`
+  color:grey;
+  position:absolute;
+  top:9px;
+  left:95px;
+  font-size: 7px;
+`;
 
 const SellingForm = ({ userObj }) => {
 
   const [name, setName] = useState("");
-  const [eachdata,setEachData]=useState("");
+  const [data,setData]=useState("");
   const [itemname, setItemname] = useState("");
   const [item, setItem] = useState("");
   const [price, setPrice] = useState("");
@@ -18,7 +49,8 @@ const SellingForm = ({ userObj }) => {
   const [itemID,setItemID]=useState(0);
   const [notice, setNotice] = useState("");
   const navigate = useNavigate();
-
+  const ta=useRef();
+  const ta2=useRef();
   const [link, setLink] = useState("");
   useEffect(()=>{
     setItemID(Math.random());
@@ -87,11 +119,18 @@ const SellingForm = ({ userObj }) => {
     } else if (event.target.id === "link") {
       setLink(value);
     } else if (event.target.id === "etc") {
+      if(ta.current.scrollHeight>90){
+        ta.current.style.height=ta.current.scrollHeight+'px';
+      }
       setEtc(value);
+
     } else if (event.target.id === "account") {
       setAccount(value);
     }
     else if (event.target.id === "notice") {
+      if(ta2.current.scrollHeight>90){
+        ta2.current.style.height=ta2.current.scrollHeight+'px';
+      }
       setNotice(value);
     }
   };
@@ -112,41 +151,59 @@ const SellingForm = ({ userObj }) => {
   };
   const onClearAttachment = () => setAttachment(null);
 
+  const handleResizeHeight=(event)=>{
+    if(ta.current.scrollHeight>60){
+        ta.current.style.height=ta.current.scrollHeight+'px';
+    }
+    const {
+        target: { value },
+      } = event;
+    // setDetail(value);
+}
   return (
     <form className="openjoin_container" onSubmit={onSubmit}>
       <p>공구 열기</p>
-
-      <p>✔️ 상품이름 </p>
-      <p className="openjoin_que">
-        <input
-          id="itemname"
-          className="openjoin_input"
-          value={itemname}
-          onChange={onChange}
-          type="text"
-          placeholder="상품이름"
-          maxLength={120}
-          required
+      <EachContainer>
+        <EachTitle>
+          ✔️ 상품이름
+        </EachTitle>
+        <EachDetail>
+           <input
+            id="itemname"
+            className="openjoin_input"
+            value={itemname}
+            onChange={onChange}
+            type="text"
+            placeholder="상품이름"
+            maxLength={120}
+            required
         />
-      </p>
-
-      <p>✔️ 공대표 이름 </p>
-      <p className="openjoin_que">
+        </EachDetail>
+      </EachContainer>
+      
+    <EachContainer>
+      <EachTitle>
+        ✔️ 공대표 이름
+      </EachTitle>
+      <EachDetail>
         <input
-          className="openjoin_input"
-          id="nameform"
-          type="text"
-          placeholder={userObj.displayName}
-          onChange={onChange}
-          value={name}
-          required
-        />
-      </p>
+            className="openjoin_input"
+            id="nameform"
+            type="text"
+            placeholder={userObj.displayName}
+            onChange={onChange}
+            value={name}
+            required
+          />
+      </EachDetail>
+    </EachContainer>
 
-      <p>✔️ 대표사진 </p>
-      <p className="openjoin_que">
-        <div>
-          <input
+    <EachContainer>
+      <EachTitle>
+        ✔️ 상품 대표사진 
+      </EachTitle>
+      <Detail1>
+        <input
             className="openjoin_input"
             type="file"
             accept="image/*"
@@ -154,17 +211,20 @@ const SellingForm = ({ userObj }) => {
           />
           {attachment && (
             <div className="attatchment">
-              <img src={attachment} />
+              <img src={attachment} alt="대표사진" />
               <button className="default_Btn" onClick={onClearAttachment}>
                 Clear
               </button>
             </div>
           )}
-        </div>
-      </p>
-
-      <p>✔️ 마감기한 </p>
-      <p className="openjoin_que">
+      </Detail1>
+    </EachContainer>
+      
+    <EachContainer>
+      <EachTitle>
+      ✔️ 마감기한
+      </EachTitle>
+      <Detail1>
         <input
           id="deadline"
           className="openjoin_input"
@@ -175,13 +235,23 @@ const SellingForm = ({ userObj }) => {
           maxLength={120}
           required
         />
-      </p>
+      </Detail1>
+    </EachContainer>
 
-      <p>✔️ 카테고리 </p>  
-      <p>문구류</p>
-
-      <p>✔️ 오픈채팅방 링크 </p>
-      <p className="openjoin_que">
+    <EachContainer>
+      <EachTitle>
+        ✔️ 카테고리
+      </EachTitle>
+      <EachDetail>
+        문구류
+      </EachDetail>
+    </EachContainer>
+    
+    <EachContainer>
+      <EachTitle>
+        ✔️ 오픈채팅방 링크
+      </EachTitle>
+      <EachDetail>
         <input
           id="link"
           className="openjoin_input"
@@ -192,10 +262,14 @@ const SellingForm = ({ userObj }) => {
           maxLength={150}
           style={{ marginBottom: 5 }}
         />
-      </p>
+      </EachDetail>
+    </EachContainer>
 
-      <p> ✔️ 계좌(은행/ 계좌번호/입금주명) </p>
-      <p className="openjoin_que">
+    <EachContainer>
+      <EachTitle>
+        ✔️ 계좌(은행/ 계좌번호/입금주명)
+      </EachTitle>
+      <EachDetail>
         <input
           id="account"
           className="openjoin_input"
@@ -207,75 +281,54 @@ const SellingForm = ({ userObj }) => {
           style={{ marginBottom: 5 }}
           required
         />
-      </p>
+      </EachDetail>
+    </EachContainer>
 
-
-        <div>
-          <input
-            className="openjoin_input"
-            type="file"
-            accept="image/*"
-            onChange={onFileChange}
-          />
-          {attachment && (
-            <div className="attatchment">
-              <img src={attachment} alt="대표사진"/>
-              <button className="default_Btn" onClick={onClearAttachment}>
-                Clear
-              </button>
-            </div>
-          )}
-        </div>
-      </p>
-      {/*<p className="openjoin_que">
-        <span>✔️ 가격(원): </span>
-        <input
-          id="price"
-          className="openjoin_input"
-          value={price}
-          onChange={onChange}
-          type="number"
-          placeholder="가격(원)"
-          maxLength={120}
-          required
-        />
-          </p>*/}
-
-      
-      
-      {/* 나연씨 각 옵션마다 그 안에 아래 컴포넌트를 넣어주면 될겁니당
-      근데 각 옵션에 따라 선언되는게 꼬인다면.. 내 코드에서 약간 수정필요할수도 있어서 에러나면 걍 나한테 말해죵!!*/}
-      <AddPhoto setEachData={setEachData} />
-
-
-      <p>✔️ 상세설명 </p>
-      <p className="openjoin_que">
-        <textarea
+    <EachContainer>
+      <EachTitle>
+        ✔️ 상세설명
+      </EachTitle>
+      <EachDetail>
+        <DetailArea
           id="etc"
           className="openjoin_input"
+          ref={ta}
+          rows={3}
           value={etc}
           onChange={onChange}
           type="text"
-          placeholder="최대 길이는 1000자입니다."
-          maxLength={10000}
+          placeholder="현장배부/택배배송 등 상세설명을 작성해주세요."
+          // maxLength={10000}
         />
-      </p>
-
-      <p>✔️ 주의사항 </p>
-      <p className="openjoin_que">
-        <textarea
+      </EachDetail>
+    </EachContainer>
+    
+    <EachContainer>
+      <EachTitle>
+        ✔️ 주의사항
+      </EachTitle>
+      <EachDetail>
+        <DetailArea
           id="notice"
           className="openjoin_input"
+          ref={ta2}
+          rows={3}
           value={notice}
           onChange={onChange}
           type="text"
-          placeholder="최대 길이는 1000자입니다."
-          maxLength={10000}
+          placeholder="환불 등 주의사항을 작성해주세요."
+          // maxLength={10000}
         />
-      </p>
-      <div style={{ marginTop: "50px", marginBottom: "50px" }}>
-        <SellingItemFactory userObj={userObj} itemID={itemID} />
-      </div>
+      </EachDetail>
+    </EachContainer>
+
+    <EachContainer>
+      <EachTitle>
+        ✔️ 상품목록 <Notice>작성후 하단의 완료버튼을 눌러주세요</Notice>
+      </EachTitle>
+      <SellingItemFactory userObj={userObj} itemID={itemID} />
+    </EachContainer>
+      
       <div>
         <button className="default_Btn_Right" onClick={onCancel}>
           취소
