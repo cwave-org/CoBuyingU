@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import { render } from "@testing-library/react";
+import React, { useEffect, useState, useReducer } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { dbService } from "../fbase";
 
@@ -11,11 +12,28 @@ const BuyingForm = ({ userObj }) => {
   const [account_name, setAccount_name] = useState("");
   const [account_date, setAccount_date] = useState("");
   const [account_re, setAccount_re] = useState("");
+  const [items, setItems] = useState([]);
+  const [isLodded, setIsLodded] = useState(0);
 
   const location = useLocation();
   const navigate = useNavigate();
 
   const { detailObj } = location.state; // 입력 폼 정보 받아오기
+
+  useEffect(() => {
+    dbService.doc(`itemlist/${detailObj.randomidx}`).onSnapshot((snapshot) => {
+      for (let i = 0; i < snapshot.data().data.length; i++) {
+        const item = {
+          count: 0,
+          ...snapshot.data().data[i],
+        };
+        console.log("i: " + i);
+        console.log(item);
+        setItems([[item], ...items]);
+      }
+      setIsLodded(1);
+    });
+  }, []);
 
   const onSubmit = async (event) => {
     event.preventDefault();
@@ -33,7 +51,7 @@ const BuyingForm = ({ userObj }) => {
       account_name: account_name,
       account_re: account_re,
       deposit_complete: false,
-      deleted : false,
+      deleted: false,
     };
 
     await dbService.collection("joinlist").add(BuyingObj);
@@ -45,7 +63,10 @@ const BuyingForm = ({ userObj }) => {
     setAccount_name("");
     setAccount_date("");
     setAccount_re("");
-    navigate("/buying/done", { replace: false, state: { link: detailObj.link } });
+    navigate("/buying/done", {
+      replace: false,
+      state: { link: detailObj.link },
+    });
   };
 
   const onCancel = () => {
@@ -78,7 +99,30 @@ const BuyingForm = ({ userObj }) => {
     }
   };
 
+  const add = (event, item, i) => {
+    event.preventDefault();
+    console.log(items);
+    setItems([
+      ...items.slice(0, i),
+      {
+        ...items[i],
+        count: items[i].count + 1,
+      },
+      ...items.slice(i + 1, items.length),
+    ]);
+  };
 
+  const minus = (event, item, i) => {
+    event.preventDefault();
+    setItems([
+      ...items.slice(0, i),
+      {
+        ...items[i],
+        count: items[i].count - 1,
+      },
+      ...items.slice(i + 1, items.length),
+    ]);
+  };
 
   return (
     <form className="openjoin_container" onSubmit={onSubmit}>
@@ -95,7 +139,6 @@ const BuyingForm = ({ userObj }) => {
           required
         />
       </p>
-
       <p>✔️ 전화번호 </p>
       <p className="openjoin_que">
         <input
@@ -108,7 +151,6 @@ const BuyingForm = ({ userObj }) => {
           required
         />
       </p>
-
       <p>✔️ 입금 날짜 : 시간 : 분 </p>
       <p className="openjoin_que">
         <input
@@ -120,11 +162,11 @@ const BuyingForm = ({ userObj }) => {
           required
         />
       </p>
-
       <p>✔️ 배송여부</p>
-      <input type="radio" name="theme" value="site"/>현장배부
-      <input type="radio" name="theme" value="parcel"/>택배배송
-
+      <input type="radio" name="theme" value="site" />
+      현장배부
+      <input type="radio" name="theme" value="parcel" />
+      택배배송
       <p>✔️ 헌장배부 날짜 </p>
       <p className="openjoin_que">
         <input
@@ -136,7 +178,6 @@ const BuyingForm = ({ userObj }) => {
           required
         />
       </p>
-
       <p>✔️ 집주소 </p>
       <p className="openjoin_que">
         <input
@@ -148,7 +189,6 @@ const BuyingForm = ({ userObj }) => {
           value={address}
         />
       </p>
-
       <p>✔️ 환불계좌(은행/계좌번호/입금주명)</p>
       <p className="openjoin_que">
         <input
@@ -161,7 +201,6 @@ const BuyingForm = ({ userObj }) => {
           required
         />
       </p>
-
       <p className="openjoin_que">
         <span>✔️ 수량: </span>
         <input
@@ -174,6 +213,39 @@ const BuyingForm = ({ userObj }) => {
           required
         />
       </p>
+      {isLodded == 1 ? (
+        <table>
+          <thead>
+            <tr>
+              <th>상품명</th>
+              <th>가격</th>
+              <th>수량</th>
+              <th colSpan={2}></th>
+            </tr>
+          </thead>
+          <tbody>
+            {items.map((item, i) => {
+              return (
+                <tr key={i}>
+                  <td>{item.itemname}</td>
+                  <td>{item.price}</td>
+                  <td>{item.count}</td>
+                  <td>
+                    <button onClick={(event) => add(event, item, i)}>+</button>
+                  </td>
+                  <td>
+                    <button onClick={(event) => minus(event, item, i)}>
+                      -
+                    </button>
+                  </td>
+                </tr>
+              );
+            })}
+          </tbody>
+        </table>
+      ) : (
+        <></>
+      )}
       <p className="openjoin_que">
         <span>✔️ 사이즈: </span>
         <input
@@ -186,7 +258,6 @@ const BuyingForm = ({ userObj }) => {
           required
         />
       </p>
-
       <div>
         <button className="default_Btn_Right" onClick={onCancel}>
           취소
