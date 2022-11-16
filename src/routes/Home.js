@@ -7,7 +7,7 @@ const PostListWrapper = styled.div`
   display: grid;
   place-items: center;
   justify-content: space-evenly;
-  font-size:: small;
+  font-size: small;
   row-gap: 8x;
   grid-template-columns: repeat(2, auto);
 `;
