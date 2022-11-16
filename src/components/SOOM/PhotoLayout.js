@@ -5,13 +5,17 @@ import { useRef } from "react";
 import styled from "styled-components";
 
 const Layout=styled.div`
-    border-top: 3px solid white;
-    background-color:  #F6F6F6;
+    border-radius: 5px;
+    /* border: 2px solid white; */
+    /* border-top: 1px solid #9b9b9b; */
+    background-color:  white;
 `;
 const Add=styled.div`
     display: flex;
-    margin: 5px 3px;
+    margin: 5px 0;
     padding: 3px;
+    background-color: #f6f6f6;
+    /* border: 1px solid white; */
 `;
 const Half = styled.div`
     width: 50%;

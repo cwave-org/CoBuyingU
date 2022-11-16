@@ -2,6 +2,8 @@ import React, { useEffect, useRef, useState } from "react";
 import styled from "styled-components";
 import PhotoLayout from "./PhotoLayout";
 const Container=styled.div`
+    width: 100%;
+    margin: auto;
     border: 3px solid #F6F6F6;
     border-radius: 10px;
     background-color:  #F6F6F6;
@@ -33,7 +35,6 @@ const AddPhoto=(props)=>{
     // }
     return (
         <Container>
-            <div>상품 A 상세 설명 (최대 3개) </div>
             {detail}
             <BtnCon>
                 <Btn onClick={onClickAdd}>사진추가</Btn>
