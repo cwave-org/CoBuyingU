@@ -214,8 +214,11 @@ const Buydetaillist = () => {
               ✔️ 구매 수량 
             </EachTitle>
             <EachDetail>
-              1번 상품 : {newDetailObj.option[0]} 개 <br></br>
-              2번 상품 : {newDetailObj.option[1]} 개
+              {newDetailObj.optionname.map((opt)=>(
+                <div key={newDetailObj.optionname.indexOf(opt)}>
+                  {newDetailObj.optionname.indexOf(opt)+1}. {opt} : {newDetailObj.option[newDetailObj.optionname.indexOf(opt)]}개
+                </div>
+              ))}
             </EachDetail>
           </EachContainer>
 
@@ -293,8 +296,11 @@ const Buydetaillist = () => {
               ✔️ 구매 수량 
             </EachTitle>
             <EachDetail>
-              1번 상품 : {newDetailObj.option[0]} 개 <br></br>
-              2번 상품 : {newDetailObj.option[1]} 개
+              {newDetailObj.optionname.map((opt)=>(
+                <div key={newDetailObj.optionname.indexOf(opt)}>
+                  {newDetailObj.optionname.indexOf(opt)+1}. {opt} : {newDetailObj.option[newDetailObj.optionname.indexOf(opt)]}개
+                </div>
+              ))}
             </EachDetail>
           </EachContainer>
 
