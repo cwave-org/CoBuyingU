@@ -44,7 +44,7 @@ const Detaillist = ({ userObj }) => {
         };
         setItemObj(item);
         setIsLodded(true);
-        console.log(item.deadline);
+        //console.log(item.deadline);
         dbService
           .collection("itemlist")
           .doc(item.randomidx.toString())
