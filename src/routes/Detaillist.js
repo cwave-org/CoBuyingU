@@ -28,6 +28,7 @@ const Detaillist = ({ userObj }) => {
   const [qnas, setQnas] = useState([]);
   const [itemObj, setItemObj] = useState(detailObj);
   const [eachObj,setEachObj]=useState();
+  const [today,setToday]=useState(new Date());
   const navigate = useNavigate();
   useEffect(()=>{
     dbService
@@ -40,11 +41,14 @@ const Detaillist = ({ userObj }) => {
     };
     setItemObj(item);
     setIsLodded(true);
+    console.log(item.deadline);
     dbService.collection("itemlist").doc(item.randomidx.toString()).get()
     .then((doc)=>{
       setEachObj(doc.data().data.reverse());
     })
   })
+  let date= today.getFullYear()+'-'+((today.getMonth()+1)<9?"0"+(today.getMonth()+1):(today.getMonth()+1))+'-'+((today.getDate())<9?"0"+(today.getDate()):(today.getDate()));
+  setToday(date);
   },[]);
 
 //  useEffect(()=>{
@@ -319,10 +323,11 @@ const Detaillist = ({ userObj }) => {
                 공구 참여자 목록 보기
               </button>
             </>
-          ) : (
+          ) : ((itemObj.deadline>=today&&
             <button className="default_Btn_Center" onClick={onJoinlistClick}>
               공구 참여하기
             </button>
+          )
           )}
         </div>
         <br></br>
