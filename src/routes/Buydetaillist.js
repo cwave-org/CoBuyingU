@@ -4,6 +4,7 @@ import { useLocation } from "react-router-dom";
 import { dbService } from "../fbase";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPencilAlt } from "@fortawesome/free-solid-svg-icons";
+import styled from "styled-components";
 
 const Buydetaillist = () => {
   const navigate = useNavigate();
@@ -19,7 +20,7 @@ const Buydetaillist = () => {
   const [account_name, setAccount_name] = useState(detailObj.account_name);
   const [account_date, setAccount_date] = useState(detailObj.account_date);
   const [account_re, setAccount_re] = useState(detailObj.account_re);
-
+  const [receive_date, setReceive_date] = useState(detailObj.receive_date);
   const [newDetailObj, setNewDetailObj] = useState(detailObj);
 
   // 동기화
@@ -43,14 +44,15 @@ const Buydetaillist = () => {
     event.preventDefault();
     setEditing(false);
     await dbService.doc(`joinlist/${detailObj.id}`).update({
-      name: name,
-      phonenumber: phonenumber,
+     /* name: name,
       count: count,
       size: size,
       address: address,
       account_date: account_name,
-      account_name: account_date,
+      account_name: account_date,*/
+      phonenumber: phonenumber,
       account_re: account_re,
+      receivedate:receive_date,
     });
   };
 
@@ -75,6 +77,9 @@ const Buydetaillist = () => {
     } else if (event.target.id === "accountre") {
       setAccount_re(value);
     }
+    else if (event.target.id === "receivedate") {
+      setReceive_date(value);
+    }
   };
 
   return (
@@ -84,105 +89,98 @@ const Buydetaillist = () => {
           <p className="my_title">💙폼 제출 내용💙</p>
           <hr />
           <>
-            <form onSubmit={onSubmit}>
-              <p className="openjoin_que">
-                <span>✔️ 이름: </span>
-                <input
-                  className="openjoin_input"
-                  id="name"
-                  type="text"
-                  placeholder={name}
-                  onChange={onChange}
-                  value={name}
-                  required
-                />
-              </p>
-              <p className="openjoin_que">
-                <span>✔️ 전화번호: </span>
-                <input
-                  className="openjoin_input"
-                  id="phonenumber"
-                  type="tel"
-                  placeholder={phonenumber}
-                  onChange={onChange}
-                  value={phonenumber}
-                  required
-                />
-              </p>
-              <p className="openjoin_que">
-                <span>✔️ 수량: </span>
-                <input
-                  className="openjoin_input"
-                  id="count"
-                  type="number"
-                  placeholder={count}
-                  onChange={onChange}
-                  value={count}
-                  required
-                />
-              </p>
-              <p className="openjoin_que">
-                <span>✔️ 사이즈: </span>
-                <input
-                  className="openjoin_input"
-                  id="size"
-                  type="text"
-                  placeholder={size}
-                  onChange={onChange}
-                  value={size}
-                  required
-                />
-              </p>
-              <p className="openjoin_que">
-                <span>✔️ 주소:</span>
-                <input
-                  className="openjoin_input"
-                  id="address"
-                  type="text"
-                  placeholder={address}
-                  onChange={onChange}
-                  value={address}
-                  required
-                />
-              </p>
-              <p className="openjoin_que">
-                <span>✔️ 입금자명: </span>
-                <input
-                  className="openjoin_input"
-                  id="accountname"
-                  type="text"
-                  placeholder={account_name}
-                  onChange={onChange}
-                  value={account_name}
-                  required
-                />
-              </p>
-              <p className="openjoin_que">
-                <span>✔️ 입금일자: </span>
-                <input
-                  className="openjoin_input"
-                  id="accountdate"
-                  type="date"
-                  placeholder={account_date}
-                  onChange={onChange}
-                  value={account_date}
-                  required
-                />
-              </p>
-              <p className="openjoin_que">
-                <span className="openjoin_long">
-                  ✔️ 환불계좌(은행/계좌번호/입금주명):{" "}
-                </span>
-                <input
-                  className="openjoin_input"
-                  id="accountre"
-                  type="text"
-                  placeholder={account_re}
-                  onChange={onChange}
-                  value={account_re}
-                  required
-                />
-              </p>
+          <form onSubmit={onSubmit}>
+          <EachContainer>
+            <EachTitle>
+              ✔️ 입금자 명
+            </EachTitle>
+            <EachDetail>
+              {newDetailObj.account_name}
+            </EachDetail>
+          </EachContainer>
+
+          <EachContainer>
+            <EachTitle>
+              ✔️ 전화번호
+            </EachTitle>
+            <EachDetail>
+            <input
+              className="openjoin_input"
+              id="phonenumber"
+              type="tel"
+              placeholder={phonenumber}
+              onChange={onChange}
+              value={phonenumber}
+              required
+              />
+            </EachDetail>
+          </EachContainer>
+          
+          <EachContainer>
+            <EachTitle>
+              ✔️ 현장배부 날짜
+            </EachTitle>
+            <EachDetail>
+            <input
+              className="openjoin_input"
+              id="receivedate"
+              type="date"
+              placeholder={receive_date}
+              onChange={onChange}
+              value={receive_date}
+              min="2022-11-30"
+              max="2022-12-02"
+              required
+              />
+            </EachDetail>
+          </EachContainer>
+
+          <EachContainer>
+            <EachTitle>
+              ✔️ 입금 날짜 및 시간
+            </EachTitle>
+            <EachDetail>
+              {newDetailObj.account_date}
+            </EachDetail>
+          </EachContainer>
+          
+          <EachContainer>
+            <EachTitle>
+              ✔️ 환불계좌
+            </EachTitle>
+            <EachDetail>
+            <input
+              className="openjoin_input"
+              id="accountre"
+              type="text"
+              placeholder={account_re}
+              onChange={onChange}
+              value={account_re}
+              required
+              />
+
+            </EachDetail>
+          </EachContainer>
+
+          <EachContainer>
+            <EachTitle>
+              ✔️ 구매 수량 
+            </EachTitle>
+            <EachDetail>
+              1번 상품 : {newDetailObj.option[0]} 개 <br></br>
+              2번 상품 : {newDetailObj.option[1]} 개
+            </EachDetail>
+          </EachContainer>
+
+          <EachContainer>
+            <EachTitle>
+              ✔️ 구매 금액
+            </EachTitle>
+            <EachDetail>
+              {newDetailObj.totalprice} 원
+            </EachDetail>
+          </EachContainer>
+            
               <div>
                 <button className="default_Btn_Right" onClick={toggleEditing}>
                   취소
@@ -191,51 +189,76 @@ const Buydetaillist = () => {
                   제출
                 </button>
               </div>
-            </form>
+          </form>
           </>
         </div>
       ) : (
         <div className="openjoin_container">
           <p className="my_title">💙폼 제출 내용💙</p>
           <hr />
-          <p className="openjoin_que">
-            <span className="openjoin_long">✔️ 이름: {newDetailObj.name} </span>
-          </p>
-          <p className="openjoin_que">
-            <span className="openjoin_long">
-              ✔️ 전화번호: {newDetailObj.phonenumber}{" "}
-            </span>
-          </p>
-          <p className="openjoin_que">
-            <span className="openjoin_long">
-              ✔️ 수량: {newDetailObj.count}{" "}
-            </span>
-          </p>
-          <p className="openjoin_que">
-            <span className="openjoin_long">
-              ✔️ 사이즈: {newDetailObj.size}{" "}
-            </span>
-          </p>
-          <p className="openjoin_que">
-            <span className="openjoin_long">
-              ✔️ 주소: {newDetailObj.address}{" "}
-            </span>
-          </p>
-          <p className="openjoin_que">
-            <span className="openjoin_long">
-              ✔️ 입금자명: {newDetailObj.account_name}{" "}
-            </span>
-          </p>
-          <p className="openjoin_que">
-            <span className="openjoin_long">
-              ✔️ 입금일자: {newDetailObj.account_date}{" "}
-            </span>
-          </p>
-          <p className="openjoin_que">
-            <span className="openjoin_long">
-              ✔️ 환불계좌: {newDetailObj.account_re}{" "}
-            </span>
-          </p>
+          <EachContainer>
+            <EachTitle>
+              ✔️ 입금자 명
+            </EachTitle>
+            <EachDetail>
+              {newDetailObj.account_name}
+            </EachDetail>
+          </EachContainer>
+
+          <EachContainer>
+            <EachTitle>
+              ✔️ 전화번호
+            </EachTitle>
+            <EachDetail>
+              {newDetailObj.phonenumber}
+            </EachDetail>
+          </EachContainer>
+          
+          <EachContainer>
+            <EachTitle>
+              ✔️ 현장배부 날짜
+            </EachTitle>
+            <EachDetail>
+              {newDetailObj.receivedate}
+            </EachDetail>
+          </EachContainer>
+
+          <EachContainer>
+            <EachTitle>
+              ✔️ 입금 날짜 및 시간
+            </EachTitle>
+            <EachDetail>
+              {newDetailObj.account_date}
+            </EachDetail>
+          </EachContainer>
+          
+          <EachContainer>
+            <EachTitle>
+              ✔️ 환불계좌
+            </EachTitle>
+            <EachDetail>
+              {newDetailObj.account_re}
+            </EachDetail>
+          </EachContainer>
+
+          <EachContainer>
+            <EachTitle>
+              ✔️ 구매 수량 
+            </EachTitle>
+            <EachDetail>
+              1번 상품 : {newDetailObj.option[0]} 개 <br></br>
+              2번 상품 : {newDetailObj.option[1]} 개
+            </EachDetail>
+          </EachContainer>
+
+          <EachContainer>
+            <EachTitle>
+              ✔️ 구매 금액
+            </EachTitle>
+            <EachDetail>
+              {newDetailObj.totalprice} 원
+            </EachDetail>
+          </EachContainer>
           <div style={{ float: "right" }}>
             <FontAwesomeIcon
               icon={faPencilAlt}
@@ -251,3 +274,55 @@ const Buydetaillist = () => {
   );
 };
 export default Buydetaillist;
+
+const EachContainer=styled.div`
+  width: 100%;
+  margin: 3px 3px 15px;
+`;
+const EachContainer1=styled(EachContainer)`
+  margin: 3px 3px 65px;
+  position: relative;
+`;
+const EachTitle=styled.div`
+  font-weight: 600;
+  position: relative;
+`
+const EachDetail=styled.div`
+  margin-top: 1px;
+`;
+const SelectNum=styled.div`
+  border-radius: 5px;
+  background-color: #F6F6F6;
+  margin:5px 10px 10px;
+  padding:3px 10px 35px;
+  position:relative;
+`;
+const Sum=styled(SelectNum)`
+  position: absolute;
+  bottom: -55px;
+  right: 0;
+  font-weight: 600;
+  font-size: 19px;
+  padding:3px 10px;
+  color: black;
+  text-align: center;
+`;
+const Btn=styled.button`
+  background-color: #b6b6b6;
+  border-radius: 5px;
+  color: #5b5b5b;
+  width: 27px;
+  font-size: 15px;
+`;
+const NumBox=styled.div`
+  background-color: #b6b6b6;
+  position:absolute;
+  border-radius: 5px;
+  display: flex;
+  right: 10px;
+`;
+const Count=styled.div`
+  background-color: #f6f6f6;
+  width: 30px;
+  text-align: center;
+`;
