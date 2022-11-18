@@ -370,7 +370,7 @@ const Detaillist = ({ userObj }) => {
             <br></br>
             <div className="detaillist_imo">
               <div className="detaillist_user">
-                <span onClick={onShareClick} style={{ float: "inlineEnd" }}>
+                <span className="detaillist_user" onClick={onDeleteClick}>
                   <FontAwesomeIcon
                     size="2x"
                     color={"#C7D3F7"}
@@ -388,37 +388,17 @@ const Detaillist = ({ userObj }) => {
                         title="수정"
                       />
                     </span>
-                    <span className="detaillist_user" onClick={onDeleteClick}>
+                    <span
+                      className="detaillist_user"
+                      onClick={onDeleteClick}
+                    >
                       <FontAwesomeIcon
+                        icon={faTrash}
                         size="2x"
                         color={"#C7D3F7"}
-                        icon={faShareFromSquare}
+                        title="삭제"
                       />
                     </span>
-                    {shareclick && <Kakao url={id} detailObj={itemObj} />}
-                    {itemObj.creatorId === userObj.uid && (
-                      <>
-                        <span onClick={toggleEditing}>
-                          <FontAwesomeIcon
-                            icon={faPencilAlt}
-                            size="2x"
-                            color={"#C7D3F7"}
-                            title="수정"
-                          />
-                        </span>
-                        <span
-                          className="detaillist_user"
-                          onClick={onDeleteClick}
-                        >
-                          <FontAwesomeIcon
-                            icon={faTrash}
-                            size="2x"
-                            color={"#C7D3F7"}
-                            title="삭제"
-                          />
-                        </span>
-                      </>
-                    )}
                   </>
                 )}
               </div>
