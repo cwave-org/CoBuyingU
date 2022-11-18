@@ -38,7 +38,7 @@ const Navigation = ({ userObj }) => {
                 textDecoration: "none",
               }}
             >
-              <img width="130px" src="img/cwave_border_white.png"></img>
+              <img width="200px" src="img/CBU1.png"></img>
             </Link>
           </li>
           <li>
