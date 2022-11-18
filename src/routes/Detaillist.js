@@ -33,7 +33,6 @@ const Detaillist = ({ userObj }) => {
 
   useEffect(() => {
     dbService
-
       .collection("startlist")
       .doc(id)
       .get()

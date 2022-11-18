@@ -8,6 +8,7 @@ const BuyingForm = ({ userObj }) => {
   const [name, setName] = useState("");
   const [phonenumber, setPhonenumber] = useState("");
   const [count, setCount] = useState(0);
+  const [optionname,setOptionName]=useState([]);
   const [max, setMax] = useState(0);
   const [option, setOption] = useState([0]);
   const [address, setAddress] = useState("");
@@ -33,6 +34,9 @@ const BuyingForm = ({ userObj }) => {
       setIsLodded(1);
       for (var i = 0; i < snapshot.data().data.length; i++) {
         setOption(option.concat(0));
+        // setOptionName(optionname.concat([snapshot.data().data[i].itemname]));
+        setOptionName(current=>[snapshot.data().data[i].itemname,...current]);
+        console.log(snapshot.data().data[i].itemname);
       }
     });
 
@@ -47,9 +51,10 @@ const BuyingForm = ({ userObj }) => {
       // name: name,
       phonenumber: phonenumber,
       // count: count,
-      totalprice: total,
-      receivedate: receive_date,
-      option: option,
+      totalprice:total,
+      receivedate:receive_date,
+      option:option,
+      optionname:optionname,
       // address: address,
       createdAt: Date.now(),
       creatorId: userObj.uid,
@@ -138,7 +143,6 @@ const BuyingForm = ({ userObj }) => {
     } else {
       window.alert(`총 ${max}개까지만 구입 가능합니다.`);
     }
-    console.log(max);
   };
 
   const minus = (event, item, i) => {
@@ -158,13 +162,11 @@ const BuyingForm = ({ userObj }) => {
         setTotal(total - Number(items[i].price));
         option[i] = option[i] - 1;
         setMax(max - 1);
-        console.log(option);
       } else {
         window.alert(`인당 총 ${max}개까지만 구입 가능합니다.`);
       }
     } else {
     }
-    console.log(max);
   };
 
   return (

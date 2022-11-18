@@ -19,10 +19,19 @@ const Itemlist = () => {
             ...doc.data(),
             id: doc.id,
           };
-          const excelobj = {
-            size: doc.data().size,
-            count: doc.data().count,
+          var excelobj = {
+            입금자명: doc.data().account_name,
+            입금날짜시간: doc.data().account_date,
+            구매갯수:doc.data().account_re,
+            구매총액: doc.data().totalprice,
+            환불계좌:doc.data().account_re,
+            전화번호:doc.data().phonenumber,
+            수령날짜:doc.data().receivedate,
           };
+          for (var i=0;i<doc.data().option.length;i++){
+            var name = doc.data().optionname[i];
+            excelobj[name] = doc.data().option[i];
+          }
           setLists((prev) => [myobj, ...prev]);
           setExcelList((prev) => [excelobj, ...prev]);
         }
@@ -70,7 +79,7 @@ const Itemlist = () => {
             marginTop: "120px",
           }}
         >
-          <img width="100%" src="img/no_participation.png"></img>
+          <img width="100%" src="img/no_participation.png" alt="로딩"></img>
         </div>
       )}
     </>
