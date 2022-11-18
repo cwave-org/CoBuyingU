@@ -46,8 +46,8 @@ const EachDetail=({eachObj})=>{
                         <EachTitle>✨ 옵션 {each.id}. {each.itemname}</EachTitle>
                         <EachTitle>✨ 가격: {each.price}원</EachTitle>
                         <EachTitle>✨ 상세 설명</EachTitle>
-                        {each.itemDetails.map((option)=>(
-                            <Half>
+                        {each.itemDetails.reverse().map((option)=>(
+                            <Half key={option.id}>
                                 <EachDetailContent>{option.content}</EachDetailContent>
                                 <EachImg src={option.url} alt="옵션이미지" />                                
                             </Half>

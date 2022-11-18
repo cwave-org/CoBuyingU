@@ -9,6 +9,7 @@ const BuyingForm = ({ userObj }) => {
   const [count, setCount] = useState(0);
   const[max,setMax]=useState(0);
   const [option,setOption]=useState([0]);
+  const [optionname,setOptionName]=useState([]);
   const [address, setAddress] = useState("");
   const [account_name, setAccount_name] = useState("");
   const [account_date, setAccount_date] = useState("");
@@ -28,6 +29,9 @@ const BuyingForm = ({ userObj }) => {
       setIsLodded(1);
       for(var i=0;i<snapshot.data().data.length;i++){
         setOption(option.concat(0));
+        // setOptionName(optionname.concat([snapshot.data().data[i].itemname]));
+        setOptionName(current=>[snapshot.data().data[i].itemname,...current]);
+        console.log(snapshot.data().data[i].itemname);
       }
     });
   }, []);
@@ -43,6 +47,7 @@ const BuyingForm = ({ userObj }) => {
       totalprice:total,
       receivedate:receive_date,
       option:option,
+      optionname:optionname,
       // address: address,
       createdAt: Date.now(),
       creatorId: userObj.uid,
@@ -122,6 +127,7 @@ const BuyingForm = ({ userObj }) => {
       setMax(max+1);
       option[i]=option[i]+1;
       console.log(option);
+      console.log(optionname);
     }else{
       window.alert(`총 ${max}개까지만 구입 가능합니다.`);
     }

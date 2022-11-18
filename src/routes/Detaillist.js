@@ -41,7 +41,6 @@ const Detaillist = ({ userObj }) => {
     };
     setItemObj(item);
     setIsLodded(true);
-    console.log(item.deadline);
     dbService.collection("itemlist").doc(item.randomidx.toString()).get()
     .then((doc)=>{
       setEachObj(doc.data().data.reverse());
