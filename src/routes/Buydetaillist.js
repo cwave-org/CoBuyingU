@@ -10,7 +10,6 @@ const Buydetaillist = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const { detailObj } = location.state;
-
   const [editing, setEditing] = useState(false);
   const [name, setName] = useState(detailObj.name);
   const [phonenumber, setPhonenumber] = useState(detailObj.phonenumber);
@@ -22,7 +21,9 @@ const Buydetaillist = () => {
   const [account_re, setAccount_re] = useState(detailObj.account_re);
   const [receive_date, setReceive_date] = useState(detailObj.receive_date);
   const [newDetailObj, setNewDetailObj] = useState(detailObj);
-
+  const [today,setToday]=useState(new Date());
+  const [randomidx, setRandomidx] = useState(detailObj.randomidx);
+  const [itemdeadline, setItemdeadline] = useState(new Date());
   // 동기화
   useEffect(() => {
     dbService.collection("joinlist").onSnapshot((snapshot) => {
@@ -33,11 +34,57 @@ const Buydetaillist = () => {
             ...doc.data(),
           };
           setNewDetailObj(item);
+          //console.log(item.randomidx);
         }
       });
     });
-  }, []);
 
+    //random값을 통해서 일치하는 doc에 접근
+    dbService.collection("startlist").get().then((docs) => {
+      // 반복문으로 docuemnt 하나씩 확인
+      docs.forEach((doc) => {
+        if(doc.exists){
+          // document의 데이터
+          //console.log(doc.data().randomidx);
+          if (doc.data().randomidx== detailObj.randomidx) {
+            const dead = {
+              id: doc.id,
+              ...doc.data(),
+            };
+            setRandomidx(dead);
+            setItemdeadline(dead.deadline);
+            //console.log(dead.deadline);
+            //console.log(dead);
+            //console.log(itemdeadline);
+          }
+        }
+      });
+    });
+    /*dbService.collection("startlist").onSnapshot((snapshot) => {
+      snapshot.docs.map((doc) => {
+        if (doc[randomidx].randomidx == detailObj.randomidx) {
+          const dead = {
+            id: doc.id,
+            ...doc.data(),
+          };
+          setRandomidx(dead);
+          console.log(dead);
+        }
+      });
+    });*/
+
+
+    let date =
+    today.getFullYear() +
+    "-" +
+    (today.getMonth() + 1 < 9
+      ? "0" + (today.getMonth() + 1)
+      : today.getMonth() + 1) +
+    "-" +
+    (today.getDate() < 9 ? "0" + today.getDate() : today.getDate());
+  setToday(date);
+}, []);
+//console.log(today);
   const toggleEditing = () => setEditing((prev) => !prev);
 
   const onSubmit = async (event) => {
@@ -81,7 +128,7 @@ const Buydetaillist = () => {
       setReceive_date(value);
     }
   };
-
+//console.log(itemdeadline);
   return (
     <>
       {editing ? (
@@ -260,13 +307,15 @@ const Buydetaillist = () => {
             </EachDetail>
           </EachContainer>
           <div style={{ float: "right" }}>
-            <FontAwesomeIcon
+         {itemdeadline<=today?
+            (<FontAwesomeIcon
               icon={faPencilAlt}
               size="1x"
               color={"#C7D3F7"}
               title="수정"
               onClick={toggleEditing}
-            />
+            />) : 
+          (<p></p> ) }
           </div>
         </div>
       )}
