@@ -27,33 +27,31 @@ const Detaillist = ({ userObj }) => {
   const [qna, setQna] = useState("");
   const [qnas, setQnas] = useState([]);
   const [itemObj, setItemObj] = useState(detailObj);
-  const [eachObj, setEachObj] = useState();
+  const [eachObj,setEachObj]=useState();
+  const [today,setToday]=useState(new Date());
   const navigate = useNavigate();
 
   useEffect(() => {
     dbService
-      .collection("startlist")
-      .doc(id)
-      .get()
-      .then((doc) => {
-        setDetailObj(doc.data());
-        const item = {
-          id: doc.id,
-          ...doc.data(),
-        };
-        setItemObj(item);
-        setIsLodded(true);
-        dbService
-          .collection("itemlist")
-          .doc(item.randomidx.toString())
-          .get()
-          .then((doc) => {
-            setEachObj(doc.data().data.reverse());
-          });
-      });
-  }, []);
 
-  //  useEffect(()=>{
+  .collection("startlist").doc(id).get()
+  .then((doc)=>{
+    setDetailObj(doc.data());
+    const item = {
+      id: doc.id,
+      ...doc.data(),
+    };
+    setItemObj(item);
+    setIsLodded(true);
+    console.log(item.deadline);
+    dbService.collection("itemlist").doc(item.randomidx.toString()).get()
+    .then((doc)=>{
+      setEachObj(doc.data().data.reverse());
+    })
+  })
+  let date= today.getFullYear()+'-'+((today.getMonth()+1)<9?"0"+(today.getMonth()+1):(today.getMonth()+1))+'-'+((today.getDate())<9?"0"+(today.getDate()):(today.getDate()));
+  setToday(date);
+  },[]);
 
   //  },[eachId]);
   // 동기화
@@ -330,18 +328,18 @@ const Detaillist = ({ userObj }) => {
                 <EachDetail eachObj={eachObj} />
               </Container>
             </div>
-
-            <div align="center">
-              {itemObj.creatorId === userObj.uid ? (
-                <>
-                  <button
-                    className="default_Btn_Center"
-                    onClick={onShowlistClick}
-                  >
-                    공구 참여자 목록 보기
-                  </button>
-                </>
-              ) : (
+            
+        <div align="center">
+          {itemObj.creatorId === userObj.uid ? (
+            <>
+              <button
+                className="default_Btn_Center"
+                onClick={onShowlistClick}
+              >
+                공구 참여자 목록 보기
+              </button>
+            </>
+          ) : ((itemObj.deadline>=today&&
                 <>
                   {itemObj.currentNum >= 280 ? (
                     "이 공구는 마감되었습니다"
@@ -354,12 +352,31 @@ const Detaillist = ({ userObj }) => {
                     </button>
                   )}
                 </>
-              )}
-            </div>
-            <br></br>
-            <div className="detaillist_imo">
-              <div className="detaillist_user">
-                <span onClick={onShareClick} style={{ float: "inlineEnd" }}>
+          )
+          )}
+        </div>
+        <br></br>
+        <div className="detaillist_imo">
+          <div className="detaillist_user">
+            <span onClick={onShareClick} style={{ float: "inlineEnd" }}>
+              <FontAwesomeIcon
+                size="2x"
+                color={"#C7D3F7"}
+                icon={faShareFromSquare}
+              />
+            </span>
+            {shareclick && <Kakao url={id} detailObj={itemObj} />}
+            {itemObj.creatorId === userObj.uid && (
+              <>
+                <span onClick={toggleEditing}>
+                  <FontAwesomeIcon
+                    icon={faPencilAlt}
+                    size="2x"
+                    color={"#C7D3F7"}
+                    title="수정"
+                  />
+                </span>
+                <span className="detaillist_user" onClick={onDeleteClick}>
                   <FontAwesomeIcon
                     size="2x"
                     color={"#C7D3F7"}
