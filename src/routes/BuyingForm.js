@@ -132,21 +132,25 @@ const BuyingForm = ({ userObj }) => {
   const minus = (event, item, i) => {
     event.preventDefault();
     
-    if(items[i].count-1>=0 && max-1<=2){
-      setItems([
-      ...items.slice(0, i),
-      {
-        ...items[i],
-        count: items[i].count - 1,
-      },
-      ...items.slice(i + 1, items.length),
-    ]);
-    setTotal(total-Number(items[i].price));
-    option[i]=option[i]-1;
-    setMax(max-1);
-    console.log(option);
+    if(items[i].count-1>=0){
+      if(max-1<=2){
+          setItems([
+          ...items.slice(0, i),
+          {
+            ...items[i],
+            count: items[i].count - 1,
+          },
+          ...items.slice(i + 1, items.length),
+        ]);
+        setTotal(total-Number(items[i].price));
+        option[i]=option[i]-1;
+        setMax(max-1);
+        console.log(option);
+      }else{
+        window.alert(`인당 총 ${max}개까지만 구입 가능합니다.`);
+      }
+      
     }else{
-      window.alert(`총 ${max}개까지만 구입 가능합니다.`);
     }
     console.log(max);
 
