@@ -10,7 +10,7 @@ const BuyingForm = ({ userObj }) => {
   const [count, setCount] = useState(0);
   const [optionname,setOptionName]=useState([]);
   const [max, setMax] = useState(0);
-  const [option, setOption] = useState([0]);
+  const [option, setOption] = useState([]);
   const [address, setAddress] = useState("");
   const [account_name, setAccount_name] = useState("");
   const [account_date, setAccount_date] = useState("");
@@ -33,7 +33,8 @@ const BuyingForm = ({ userObj }) => {
       setItems(snapshot.data().data.reverse());
       setIsLodded(1);
       for (var i = 0; i < snapshot.data().data.length; i++) {
-        setOption(option.concat(0));
+        // setOption(option.concat(0));
+        setOption(current=>[0,...current]);
         // setOptionName(optionname.concat([snapshot.data().data[i].itemname]));
         setOptionName(current=>[snapshot.data().data[i].itemname,...current]);
         console.log(snapshot.data().data[i].itemname);
