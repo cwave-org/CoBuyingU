@@ -7,6 +7,7 @@ const BuyingForm = ({ userObj }) => {
   const [name, setName] = useState("");
   const [phonenumber, setPhonenumber] = useState("");
   const [count, setCount] = useState(0);
+  const[max,setMax]=useState(0);
   const [option,setOption]=useState([0]);
   const [address, setAddress] = useState("");
   const [account_name, setAccount_name] = useState("");
@@ -108,23 +109,30 @@ const BuyingForm = ({ userObj }) => {
 
   const add = (event, item, i) => {
     event.preventDefault();
-    setItems([
-      ...items.slice(0, i),
-      {
-        ...items[i],
-        count: items[i].count + 1,
-      },
-      ...items.slice(i + 1, items.length),
-    ]);
-    setTotal(total+Number(items[i].price));
-    option[i]=option[i]+1;
-    console.log(option);
+    if(max+1<=2){
+      setItems([
+        ...items.slice(0, i),
+        {
+          ...items[i],
+          count: items[i].count + 1,
+        },
+        ...items.slice(i + 1, items.length),
+      ]);
+      setTotal(total+Number(items[i].price));
+      setMax(max+1);
+      option[i]=option[i]+1;
+      console.log(option);
+    }else{
+      window.alert(`총 ${max}개까지만 구입 가능합니다.`);
+    }
+    console.log(max);
 
   };
 
   const minus = (event, item, i) => {
     event.preventDefault();
-    if(items[i].count-1>=0){
+    
+    if(items[i].count-1>=0 && max-1<=2){
       setItems([
       ...items.slice(0, i),
       {
@@ -135,8 +143,13 @@ const BuyingForm = ({ userObj }) => {
     ]);
     setTotal(total-Number(items[i].price));
     option[i]=option[i]-1;
+    setMax(max-1);
     console.log(option);
+    }else{
+      window.alert(`총 ${max}개까지만 구입 가능합니다.`);
     }
+    console.log(max);
+
   };
 
   return (
@@ -218,6 +231,8 @@ const BuyingForm = ({ userObj }) => {
                   type="date"
                   onChange={onChange}
                   value={receive_date}
+                  min="2022-11-30"
+                  max="2022-12-02"
                   required
                 />
               </EachDetail>
