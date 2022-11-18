@@ -231,6 +231,8 @@ const BuyingForm = ({ userObj }) => {
                   type="date"
                   onChange={onChange}
                   value={receive_date}
+                  min="2022-11-30"
+                  max="2022-12-02"
                   required
                 />
               </EachDetail>
