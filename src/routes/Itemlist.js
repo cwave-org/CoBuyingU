@@ -42,10 +42,10 @@ const Itemlist = () => {
             <div style={{ marginBottom: "15px", fontSize: 12 }}>
               <span style={{ width: "10%", float: "right", textAlign: "center" }}>삭제</span>
               <span style={{ width: "10%", float: "right", textAlign: "center" }}>확인</span>
+              <span style={{ width: "20%", float: "right" }}>환불계좌</span>
               <span style={{ width: "20%", float: "right" }}>구매자명</span>
-              <span style={{ width: "20%", float: "right" }}>입금자명</span>
               <span style={{ width: "24%", float: "right" }}>입금날짜</span>
-              <span style={{ width: "16%", float: "right" }}>구매금액</span>{" "}
+              <span style={{ width: "16%", float: "right" }}>총 입금금액</span>{" "}
             </div>
             <br />
             <div className="joiner_context">

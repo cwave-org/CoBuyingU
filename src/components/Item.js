@@ -50,10 +50,10 @@ const Item = ({ listObj, isBuyer }) => {
       {isBuyer && !deleted? (
         <>
           <div style={{ display: "flex", flexDirection: "row", fontSize: 12 }}>
-            <span style={{ width: "16%" }}>{price}원</span>
+            <span style={{ width: "16%" }}>{`${listObj.totalprice}`}원</span>
             <span style={{ width: "24%" }}>{`${listObj.account_date}`}</span>
-            <span style={{ width: "20%" }}>{`${listObj.name}`}</span>
             <span style={{ width: "20%" }}>{`${listObj.account_name}`}</span>
+            <span style={{ width: "20%" }}>{`${listObj.account_re}`}</span>
             {!checked ? (
               <input
                 style={{ width: "10%" }}
