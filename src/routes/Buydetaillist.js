@@ -313,7 +313,7 @@ const Buydetaillist = () => {
             </EachDetail>
           </EachContainer>
           <div style={{ float: "right" }}>
-         {itemdeadline<=today?
+         {itemdeadline>=today?
             (<FontAwesomeIcon
               icon={faPencilAlt}
               size="1x"
