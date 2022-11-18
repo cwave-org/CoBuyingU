@@ -20,36 +20,42 @@ const Detaillist = ({ userObj }) => {
   const { id } = useParams();
   const [isLodded, setIsLodded] = useState(false);
   const [shareclick, setShareClick] = useState(false);
-  const [detailObj, setDetailObj]=useState([]);
-  const itemId =id;
+  const [detailObj, setDetailObj] = useState([]);
+  const itemId = id;
   const [editing, setEditing] = useState(false);
   const [checked, setChecked] = useState(true);
   const [qna, setQna] = useState("");
   const [qnas, setQnas] = useState([]);
   const [itemObj, setItemObj] = useState(detailObj);
-  const [eachObj,setEachObj]=useState();
+  const [eachObj, setEachObj] = useState();
   const navigate = useNavigate();
-  useEffect(()=>{
-    dbService
-  .collection("startlist").doc(id).get()
-  .then((doc)=>{
-    setDetailObj(doc.data());
-    const item = {
-      id: doc.id,
-      ...doc.data(),
-    };
-    setItemObj(item);
-    setIsLodded(true);
-    dbService.collection("itemlist").doc(item.randomidx.toString()).get()
-    .then((doc)=>{
-      setEachObj(doc.data().data.reverse());
-    })
-  })
-  },[]);
 
-//  useEffect(()=>{
- 
-//  },[eachId]);
+  useEffect(() => {
+    dbService
+      .collection("startlist")
+      .doc(id)
+      .get()
+      .then((doc) => {
+        setDetailObj(doc.data());
+        const item = {
+          id: doc.id,
+          ...doc.data(),
+        };
+        setItemObj(item);
+        setIsLodded(true);
+        dbService
+          .collection("itemlist")
+          .doc(item.randomidx.toString())
+          .get()
+          .then((doc) => {
+            setEachObj(doc.data().data.reverse());
+          });
+      });
+  }, []);
+
+  //  useEffect(()=>{
+
+  //  },[eachId]);
   // 동기화
   useEffect(() => {
     dbService.collection("startlist").onSnapshot((snapshot) => {
@@ -81,12 +87,22 @@ const Detaillist = ({ userObj }) => {
   const [bucket, setBucket] = useState(false);
 
   const onJoinlistClick = () => {
-    navigate("/buying", { replace: false, state: { detailObj: detailObj } });
+    navigate("/buying", {
+      replace: false,
+      state: {
+        detailObj: detailObj,
+        itemId: id,
+        currentNum: detailObj.currentNum,
+      },
+    });
   };
   const onShowlistClick = () => {
     navigate("/itemlist", {
       replace: false,
-      state: { buyerindex: detailObj.randomidx, filename: detailObj.itemname },
+      state: {
+        buyerindex: detailObj.randomidx,
+        filename: detailObj.itemname,
+      },
     });
   };
 
@@ -265,145 +281,164 @@ const Detaillist = ({ userObj }) => {
   };
   return (
     <>
-      {isLodded?(
+      {isLodded ? (
         <>
-        <div className="detaillist_content">
-          <div> 
-            <Title>{itemObj.itemname}</Title>
-            {itemObj.attachmentUrl && (
-              <img src={itemObj.attachmentUrl} className="detaillist_img" alt="메인사진"/>
-            )}
-
-            <div className="detaillist_scr">
-              {!checked ? (
-                <FontAwesomeIcon
-                  icon={faStar}
-                  onClick={check}
-                  size="2x"
-                  color={"#E4C6F5"}
-                ></FontAwesomeIcon>
-              ) : (
-                <FontAwesomeIcon
-                  icon={FaStarRegular}
-                  onClick={check}
-                  size="2x"
-                  color={"#E4C6F5"}
-                ></FontAwesomeIcon>
+          <div className="detaillist_content">
+            <div>
+              <Title>{itemObj.itemname}</Title>
+              {itemObj.attachmentUrl && (
+                <img
+                  src={itemObj.attachmentUrl}
+                  className="detaillist_img"
+                  alt="메인사진"
+                />
               )}
-            </div>
 
-            <Container>
+              <div className="detaillist_scr">
+                {!checked ? (
+                  <FontAwesomeIcon
+                    icon={faStar}
+                    onClick={check}
+                    size="2x"
+                    color={"#E4C6F5"}
+                  ></FontAwesomeIcon>
+                ) : (
+                  <FontAwesomeIcon
+                    icon={FaStarRegular}
+                    onClick={check}
+                    size="2x"
+                    color={"#E4C6F5"}
+                  ></FontAwesomeIcon>
+                )}
+              </div>
+
+              <Container>
                 <b>✔️ 판매자</b> &nbsp;&nbsp;&nbsp; {itemObj.userName}
                 <br></br>
                 <b>✔️ 마감기한</b> &nbsp;&nbsp;&nbsp; {itemObj.deadline}
                 <br></br>
                 <b>✔️ 계좌</b> &nbsp;&nbsp;&nbsp;{itemObj.account}
                 <br></br>
+                <b>✔️ 현재 재고 개수</b> &nbsp;&nbsp;&nbsp;{" "}
+                {300 - itemObj.currentNum}
+                <br></br>
                 <b>✔️ 상세사항</b>
                 <DetailArea>{itemObj.etc}</DetailArea>
                 <b>✔️ 주의사항</b>
                 <DetailArea>{itemObj.notice}</DetailArea>
                 <b>✔️ 상품 옵션</b>
-              <EachDetail eachObj={eachObj}/>
-            </Container>
-
-          </div>
-
-        <div align="center">
-          {itemObj.creatorId === userObj.uid ? (
-            <>
-              <button
-                className="default_Btn_Center"
-                onClick={onShowlistClick}
-              >
-                공구 참여자 목록 보기
-              </button>
-            </>
-          ) : (
-            <button className="default_Btn_Center" onClick={onJoinlistClick}>
-              공구 참여하기
-            </button>
-          )}
-        </div>
-        <br></br>
-        <div className="detaillist_imo">
-          <div className="detaillist_user">
-            <span onClick={onShareClick} style={{ float: "inlineEnd" }}>
-              <FontAwesomeIcon
-                size="2x"
-                color={"#C7D3F7"}
-                icon={faShareFromSquare}
-              />
-            </span>
-            {shareclick && <Kakao url={id} detailObj={itemObj} />}
-            {itemObj.creatorId === userObj.uid && (
-              <>
-                <span onClick={toggleEditing}>
-                  <FontAwesomeIcon
-                    icon={faPencilAlt}
-                    size="2x"
-                    color={"#C7D3F7"}
-                    title="수정"
-                  />
-                </span>
-                <span className="detaillist_user" onClick={onDeleteClick}>
-                  <FontAwesomeIcon
-                    icon={faTrash}
-                    size="2x"
-                    color={"#C7D3F7"}
-                    title="삭제"
-                  />
-                </span>
-              </>
-            )}
-          </div>
-        </div>
-
-        <hr></hr>
-        <div>
-          <div className="detaillist_qna">
-            <h2> &nbsp; QnA</h2>
-          </div>
-          <>
-            <div>
-              {!bucket ? (
-                <form onSubmit={QnAonSubmit}>
-                  <input
-                    className="qna_input"
-                    type="text"
-                    placeholder="🙏🏼수정은 불가능하세요.🙏🏼"
-                    value={qna}
-                    onChange={QnAonChange}
-                  />
-                  <button type="upload_Btn" className="upload_Btn">
-                    💬
-                  </button>
-                </form>
-              ) : (
-                <div className="qna_text">
-                  🙏🏼 원활한 QnA를 위해 질문 하나만 가능합니다 🙏🏼
-                </div>
-              )}
-              <br></br>
+                <EachDetail eachObj={eachObj} />
+              </Container>
             </div>
-          </>
-        </div>
-          {qnas.map((qna) => (
-            <QnA
-              isOpener={detailObj.creatorId}
-              key={qna.id}
-              qnaObj={qna}
-              isOwner={qna.creatorId === userObj.uid}
-              userObj={userObj}
-              detailObj={id}
-            />
-          ))}
-        </div>
+
+            <div align="center">
+              {itemObj.creatorId === userObj.uid ? (
+                <>
+                  <button
+                    className="default_Btn_Center"
+                    onClick={onShowlistClick}
+                  >
+                    공구 참여자 목록 보기
+                  </button>
+                </>
+              ) : (
+                <>
+                  {itemObj.currentNum >= 280 ? (
+                    "이 공구는 마감되었습니다"
+                  ) : (
+                    <button
+                      className="default_Btn_Center"
+                      onClick={onJoinlistClick}
+                    >
+                      공구 참여하기
+                    </button>
+                  )}
+                </>
+              )}
+            </div>
+            <br></br>
+            <div className="detaillist_imo">
+              <div className="detaillist_user">
+                <span onClick={onShareClick} style={{ float: "inlineEnd" }}>
+                  <FontAwesomeIcon
+                    size="2x"
+                    color={"#C7D3F7"}
+                    icon={faShareFromSquare}
+                  />
+                </span>
+                {shareclick && <Kakao url={id} detailObj={itemObj} />}
+                {itemObj.creatorId === userObj.uid && (
+                  <>
+                    <span onClick={toggleEditing}>
+                      <FontAwesomeIcon
+                        icon={faPencilAlt}
+                        size="2x"
+                        color={"#C7D3F7"}
+                        title="수정"
+                      />
+                    </span>
+                    <span className="detaillist_user" onClick={onDeleteClick}>
+                      <FontAwesomeIcon
+                        icon={faTrash}
+                        size="2x"
+                        color={"#C7D3F7"}
+                        title="삭제"
+                      />
+                    </span>
+                  </>
+                )}
+              </div>
+            </div>
+
+            <hr></hr>
+            <div>
+              <div className="detaillist_qna">
+                <h2> &nbsp; QnA</h2>
+              </div>
+              <>
+                <div>
+                  {!bucket ? (
+                    <form onSubmit={QnAonSubmit}>
+                      <input
+                        className="qna_input"
+                        type="text"
+                        placeholder="🙏🏼수정은 불가능하세요.🙏🏼"
+                        value={qna}
+                        onChange={QnAonChange}
+                      />
+                      <button type="upload_Btn" className="upload_Btn">
+                        💬
+                      </button>
+                    </form>
+                  ) : (
+                    <div className="qna_text">
+                      🙏🏼 원활한 QnA를 위해 질문 하나만 가능합니다 🙏🏼
+                    </div>
+                  )}
+                  <br></br>
+                </div>
+              </>
+            </div>
+            {qnas.map((qna) => (
+              <QnA
+                isOpener={detailObj.creatorId}
+                key={qna.id}
+                qnaObj={qna}
+                isOwner={qna.creatorId === userObj.uid}
+                userObj={userObj}
+                detailObj={id}
+              />
+            ))}
+          </div>
         </>
-        
       ) : (
         <div className="ini">
-          <img id="rotating_img" width="80%" src="img/logo4.png" alt="로딩"></img>
+          <img
+            id="rotating_img"
+            width="80%"
+            src="img/logo4.png"
+            alt="로딩"
+          ></img>
         </div>
       )}
     </>
@@ -411,18 +446,18 @@ const Detaillist = ({ userObj }) => {
 };
 export default Detaillist;
 
-const Container =styled.div`
+const Container = styled.div`
   margin: 20px 8px 30px;
   padding: 7px 1px;
 `;
-const DetailArea=styled.div`
-  background-color:#f9f9f9;
-  border-radius:7px;
+const DetailArea = styled.div`
+  background-color: #f9f9f9;
+  border-radius: 7px;
   margin: 2px 4px 15px;
   padding: 3px 5px;
   white-space: pre-wrap;
 `;
-const Title=styled.div`
+const Title = styled.div`
   font-weight: 700;
   font-size: 25px;
   text-align: center;
