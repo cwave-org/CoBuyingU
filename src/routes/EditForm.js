@@ -40,20 +40,19 @@ const EditForm = ({ itemObj, userObj, itemId }) => {
   itemObj = location.state.itemObj;
   itemId = location.state.itemId;
 
-  console.log(itemObj);
-  console.log(itemId);
   const [editing, setEditing] = useState(false);
   const [clicked, setClicked] = useState(false);
 
   //기존 form정보 가져오기
-  const [name, setName] = useState(itemObj.name);
   const [itemname, setItemname] = useState(itemObj.itemname);
-  const [deadline, setDeadline] = useState(itemObj.deadline);
-  const [etc, setEtc] = useState(itemObj.setEtc);
-  const [account, setAccount] = useState(itemObj.account);
+  const [name, setName] = useState(itemObj.name);
   const [attachment, setAttachment] = useState(itemObj.attachmentUrl);
+  const [deadline, setDeadline] = useState(itemObj.deadline);
+  const [link, setLink] = useState(itemObj.link);
+  const [account, setAccount] = useState(itemObj.account);
+  const [etc, setEtc] = useState(itemObj.etc);
   const [notice, setNotice] = useState(itemObj.notice);
-
+  
   const [item, setItem] = useState("");
   const [itemID, setItemID] = useState(0);
   
@@ -61,7 +60,6 @@ const EditForm = ({ itemObj, userObj, itemId }) => {
   const [newattachment, setNewAttachment] = useState("");
   const ta = useRef();
   const ta2 = useRef();
-  const [link, setLink] = useState("");
 
   const onCancel = () => {
     navigate(`/selling/detail/${itemId}`);
@@ -186,14 +184,6 @@ const EditForm = ({ itemObj, userObj, itemId }) => {
       setAttachment(result);
     };
     reader.readAsDataURL(theFile);
-  };
-
-  const onCheckForm = () => {
-    if (clicked) {
-      onFormSubmit();
-    } else {
-      window.alert("상품추가 완료버튼을 눌러주셔야 제출 가능합니다");
-    }
   };
 
   return (
@@ -338,8 +328,23 @@ const EditForm = ({ itemObj, userObj, itemId }) => {
           />
         </EachDetail>
       </EachContainer>
+     
+      <div>
+        <button className="default_Btn_Right" onClick={onCancel}>
+          취소
+        </button>
+        <button className="default_Btn_Right" onClick={onSubmit}>
+          제출
+        </button>
+      </div>
+    </form>
+    </>
+  );
+};
+export default EditForm;
 
-      <EachContainer>
+/*
+ <EachContainer>
         <EachTitle>
           ✔️ 상품목록 <Notice>작성후 하단의 완료버튼을 눌러주세요</Notice>
         </EachTitle>
@@ -349,17 +354,4 @@ const EditForm = ({ itemObj, userObj, itemId }) => {
           setClicked={setClicked}
         />
       </EachContainer>
-
-      <div>
-        <button className="default_Btn_Right" onClick={onCancel}>
-          취소
-        </button>
-        <button className="default_Btn_Right" onClick={onCheckForm}>
-          제출
-        </button>
-      </div>
-    </form>
-    </>
-  );
-};
-export default EditForm;
+*/
