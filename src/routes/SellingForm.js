@@ -35,21 +35,26 @@ const Notice = styled.div`
 `;
 
 const SellingForm = ({ userObj }) => {
-  const [name, setName] = useState("");
-  const [clicked, setClicked] = useState(false);
+
   const [itemname, setItemname] = useState("");
-  const [item, setItem] = useState("");
-  const [price, setPrice] = useState("");
-  const [deadline, setDeadline] = useState("");
-  const [etc, setEtc] = useState("");
-  const [account, setAccount] = useState("");
+  const [name, setName] = useState("");
   const [attachment, setAttachment] = useState("");
-  const [itemID, setItemID] = useState(0);
+  const [deadline, setDeadline] = useState("");
+  const [link, setLink] = useState("");
+  const [account, setAccount] = useState("");
+  const [etc, setEtc] = useState("");
   const [notice, setNotice] = useState("");
+
+  const [clicked, setClicked] = useState(false);
+  
+
+  const [item, setItem] = useState("");
+  const [itemID, setItemID] = useState(0);
+  
   const navigate = useNavigate();
   const ta = useRef();
   const ta2 = useRef();
-  const [link, setLink] = useState("");
+ 
   useEffect(() => {
     setItemID(Math.random());
   }, []);
@@ -70,7 +75,6 @@ const SellingForm = ({ userObj }) => {
       name: name, // 공대표 이름 추가
       itemname: itemname,
       item: item,
-      price: price,
       deadline: deadline,
       datetime: Date.now(),
       creatorId: userObj.uid,
@@ -87,7 +91,6 @@ const SellingForm = ({ userObj }) => {
     setItemname("");
     setName("");
     setItem("");
-    setPrice("");
     setDeadline("");
     setAttachment("");
     setEtc("");
@@ -113,8 +116,6 @@ const SellingForm = ({ userObj }) => {
       setName(value);
     } else if (event.target.id === "item") {
       setItem(value);
-    } else if (event.target.id === "price") {
-      setPrice(value);
     } else if (event.target.id === "deadline") {
       setDeadline(value);
     } else if (event.target.id === "link") {
