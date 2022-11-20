@@ -34,6 +34,13 @@ const Notice = styled.div`
   left: 95px;
   font-size: 7px;
 `;
+const Notice2= styled.div`
+  color: grey;
+  position: absolute;
+  top: 9px;
+  left: 130px;
+  font-size: 7px;
+`;
 
 const SellingForm = ({ userObj }) => {
 
@@ -302,7 +309,9 @@ const SellingForm = ({ userObj }) => {
         </EachContainer>
       ) : (
         <EachContainer>
-          <EachTitle>✔️ 현장배부 날짜</EachTitle>
+          <EachTitle>✔️ 현장배부 날짜 
+            <Notice2>1시간 단위로 날짜를 추가해주세요</Notice2>
+          </EachTitle>
           <DateFactory
             userObj={userObj}
             itemID={itemID}
@@ -322,7 +331,7 @@ const SellingForm = ({ userObj }) => {
             value={etc}
             onChange={onChange}
             type="text"
-            placeholder="현장배부/택배배송 등 상세설명을 작성해주세요."
+            placeholder="추가 상세설명을 작성해주세요."
             // maxLength={10000}
           />
         </EachDetail>

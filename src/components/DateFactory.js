@@ -23,7 +23,7 @@ const Button1=styled(Button)`
 `;
 
 const DateFactory = (props) => {
-  console.log(props.itemID)
+  //console.log(props.itemID)
   const [id, setId] = useState(1);
   const [data, setData] = useState([]);
   const [items, setItems] = useState([
