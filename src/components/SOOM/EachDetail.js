@@ -39,7 +39,7 @@ const EachDetail=({eachObj})=>{
         <Container>
             {eachObj ? (
                 <>
-                {eachObj.map((each)=>( 
+                {eachObj.reverse().map((each)=>( 
                 <EachSet key={each.id}>
                     <EachTitle>✨ 옵션 {each.id}. {each.itemname}</EachTitle>
                     <EachTitle>✨ 가격: {each.price}원</EachTitle>

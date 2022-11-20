@@ -301,7 +301,7 @@ const Detaillist = ({ userObj }) => {
                   alt="메인사진"
                 />
               )}
-
+              <Br />
               <div className="detaillist_scr">
                 {!checked ? (
                   <FontAwesomeIcon
@@ -470,4 +470,8 @@ const Title = styled.div`
   font-weight: 700;
   font-size: 25px;
   text-align: center;
+  margin: 0 0 10px;
+`;
+const Br=styled.div`
+  margin: 10px 0 0;
 `;
