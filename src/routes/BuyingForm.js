@@ -38,7 +38,7 @@ const BuyingForm = ({ userObj }) => {
         //console.log(snapshot.data().data[i]);
       }
     })
-    console.log(detailObj)
+    //console.log(detailObj)
 
   }, []);
 

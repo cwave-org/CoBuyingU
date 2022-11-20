@@ -6,6 +6,7 @@ import { faStar as FaStarRegular } from "@fortawesome/free-regular-svg-icons";
 import { dbService } from "../fbase";
 
 const CobuyingItem = ({ userObj, listObj, isOwner }) => {
+  
   let navigate = useNavigate();
   let today = new Date();
   const [checked, setChecked] = useState(true);
@@ -15,6 +16,11 @@ const CobuyingItem = ({ userObj, listObj, isOwner }) => {
     creatorId: userObj.uid,
     userName: userObj.displayName,
   };
+ 
+  let curday=new Date(listObj.deadline);
+  curday.setHours(curday.getHours()+14);
+  curday.setMinutes(curday.getMinutes()+59);
+  curday.setSeconds(curday.getSeconds()+59);
 
   useEffect(() => {
     dbService
@@ -67,7 +73,7 @@ const CobuyingItem = ({ userObj, listObj, isOwner }) => {
     // className 뭐라 할까 css할때 헷갈릴까봐 아직 안바꿨어
     <div className="cobuyingItem">
       <>
-        {today < new Date(listObj.deadline) ? (
+        {today < curday ? (
           <div
             style={{
               width: "100%",

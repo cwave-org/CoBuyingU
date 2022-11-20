@@ -52,7 +52,7 @@ const Buydetaillist = () => {
             ...doc.data(),
           };
           setNewDetailObj(item);
-          console.log(receive_date);
+          //console.log(receive_date);
         }
       });
     });
