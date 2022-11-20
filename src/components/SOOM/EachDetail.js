@@ -35,12 +35,11 @@ const Half=styled.div`
     justify-content: space-around;
 `;
 const EachDetail=({eachObj})=>{
-eachObj = eachObj.reverse();
     return(
         <Container>
             {eachObj ? (
                 <>
-                {eachObj.map((each)=>( 
+                {eachObj.reverse().map((each)=>( 
                 <EachSet key={each.id}>
                     <EachTitle>✨ 옵션 {each.id}. {each.itemname}</EachTitle>
                     <EachTitle>✨ 가격: {each.price}원</EachTitle>
