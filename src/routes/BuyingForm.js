@@ -291,7 +291,7 @@ const BuyingForm = ({ userObj }) => {
             items.map((item, i) => (
               <SelectNum key={i}>
                 {i + 1}. {item.itemname} ( {item.price}원 / 1개 ) <br></br> 
-                <b style={{fontSize: 12,}}>재고: {item.maxNum - item.itemTotalCount - 10}개</b>
+                <b style={{fontSize: 12,}}>재고: {(item.maxNum - item.itemTotalCount - item.maxNum * 0.03).toFixed()}개</b>
                 <NumBox>
                   <Btn onClick={(event) => minus(event, item, i)}>-</Btn>
                   <Count>{item.count}</Count>
