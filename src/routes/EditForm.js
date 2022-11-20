@@ -33,7 +33,7 @@ const Notice = styled.div`
   left: 95px;
   font-size: 7px;
 `;
-
+/*
 const EditForm = ({ itemObj, userObj, itemId }) => {
   let navigate = useNavigate();
   const location = useLocation();
@@ -353,6 +353,7 @@ const EditForm = ({ itemObj, userObj, itemId }) => {
   );
 };
 export default EditForm;
+*/
 
 /*
  <EachContainer>
