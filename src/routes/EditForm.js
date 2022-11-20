@@ -2,8 +2,8 @@ import { useNavigate, useLocation } from "react-router-dom";
 import React, { useState, useEffect, useRef } from "react";
 import { dbService, storageService } from "../fbase";
 import { v4 as uuidv4 } from "uuid";
-import SellingItemFactory from "../components/SellingItemFactory";
 import styled from "styled-components";
+import SellingItemEditFactory from "../components/SellingItemEditFactory";
 
 const EachContainer = styled.div`
   width: 100%;
@@ -55,7 +55,8 @@ const EditForm = ({ itemObj, userObj, itemId }) => {
   
   const [item, setItem] = useState("");
   const [itemID, setItemID] = useState(0);
-  
+  const [randomIdx, setRandomIdx] = useState(itemObj.randomidx);
+
   const toggleEditing = () => setEditing((prev) => !prev);
   const [newattachment, setNewAttachment] = useState("");
   const ta = useRef();
@@ -327,6 +328,16 @@ const EditForm = ({ itemObj, userObj, itemId }) => {
             // maxLength={10000}
           />
         </EachDetail>
+      </EachContainer>
+
+      <EachContainer>
+        <EachTitle>
+          ✔️ 상품목록 <Notice>작성후 하단의 완료버튼을 눌러주세요</Notice>
+        </EachTitle>
+        <SellingItemEditFactory
+          userObj={userObj}
+          randomIdx={randomIdx}
+        />
       </EachContainer>
      
       <div>

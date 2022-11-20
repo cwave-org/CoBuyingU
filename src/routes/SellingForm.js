@@ -4,6 +4,7 @@ import { dbService, storageService } from "../fbase";
 import { useNavigate } from "react-router-dom";
 import SellingItemFactory from "../components/SellingItemFactory";
 import styled from "styled-components";
+import DateFactory from "../components/DateFactory";
 
 const EachContainer = styled.div`
   width: 100%;
@@ -44,10 +45,11 @@ const SellingForm = ({ userObj }) => {
   const [account, setAccount] = useState("");
   const [etc, setEtc] = useState("");
   const [notice, setNotice] = useState("");
+  const [giving, setGiving] = useState(0);
+  const [receive_date, setReceive_date] = useState("");
 
   const [clicked, setClicked] = useState(false);
   
-
   const [item, setItem] = useState("");
   const [itemID, setItemID] = useState(0);
   
@@ -132,6 +134,14 @@ const SellingForm = ({ userObj }) => {
         ta2.current.style.height = ta2.current.scrollHeight + "px";
       }
       setNotice(value);
+    }
+  };
+
+  const onRadioClick = (e) => {
+    if (e.target.value === "parcel") {
+      setGiving(1);
+    } else if (e.target.value === "site") {
+      setGiving(2);
     }
   };
 
@@ -264,6 +274,42 @@ const SellingForm = ({ userObj }) => {
           />
         </EachDetail>
       </EachContainer>
+
+      <EachContainer>
+        <EachTitle>✔️ 배송여부</EachTitle>
+        <EachDetail>
+          <input
+            type="radio"
+            name="theme"
+            value="site"
+            onClick={onRadioClick}
+          />
+          현장배부{" "}
+          <input
+            type="radio"
+            name="theme"
+            value="parcel"
+            disabled
+            onClick={onRadioClick}
+          />
+          택배배송
+        </EachDetail>
+      </EachContainer>
+      {giving === 0 ? (
+        <EachContainer></EachContainer>
+      ) : giving === 1 ? (
+        <EachContainer>
+        </EachContainer>
+      ) : (
+        <EachContainer>
+          <EachTitle>✔️ 현장배부 날짜</EachTitle>
+          <DateFactory
+            userObj={userObj}
+            itemID={itemID}
+            setClicked={setClicked}
+          />
+        </EachContainer>
+      )}
 
       <EachContainer>
         <EachTitle>✔️ 상세설명</EachTitle>
