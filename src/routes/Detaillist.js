@@ -348,12 +348,16 @@ const Detaillist = ({ userObj }) => {
               ) : (
                 itemObj.deadline >= today && (
                   <>
+                    {itemObj.currentNum >= 280 ? (
+                      "이 공구는 마감되었습니다"
+                    ) : (
                       <button
                         className="default_Btn_Center"
                         onClick={onJoinlistClick}
                       >
                         공구 참여하기
                       </button>
+                    )}
                   </>
                 )
               )}
@@ -361,7 +365,7 @@ const Detaillist = ({ userObj }) => {
             <br></br>
             <div className="detaillist_imo">
               <div className="detaillist_user">
-                <span className="detaillist_user" onClick={onDeleteClick}>
+                <span className="detaillist_user" onClick={onShareClick}>
                   <FontAwesomeIcon
                     size="2x"
                     color={"#C7D3F7"}
