@@ -217,9 +217,10 @@ const BuyingForm = ({ userObj }) => {
             className="openjoin_input"
             id="phonenumberform"
             type="tel"
-            placeholder="전화번호를 입력해주세요"
+            placeholder="010-1234-5678 형식으로 입력해주세요"
             onChange={onChange}
             value={phonenumber}
+            pattern="[0-9]{2,3}-[0-9]{3,4}-[0-9]{3,4}"
             required
           />
         </EachDetail>
