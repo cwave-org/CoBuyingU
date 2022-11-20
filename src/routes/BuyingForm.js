@@ -24,8 +24,8 @@ const BuyingForm = ({ userObj }) => {
   const location = useLocation();
   const navigate = useNavigate();
 
-  const { detailObj } = location.state; // 입력 폼 정보 받아오기
-  const { itemId } = location.state; // 해당 상품의 doc Id
+  const { detailObj,itemId } = location.state; // 입력 폼 정보 받아오기
+   // 해당 상품의 doc Id
   const [total, setTotal] = useState(0);
 
   useEffect(() => {
@@ -37,6 +37,7 @@ const BuyingForm = ({ userObj }) => {
         //console.log(snapshot.data().data[i]);
       }
     })
+    console.log(detailObj)
 
   }, []);
 
@@ -107,7 +108,7 @@ const BuyingForm = ({ userObj }) => {
   };
 
   const onCancel = () => {
-    navigate("/selling/detail", {
+    navigate(`/selling/detail/${itemId}`, {
       replace: false,
       state: { detailObj: detailObj },
     });
@@ -270,13 +271,13 @@ const BuyingForm = ({ userObj }) => {
               <SelectNum key={i}>
                 {i + 1}. {date.handout_date}
                 <NumBox>
-                  <Btn onClick={(event) => handout(event, date.handout_date, i)}>
+                  <Btn1 onClick={(event) => handout(event, date.handout_date, i)}>
                   <input
                     type="radio"
                     value={date.handout_date}
                     name="hadnout_date"
                   />
-                  </Btn>
+                  </Btn1>
                 </NumBox>
               </SelectNum>
             ))}
@@ -420,6 +421,9 @@ const Btn = styled.button`
   color: #5b5b5b;
   width: 27px;
   font-size: 15px;
+`;
+const Btn1=styled(Btn)`
+  height:30px;
 `;
 const NumBox = styled.div`
   background-color: #b6b6b6;

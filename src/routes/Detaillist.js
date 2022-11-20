@@ -100,7 +100,7 @@ const Detaillist = ({ userObj }) => {
       replace: false,
       state: {
         detailObj: detailObj,
-        itemId: detailObj.randomidx,
+        itemId: id,
       },
     });
   };

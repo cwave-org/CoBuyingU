@@ -19,13 +19,31 @@ const Buydetaillist = () => {
   const [account_name, setAccount_name] = useState(detailObj.account_name);
   const [account_date, setAccount_date] = useState(detailObj.account_date);
   const [account_re, setAccount_re] = useState(detailObj.account_re);
-  const [receive_date, setReceive_date] = useState(detailObj.receive_date);
+  const [receive_date, setReceive_date] = useState(detailObj.date);
   const [newDetailObj, setNewDetailObj] = useState(detailObj);
   const [today,setToday]=useState(new Date());
   const [randomidx, setRandomidx] = useState(detailObj.randomidx);
   const [itemdeadline, setItemdeadline] = useState(new Date());
+  const [isDateLodded, setIsDateLodded] = useState(0);
+  const [dates, setDates] = useState([]);
+  const [dateoption, setDateOption] = useState([]);
+  const handout= (event, date, i) => {
+    setDateOption(date);
+  };
+
+  const onReload=()=>{
+    window.location.reload();
+  }
   // 동기화
   useEffect(() => {
+    dbService.doc(`datelist/${detailObj.randomidx}`).onSnapshot((snapshot) =>{
+      setDates(snapshot.data().data.reverse());
+      setIsDateLodded(1);
+      for(var i=0; i<snapshot.data().data.length; i++){
+        setDateOption(current=>[0,...current]);
+        //console.log(snapshot.data().data[i]);
+      }
+    })
     dbService.collection("joinlist").onSnapshot((snapshot) => {
       snapshot.docs.map((doc) => {
         if (doc.id == detailObj.id) {
@@ -34,7 +52,7 @@ const Buydetaillist = () => {
             ...doc.data(),
           };
           setNewDetailObj(item);
-          //console.log(item.randomidx);
+          console.log(receive_date);
         }
       });
     });
@@ -88,19 +106,25 @@ const Buydetaillist = () => {
   const toggleEditing = () => setEditing((prev) => !prev);
 
   const onSubmit = async (event) => {
-    event.preventDefault();
-    setEditing(false);
-    await dbService.doc(`joinlist/${detailObj.id}`).update({
-     /* name: name,
-      count: count,
-      size: size,
-      address: address,
-      account_date: account_name,
-      account_name: account_date,*/
-      phonenumber: phonenumber,
-      account_re: account_re,
-      receivedate:receive_date,
-    });
+    var answer=  window.confirm("정말로 수정하시겠습니까?");
+    if(answer){
+      event.preventDefault();
+      setEditing(false);
+      await dbService.doc(`joinlist/${detailObj.id}`).update({
+       /* name: name,
+        count: count,
+        size: size,
+        address: address,
+        account_date: account_name,
+        account_name: account_date,*/
+        phonenumber: phonenumber,
+        account_re: account_re,
+        date:dateoption,
+      });
+      // window.location.reload(); 
+    }else{
+      event.preventDefault();
+    }
   };
 
   const onChange = (event) => {
@@ -124,7 +148,7 @@ const Buydetaillist = () => {
     } else if (event.target.id === "accountre") {
       setAccount_re(value);
     }
-    else if (event.target.id === "receivedate") {
+    else if (event.target.id === "hadnout_date") {
       setReceive_date(value);
     }
   };
@@ -168,17 +192,32 @@ const Buydetaillist = () => {
               ✔️ 현장배부 날짜
             </EachTitle>
             <EachDetail>
-            <input
+              {isDateLodded &&dates.map((date, i) => (
+              <SelectNum key={i}>
+                {i + 1}. {date.handout_date}
+                <NumBox>
+                  <Btn onClick={(event) => handout(event, date.handout_date, i)}>
+                  <input
+                    type="radio"
+                    value={date.handout_date}
+                    name="hadnout_date"
+                    onChange={onChange}
+                  />
+                  </Btn>
+                </NumBox>
+              </SelectNum>
+            ))}
+            {/* <input
               className="openjoin_input"
               id="receivedate"
               type="date"
               placeholder={receive_date}
               onChange={onChange}
               value={receive_date}
-              min="2022-11-30"
-              max="2022-12-02"
+              // min="2022-11-30"
+              // max="2022-12-02"
               required
-              />
+              /> */}
             </EachDetail>
           </EachContainer>
 
@@ -235,7 +274,7 @@ const Buydetaillist = () => {
                 <button className="default_Btn_Right" onClick={toggleEditing}>
                   취소
                 </button>
-                <button type="submit" className="default_Btn_Right">
+                <button type="submit" className="default_Btn_Right" >
                   제출
                 </button>
               </div>
@@ -269,7 +308,7 @@ const Buydetaillist = () => {
               ✔️ 현장배부 날짜
             </EachTitle>
             <EachDetail>
-              {newDetailObj.receivedate}
+              {newDetailObj.date}
             </EachDetail>
           </EachContainer>
 
@@ -321,7 +360,7 @@ const Buydetaillist = () => {
               title="수정"
               onClick={toggleEditing}
             />) : 
-          (<p></p> ) }
+          (<></> ) }
           </div>
         </div>
       )}
@@ -367,6 +406,7 @@ const Btn=styled.button`
   border-radius: 5px;
   color: #5b5b5b;
   width: 27px;
+  height:30px;
   font-size: 15px;
 `;
 const NumBox=styled.div`

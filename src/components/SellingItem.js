@@ -28,7 +28,7 @@ const EachId=styled.div`
 const SellingItem = (props) => {
   const [itemname, setItemname] = useState("");
   const [price, setPrice] = useState();
-  const [maxNum, setMaxNum] = useState(0);
+  const [maxNum, setMaxNum] = useState();
   const [itemDetails, setItemsDetails] = useState('');
   const [data,setData]=useState([]);
 
@@ -69,8 +69,6 @@ const SellingItem = (props) => {
 
   return (
     <>
-        {/* <span>상품{props.id}</span> */}
-
     <EachBox>
       <EachId>{props.id}번 상품</EachId>
     {/* // <div className="item_container"> */}
@@ -105,7 +103,7 @@ const SellingItem = (props) => {
         />       
       </EachDetail>
       <EachTitle>
-      ✨ 상품의 최대 개수
+      ✨ 최대 판매 가능 갯수
       </EachTitle>
       <EachDetail>
         <EachInput
@@ -113,7 +111,7 @@ const SellingItem = (props) => {
           value={maxNum}
           onChange={onChange}
           type="number"
-          placeholder="최대 갯수"
+          placeholder="제한이 없을시 공란으로 남겨주세요"
           maxLength={120}
         />
       </EachDetail>

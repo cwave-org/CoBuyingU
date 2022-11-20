@@ -53,9 +53,8 @@ const SellingForm = ({ userObj }) => {
   const [etc, setEtc] = useState("");
   const [notice, setNotice] = useState("");
   const [giving, setGiving] = useState(0);
-  const [receive_date, setReceive_date] = useState("");
-
   const [clicked, setClicked] = useState(false);
+  const [clickeddate, setClickedDate] = useState(false);
 
   const [item, setItem] = useState("");
   const [itemID, setItemID] = useState(0);
@@ -168,10 +167,15 @@ const SellingForm = ({ userObj }) => {
   };
   const onClearAttachment = () => setAttachment(null);
   const onCheckForm = () => {
-    if (clicked) {
-      onFormSubmit();
-    } else {
+    if (clicked&&clickeddate) {
+      var result= window.confirm("정말로 폼을 제출하시겠습니까?");
+      if(result){
+        onFormSubmit();
+      }
+    } else if(!clicked) {
       window.alert("상품추가 완료버튼을 눌러주셔야 제출 가능합니다");
+    } else if(!clickeddate){
+      window.alert("현장배부 날짜추가 완료버튼을 눌러주셔야 제출 가능합니다");
     }
   };
   return (
@@ -312,11 +316,14 @@ const SellingForm = ({ userObj }) => {
           <EachTitle>✔️ 현장배부 날짜 
             <Notice2>1시간 단위로 날짜를 추가해주세요</Notice2>
           </EachTitle>
-          <DateFactory
+          <EachDetail>
+            <DateFactory
             userObj={userObj}
             itemID={itemID}
-            setClicked={setClicked}
+            setClicked={setClickedDate}
           />
+          </EachDetail>
+          
         </EachContainer>
       )}
 
