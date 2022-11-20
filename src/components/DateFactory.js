@@ -1,22 +1,18 @@
 import React, { useState } from "react";
-import { dbService, storageService } from "../fbase";
-import SellingItem from "./SellingItem";
+import { dbService } from "../fbase";
 import styled from "styled-components";
 import DateItem from "./DateItem";
 
 const Box=styled.div`
-  /* border: 2px solid #d9d9d9; */
-  /* background-color: #F6F6F6; */
   position: relative;
   border-radius: 10px;
 `;
 const Button=styled.button`
   position: absolute;
-  bottom: 20px;
+  bottom: 0px;
   right: 50px;
   background-color: #d9d9d9;
   color:#5b5b5b;
-  /* left:3px; */
 `;
 const Button1=styled(Button)`
   right: 3px;
@@ -59,8 +55,6 @@ const DateFactory = (props) => {
 
   return (
     <Box>
-      {/* <div className="item_container"> */}
-        {/* <p>상품 목록</p> */}
         {items}
         {/* <div> */}
           <Button className="default_Btn_Left" onClick={addDate}>
@@ -70,8 +64,6 @@ const DateFactory = (props) => {
             완료
           </Button1>
           <br />
-        {/* </div> */}
-      {/* </div> */}
     </Box>
   );
 };

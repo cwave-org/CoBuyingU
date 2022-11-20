@@ -312,11 +312,14 @@ const SellingForm = ({ userObj }) => {
           <EachTitle>✔️ 현장배부 날짜 
             <Notice2>1시간 단위로 날짜를 추가해주세요</Notice2>
           </EachTitle>
-          <DateFactory
+          <EachDetail>
+            <DateFactory
             userObj={userObj}
             itemID={itemID}
             setClicked={setClicked}
           />
+          </EachDetail>
+          
         </EachContainer>
       )}
 
