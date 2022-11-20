@@ -2,6 +2,8 @@ import React, { useEffect, useState } from "react";
 import CobuyingItem from "../components/CobuyingItem";
 import { dbService } from "../fbase";
 import styled from "styled-components";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faInstagram } from "@fortawesome/free-brands-svg-icons";
 
 const PostListWrapper = styled.div`
   display: grid;
@@ -80,11 +82,17 @@ const Home = ({ userObj }) => {
 
   return (
     <div className="container">
-      <div className="home_power">
+      {/* <div className="home_power">
         <p>
           👑 파워공구자 <span id="powerseller">{powerseller}</span>: {" "}
           {powersellers} 개 👑
         </p>
+      </div> */}
+      <div className="home_power">
+        <a style={{textDecorationLine : "none", color:"#000000"}}
+        href="https://instagram.com/cwave_?igshid=YmMyMTA2M2Y=">
+            <span>공구대학교 사용법</span>
+        </a>
       </div>
       <br></br>
 
