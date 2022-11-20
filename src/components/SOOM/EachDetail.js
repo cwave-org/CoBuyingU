@@ -1,4 +1,3 @@
-import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 
 const Container=styled.div`
@@ -13,7 +12,7 @@ const EachContent=styled.div`
 `;
 const EachDetailContent=styled(EachContent)`
     margin: 1px 4px 3px;
-
+    width: 50%;
 `;
 const EachSet=styled.div`
     background-color: #f6f6f6;
@@ -45,11 +44,12 @@ const EachDetail=({eachObj})=>{
                     <EachSet key={each.id}>
                         <EachTitle>✨ 옵션 {each.id}. {each.itemname}</EachTitle>
                         <EachTitle>✨ 가격: {each.price}원</EachTitle>
+                        <EachTitle>✨ 재고: {each.maxNum - each.itemTotalCount - 10}개</EachTitle>
                         <EachTitle>✨ 상세 설명</EachTitle>
                         {each.itemDetails.reverse().map((option)=>(
                             <Half key={option.id}>
-                                <EachDetailContent>{option.content}</EachDetailContent>
                                 <EachImg src={option.url} alt="옵션이미지" />                                
+                                <EachDetailContent>{option.content}</EachDetailContent>
                             </Half>
                             
                         ))}
