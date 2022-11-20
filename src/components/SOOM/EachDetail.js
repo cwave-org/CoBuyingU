@@ -40,7 +40,7 @@ const EachDetail=({eachObj})=>{
         <Container>
             {eachObj?(
                 <>
-                {eachObj.map((each)=>(
+                {eachObj.map((each)=>( (each.maxNum >= each.itemTotalCount - each.maxNum * 0.03) ?
                     <EachSet key={each.id}>
                         <EachTitle>✨ 옵션 {each.id}. {each.itemname}</EachTitle>
                         <EachTitle>✨ 가격: {each.price}원</EachTitle>
@@ -55,6 +55,7 @@ const EachDetail=({eachObj})=>{
                         ))}
                         
                     </EachSet>
+                    : <>매진된 상품입니다.</>
                 ))}
                 </>
             ):(

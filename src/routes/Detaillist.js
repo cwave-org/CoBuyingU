@@ -348,16 +348,12 @@ const Detaillist = ({ userObj }) => {
               ) : (
                 itemObj.deadline >= today && (
                   <>
-                    {itemObj.currentNum >= 280 ? (
-                      "이 공구는 마감되었습니다"
-                    ) : (
                       <button
                         className="default_Btn_Center"
                         onClick={onJoinlistClick}
                       >
                         공구 참여하기
                       </button>
-                    )}
                   </>
                 )
               )}
