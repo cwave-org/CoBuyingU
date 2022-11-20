@@ -88,7 +88,7 @@ const Home = ({ userObj }) => {
       </div> */}
       <div className="home_power">
         <a style={{textDecorationLine : "none", color:"#000000"}}
-        href="https://instagram.com/cwave_?igshid=YmMyMTA2M2Y=">
+        href="https://instagram.com/cwave_?igshid=YmMyMTA2M2Y=" target="_blank" rel="noreferroer noopener">
             <span>공구대학교 사용법</span>
         </a>
       </div>
