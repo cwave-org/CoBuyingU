@@ -349,7 +349,7 @@ const Detaillist = ({ userObj }) => {
                 itemObj.deadline >= today && (
                   <>
                     {itemObj.currentNum >= 280 ? (
-                      "이 공구는 마감되었습니다"
+                      <DetailArea>이 공구는 마감되었습니다</DetailArea>
                     ) : (
                       <button
                         className="default_Btn_Center"

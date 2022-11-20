@@ -27,6 +27,7 @@ const BuyingForm = ({ userObj }) => {
   const { detailObj,itemId } = location.state; // 입력 폼 정보 받아오기
    // 해당 상품의 doc Id
   const [total, setTotal] = useState(0);
+  const [currentNUm, setCurrentNum] = useState(detailObj.currentNum);
 
   useEffect(() => {
     dbService.doc(`datelist/${detailObj.randomidx}`).onSnapshot((snapshot) =>{
@@ -89,6 +90,12 @@ const BuyingForm = ({ userObj }) => {
     .doc(`itemlist/${detailObj.randomidx}`)
     .update({
       data
+    });
+
+    await dbService
+    .doc(`startlist/${itemId}`)
+    .update({
+      currentNum: currentNUm,
     });
 
     setName("");
@@ -157,6 +164,7 @@ const BuyingForm = ({ userObj }) => {
         },
         ...items.slice(i + 1, items.length),
       ]);
+      setCurrentNum((current) => (current + 1));
       setTotal(total + Number(items[i].price));
       setMax(max + 1);
       option[i] = option[i] + 1;
@@ -180,6 +188,7 @@ const BuyingForm = ({ userObj }) => {
           },
           ...items.slice(i + 1, items.length),
         ]);
+        setCurrentNum((current) => (current - 1));
         setTotal(total - Number(items[i].price));
         option[i] = option[i] - 1;
         setMax(max - 1);
