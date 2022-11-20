@@ -34,7 +34,7 @@ const BuyingForm = ({ userObj }) => {
       setIsDateLodded(1);
       for(var i=0; i<snapshot.data().data.length; i++){
         setDateOption(current=>[0,...current]);
-        console.log(snapshot.data().data[i]);
+        //console.log(snapshot.data().data[i]);
       }
     })
 
@@ -49,7 +49,7 @@ const BuyingForm = ({ userObj }) => {
         setOption(current=>[0,...current]);
         // setOptionName(optionname.concat([snapshot.data().data[i].itemname]));
         setOptionName(current=>[snapshot.data().data[i].itemname,...current]);
-        console.log(snapshot.data().data[i].itemname);
+        //console.log(snapshot.data().data[i].itemname);
       }
     });
 
@@ -79,7 +79,7 @@ const BuyingForm = ({ userObj }) => {
     };
 
     await dbService.collection("joinlist").add(BuyingObj);
-    console.log(detailObj);
+    //console.log(detailObj);
     const data = items;
     for (var i = 0; i < data.length; i++) {
       data[i].count = 0;
