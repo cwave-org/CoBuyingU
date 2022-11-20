@@ -42,7 +42,7 @@ const BuyingForm = ({ userObj }) => {
 
   useEffect(() => {
     dbService.doc(`itemlist/${detailObj.randomidx}`).onSnapshot((snapshot) => {
-      setItems(snapshot.data().data);
+      setItems(snapshot.data().data.reverse());
       setIsLodded(1);
       for (var i = 0; i < snapshot.data().data.length; i++) {
         // setOption(option.concat(0));
@@ -317,17 +317,19 @@ const BuyingForm = ({ userObj }) => {
             items.map((item, i) => (
               <SelectNum key={i}>
                 {i + 1}. {item.itemname} ( {item.price}원 / 1개 ) <br></br> 
-                {(item.maxNum > (item.itemTotalCount + item.maxNum * 0.03)) ?
+                {(item.maxNum == 0 ? (<></>) : (
                 <>
-                <b style={{fontSize: 12,}}>재고: {(item.maxNum - item.itemTotalCount - item.maxNum * 0.03).toFixed()}개</b>
-                <NumBox>
-                  <Btn onClick={(event) => minus(event, item, i)}>-</Btn>
-                  <Count>{item.count}</Count>
-                  <Btn onClick={(event) => add(event, item, i)}>+</Btn>
-                </NumBox>
-                </>
-                :(<b style={{fontSize: 12,}}>해당 상품은 매진되었습니다.</b>
-                )}
+                {(item.maxNum > (item.itemTotalCount + item.maxNum * 0.03)) ?
+                  <>
+                    <b style={{fontSize: 12,}}>재고: {(item.maxNum - item.itemTotalCount - item.maxNum * 0.03).toFixed()}개</b>
+                    <NumBox>
+                      <Btn onClick={(event) => minus(event, item, i)}>-</Btn>
+                      <Count>{item.count}</Count>
+                      <Btn onClick={(event) => add(event, item, i)}>+</Btn>
+                    </NumBox>
+                  </>
+                : (<b style={{fontSize: 12,}}>해당 상품은 매진되었습니다.</b>)
+                }</>))}
                
               </SelectNum>
             ))}
