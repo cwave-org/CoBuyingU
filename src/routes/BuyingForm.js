@@ -24,8 +24,8 @@ const BuyingForm = ({ userObj }) => {
   const location = useLocation();
   const navigate = useNavigate();
 
-  const { detailObj } = location.state; // 입력 폼 정보 받아오기
-  const { itemId } = location.state; // 해당 상품의 doc Id
+  const { detailObj,itemId } = location.state; // 입력 폼 정보 받아오기
+   // 해당 상품의 doc Id
   const [total, setTotal] = useState(0);
 
   useEffect(() => {
@@ -37,6 +37,7 @@ const BuyingForm = ({ userObj }) => {
         //console.log(snapshot.data().data[i]);
       }
     })
+    console.log(detailObj)
 
   }, []);
 
@@ -107,7 +108,7 @@ const BuyingForm = ({ userObj }) => {
   };
 
   const onCancel = () => {
-    navigate("/selling/detail", {
+    navigate(`/selling/detail/${itemId}`, {
       replace: false,
       state: { detailObj: detailObj },
     });
