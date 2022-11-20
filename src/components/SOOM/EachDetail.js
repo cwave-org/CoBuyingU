@@ -39,7 +39,7 @@ const EachDetail=({eachObj})=>{
         <Container>
             {eachObj ? (
                 <>
-                {eachObj.reverse().map((each)=>( 
+                {eachObj.map((each)=>( 
                 <EachSet key={each.id}>
                     <EachTitle>✨ 옵션 {each.id}. {each.itemname}</EachTitle>
                     <EachTitle>✨ 가격: {each.price}원</EachTitle>
@@ -63,15 +63,8 @@ const EachDetail=({eachObj})=>{
                 ))}
                 </>
             ):(
-                <div>로딩중</div>
+                <div>로딩중입니다.</div>
             )}
-            {/* {eachObj.map((each)=>{
-                <div key={each.id}>
-                    <EachTitle>상품명</EachTitle>
-                    <EachContent>{each.content}</EachContent>
-                </div>
-            })}
-             */}
         </Container>
     );
 }
