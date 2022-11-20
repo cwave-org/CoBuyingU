@@ -28,6 +28,7 @@ const EachId=styled.div`
 const SellingItem = (props) => {
   const [itemname, setItemname] = useState("");
   const [price, setPrice] = useState();
+  const [maxNum, setMaxNum] = useState(0);
   const [itemDetails, setItemsDetails] = useState('');
   const [data,setData]=useState([]);
 
@@ -38,7 +39,9 @@ const SellingItem = (props) => {
         itemname: itemname,
         price: price,
         itemDetails: itemDetails,
-        count:0
+        maxNum: maxNum,
+        count:0,
+        itemTotalCount: 0,
       },
       ...props.data,
     ]);
@@ -59,6 +62,8 @@ const SellingItem = (props) => {
       setItemname(value);
     } else if (event.target.id === "price") {
       setPrice(value);
+    } else if (event.target.id === "maxNum") {
+      setMaxNum(value);
     }
   };
 
@@ -98,6 +103,19 @@ const SellingItem = (props) => {
           maxLength={120}
           required
         />       
+      </EachDetail>
+      <EachTitle>
+      ✨ 상품의 최대 개수
+      </EachTitle>
+      <EachDetail>
+        <EachInput
+          id="maxNum"
+          value={maxNum}
+          onChange={onChange}
+          type="number"
+          placeholder="최대 갯수"
+          maxLength={120}
+        />
       </EachDetail>
       <EachTitle>
       ✨ 상품 상세 설명 (최대 3개)

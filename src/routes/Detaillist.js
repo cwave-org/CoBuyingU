@@ -100,8 +100,7 @@ const Detaillist = ({ userObj }) => {
       replace: false,
       state: {
         detailObj: detailObj,
-        itemId: id,
-        currentNum: detailObj.currentNum,
+        itemId: detailObj.randomidx,
       },
     });
   };
@@ -328,9 +327,6 @@ const Detaillist = ({ userObj }) => {
                 <br></br>
                 <b>✔️ 계좌</b> &nbsp;&nbsp;&nbsp;{itemObj.account}
                 <br></br>
-                <b>✔️ 현재 재고 개수</b> &nbsp;&nbsp;&nbsp;{" "}
-                {300 - itemObj.currentNum}
-                <br></br>
                 <b>✔️ 상세사항</b>
                 <DetailArea>{itemObj.etc}</DetailArea>
                 <b>✔️ 주의사항</b>
@@ -339,7 +335,6 @@ const Detaillist = ({ userObj }) => {
                 <EachDetail eachObj={eachObj} />
               </Container>
             </div>
-
             <div align="center">
               {itemObj.creatorId === userObj.uid ? (
                 <>
@@ -380,14 +375,14 @@ const Detaillist = ({ userObj }) => {
                 {shareclick && <Kakao url={id} detailObj={itemObj} />}
                 {itemObj.creatorId === userObj.uid && (
                   <>
-                    <span onClick={toggleEditing}>
+                    {/* <span onClick={toggleEditing}>
                       <FontAwesomeIcon
                         icon={faPencilAlt}
                         size="2x"
                         color={"#C7D3F7"}
                         title="수정"
                       />
-                    </span>
+                    </span> */}
                     <span
                       className="detaillist_user"
                       onClick={onDeleteClick}

@@ -46,7 +46,6 @@ const SellingForm = ({ userObj }) => {
   const [notice, setNotice] = useState("");
 
   const [clicked, setClicked] = useState(false);
-  
 
   const [item, setItem] = useState("");
   const [itemID, setItemID] = useState(0);
