@@ -1,4 +1,3 @@
-import { render } from "@testing-library/react";
 import React, { useEffect, useState, useReducer } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { dbService } from "../fbase";
@@ -18,6 +17,9 @@ const BuyingForm = ({ userObj }) => {
   const [account_re, setAccount_re] = useState("");
   const [items, setItems] = useState([]);
   const [isLodded, setIsLodded] = useState(0);
+  const [isDateLodded, setIsDateLodded] = useState(0);
+  const [dates, setDates] = useState([]);
+  const [dateoption, setDateOption] = useState([]);
   const [giving, setGiving] = useState(0);
   const location = useLocation();
   const navigate = useNavigate();
@@ -27,6 +29,18 @@ const BuyingForm = ({ userObj }) => {
   const { currentNum } = location.state; // 입력 폼 정보 받아오기
   const [total, setTotal] = useState(0);
   const [totalNum, setTotalNum] = useState(0);
+
+  useEffect(() => {
+    dbService.doc(`datelist/${detailObj.randomidx}`).onSnapshot((snapshot) =>{
+      setDates(snapshot.data().data.reverse());
+      setIsDateLodded(1);
+      for(var i=0; i<snapshot.data().data.length; i++){
+        setDateOption(current=>[0,...current]);
+        console.log(snapshot.data().data[i]);
+      }
+    })
+
+  }, []);
 
   useEffect(() => {
     dbService.doc(`itemlist/${detailObj.randomidx}`).onSnapshot((snapshot) => {
@@ -56,6 +70,7 @@ const BuyingForm = ({ userObj }) => {
       receivedate:receive_date,
       option:option,
       optionname:optionname,
+      date:dateoption,
       // address: address,
       createdAt: Date.now(),
       creatorId: userObj.uid,
@@ -94,6 +109,7 @@ const BuyingForm = ({ userObj }) => {
       state: { detailObj: detailObj },
     });
   };
+
   const onRadioClick = (e) => {
     if (e.target.value === "parcel") {
       setGiving(1);
@@ -170,6 +186,10 @@ const BuyingForm = ({ userObj }) => {
     }
   };
 
+  const handout= (event, date, i) => {
+    setDateOption(date);
+  };
+
   return (
     <form className="openjoin_container" onSubmit={onSubmit}>
       <p>공구 참여하기</p>
@@ -241,17 +261,22 @@ const BuyingForm = ({ userObj }) => {
         <EachContainer>
           <EachTitle>✔️ 현장배부 날짜</EachTitle>
           <EachDetail>
-            <input
-              className="openjoin_input"
-              id="receivedateform"
-              type="date"
-              onChange={onChange}
-              value={receive_date}
-              min="2022-11-30"
-              max="2022-12-02"
-              required
-            />
-          </EachDetail>
+          {isDateLodded &&
+            dates.map((date, i) => (
+              <SelectNum key={i}>
+                {i + 1}. {date.handout_date}
+                <NumBox>
+                  <Btn onClick={(event) => handout(event, date.handout_date, i)}>
+                  <input
+                    type="radio"
+                    value={date.handout_date}
+                    name="hadnout_date"
+                  />
+                  </Btn>
+                </NumBox>
+              </SelectNum>
+            ))}
+        </EachDetail>
         </EachContainer>
       )}
       <EachContainer>
