@@ -25,7 +25,7 @@ const Itemlist = () => {
             구매총액: doc.data().totalprice,
             환불계좌:doc.data().account_re,
             전화번호:doc.data().phonenumber,
-            수령날짜:doc.data().dateoption,
+            수령날짜:doc.data().date,
           };
           for (var i=0;i<doc.data().option.length;i++){
             var name = doc.data().optionname[i];
