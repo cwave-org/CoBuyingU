@@ -44,7 +44,7 @@ const EachDetail=({eachObj})=>{
                     <EachSet key={each.id}>
                         <EachTitle>✨ 옵션 {each.id}. {each.itemname}</EachTitle>
                         <EachTitle>✨ 가격: {each.price}원</EachTitle>
-                        <EachTitle>✨ 재고: {each.maxNum - each.itemTotalCount - 10}개</EachTitle>
+                        <EachTitle>✨ 재고: {(each.maxNum - each.itemTotalCount - each.maxNum * 0.03).toFixed()}개</EachTitle>
                         <EachTitle>✨ 상세 설명</EachTitle>
                         {each.itemDetails.reverse().map((option)=>(
                             <Half key={option.id}>
