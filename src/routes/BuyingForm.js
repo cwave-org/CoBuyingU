@@ -26,9 +26,7 @@ const BuyingForm = ({ userObj }) => {
 
   const { detailObj } = location.state; // 입력 폼 정보 받아오기
   const { itemId } = location.state; // 해당 상품의 doc Id
-  const { currentNum } = location.state; // 입력 폼 정보 받아오기
   const [total, setTotal] = useState(0);
-  const [totalNum, setTotalNum] = useState(0);
 
   useEffect(() => {
     dbService.doc(`datelist/${detailObj.randomidx}`).onSnapshot((snapshot) =>{
@@ -55,7 +53,6 @@ const BuyingForm = ({ userObj }) => {
       }
     });
 
-    setTotalNum(currentNum);
   }, []);
 
   const onSubmit = async (event) => {
@@ -83,8 +80,14 @@ const BuyingForm = ({ userObj }) => {
 
     await dbService.collection("joinlist").add(BuyingObj);
     console.log(detailObj);
-    await dbService.doc(`startlist/${itemId}`).update({
-      currentNum: totalNum,
+    const data = items;
+    for (var i = 0; i < data.length; i++) {
+      data[i].count = 0;
+    }
+    await dbService
+    .doc(`itemlist/${detailObj.randomidx}`)
+    .update({
+      data
     });
 
     setName("");
@@ -144,19 +147,19 @@ const BuyingForm = ({ userObj }) => {
   const add = (event, item, i) => {
     event.preventDefault();
     if (max + 1 <= 2) {
-      setTotalNum((n) => n + 1);
       setItems([
         ...items.slice(0, i),
         {
           ...items[i],
           count: items[i].count + 1,
+          itemTotalCount: items[i].itemTotalCount + 1,
         },
         ...items.slice(i + 1, items.length),
       ]);
       setTotal(total + Number(items[i].price));
       setMax(max + 1);
       option[i] = option[i] + 1;
-      console.log(option);
+      // console.log(option);
     } else {
       window.alert(`총 ${max}개까지만 구입 가능합니다.`);
     }
@@ -167,12 +170,12 @@ const BuyingForm = ({ userObj }) => {
 
     if (items[i].count - 1 >= 0) {
       if (max - 1 <= 2) {
-        setTotalNum((n) => n - 1);
         setItems([
           ...items.slice(0, i),
           {
             ...items[i],
             count: items[i].count - 1,
+            itemTotalCount: items[i].itemTotalCount - 1,
           },
           ...items.slice(i + 1, items.length),
         ]);
@@ -312,11 +315,12 @@ const BuyingForm = ({ userObj }) => {
           {isLodded &&
             items.map((item, i) => (
               <SelectNum key={i}>
-                {i + 1}. {item.itemname} ( {item.price}원 / 1개 )
+                {i + 1}. {item.itemname} ( {item.price}원 / 1개 ) <br></br> 
+                <b style={{fontSize: 12,}}>재고: {(item.maxNum - item.itemTotalCount - item.maxNum * 0.03).toFixed()}개</b>
                 <NumBox>
-                  <Btn onClick={(event) => add(event, item, i)}>+</Btn>
-                  <Count>{item.count}</Count>
                   <Btn onClick={(event) => minus(event, item, i)}>-</Btn>
+                  <Count>{item.count}</Count>
+                  <Btn onClick={(event) => add(event, item, i)}>+</Btn>
                 </NumBox>
               </SelectNum>
             ))}

@@ -49,7 +49,7 @@ const SellingForm = ({ userObj }) => {
   const [receive_date, setReceive_date] = useState("");
 
   const [clicked, setClicked] = useState(false);
-  
+
   const [item, setItem] = useState("");
   const [itemID, setItemID] = useState(0);
   
