@@ -271,13 +271,13 @@ const BuyingForm = ({ userObj }) => {
               <SelectNum key={i}>
                 {i + 1}. {date.handout_date}
                 <NumBox>
-                  <Btn onClick={(event) => handout(event, date.handout_date, i)}>
+                  <Btn1 onClick={(event) => handout(event, date.handout_date, i)}>
                   <input
                     type="radio"
                     value={date.handout_date}
                     name="hadnout_date"
                   />
-                  </Btn>
+                  </Btn1>
                 </NumBox>
               </SelectNum>
             ))}
@@ -421,6 +421,9 @@ const Btn = styled.button`
   color: #5b5b5b;
   width: 27px;
   font-size: 15px;
+`;
+const Btn1=styled(Btn)`
+  height:30px;
 `;
 const NumBox = styled.div`
   background-color: #b6b6b6;

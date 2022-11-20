@@ -71,10 +71,7 @@ const SellingItemFactory = (props) => {
 
   return (
     <Box>
-      {/* <div className="item_container"> */}
-        {/* <p>상품 목록</p> */}
         {items}
-        {/* <div> */}
           <Button className="default_Btn_Left" onClick={addItem}>
             상품 추가
           </Button>
@@ -82,8 +79,6 @@ const SellingItemFactory = (props) => {
             완료
           </Button1>
           <br />
-        {/* </div> */}
-      {/* </div> */}
     </Box>
   );
 };

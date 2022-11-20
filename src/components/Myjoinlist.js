@@ -1,7 +1,6 @@
-import { faCode } from "@fortawesome/free-solid-svg-icons";
 import { queryByTestId } from "@testing-library/react";
 import React, { useEffect, useState } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { dbService } from "../fbase";
 
 const Myjoinlist = ({ listObj, isOwner }) => {
@@ -69,7 +68,7 @@ const Myjoinlist = ({ listObj, isOwner }) => {
             <span className="myitemOka">
               오카방
               <a href={link}>
-                <img src="img/kakaotalk.png" height={20} width={20} />
+                <img src="img/kakaotalk.png" alt="오카방" height={20} width={20} />
               </a>
             </span>
           </>

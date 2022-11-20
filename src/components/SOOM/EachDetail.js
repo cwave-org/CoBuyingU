@@ -43,7 +43,7 @@ const EachDetail=({eachObj})=>{
                 <EachSet key={each.id}>
                     <EachTitle>✨ 옵션 {each.id}. {each.itemname}</EachTitle>
                     <EachTitle>✨ 가격: {each.price}원</EachTitle>
-                    {(each.maxNum === 0 ? (<></>) : (<>
+                    {((each.maxNum === 0 || each.maxNum==="") ? (<></>) : (<>
                     {(each.maxNum > (each.itemTotalCount + each.maxNum * 0.03)) 
                         ? (
                             <EachTitle>✨ 재고: {(each.maxNum - each.itemTotalCount - each.maxNum * 0.03).toFixed()}개</EachTitle>

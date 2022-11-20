@@ -90,7 +90,7 @@ const Profile = ({ userObj, listObj, refreshUser }) => {
               value={newDisplayName}
             /> &nbsp;
             <button>
-              Change Your ID
+              닉네임 변경하기
             </button>
           </div>
         </form>
