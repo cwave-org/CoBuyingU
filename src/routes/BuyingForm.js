@@ -42,7 +42,7 @@ const BuyingForm = ({ userObj }) => {
 
   useEffect(() => {
     dbService.doc(`itemlist/${detailObj.randomidx}`).onSnapshot((snapshot) => {
-      setItems(snapshot.data().data.reverse());
+      setItems(snapshot.data().data);
       setIsLodded(1);
       for (var i = 0; i < snapshot.data().data.length; i++) {
         // setOption(option.concat(0));
