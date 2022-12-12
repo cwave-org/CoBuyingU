@@ -176,7 +176,7 @@ const SellingForm = ({ userObj }) => {
     //   window.alert("상품추가 완료버튼을 눌러주셔야 제출 가능합니다");
     // } else if(!clickeddate){
     //   window.alert("현장배부 날짜추가 완료버튼을 눌러주셔야 제출 가능합니다");
-    // }
+    }
   };
   return (
     <form className="openjoin_container">
