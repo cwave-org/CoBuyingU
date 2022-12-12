@@ -19,11 +19,11 @@ function App() {
         var email = user.email;
         var emailIndex = email.indexOf("@") + 1;
         var emailform = email.substring(emailIndex);
-        if (emailform !== "sookmyung.ac.kr") {
-          deleteUser(user);
-          setUserObj(null);
-          alert("You can only login using Sookmyung email.");
-        }
+      //   if (emailform !== "sookmyung.ac.kr") {
+      //     deleteUser(user);
+      //     setUserObj(null);
+      //     alert("You can only login using Sookmyung email.");
+      //   }
       } else {
         setUserObj(null);
       }
