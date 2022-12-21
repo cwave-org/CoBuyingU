@@ -7,7 +7,7 @@ const EachTitle = styled.div`
 `;
 const EachContent = styled.div``;
 const EachDetailContent = styled(EachContent)`
-  margin: 1px 4px 3px;
+  margin: 5px 5px 5px;
   width: 50%;
 `;
 const EachSet = styled.div`
