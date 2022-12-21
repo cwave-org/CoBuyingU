@@ -43,7 +43,7 @@ const Notice2= styled.div`
 `;
 
 const SellingForm = ({ userObj }) => {
-
+  //const { id } = useParams();
   const [itemname, setItemname] = useState("");
   const [name, setName] = useState("");
   const [attachment, setAttachment] = useState("");
@@ -68,7 +68,7 @@ const SellingForm = ({ userObj }) => {
   }, []);
   const onFormSubmit = async (event) => {
     // if(clicked){
-    navigate("/");
+    //navigate("/");
     let attachmentUrl = "";
     if (attachment !== "") {
       const attachmentRef = storageService
@@ -94,7 +94,27 @@ const SellingForm = ({ userObj }) => {
       userName: userObj.displayName,
       currentNum: 0,
     };
-    await dbService.collection("startlist").add(listObj);
+    const templateRef = dbService.collection('startlist').doc();
+    templateRef
+    .set({
+      id: templateRef.id,
+      randomidx: itemID,
+      // randomidx: Math.random(), // 어떤 글인지 추가
+      name: name, // 공대표 이름 추가
+      itemname: itemname,
+      item: item,
+      deadline: deadline,
+      datetime: Date.now(),
+      creatorId: userObj.uid,
+      account: account,
+      etc: etc,
+      notice: notice,
+      link: link,
+      attachmentUrl,
+      userName: userObj.displayName,
+      currentNum: 0,
+    })
+    //await dbService.collection("startlist").add(listObj);
     // setItemID(listObj.randomidx);
     setItemname("");
     setName("");
@@ -108,6 +128,11 @@ const SellingForm = ({ userObj }) => {
     // }else{
     // window.alert("상품추가 완료버튼을 눌러주셔야 제출 가능합니다");
     // }
+
+    navigate("/selling/item", {
+      replace: false,
+      state: { link: listObj.link , id:templateRef.id},
+    });
   };
 
   const onCancel = () => {
@@ -167,16 +192,16 @@ const SellingForm = ({ userObj }) => {
   };
   const onClearAttachment = () => setAttachment(null);
   const onCheckForm = () => {
-    if (clicked&&clickeddate) {
+    //if (clicked&&clickeddate) {
       var result= window.confirm("정말로 폼을 제출하시겠습니까?");
-      if(result){
+      //if(result){
         onFormSubmit();
-      }
+      //}
     // } else if(!clicked) {
     //   window.alert("상품추가 완료버튼을 눌러주셔야 제출 가능합니다");
     // } else if(!clickeddate){
     //   window.alert("현장배부 날짜추가 완료버튼을 눌러주셔야 제출 가능합니다");
-    }
+    //}
   };
   return (
     <form className="openjoin_container">
@@ -359,17 +384,6 @@ const SellingForm = ({ userObj }) => {
             // maxLength={10000}
           />
         </EachDetail>
-      </EachContainer>
-
-      <EachContainer>
-        <EachTitle>
-          ✔️ 상품목록 <Notice>작성후 하단의 완료버튼을 눌러주세요</Notice>
-        </EachTitle>
-        <SellingItemFactory
-          userObj={userObj}
-          itemID={itemID}
-          setClicked={setClicked}
-        />
       </EachContainer>
 
       <div>
