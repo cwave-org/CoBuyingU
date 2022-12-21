@@ -64,7 +64,7 @@ const SellingItemFactory = (props) => {
             const response = await attachmentRef.putString(data[i].itemDetails[j].url[k], "data_url");
             attachmentUrl = await response.ref.getDownloadURL();
             data[i].itemDetails[j].url[k]=attachmentUrl;
-            console.log(attachmentUrl);
+            //console.log(attachmentUrl);
           }
         }
       }

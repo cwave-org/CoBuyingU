@@ -166,7 +166,7 @@ const SellingForm = ({ userObj }) => {
         currentTarget: { result },
       } = finishedEvent;
       setAttachment(result);
-      console.log(result)
+      //console.log(result)
     };
     reader.readAsDataURL(theFile);
   };
