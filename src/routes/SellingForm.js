@@ -173,15 +173,15 @@ const SellingForm = ({ userObj }) => {
   };
   const onClearAttachment = () => setAttachment(null);
   const onCheckForm = () => {
-    //if (clicked&&clickeddate) {
+    if (clicked&&clickeddate) {
       var result= window.confirm("정말로 폼을 제출하시겠습니까?");
       if(result){
         onFormSubmit();
-     // }
-    // } else if(!clicked) {
-    //  window.alert("상품추가 완료버튼을 눌러주셔야 제출 가능합니다.");
-     //} else if(!clickeddate){
-     //window.alert("현장배부 날짜추가 완료버튼을 눌러주셔야 제출 가능합니다.");
+      }
+     } else if(!clicked) {
+     window.alert("업로드버튼을 눌러주셔야 제출 가능합니다.");
+     } else if(!clickeddate){
+     window.alert("현장배부 날짜추가 완료버튼을 눌러주셔야 제출 가능합니다.");
     }
   };
   return (

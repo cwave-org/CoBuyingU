@@ -25,6 +25,7 @@ const Button1=styled(Button)`
 
 const SellingItemFactory = (props) => {
   const [id, setId] = useState(1);
+  const [clickBtn, setClickBtn] = useState(false);
   const [data, setData] = useState([]);
   const [items, setItems] = useState([
     <SellingItem
@@ -38,6 +39,7 @@ const SellingItemFactory = (props) => {
 
   const addItem = () => {
     setId(id + 1);
+    setClickBtn(false);
     // console.log(data);
     setItems(
       items.concat(
@@ -53,6 +55,7 @@ const SellingItemFactory = (props) => {
   };
 
   const onClickDone = async () => {
+    props.setClicked(true);
     for (var i=0;i<data.length;i++){
       let attachmentUrl = "";
       for(var j=0; j<data[i].itemDetails.length;j++){
@@ -69,22 +72,39 @@ const SellingItemFactory = (props) => {
         }
       }
     }
+
+
     await dbService.doc(`itemlist/${props.itemID}`).set({data});
-    props.setClicked(true);
+
     
+  };
+  const clickbutton =async()=>{
+    setClickBtn(!clickBtn);
+    props.setClicked(false);
   };
 
   return (
     <Box>
         {items}
-          <Button className="default_Btn_Left" onClick={addItem}>
+
+        <Button className="default_Btn_Left" onClick={addItem}>
             상품 추가
           </Button>
-          <Button1 className="default_Btn_Right" onClick={onClickDone}>
+          <Button1 className="default_Btn_Right" onClick={clickbutton}>
             완료
           </Button1>
           <br />
+          {clickBtn? <>
+            <button className="default_Btn_Right" onClick={onClickDone}>
+            업로드
+          </button>
+          </> :
+          <></>}
+
+
+          <br />
     </Box>
+
   );
 };
 
