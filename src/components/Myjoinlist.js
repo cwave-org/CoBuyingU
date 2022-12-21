@@ -22,7 +22,7 @@ const Myjoinlist = ({ listObj, isOwner }) => {
               ...doc.data(),
             };
             setExist(true);
-            setName(myObj.name);
+            setName(myObj.itemname);
           }
         });
       });
