@@ -31,15 +31,13 @@ const Half = styled.div`
   justify-content: space-around;
 `;
 const EachDetail = ({ eachObj }) => {
-  console.log("====================================");
-  console.log(JSON.stringify(eachObj));
-  console.log("====================================");
   return (
     <Container>
       {eachObj ? (
         <>
           {eachObj.map((each) => (
             <EachSet key={each.id}>
+              <EachTitle>✨ 상품명: {each.itemname2}</EachTitle>
               <EachTitle>✨ 가격: {each.price}원</EachTitle>
               {/* {each.maxNum === 0 || each.maxNum === "" ? (
                 <></>
