@@ -159,6 +159,14 @@ button {
   border-radius: 5px;
   float: right;
 }
+.default_Btn_Right2 {
+  margin: 5px;
+  padding: 10px;
+  margin-top: 0px;
+  margin-bottom: 0px;
+  border-radius: 5px;
+  float: right;
+}
 .default_Btn_Right_Bottom {
   position: absolute;
   bottom: 0;
