@@ -1,6 +1,4 @@
 import React, { useEffect, useState } from "react";
-import { dbService } from "../fbase";
-import AddPhoto from "./SOOM/AddPhoto";
 import styled from "styled-components";
 import ItemDetails from "./ItemDetalis";
 
@@ -80,7 +78,6 @@ const SellingItem = (props) => {
       <EachDetail>
         <EachInput
           id="itemname"
-          // className="openjoin_input"
           value={itemname}
           onChange={onChange}
           type="text"

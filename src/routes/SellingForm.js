@@ -293,14 +293,14 @@ const SellingForm = ({ userObj }) => {
         <EachDetail>
           <input
             type="radio"
-            name="theme"
+            //name="theme"
             value="site"
             onClick={onRadioClick}
           />
           현장배부{" "}
           <input
             type="radio"
-            name="theme"
+            //name="theme"
             value="parcel"
             disabled
             onClick={onRadioClick}

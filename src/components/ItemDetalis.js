@@ -22,13 +22,12 @@ const Btn=styled.button`
 
 //사진 다중업로드
 const ItemDetails=(props)=>{
-    console.log(props)
+    //console.log(props)
 
     const ta=useRef();
     const [attachment, setAttachment] = useState(false);
     const [fileDataList, setFileDataList] = useState([]);
     const [explain, setExplain] = useState();
-    const [uploaded, setUploaded] = useState(false);
 
     const onChangeImage=(e)=>{ //사진이 선택되면 배열에 사진 채워넣기
         for(const file of e.target.files){ //const file of e.target.files
@@ -61,7 +60,7 @@ const ItemDetails=(props)=>{
     useEffect(()=>{ //itemDetails[0]번 데이터만 유의미
         props.setData([{id:props.id,url:fileDataList,content:explain}]);
     },[explain, fileDataList,props.id]);
-    console.log(props.data);
+    //console.log(props.data);
     
 
     return (
@@ -104,6 +103,7 @@ export default ItemDetails;
 
    
 /*
+//버튼 클릭시 저장
 const onEnd=(e)=>{
     setUploaded(true);
 }
