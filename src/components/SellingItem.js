@@ -58,12 +58,14 @@ const SellingItem = (props) => {
     } else if (event.target.id === "price") {
       setPrice(value);
     }
+    props.click[props.id]=false;
+    // console.log(props.click);
   };
 
   return (
     <>
       <EachBox>
-        <EachId>{props.id}번 상품</EachId>
+        <EachId>{props.id+1}번 상품</EachId>
         {/* // <div className="item_container"> */}
         {/* <p className="openjoin_que"> */}
         <EachTitle>✨ 상품 이름</EachTitle>
@@ -92,7 +94,9 @@ const SellingItem = (props) => {
         </EachDetail>
         <EachTitle>✨ 상품 상세 설명 (최대 3개)</EachTitle>
         <EachDetail>
-          <ItemDetails id={props.id} data={data} setData={setData} />
+          <ItemDetails id={props.id} 
+          data={data} setData={setData} 
+          />
           {/*<AddPhoto id={props.id} data={data} setData={setData}/>*/}
         </EachDetail>
       </EachBox>

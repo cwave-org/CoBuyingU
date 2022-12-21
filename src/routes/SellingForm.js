@@ -52,11 +52,13 @@ const SellingForm = ({ userObj }) => {
   const [etc, setEtc] = useState("");
   const [notice, setNotice] = useState("");
   const [giving, setGiving] = useState(0);
+  const [click,setClick]=useState([false]);
   const [clicked, setClicked] = useState(false);
   const [clickeddate, setClickedDate] = useState(false);
 
   const [item, setItem] = useState("");
   const [itemID, setItemID] = useState(0);
+  const [id, setId] = useState(0);
 
   const navigate = useNavigate();
   const ta = useRef();
@@ -66,7 +68,6 @@ const SellingForm = ({ userObj }) => {
     setItemID(Math.random());
   }, []);
   const onFormSubmit = async (event) => {
-    // if(clicked){
     navigate("/");
     let attachmentUrl = "";
     if (attachment !== "") {
@@ -105,9 +106,6 @@ const SellingForm = ({ userObj }) => {
     setLink("");
     setAccount("");
     setNotice("");
-    // }else{
-    // window.alert("상품추가 완료버튼을 눌러주셔야 제출 가능합니다");
-    // }
   };
 
   const onCancel = () => {
@@ -170,16 +168,15 @@ const SellingForm = ({ userObj }) => {
   };
   const onClearAttachment = () => setAttachment(null);
   const onCheckForm = () => {
-
-    //if (clicked&&clickeddate) {
+    if (click[click.length-1]&&clickeddate) {
       var result= window.confirm("정말로 폼을 제출하시겠습니까?");
       if(result){
         onFormSubmit();
-     // }
-    // } else if(!clicked) {
-    //  window.alert("상품추가 완료버튼을 눌러주셔야 제출 가능합니다.");
-     //} else if(!clickeddate){
-     //window.alert("현장배부 날짜추가 완료버튼을 눌러주셔야 제출 가능합니다.");
+      }
+    }else if(click[click.length-1]===false) {
+      window.alert("상품추가 완료버튼을 눌러주셔야 제출 가능합니다");
+    } else if(!clickeddate){
+      window.alert("현장배부 날짜추가 완료버튼을 눌러주셔야 제출 가능합니다");
     }
   };
   return (
@@ -371,6 +368,11 @@ const SellingForm = ({ userObj }) => {
         <SellingItemFactory
           userObj={userObj}
           itemID={itemID}
+          click={click}
+          setClick={setClick}
+          clickid={id}
+          id={id}
+          setId={setId}
           setClicked={setClicked}
         />
       </EachContainer>
