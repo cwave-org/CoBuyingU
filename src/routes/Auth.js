@@ -2,18 +2,25 @@ import React from "react";
 import { authService, dbService, firebaseInstance } from "../fbase";
 
 const Auth = ({userObj}) => {
+
   const onSocialClick = async (event) => {
-    const {
+    /*const {
       target: { name },
-    } = event;
+    } = event;*/
     let provider;
     provider = new firebaseInstance.auth.GoogleAuthProvider();
     await authService.signInWithPopup(provider);
     /*await dbService.collection("user").add(userObj);
     console.log(userObj);*/
   };
+  const Submit = () => {
+    var result= window.confirm("사파리, 크롬, 삼성인터넷 등 웹 브라우저로 실행하셨나요?");
+        if(result){
+          onSocialClick();
+        }
+      }
   return (
-    <div className="formbox" onClick={onSocialClick}>
+    <div className="formbox" onClick={Submit}>
         <img
           width="80%"
           src="/img/loginGoogle.png"
