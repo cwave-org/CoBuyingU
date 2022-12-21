@@ -27,7 +27,7 @@ const Detaillist = ({ userObj }) => {
   const [qna, setQna] = useState("");
   const [qnas, setQnas] = useState([]);
   const [itemObj, setItemObj] = useState(detailObj);
-  const [eachObj, setEachObj] = useState();
+  const [eachObj, setEachObj] = useState([]);
   const [today, setToday] = useState(new Date());
   const navigate = useNavigate();
 
@@ -46,11 +46,12 @@ const Detaillist = ({ userObj }) => {
         setIsLodded(true);
         //console.log(item.deadline);
         dbService
-          .collection("itemlist")
-          .doc(item.randomidx.toString())
-          .get()
-          .then((doc) => {
-            setEachObj(doc.data().data.reverse());
+          .doc(`startlist/${id}`)
+          .collection("Item")
+          .onSnapshot((snapshot) => {
+            snapshot.docs.map((doc) => {
+              setEachObj([...eachObj, doc.data()]);
+            });
           });
       });
     let date =
@@ -331,7 +332,7 @@ const Detaillist = ({ userObj }) => {
                 <DetailArea>{itemObj.etc}</DetailArea>
                 <b>✔️ 주의사항</b>
                 <DetailArea>{itemObj.notice}</DetailArea>
-                <b>✔️ 상품 옵션</b>
+                <b>✔️ 상품</b>
                 <EachDetail eachObj={eachObj} />
               </Container>
             </div>
@@ -383,10 +384,7 @@ const Detaillist = ({ userObj }) => {
                         title="수정"
                       />
                     </span> */}
-                    <span
-                      className="detaillist_user"
-                      onClick={onDeleteClick}
-                    >
+                    <span className="detaillist_user" onClick={onDeleteClick}>
                       <FontAwesomeIcon
                         icon={faTrash}
                         size="2x"
@@ -472,6 +470,6 @@ const Title = styled.div`
   text-align: center;
   margin: 0 0 10px;
 `;
-const Br=styled.div`
+const Br = styled.div`
   margin: 10px 0 0;
 `;
