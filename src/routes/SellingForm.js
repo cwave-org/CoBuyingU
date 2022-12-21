@@ -34,7 +34,7 @@ const Notice = styled.div`
   left: 95px;
   font-size: 7px;
 `;
-const Notice2= styled.div`
+const Notice2 = styled.div`
   color: grey;
   position: absolute;
   top: 9px;
@@ -43,7 +43,6 @@ const Notice2= styled.div`
 `;
 
 const SellingForm = ({ userObj }) => {
-
   const [itemname, setItemname] = useState("");
   const [name, setName] = useState("");
   const [attachment, setAttachment] = useState("");
@@ -60,10 +59,11 @@ const SellingForm = ({ userObj }) => {
   const [item, setItem] = useState("");
   const [itemID, setItemID] = useState(0);
   const [id, setId] = useState(0);
+
   const navigate = useNavigate();
-  //const ta = useRef();
-  //const ta2 = useRef();
- 
+  const ta = useRef();
+  const ta2 = useRef();
+
   useEffect(() => {
     setItemID(Math.random());
   }, []);
@@ -71,7 +71,6 @@ const SellingForm = ({ userObj }) => {
     navigate("/");
     let attachmentUrl = "";
     if (attachment !== "") {
-
       const attachmentRef = storageService
         .ref()
         .child(`${userObj.uid}/${uuidv4()}`);
@@ -128,19 +127,19 @@ const SellingForm = ({ userObj }) => {
     } else if (event.target.id === "link") {
       setLink(value);
     } else if (event.target.id === "etc") {
-      /*
+      
       if (ta.current.scrollHeight > 90) {
         ta.current.style.height = ta.current.scrollHeight + "px";
       }
-      */
+      
       setEtc(value);
     } else if (event.target.id === "account") {
       setAccount(value);
     } else if (event.target.id === "notice") {
-      /*
+      
       if (ta2.current.scrollHeight > 90) {
         ta2.current.style.height = ta2.current.scrollHeight + "px";
-      }*/
+      }
       setNotice(value);
     }
   };
@@ -164,14 +163,11 @@ const SellingForm = ({ userObj }) => {
         currentTarget: { result },
       } = finishedEvent;
       setAttachment(result);
-      //console.log(result)
     };
     reader.readAsDataURL(theFile);
   };
   const onClearAttachment = () => setAttachment(null);
   const onCheckForm = () => {
-    // if(click[click.length]-1)
-    console.log(click[click.length-1]);
     if (click[click.length-1]&&clickeddate) {
       var result= window.confirm("정말로 폼을 제출하시겠습니까?");
       if(result){
@@ -317,7 +313,8 @@ const SellingForm = ({ userObj }) => {
         <EachContainer></EachContainer>
       ) : (
         <EachContainer>
-          <EachTitle>✔️ 현장배부 날짜 
+          <EachTitle>
+            ✔️ 현장배부 날짜
             <Notice2>현장배부 날짜 및 시간을 작성해주세요</Notice2>
           </EachTitle>
           <EachDetail>
@@ -336,13 +333,13 @@ const SellingForm = ({ userObj }) => {
           <DetailArea
             id="etc"
             className="openjoin_input"
-            //ref={ta}
+            ref={ta}
             rows={3}
             value={etc}
             onChange={onChange}
             type="text"
             placeholder="추가 상세설명을 작성해주세요."
-            // maxLength={10000}
+            maxLength={10000}
           />
         </EachDetail>
       </EachContainer>
@@ -353,13 +350,13 @@ const SellingForm = ({ userObj }) => {
           <DetailArea
             id="notice"
             className="openjoin_input"
-            //ref={ta2}
+            ref={ta2}
             rows={3}
             value={notice}
             onChange={onChange}
             type="text"
             placeholder="환불 등 주의사항을 작성해주세요."
-            // maxLength={10000}
+            maxLength={10000}
           />
         </EachDetail>
       </EachContainer>
@@ -381,10 +378,10 @@ const SellingForm = ({ userObj }) => {
       </EachContainer>
 
       <div>
-        <button className="default_Btn_Right" onClick={onCancel}>
+        <button className="default_Btn_Right2" onClick={onCancel}>
           취소
         </button>
-        <button className="default_Btn_Right" onClick={onCheckForm}>
+        <button className="default_Btn_Right2" onClick={onCheckForm}>
           제출
         </button>
       </div>

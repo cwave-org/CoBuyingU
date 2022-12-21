@@ -6,7 +6,6 @@ import { faStar as FaStarRegular } from "@fortawesome/free-regular-svg-icons";
 import { dbService } from "../fbase";
 
 const CobuyingItem = ({ userObj, listObj, isOwner }) => {
-  
   let navigate = useNavigate();
   let today = new Date();
   const [checked, setChecked] = useState(true);
@@ -16,11 +15,11 @@ const CobuyingItem = ({ userObj, listObj, isOwner }) => {
     creatorId: userObj.uid,
     userName: userObj.displayName,
   };
- 
-  let curday=new Date(listObj.deadline);
-  curday.setHours(curday.getHours()+14);
-  curday.setMinutes(curday.getMinutes()+59);
-  curday.setSeconds(curday.getSeconds()+59);
+
+  let curday = new Date(listObj.deadline);
+  curday.setHours(curday.getHours() + 14);
+  curday.setMinutes(curday.getMinutes() + 59);
+  curday.setSeconds(curday.getSeconds() + 59);
 
   useEffect(() => {
     dbService
@@ -89,7 +88,7 @@ const CobuyingItem = ({ userObj, listObj, isOwner }) => {
                   className="fa-globe"
                   icon={faStar}
                   onClick={check}
-                  size="1x"
+                  size="2x"
                   color={"#ffffff"}
                   aria-hidden="true"
                 ></FontAwesomeIcon>
@@ -98,7 +97,7 @@ const CobuyingItem = ({ userObj, listObj, isOwner }) => {
                   className="fa-globe"
                   icon={FaStarRegular}
                   onClick={check}
-                  size="1x"
+                  size="2x"
                   color={"#ffffff"}
                 ></FontAwesomeIcon>
               )}

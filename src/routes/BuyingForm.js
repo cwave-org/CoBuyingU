@@ -35,10 +35,8 @@ const BuyingForm = ({ userObj }) => {
       setIsDateLodded(1);
       for (var i = 0; i < snapshot.data().data.length; i++) {
         setDateOption((current) => [0, ...current]);
-        //console.log(snapshot.data().data[i]);
       }
     });
-    //console.log(detailObj)
   }, []);
 
   useEffect(() => {
@@ -53,7 +51,6 @@ const BuyingForm = ({ userObj }) => {
           snapshot.data().data[i].itemname,
           ...current,
         ]);
-        //console.log(snapshot.data().data[i].itemname);
       }
     });
   }, []);
@@ -82,7 +79,6 @@ const BuyingForm = ({ userObj }) => {
     };
 
     await dbService.collection("joinlist").add(BuyingObj);
-    //console.log(detailObj);
     const data = items;
     for (var i = 0; i < data.length; i++) {
       data[i].count = 0;
@@ -165,7 +161,6 @@ const BuyingForm = ({ userObj }) => {
     setTotal(total + Number(items[i].price));
     //setMax(max + 1);
     option[i] = option[i] + 1;
-    // console.log(option);
     //    } else {
     //      window.alert(`총 ${max}개까지만 구입 가능합니다.`);
     //}
@@ -224,10 +219,10 @@ const BuyingForm = ({ userObj }) => {
             className="openjoin_input"
             id="phonenumberform"
             type="tel"
-            placeholder="010-1234-5678 형식으로 입력해주세요"
+            placeholder="01012345678 형식으로 입력해주세요"
             onChange={onChange}
             value={phonenumber}
-            pattern="[0-9]{2,3}-[0-9]{3,4}-[0-9]{3,4}"
+            pattern="[0-9]{2,3}[0-9]{3,4}[0-9]{3,4}"
             required
           />
         </EachDetail>

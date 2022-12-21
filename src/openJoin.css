@@ -28,7 +28,7 @@
   /* width: 320px; */
   height: 30px;
   font-size: 15px;
-  border-bottom-color: #9B9B9B;
+  border-bottom-color: #9b9b9b;
   padding-left: 5px;
 }
 
@@ -70,7 +70,7 @@
   border-top: none;
   border-left: none;
   border-right: none;
-  border-bottom: 1px solid #9B9B9B;
+  border-bottom: 1px solid #9b9b9b;
 }
 
 .openjoin_container .openjoin_que {
@@ -95,4 +95,11 @@
   width: 100%;
   border: 1px solid black;
   border-radius: 20px;
+}
+
+.attachment {
+  width: 50%;
+  padding: 5px;
+  display: flex;
+  flex-direction: row;
 }

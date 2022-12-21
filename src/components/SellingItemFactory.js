@@ -4,6 +4,7 @@ import SellingItem from "./SellingItem";
 import styled from "styled-components";
 import { v4 as uuidv4 } from "uuid";
 
+
 const Load = styled.div`
   width: 100%;
   position: fixed;
@@ -19,21 +20,22 @@ const LoadImg=styled.div`
   left: 23%;
   /* width:30%; */
 `;
-const Box=styled.div`
+
+const Box = styled.div`
   /* border: 2px solid #d9d9d9; */
   /* background-color: #F6F6F6; */
   position: relative;
   border-radius: 10px;
 `;
-const Button=styled.button`
+const Button = styled.button`
   position: absolute;
   bottom: 20px;
   right: 50px;
   background-color: #d9d9d9;
-  color:#5b5b5b;
+  color: #5b5b5b;
   /* left:3px; */
 `;
-const Button1=styled(Button)`
+const Button1 = styled(Button)`
   right: 3px;
 `;
 
@@ -59,6 +61,8 @@ const SellingItemFactory = (props) => {
   const addItem = () => {
     props.setId(props.clickid+1);
     props.setClick(props.click.concat(false));
+
+    setId(id + 1);
     setItems(
       items.concat(
         <SellingItem
@@ -90,20 +94,18 @@ const SellingItemFactory = (props) => {
             // console.log(data[i].itemDetails[j].url[k]);
             const response = await attachmentRef.putString(data[i].itemDetails[j].url[k], "data_url");
             attachmentUrl = await response.ref.getDownloadURL();
-            data[i].itemDetails[j].url[k]=attachmentUrl;
-            //console.log(attachmentUrl);
+            data[i].itemDetails[j].url[k] = attachmentUrl;
           }
         }
       }
     }
-    console.log(props.itemID);
 
+    console.log(props.itemID);
     await dbService.doc(`itemlist/${props.itemID}`).set({data});
     isLoading(false);
-
-
     // props.setClicked(true);
     
+
   };
   const onDataSet=()=>{
     props.click[props.id]=true;
@@ -112,12 +114,12 @@ const SellingItemFactory = (props) => {
 
   return (
     <Box>
+
         {items}
           {loading&&
             <Load>
               <LoadImg>
-              <img src="img/loading.gif" alt="로딩" />
-
+                <img src="img/loading.gif" alt="로딩" />
               </LoadImg>
             </Load>
           }
