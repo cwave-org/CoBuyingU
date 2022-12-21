@@ -45,9 +45,9 @@ const DateItem = (props) => {
           <input
             className="openjoin_input"
             id="handoutdateform"
-            type="datetime-local"
             onChange={onChange}
             value={handout_date}
+            placeholder="2023년 1월 6일 15시~20시"
             required
           />
         </EachDetail>

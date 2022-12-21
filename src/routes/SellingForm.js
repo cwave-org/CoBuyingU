@@ -308,22 +308,20 @@ const SellingForm = ({ userObj }) => {
       </EachContainer>
       {giving === 0 ? (
         <EachContainer></EachContainer>
-      ) : giving === 1 ? (
-        <EachContainer>
-        </EachContainer>
+      ) : giving === 1 ? ( //택배배송 선택한 경우
+        <EachContainer></EachContainer>
       ) : (
         <EachContainer>
           <EachTitle>✔️ 현장배부 날짜 
-            <Notice2>1시간 단위로 날짜를 추가해주세요</Notice2>
+            <Notice2>현장배부 날짜 및 시간을 작성해주세요</Notice2>
           </EachTitle>
           <EachDetail>
             <DateFactory
-            userObj={userObj}
-            itemID={itemID}
-            setClicked={setClickedDate}
-          />
+              userObj={userObj}
+              itemID={itemID}
+              setClicked={setClickedDate}
+            />
           </EachDetail>
-          
         </EachContainer>
       )}
 
