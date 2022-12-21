@@ -61,6 +61,7 @@ const Item = ({ listObj, isBuyer }) => {
                 onChange={check}
                 checked
               ></input>
+              
             ) : (
               <input
                 style={{ width: "10%", alignSelf: "center" }}
@@ -68,6 +69,7 @@ const Item = ({ listObj, isBuyer }) => {
                 onChange={check}
               ></input>
             )}
+
             <span style={{ width: "10%", textAlign: "center" }}>
               {" "}
               <FontAwesomeIcon
@@ -80,6 +82,7 @@ const Item = ({ listObj, isBuyer }) => {
             </span>
           </div>
           <br></br>
+          
         </>
       ) : (
         <></>
