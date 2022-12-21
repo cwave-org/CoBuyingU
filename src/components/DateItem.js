@@ -18,13 +18,13 @@ const DateItem = (props) => {
   const [handout_date, setHandout_date] = useState("");
 
   useEffect(() => {
-    props.setData([
+    props.setData1([
       {
         id: props.id,
         handout_date: handout_date,
         count:0
       },
-      ...props.data,
+      ...props.data1,
     ]);
   }, [handout_date, props]);
 
