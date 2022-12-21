@@ -7,7 +7,7 @@ function App() {
   const [init, setInit] = useState(false);
   const [userObj, setUserObj] = useState(null);
 
-  useEffect( () => {
+  useEffect(() => {
     authService.onAuthStateChanged((user) => {
       if (user) {
         setUserObj({
@@ -15,22 +15,21 @@ function App() {
           uid: user.uid,
           updateProfile: (args) => user.updateProfile(args),
         });
-        
+
         var email = user.email;
         var emailIndex = email.indexOf("@") + 1;
         var emailform = email.substring(emailIndex);
-      //   if (emailform !== "sookmyung.ac.kr") {
-      //     deleteUser(user);
-      //     setUserObj(null);
-      //     alert("You can only login using Sookmyung email.");
-      //   }
+        if (emailform !== "sookmyung.ac.kr") {
+          deleteUser(user);
+          setUserObj(null);
+          alert("You can only login using Sookmyung email.");
+        }
       } else {
         setUserObj(null);
       }
       setInit(true);
-    });   
-  }, 
-  []);
+    });
+  }, []);
   const refreshUser = () => {
     const user = authService.currentUser;
     setUserObj({
