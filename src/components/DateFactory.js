@@ -20,13 +20,13 @@ const Button1 = styled(Button)`
 
 const DateFactory = (props) => {
   const [id, setId] = useState(1);
-  const [data1, setData1] = useState([]);
+  const [data, setData] = useState([]);
   const [items, setItems] = useState([
     <DateItem
       key={id}
       id={id}
-      setData1={setData1}
-      data1={data1}
+      setData={setData}
+      data={data}
       uid={props.userObj.uid}
     />,
   ]);
@@ -38,8 +38,8 @@ const DateFactory = (props) => {
         <DateItem
           key={id + 1}
           id={id + 1}
-          setData1={setData1}
-          data1={data1}
+          setData={setData}
+          data={data}
           uid={props.userObj.uid}
         />
       )
@@ -48,7 +48,7 @@ const DateFactory = (props) => {
 
   const onClickDone = async (event) => {
     event.preventDefault();
-    await dbService.doc(`datelist/${props.itemID}`).set({ data1 });
+    await dbService.doc(`datelist/${props.itemID}`).set({data});
     props.setClicked(true);
   };
 

@@ -18,13 +18,12 @@ const DateItem = (props) => {
   const [handout_date, setHandout_date] = useState("");
 
   useEffect(() => {
-    props.setData1([
+    props.setData([
       {
         id: props.id,
-        handout_date: handout_date,
-        count:0
+        handout_date: handout_date
       },
-      ...props.data1,
+      ...props.data,
     ]);
   }, [handout_date, props]);
 
@@ -40,7 +39,6 @@ const DateItem = (props) => {
   return (
     <>
     <EachBox>
-      {/* <EachTitle>{props.id}번 날짜 및 시작 시간</EachTitle> */}
       <EachDetail>
           <input
             className="openjoin_input"

@@ -18,7 +18,7 @@ const BuyingForm = ({ userObj }) => {
   const [items, setItems] = useState([]);
   const [isLodded, setIsLodded] = useState(0);
   const [isDateLodded, setIsDateLodded] = useState(0);
-  const [dates, setDates] = useState([]);
+  const [dates, setDates] = useState([]); //현장배부 날짜
   const [dateoption, setDateOption] = useState([]);
   const [giving, setGiving] = useState(0);
   const location = useLocation();
@@ -31,13 +31,16 @@ const BuyingForm = ({ userObj }) => {
 
   useEffect(() => {
     dbService.doc(`datelist/${detailObj.randomidx}`).onSnapshot((snapshot) => {
-      setDates(snapshot.data().data.reverse());
+      //console.log(snapshot.data().data1)
+      setDates(snapshot.data().data1.reverse());
       setIsDateLodded(1);
       for (var i = 0; i < snapshot.data().data.length; i++) {
         setDateOption((current) => [0, ...current]);
       }
     });
   }, []);
+  console.log("dates")
+  console.log(dates, detailObj.randomidx)
 
   useEffect(() => {
     dbService.doc(`itemlist/${detailObj.randomidx}`).onSnapshot((snapshot) => {
