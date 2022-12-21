@@ -22,8 +22,6 @@ const Btn = styled.button`
 
 //사진 다중업로드
 const ItemDetails = (props) => {
-  //console.log(props)
-
   const ta = useRef();
   const [attachment, setAttachment] = useState(false);
   const [fileDataList, setFileDataList] = useState([]);
@@ -50,7 +48,6 @@ const ItemDetails = (props) => {
     setAttachment(false);
     setFileDataList(null);
   };
-  // console.log(fileDataList)
 
   const onChange = (e) => {
     const {
@@ -65,7 +62,6 @@ const ItemDetails = (props) => {
     //itemDetails[0]번 데이터만 유의미
     props.setData([{ id: props.id, url: fileDataList, content: explain }]);
   }, [explain, fileDataList, props.id]);
-  //console.log(props.data);
 
   return (
     <Container>
@@ -118,5 +114,4 @@ const onEnd=(e)=>{
 useEffect(()=>{ 
     props.setData([{id:props.id,url:fileDataList,content:explain}, ...props.data])
 },[uploaded]);
-console.log(props.data);
 */

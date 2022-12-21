@@ -47,8 +47,6 @@ const SellingItem = (props) => {
   useEffect(() => {
     setItemsDetails(data);
     // setItemsDetails(eachdata,...itemDetails);
-    // console.log(itemDetails);
-    // console.log(each);
   }, [data]);
 
   const onChange = (event) => {

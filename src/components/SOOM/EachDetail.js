@@ -17,10 +17,13 @@ const EachSet = styled.div`
   border-radius: 7px;
 `;
 const EachImg = styled.img`
-  width: 50%;
+  width: 100%;
   height: auto;
   max-height: 200px;
   min-height: 100px;
+  display: "flex",
+  flexDirection: "column",
+  justify: "center",
 `;
 const Half = styled.div`
   display: flex;
@@ -29,6 +32,14 @@ const Half = styled.div`
   padding: 5px;
   border-radius: 7px;
   justify-content: space-around;
+`;
+const PostListWrapper = styled.div`
+  display: grid;
+  place-items: center;
+  justify-content: space-evenly;
+  font-size: small;
+  row-gap: 5x;
+  grid-template-columns: repeat(2, auto);
 `;
 const EachDetail = ({ eachObj }) => {
   return (
@@ -52,11 +63,23 @@ const EachDetail = ({ eachObj }) => {
               <EachTitle>✨ 상세 설명</EachTitle>
               {each.itemDetails.reverse().map((option) => (
                 <div>
-                  {option.url.map((imgurl) => (
-                    <div>
-                      <EachImg src={imgurl} alt="옵션이미지" />
-                    </div>
-                  ))}
+                  <PostListWrapper>
+                    {option.url.map((imgurl) => (
+                      <div
+                        style={{
+                          textAlign: "center",
+                          padding: "5px",
+                          marginBottom: "10px",
+                          backgroundColor: "rgba(255, 255, 255, 0.7)",
+                          borderRadius: "20px",
+                          position: "relative",
+                          zIndex: 0,
+                        }}
+                      >
+                        <EachImg src={imgurl} alt="옵션이미지" />
+                      </div>
+                    ))}{" "}
+                  </PostListWrapper>
                   <EachDetailContent>{option.content}</EachDetailContent>
                 </div>
               ))}
