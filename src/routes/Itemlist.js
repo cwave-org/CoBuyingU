@@ -34,18 +34,20 @@ const Itemlist = () => {
           for (var i=0;i<doc.data().option.length;i++){
             var name = doc.data().optionname[i];
             excelobj[name] = doc.data().option[i];
-            //console.log(Number(doc.data().totalprice))
-            money2=money2+Number(doc.data().totalprice);
+            console.log(Number(doc.data().totalprice))
+            console.log(Number(doc.data().option.length))
+            console.log(count2)
             count2=count2+1;
-            //console.log(money2)
+            console.log(count2)
+            console.log(money2)
           }
           var m=Number(doc.data().totalprice);
           //var m=money;
           m=count;
-
+          money2=money2+Number(doc.data().totalprice);
           setMoney(money2);
-          setCount(count2);
-          //console.log(Number(doc.data().totalprice))
+          setCount(count2/Number(doc.data().option.length));
+          console.log(money2)
           setLists((prev) => [myobj, ...prev]);
           setExcelList((prev) => [excelobj, ...prev]);
         }
