@@ -58,6 +58,8 @@ const ItemDetails=(props)=>{
     }
 
     useEffect(()=>{ //itemDetails[0]번 데이터만 유의미
+        
+        //내생각에 explain 바뀔때마다 setData할바에, 걍 onchange일때마다 해당 위치의 파이어베이스에 저장해야될듯
         props.setData([{id:props.id,url:fileDataList,content:explain}]);
     },[explain, fileDataList,props.id]);
     //console.log(props.data);
