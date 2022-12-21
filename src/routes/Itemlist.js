@@ -9,6 +9,10 @@ const Itemlist = () => {
   const { buyerindex, filename } = location.state;
   const [lists, setLists] = useState([]);
   const [excellist, setExcelList] = useState([]);
+  const [count,setCount]=useState(0);
+  const [money,setMoney]=useState(0);
+  let money2=0;
+  let count2=0;
   useEffect(() => {
     dbService.collection("joinlist").onSnapshot((snapshot) => {
       setLists([]);
@@ -30,7 +34,18 @@ const Itemlist = () => {
           for (var i=0;i<doc.data().option.length;i++){
             var name = doc.data().optionname[i];
             excelobj[name] = doc.data().option[i];
+            //console.log(Number(doc.data().totalprice))
+            money2=money2+Number(doc.data().totalprice);
+            count2=count2+1;
+            //console.log(money2)
           }
+          var m=Number(doc.data().totalprice);
+          //var m=money;
+          m=count;
+
+          setMoney(money2);
+          setCount(count2);
+          //console.log(Number(doc.data().totalprice))
           setLists((prev) => [myobj, ...prev]);
           setExcelList((prev) => [excelobj, ...prev]);
         }
@@ -47,13 +62,18 @@ const Itemlist = () => {
             <hr />
             <Excel exceldata={excellist} name={filename} />
             <br />
+            <div>
+              총 참여자 : <b>{count}</b>명 
+            </div>
+            <div>총 입금금액 : <b>{money}</b>원</div>
+            <br/>
             <div style={{ marginBottom: "15px", fontSize: 12 }}>
               <span style={{ width: "10%", float: "right", textAlign: "center" }}>삭제</span>
               <span style={{ width: "10%", float: "right", textAlign: "center" }}>확인</span>
               <span style={{ width: "20%", float: "right" }}>환불계좌</span>
-              <span style={{ width: "20%", float: "right" }}>입금자 명</span>
+              <span style={{ width: "20%", float: "right" }}>입금자명</span>
               <span style={{ width: "24%", float: "right" }}>입금날짜</span>
-              <span style={{ width: "16%", float: "right" }}>총 입금금액</span>{" "}
+              <span style={{ width: "16%", float: "right" }}>입금금액</span>{" "}
             </div>
             <br />
             <div className="joiner_context">

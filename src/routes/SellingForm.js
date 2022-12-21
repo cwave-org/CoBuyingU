@@ -94,6 +94,7 @@ const SellingForm = ({ userObj }) => {
       attachmentUrl,
       userName: userObj.displayName,
       currentNum: 0,
+      done: false,
     };
     await dbService.collection("startlist").add(listObj);
     // setItemID(listObj.randomidx);
