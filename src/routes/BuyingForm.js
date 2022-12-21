@@ -31,16 +31,13 @@ const BuyingForm = ({ userObj }) => {
 
   useEffect(() => {
     dbService.doc(`datelist/${detailObj.randomidx}`).onSnapshot((snapshot) => {
-      //console.log(snapshot.data().data1)
-      setDates(snapshot.data().data1.reverse());
+      setDates(snapshot.data().data.reverse());
       setIsDateLodded(1);
       for (var i = 0; i < snapshot.data().data.length; i++) {
         setDateOption((current) => [0, ...current]);
       }
     });
   }, []);
-  console.log("dates")
-  console.log(dates, detailObj.randomidx)
 
   useEffect(() => {
     dbService.doc(`itemlist/${detailObj.randomidx}`).onSnapshot((snapshot) => {
