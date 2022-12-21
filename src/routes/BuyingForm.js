@@ -18,7 +18,7 @@ const BuyingForm = ({ userObj }) => {
   const [items, setItems] = useState([]);
   const [isLodded, setIsLodded] = useState(0);
   const [isDateLodded, setIsDateLodded] = useState(0);
-  const [dates, setDates] = useState([]);
+  const [dates, setDates] = useState([]); //현장배부 날짜
   const [dateoption, setDateOption] = useState([]);
   const [giving, setGiving] = useState(0);
   const location = useLocation();

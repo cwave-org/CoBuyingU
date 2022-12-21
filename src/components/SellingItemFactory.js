@@ -55,7 +55,6 @@ const SellingItemFactory = (props) => {
   ]);
   useEffect(()=>{
     setData(data);
-    console.log(data);
   },[data])
 
   const addItem = () => {
@@ -100,7 +99,6 @@ const SellingItemFactory = (props) => {
       }
     }
 
-    console.log(props.itemID);
     await dbService.doc(`itemlist/${props.itemID}`).set({data});
     isLoading(false);
     // props.setClicked(true);

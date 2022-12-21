@@ -61,7 +61,7 @@ const Detaillist = ({ userObj }) => {
           .doc(item.randomidx.toString())
           .get()
           .then((doc) => {
-            console.log(doc.data());
+            //console.log(doc.data());
             setEachObj(doc.data().data.reverse());
           });
       });
