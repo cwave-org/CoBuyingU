@@ -39,10 +39,10 @@ const Itemlist = () => {
           }
           var m = Number(doc.data().totalprice);
           //var m=money;
-          m = count;
-
+          m=count;
+          money2=money2+Number(doc.data().totalprice);
           setMoney(money2);
-          setCount(count2);
+          setCount(count2/Number(doc.data().option.length));
           setLists((prev) => [myobj, ...prev]);
           setExcelList((prev) => [excelobj, ...prev]);
         }

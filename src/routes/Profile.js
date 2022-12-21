@@ -85,7 +85,6 @@ const Profile = ({ userObj, listObj, refreshUser }) => {
               className="profile_text"
               onChange={onChange}
               type="text"
-              autoFocus
               placeholder="닉네임"
               value={newDisplayName}
             /> &nbsp;
