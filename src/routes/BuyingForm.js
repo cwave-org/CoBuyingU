@@ -7,8 +7,8 @@ const BuyingForm = ({ userObj }) => {
   const [name, setName] = useState("");
   const [phonenumber, setPhonenumber] = useState("");
   const [count, setCount] = useState(0);
-  const [optionname,setOptionName]=useState([]);
-  const [max, setMax] = useState(0);
+  const [optionname, setOptionName] = useState([]);
+  //   const [max, setMax] = useState(0);
   const [option, setOption] = useState([]);
   const [address, setAddress] = useState("");
   const [account_name, setAccount_name] = useState("");
@@ -24,22 +24,21 @@ const BuyingForm = ({ userObj }) => {
   const location = useLocation();
   const navigate = useNavigate();
 
-  const { detailObj,itemId } = location.state; // 입력 폼 정보 받아오기
-   // 해당 상품의 doc Id
+  const { detailObj, itemId } = location.state; // 입력 폼 정보 받아오기
+  // 해당 상품의 doc Id
   const [total, setTotal] = useState(0);
   const [currentNUm, setCurrentNum] = useState(detailObj.currentNum);
 
   useEffect(() => {
-    dbService.doc(`datelist/${detailObj.randomidx}`).onSnapshot((snapshot) =>{
+    dbService.doc(`datelist/${detailObj.randomidx}`).onSnapshot((snapshot) => {
       setDates(snapshot.data().data.reverse());
       setIsDateLodded(1);
-      for(var i=0; i<snapshot.data().data.length; i++){
-        setDateOption(current=>[0,...current]);
+      for (var i = 0; i < snapshot.data().data.length; i++) {
+        setDateOption((current) => [0, ...current]);
         //console.log(snapshot.data().data[i]);
       }
-    })
+    });
     //console.log(detailObj)
-
   }, []);
 
   useEffect(() => {
@@ -48,13 +47,15 @@ const BuyingForm = ({ userObj }) => {
       setIsLodded(1);
       for (var i = 0; i < snapshot.data().data.length; i++) {
         // setOption(option.concat(0));
-        setOption(current=>[0,...current]);
+        setOption((current) => [0, ...current]);
         // setOptionName(optionname.concat([snapshot.data().data[i].itemname]));
-        setOptionName(current=>[snapshot.data().data[i].itemname,...current]);
+        setOptionName((current) => [
+          snapshot.data().data[i].itemname,
+          ...current,
+        ]);
         //console.log(snapshot.data().data[i].itemname);
       }
     });
-
   }, []);
 
   const onSubmit = async (event) => {
@@ -65,11 +66,11 @@ const BuyingForm = ({ userObj }) => {
       // name: name,
       phonenumber: phonenumber,
       // count: count,
-      totalprice:total,
-      receivedate:receive_date,
-      option:option,
-      optionname:optionname,
-      date:dateoption,
+      totalprice: total,
+      receivedate: receive_date,
+      option: option,
+      optionname: optionname,
+      date: dateoption,
       // address: address,
       createdAt: Date.now(),
       creatorId: userObj.uid,
@@ -86,15 +87,11 @@ const BuyingForm = ({ userObj }) => {
     for (var i = 0; i < data.length; i++) {
       data[i].count = 0;
     }
-    await dbService
-    .doc(`itemlist/${detailObj.randomidx}`)
-    .update({
-      data
+    await dbService.doc(`itemlist/${detailObj.randomidx}`).update({
+      data,
     });
 
-    await dbService
-    .doc(`startlist/${itemId}`)
-    .update({
+    await dbService.doc(`startlist/${itemId}`).update({
       currentNum: currentNUm,
     });
 
@@ -154,52 +151,52 @@ const BuyingForm = ({ userObj }) => {
 
   const add = (event, item, i) => {
     event.preventDefault();
-    if (max + 1 <= 2) {
-      setItems([
-        ...items.slice(0, i),
-        {
-          ...items[i],
-          count: items[i].count + 1,
-          itemTotalCount: items[i].itemTotalCount + 1,
-        },
-        ...items.slice(i + 1, items.length),
-      ]);
-      setCurrentNum((current) => (current + 1));
-      setTotal(total + Number(items[i].price));
-      setMax(max + 1);
-      option[i] = option[i] + 1;
-      // console.log(option);
-    } else {
-      window.alert(`총 ${max}개까지만 구입 가능합니다.`);
-    }
+    //    if (max + 1 <= 2) {
+    setItems([
+      ...items.slice(0, i),
+      {
+        ...items[i],
+        count: items[i].count + 1,
+        itemTotalCount: items[i].itemTotalCount + 1,
+      },
+      ...items.slice(i + 1, items.length),
+    ]);
+    setCurrentNum((current) => current + 1);
+    setTotal(total + Number(items[i].price));
+    //setMax(max + 1);
+    option[i] = option[i] + 1;
+    // console.log(option);
+    //    } else {
+    //      window.alert(`총 ${max}개까지만 구입 가능합니다.`);
+    //}
   };
 
   const minus = (event, item, i) => {
     event.preventDefault();
 
     if (items[i].count - 1 >= 0) {
-      if (max - 1 <= 2) {
-        setItems([
-          ...items.slice(0, i),
-          {
-            ...items[i],
-            count: items[i].count - 1,
-            itemTotalCount: items[i].itemTotalCount - 1,
-          },
-          ...items.slice(i + 1, items.length),
-        ]);
-        setCurrentNum((current) => (current - 1));
-        setTotal(total - Number(items[i].price));
-        option[i] = option[i] - 1;
-        setMax(max - 1);
-      } else {
-        window.alert(`인당 총 ${max}개까지만 구입 가능합니다.`);
-      }
+      //      if (max - 1 <= 2) {
+      setItems([
+        ...items.slice(0, i),
+        {
+          ...items[i],
+          count: items[i].count - 1,
+          itemTotalCount: items[i].itemTotalCount - 1,
+        },
+        ...items.slice(i + 1, items.length),
+      ]);
+      setCurrentNum((current) => current - 1);
+      setTotal(total - Number(items[i].price));
+      option[i] = option[i] - 1;
+      //setMax(max - 1);
+      //      } else {
+      //        window.alert(`인당 총 ${max}개까지만 구입 가능합니다.`);
+      //      }
     } else {
     }
   };
 
-  const handout= (event, date, i) => {
+  const handout = (event, date, i) => {
     setDateOption(date);
   };
 
@@ -275,22 +272,24 @@ const BuyingForm = ({ userObj }) => {
         <EachContainer>
           <EachTitle>✔️ 현장배부 날짜</EachTitle>
           <EachDetail>
-          {isDateLodded &&
-            dates.map((date, i) => (
-              <SelectNum key={i}>
-                {i + 1}. {date.handout_date}
-                <NumBox>
-                  <Btn1 onClick={(event) => handout(event, date.handout_date, i)}>
-                  <input
-                    type="radio"
-                    value={date.handout_date}
-                    name="hadnout_date"
-                  />
-                  </Btn1>
-                </NumBox>
-              </SelectNum>
-            ))}
-        </EachDetail>
+            {isDateLodded &&
+              dates.map((date, i) => (
+                <SelectNum key={i}>
+                  {i + 1}. {date.handout_date}
+                  <NumBox>
+                    <Btn1
+                      onClick={(event) => handout(event, date.handout_date, i)}
+                    >
+                      <input
+                        type="radio"
+                        value={date.handout_date}
+                        name="hadnout_date"
+                      />
+                    </Btn1>
+                  </NumBox>
+                </SelectNum>
+              ))}
+          </EachDetail>
         </EachContainer>
       )}
       <EachContainer>
@@ -326,27 +325,43 @@ const BuyingForm = ({ userObj }) => {
           {isLodded &&
             items.map((item, i) => (
               <SelectNum key={i}>
-                {i + 1}. {item.itemname} ( {item.price}원 / 1개 ) <br></br> 
-                {(item.maxNum == 0 ? (<>
-                  <NumBox>
-                      <Btn onClick={(event) => minus(event, item, i)}>-</Btn>
-                      <Count>{item.count}</Count>
-                      <Btn onClick={(event) => add(event, item, i)}>+</Btn>
-                    </NumBox>
-                </>) : (
-                <>
-                {(item.maxNum > (item.itemTotalCount + item.maxNum * 0.03)) ?
+                {i + 1}. {item.itemname} ( {item.price}원 / 1개 ) <br></br>
+                {item.maxNum == 0 ? (
                   <>
-                    <b style={{fontSize: 12,}}>재고: {(item.maxNum - item.itemTotalCount - item.maxNum * 0.03).toFixed()}개</b>
                     <NumBox>
                       <Btn onClick={(event) => minus(event, item, i)}>-</Btn>
                       <Count>{item.count}</Count>
                       <Btn onClick={(event) => add(event, item, i)}>+</Btn>
                     </NumBox>
                   </>
-                : (<b style={{fontSize: 12,}}>해당 상품은 매진되었습니다.</b>)
-                }</>))}
-               
+                ) : (
+                  <>
+                    {item.maxNum > item.itemTotalCount + item.maxNum * 0.03 ? (
+                      <>
+                        <b style={{ fontSize: 12 }}>
+                          재고:{" "}
+                          {(
+                            item.maxNum -
+                            item.itemTotalCount -
+                            item.maxNum * 0.03
+                          ).toFixed()}
+                          개
+                        </b>
+                        <NumBox>
+                          <Btn onClick={(event) => minus(event, item, i)}>
+                            -
+                          </Btn>
+                          <Count>{item.count}</Count>
+                          <Btn onClick={(event) => add(event, item, i)}>+</Btn>
+                        </NumBox>
+                      </>
+                    ) : (
+                      <b style={{ fontSize: 12 }}>
+                        해당 상품은 매진되었습니다.
+                      </b>
+                    )}
+                  </>
+                )}
               </SelectNum>
             ))}
         </EachDetail>
@@ -431,8 +446,8 @@ const Btn = styled.button`
   width: 27px;
   font-size: 15px;
 `;
-const Btn1=styled(Btn)`
-  height:30px;
+const Btn1 = styled(Btn)`
+  height: 30px;
 `;
 const NumBox = styled.div`
   background-color: #b6b6b6;
