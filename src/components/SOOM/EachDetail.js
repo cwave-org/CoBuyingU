@@ -35,7 +35,7 @@ const EachDetail = ({ eachObj }) => {
     <Container>
       {eachObj ? (
         <>
-          {eachObj.reverse().map((each) => (
+          {eachObj.map((each) => (
             <EachSet key={each.id}>
               <EachTitle>
                 ✨ 옵션 {each.id}. {each.itemname}
@@ -50,7 +50,7 @@ const EachDetail = ({ eachObj }) => {
                         )
                     }</>))*/}
               <EachTitle>✨ 상세 설명</EachTitle>
-              {each.itemDetails.reverse().map((option) => (
+              {each.itemDetails.map((option) => (
                 <div>
                   {option.url.map((imgurl) => (
                     <div>
