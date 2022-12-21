@@ -336,30 +336,11 @@ const BuyingForm = ({ userObj }) => {
                   </>
                 ) : (
                   <>
-                    {item.maxNum > item.itemTotalCount + item.maxNum * 0.03 ? (
-                      <>
-                        <b style={{ fontSize: 12 }}>
-                          재고:{" "}
-                          {(
-                            item.maxNum -
-                            item.itemTotalCount -
-                            item.maxNum * 0.03
-                          ).toFixed()}
-                          개
-                        </b>
-                        <NumBox>
-                          <Btn onClick={(event) => minus(event, item, i)}>
-                            -
-                          </Btn>
-                          <Count>{item.count}</Count>
-                          <Btn onClick={(event) => add(event, item, i)}>+</Btn>
-                        </NumBox>
-                      </>
-                    ) : (
-                      <b style={{ fontSize: 12 }}>
-                        해당 상품은 매진되었습니다.
-                      </b>
-                    )}
+                    <NumBox>
+                      <Btn onClick={(event) => minus(event, item, i)}>-</Btn>
+                      <Count>{item.count}</Count>
+                      <Btn onClick={(event) => add(event, item, i)}>+</Btn>
+                    </NumBox>
                   </>
                 )}
               </SelectNum>
