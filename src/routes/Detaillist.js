@@ -15,7 +15,19 @@ import styled from "styled-components";
 import QnA from "../components/QnA";
 import { useParams } from "react-router-dom";
 import EachDetail from "../components/SOOM/EachDetail";
+const Btn=styled.button`
+  margin: 5px;
+  width: 48%;
+  background-color: #F26656;
+  border-radius:5px;
+  color: white;
+`;
+const Btn1=styled(Btn)`
+  background-color: #bbdcf7;
+  width: 50%;
+  color: rgb(85, 141, 245);
 
+`
 const Detaillist = ({ userObj }) => {
   const { id } = useParams();
   const [isLodded, setIsLodded] = useState(false);
@@ -27,7 +39,7 @@ const Detaillist = ({ userObj }) => {
   const [qna, setQna] = useState("");
   const [qnas, setQnas] = useState([]);
   const [itemObj, setItemObj] = useState(detailObj);
-  const [eachObj, setEachObj] = useState();
+  const [eachObj, setEachObj] = useState([]);
   const [today, setToday] = useState(new Date());
   const navigate = useNavigate();
 
@@ -46,11 +58,12 @@ const Detaillist = ({ userObj }) => {
         setIsLodded(true);
         //console.log(item.deadline);
         dbService
-          .collection("itemlist")
-          .doc(item.randomidx.toString())
-          .get()
-          .then((doc) => {
-            setEachObj(doc.data().data.reverse());
+          .doc(`startlist/${id}`)
+          .collection("Item")
+          .onSnapshot((snapshot) => {
+            snapshot.docs.map((doc) => {
+              setEachObj([...eachObj, doc.data()]);
+            });
           });
       });
     let date =
@@ -104,6 +117,16 @@ const Detaillist = ({ userObj }) => {
       },
     });
   };
+  const onFinishClick=()=>{
+    var done = window.confirm("정말로 공구를 마감하시겠습니까?");
+    if(done){
+      // event.preventDefault();
+      dbService
+      .collection("startlist")
+      .doc(id)
+      .update({done:true});
+    }
+  }
   const onShowlistClick = () => {
     navigate("/itemlist", {
       replace: false,
@@ -331,32 +354,41 @@ const Detaillist = ({ userObj }) => {
                 <DetailArea>{itemObj.etc}</DetailArea>
                 <b>✔️ 주의사항</b>
                 <DetailArea>{itemObj.notice}</DetailArea>
-                <b>✔️ 상품 옵션</b>
+                <b>✔️ 상품</b>
                 <EachDetail eachObj={eachObj} />
               </Container>
             </div>
             <div align="center">
               {itemObj.creatorId === userObj.uid ? (
                 <>
-                  <button
-                    className="default_Btn_Center"
+                  <Btn1
                     onClick={onShowlistClick}
                   >
                     공구 참여자 목록 보기
-                  </button>
+                  </Btn1>
+                  {itemObj.done?(
+                    <DetailArea>이 공구는 마감되었습니다</DetailArea>
+                  ):(
+                    <Btn
+                    onClick={onFinishClick}
+                  >
+                    공구 마감하기
+                  </Btn>
+                  )}
+                  
                 </>
               ) : (
-                itemObj.deadline >= today && (
+                itemObj.deadline >= today  && (
                   <>
-                    {itemObj.currentNum >= 300 ? (
+                    {itemObj.done?(
+                    // itemObj.currentNum >= 300 ? (
                       <DetailArea>이 공구는 마감되었습니다</DetailArea>
                     ) : (
-                      <button
-                        className="default_Btn_Center"
+                      <Btn1
                         onClick={onJoinlistClick}
                       >
                         공구 참여하기
-                      </button>
+                      </Btn1>
                     )}
                   </>
                 )
@@ -383,10 +415,7 @@ const Detaillist = ({ userObj }) => {
                         title="수정"
                       />
                     </span> */}
-                    <span
-                      className="detaillist_user"
-                      onClick={onDeleteClick}
-                    >
+                    <span className="detaillist_user" onClick={onDeleteClick}>
                       <FontAwesomeIcon
                         icon={faTrash}
                         size="2x"
@@ -472,6 +501,6 @@ const Title = styled.div`
   text-align: center;
   margin: 0 0 10px;
 `;
-const Br=styled.div`
+const Br = styled.div`
   margin: 10px 0 0;
 `;
