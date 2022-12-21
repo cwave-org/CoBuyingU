@@ -34,7 +34,7 @@ const Notice = styled.div`
   left: 95px;
   font-size: 7px;
 `;
-const Notice2= styled.div`
+const Notice2 = styled.div`
   color: grey;
   position: absolute;
   top: 9px;
@@ -43,7 +43,6 @@ const Notice2= styled.div`
 `;
 
 const SellingForm = ({ userObj }) => {
-
   const [itemname, setItemname] = useState("");
   const [name, setName] = useState("");
   const [attachment, setAttachment] = useState("");
@@ -58,11 +57,11 @@ const SellingForm = ({ userObj }) => {
 
   const [item, setItem] = useState("");
   const [itemID, setItemID] = useState(0);
-  
+
   const navigate = useNavigate();
   //const ta = useRef();
   //const ta2 = useRef();
- 
+
   useEffect(() => {
     setItemID(Math.random());
   }, []);
@@ -71,7 +70,6 @@ const SellingForm = ({ userObj }) => {
     navigate("/");
     let attachmentUrl = "";
     if (attachment !== "") {
-
       const attachmentRef = storageService
         .ref()
         .child(`${userObj.uid}/${uuidv4()}`);
@@ -167,21 +165,20 @@ const SellingForm = ({ userObj }) => {
         currentTarget: { result },
       } = finishedEvent;
       setAttachment(result);
-      //console.log(result)
     };
     reader.readAsDataURL(theFile);
   };
   const onClearAttachment = () => setAttachment(null);
   const onCheckForm = () => {
-    if (clicked&&clickeddate) {
-      var result= window.confirm("정말로 폼을 제출하시겠습니까?");
-      if(result){
+    if (clicked && clickeddate) {
+      var result = window.confirm("정말로 폼을 제출하시겠습니까?");
+      if (result) {
         onFormSubmit();
       }
-    // } else if(!clicked) {
-    //   window.alert("상품추가 완료버튼을 눌러주셔야 제출 가능합니다");
-    // } else if(!clickeddate){
-    //   window.alert("현장배부 날짜추가 완료버튼을 눌러주셔야 제출 가능합니다");
+      // } else if(!clicked) {
+      //   window.alert("상품추가 완료버튼을 눌러주셔야 제출 가능합니다");
+      // } else if(!clickeddate){
+      //   window.alert("현장배부 날짜추가 완료버튼을 눌러주셔야 제출 가능합니다");
     }
   };
   return (
@@ -318,7 +315,8 @@ const SellingForm = ({ userObj }) => {
         <EachContainer></EachContainer>
       ) : (
         <EachContainer>
-          <EachTitle>✔️ 현장배부 날짜 
+          <EachTitle>
+            ✔️ 현장배부 날짜
             <Notice2>현장배부 날짜 및 시간을 작성해주세요</Notice2>
           </EachTitle>
           <EachDetail>

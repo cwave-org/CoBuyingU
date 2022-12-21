@@ -41,7 +41,6 @@ const Buydetaillist = () => {
       setIsDateLodded(1);
       for (var i = 0; i < snapshot.data().data.length; i++) {
         setDateOption((current) => [0, ...current]);
-        //console.log(snapshot.data().data[i]);
       }
     });
     dbService.collection("joinlist").onSnapshot((snapshot) => {
@@ -52,7 +51,6 @@ const Buydetaillist = () => {
             ...doc.data(),
           };
           setNewDetailObj(item);
-          //console.log(receive_date);
         }
       });
     });
@@ -66,7 +64,6 @@ const Buydetaillist = () => {
         docs.forEach((doc) => {
           if (doc.exists) {
             // document의 데이터
-            //console.log(doc.data().randomidx);
             if (doc.data().randomidx == detailObj.randomidx) {
               const dead = {
                 id: doc.id,
@@ -74,9 +71,6 @@ const Buydetaillist = () => {
               };
               setRandomidx(dead);
               setItemdeadline(dead.deadline);
-              //console.log(dead.deadline);
-              //console.log(dead);
-              //console.log(itemdeadline);
             }
           }
         });
@@ -89,7 +83,6 @@ const Buydetaillist = () => {
             ...doc.data(),
           };
           setRandomidx(dead);
-          console.log(dead);
         }
       });
     });*/
@@ -104,7 +97,6 @@ const Buydetaillist = () => {
       (today.getDate() < 9 ? "0" + today.getDate() : today.getDate());
     setToday(date);
   }, []);
-  //console.log(today);
   const toggleEditing = () => setEditing((prev) => !prev);
 
   const onSubmit = async (event) => {
@@ -153,7 +145,6 @@ const Buydetaillist = () => {
       setReceive_date(value);
     }
   };
-  //console.log(itemdeadline);
   return (
     <>
       {editing ? (
