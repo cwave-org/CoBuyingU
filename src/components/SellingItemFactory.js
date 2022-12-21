@@ -84,15 +84,15 @@ const SellingItemFactory = (props) => {
 
       let attachmentUrl = "";
       for(var j=0; j<data[i].itemDetails.length;j++){
-        for(var k=0; k<data[i].itemDetails[j].url.length; k++){ //사진 url변경
-          if(data[i].itemDetails[j].url[k] !==""){
+        for(var k=0; k<data[i].itemDetails[j].beforeurl.length; k++){ //사진 url변경
+          if(data[i].itemDetails[j].beforeurl[k] !==""){
             // console.log(data[i].itemDetails[j].url[k]);
             const attachmentRef = storageService
               .ref()
               .child(`${props.userObj.uid}/${uuidv4()}`);
             // console.log(attachmentRef);
             // console.log(data[i].itemDetails[j].url[k]);
-            const response = await attachmentRef.putString(data[i].itemDetails[j].url[k], "data_url");
+            const response = await attachmentRef.putString(data[i].itemDetails[j].beforeurl[k], "data_url");
             attachmentUrl = await response.ref.getDownloadURL();
             data[i].itemDetails[j].url[k] = attachmentUrl;
           }
