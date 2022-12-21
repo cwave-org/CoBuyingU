@@ -93,6 +93,7 @@ const SellingForm = ({ userObj }) => {
       attachmentUrl,
       userName: userObj.displayName,
       currentNum: 0,
+      done: false,
     };
     const templateRef = dbService.collection('startlist').doc();
     templateRef
