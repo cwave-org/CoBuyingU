@@ -62,7 +62,7 @@ const SellingItemFactory = (props) => {
     props.setId(props.clickid+1);
     props.setClick(props.click.concat(false));
 
-    setId(id + 1);
+    // setId(id + 1);
     setItems(
       items.concat(
         <SellingItem
