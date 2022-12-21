@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { dbService } from "../fbase";
 import AddPhoto from "./SOOM/AddPhoto";
 import styled from "styled-components";
+import ItemDetails from "./ItemDetalis";
 
 const EachBox=styled.div`
   background-color: #F6F6F6;
@@ -119,7 +120,8 @@ const SellingItem = (props) => {
       ✨ 상품 상세 설명 (최대 3개)
       </EachTitle>
       <EachDetail>
-        <AddPhoto id={props.id} data={data} setData={setData}/>
+        <ItemDetails id={props.id} data={data} setData={setData}/>
+        {/*<AddPhoto id={props.id} data={data} setData={setData}/>*/}
       </EachDetail>
     </EachBox>
     </>

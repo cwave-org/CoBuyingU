@@ -20,8 +20,13 @@ const Btn=styled.button`
     color: #5b5b5b;
 `;
 const AddPhoto=(props)=>{
+    console.log("ADD Photo")
+    console.log(props)
+    
+
     const [id,setId]=useState(1);
     const [detail,setDetail]=useState([<PhotoLayout key={id} id={id} setData={props.setData} data={props.data}/>]);
+    console.log(detail)
     const onClickAdd=(event)=>{
         event.preventDefault();
         setId(id+1);

@@ -71,6 +71,7 @@ const SellingForm = ({ userObj }) => {
     navigate("/");
     let attachmentUrl = "";
     if (attachment !== "") {
+
       const attachmentRef = storageService
         .ref()
         .child(`${userObj.uid}/${uuidv4()}`);
@@ -162,6 +163,7 @@ const SellingForm = ({ userObj }) => {
         currentTarget: { result },
       } = finishedEvent;
       setAttachment(result);
+      console.log(result)
     };
     reader.readAsDataURL(theFile);
   };
