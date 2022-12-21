@@ -60,8 +60,8 @@ const SellingForm = ({ userObj }) => {
   const [itemID, setItemID] = useState(0);
   
   const navigate = useNavigate();
-  //const ta = useRef();
-  //const ta2 = useRef();
+  const ta = useRef();
+  const ta2 = useRef();
  
   useEffect(() => {
     setItemID(Math.random());
@@ -131,19 +131,19 @@ const SellingForm = ({ userObj }) => {
     } else if (event.target.id === "link") {
       setLink(value);
     } else if (event.target.id === "etc") {
-      /*
+      
       if (ta.current.scrollHeight > 90) {
         ta.current.style.height = ta.current.scrollHeight + "px";
       }
-      */
+      
       setEtc(value);
     } else if (event.target.id === "account") {
       setAccount(value);
     } else if (event.target.id === "notice") {
-      /*
+      
       if (ta2.current.scrollHeight > 90) {
         ta2.current.style.height = ta2.current.scrollHeight + "px";
-      }*/
+      }
       setNotice(value);
     }
   };
@@ -179,9 +179,9 @@ const SellingForm = ({ userObj }) => {
         onFormSubmit();
       }
     // } else if(!clicked) {
-    //   window.alert("상품추가 완료버튼을 눌러주셔야 제출 가능합니다");
-    // } else if(!clickeddate){
-    //   window.alert("현장배부 날짜추가 완료버튼을 눌러주셔야 제출 가능합니다");
+    //  window.alert("상품추가 완료버튼을 눌러주셔야 제출 가능합니다.");
+     } else if(!clickeddate){
+     window.alert("현장배부 날짜추가 완료버튼을 눌러주셔야 제출 가능합니다.");
     }
   };
   return (
@@ -337,13 +337,13 @@ const SellingForm = ({ userObj }) => {
           <DetailArea
             id="etc"
             className="openjoin_input"
-            //ref={ta}
+            ref={ta}
             rows={3}
             value={etc}
             onChange={onChange}
             type="text"
             placeholder="추가 상세설명을 작성해주세요."
-            // maxLength={10000}
+            maxLength={10000}
           />
         </EachDetail>
       </EachContainer>
@@ -354,13 +354,13 @@ const SellingForm = ({ userObj }) => {
           <DetailArea
             id="notice"
             className="openjoin_input"
-            //ref={ta2}
+            ref={ta2}
             rows={3}
             value={notice}
             onChange={onChange}
             type="text"
             placeholder="환불 등 주의사항을 작성해주세요."
-            // maxLength={10000}
+            maxLength={10000}
           />
         </EachDetail>
       </EachContainer>
