@@ -20,6 +20,7 @@ const Button=styled.button`
 const Button1=styled(Button)`
   right: 3px;
 `;
+
 const SellingItemFactory = (props) => {
   const [id, setId] = useState(1);
   const [data, setData] = useState([]);
@@ -49,6 +50,7 @@ const SellingItemFactory = (props) => {
     );
   };
   const onClickDone = async () => {
+    console.log(data)
     //각 itemlist 컬렉션에, 공구 폼 열때 만든 randomidx로 doc명 지정해서 생성하는 형식입니당
     for (var i=0;i<data.length;i++){
       let attachmentUrl = "";

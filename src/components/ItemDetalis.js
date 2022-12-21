@@ -19,26 +19,16 @@ const Btn=styled.button`
     border-radius:5px;
     color: #5b5b5b;
 `;
-const Add=styled.div`
-    display: flex;
-    margin: 5px 0;
-    padding: 3px;
-    background-color: #f6f6f6;
-    /* border: 1px solid white; */
-`;
-const Half = styled.div`
-    width: 50%;
-`
 
 //사진 다중업로드
 const ItemDetails=(props)=>{
-    
-    //console.log(props)
+    console.log(props)
 
     const ta=useRef();
     const [attachment, setAttachment] = useState(false);
     const [fileDataList, setFileDataList] = useState([]);
     const [explain, setExplain] = useState();
+    const [uploaded, setUploaded] = useState(false);
 
     const onChangeImage=(e)=>{ //사진이 선택되면 배열에 사진 채워넣기
         for(const file of e.target.files){ //const file of e.target.files
@@ -55,8 +45,11 @@ const ItemDetails=(props)=>{
         }  
         setAttachment(true);
     }
-
-    console.log(fileDataList)
+    const onClearAttachment = () => {
+        setAttachment(false)
+        setFileDataList(null)
+    };
+    // console.log(fileDataList)
 
     const onChange=(e)=>{
         const{target:{value},}=e;
@@ -64,57 +57,13 @@ const ItemDetails=(props)=>{
             setExplain(value);
         }
     }
-    
-    /*
-    const handleImageUpload = async (fileList) => {
-        try {
-          const urls = await Promise.all(
-            fileList?.map(async (file) => {
-              const storageRef = ref(storage, `images/${file.name}`);
-               await uploadBytesResumable(storageRef, file);
-              return getDownloadURL(storageRef);
-            })
-          ).then((res) => {
-            set_data(res)
-          }
-          ) 
-          alert("성공적으로 업로드 되었습니다");
-        } 
-        
-        catch (err) {
-          console.error(err);
-        }
-    };
-      
-      
-    const set_data = async (url) => {
-        const info = {
-            content,
-            url,
-        }
-    }
-    */
 
+    useEffect(()=>{ //itemDetails[0]번 데이터만 유의미
+        props.setData([{id:props.id,url:fileDataList,content:explain}]);
+    },[explain, fileDataList,props.id]);
+    console.log(props.data);
     
-    const [detail,setDetail]=useState('');
-    useEffect(()=>{
-        props.setData([{id:props.id,url:attachment,content:detail}, ...props.data]);
-    },[detail,attachment,props.id]);
-    const handleResizeHeight=(event)=>{
-        if(ta.current.scrollHeight>60){
-            ta.current.style.height=ta.current.scrollHeight+'px';
-        }
-        const {
-            target: { value },
-          } = event;
-        setDetail(value);
-    }
 
-    const onClearAttachment = () => {
-        setAttachment(false)
-        setFileDataList(null)
-    };
-    
     return (
         <Container>
             <input
@@ -138,7 +87,6 @@ const ItemDetails=(props)=>{
                 ))}
                 </>
             )}
-
             <input
                 id="explain"
                 className="openjoin_input"
@@ -150,7 +98,18 @@ const ItemDetails=(props)=>{
             />
         </Container>
     );
-
 }
 
 export default ItemDetails;
+
+   
+/*
+const onEnd=(e)=>{
+    setUploaded(true);
+}
+
+useEffect(()=>{ 
+    props.setData([{id:props.id,url:fileDataList,content:explain}, ...props.data])
+},[uploaded]);
+console.log(props.data);
+*/
