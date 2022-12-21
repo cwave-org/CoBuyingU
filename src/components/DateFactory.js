@@ -48,7 +48,8 @@ const DateFactory = (props) => {
     );
   };
 
-  const onClickDone = async () => {
+  const onClickDone = async (event) => {
+    event.preventDefault();
     await dbService.doc(`datelist/${props.itemID}`).set({data});
     props.setClicked(true);
   };

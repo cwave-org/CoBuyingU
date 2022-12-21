@@ -43,7 +43,7 @@ const Notice2= styled.div`
 `;
 
 const SellingForm = ({ userObj }) => {
-  //const { id } = useParams();
+
   const [itemname, setItemname] = useState("");
   const [name, setName] = useState("");
   const [attachment, setAttachment] = useState("");
@@ -60,17 +60,18 @@ const SellingForm = ({ userObj }) => {
   const [itemID, setItemID] = useState(0);
   
   const navigate = useNavigate();
-  const ta = useRef();
-  const ta2 = useRef();
+  //const ta = useRef();
+  //const ta2 = useRef();
  
   useEffect(() => {
     setItemID(Math.random());
   }, []);
   const onFormSubmit = async (event) => {
     // if(clicked){
-    //navigate("/");
+    navigate("/");
     let attachmentUrl = "";
     if (attachment !== "") {
+
       const attachmentRef = storageService
         .ref()
         .child(`${userObj.uid}/${uuidv4()}`);
@@ -94,27 +95,7 @@ const SellingForm = ({ userObj }) => {
       userName: userObj.displayName,
       currentNum: 0,
     };
-    const templateRef = dbService.collection('startlist').doc();
-    templateRef
-    .set({
-      id: templateRef.id,
-      randomidx: itemID,
-      // randomidx: Math.random(), // 어떤 글인지 추가
-      name: name, // 공대표 이름 추가
-      itemname: itemname,
-      item: item,
-      deadline: deadline,
-      datetime: Date.now(),
-      creatorId: userObj.uid,
-      account: account,
-      etc: etc,
-      notice: notice,
-      link: link,
-      attachmentUrl,
-      userName: userObj.displayName,
-      currentNum: 0,
-    })
-    //await dbService.collection("startlist").add(listObj);
+    await dbService.collection("startlist").add(listObj);
     // setItemID(listObj.randomidx);
     setItemname("");
     setName("");
@@ -128,11 +109,6 @@ const SellingForm = ({ userObj }) => {
     // }else{
     // window.alert("상품추가 완료버튼을 눌러주셔야 제출 가능합니다");
     // }
-
-    navigate("/selling/item", {
-      replace: false,
-      state: { link: listObj.link , id:templateRef.id},
-    });
   };
 
   const onCancel = () => {
@@ -154,16 +130,19 @@ const SellingForm = ({ userObj }) => {
     } else if (event.target.id === "link") {
       setLink(value);
     } else if (event.target.id === "etc") {
+      /*
       if (ta.current.scrollHeight > 90) {
         ta.current.style.height = ta.current.scrollHeight + "px";
       }
+      */
       setEtc(value);
     } else if (event.target.id === "account") {
       setAccount(value);
     } else if (event.target.id === "notice") {
+      /*
       if (ta2.current.scrollHeight > 90) {
         ta2.current.style.height = ta2.current.scrollHeight + "px";
-      }
+      }*/
       setNotice(value);
     }
   };
@@ -187,21 +166,22 @@ const SellingForm = ({ userObj }) => {
         currentTarget: { result },
       } = finishedEvent;
       setAttachment(result);
+      //console.log(result)
     };
     reader.readAsDataURL(theFile);
   };
   const onClearAttachment = () => setAttachment(null);
   const onCheckForm = () => {
-    //if (clicked&&clickeddate) {
+    if (clicked&&clickeddate) {
       var result= window.confirm("정말로 폼을 제출하시겠습니까?");
-      //if(result){
+      if(result){
         onFormSubmit();
-      //}
+      }
     // } else if(!clicked) {
     //   window.alert("상품추가 완료버튼을 눌러주셔야 제출 가능합니다");
     // } else if(!clickeddate){
     //   window.alert("현장배부 날짜추가 완료버튼을 눌러주셔야 제출 가능합니다");
-    //}
+    }
   };
   return (
     <form className="openjoin_container">
@@ -316,14 +296,14 @@ const SellingForm = ({ userObj }) => {
         <EachDetail>
           <input
             type="radio"
-            name="theme"
+            //name="theme"
             value="site"
             onClick={onRadioClick}
           />
           현장배부{" "}
           <input
             type="radio"
-            name="theme"
+            //name="theme"
             value="parcel"
             disabled
             onClick={onRadioClick}
@@ -333,22 +313,20 @@ const SellingForm = ({ userObj }) => {
       </EachContainer>
       {giving === 0 ? (
         <EachContainer></EachContainer>
-      ) : giving === 1 ? (
-        <EachContainer>
-        </EachContainer>
+      ) : giving === 1 ? ( //택배배송 선택한 경우
+        <EachContainer></EachContainer>
       ) : (
         <EachContainer>
           <EachTitle>✔️ 현장배부 날짜 
-            <Notice2>1시간 단위로 날짜를 추가해주세요</Notice2>
+            <Notice2>현장배부 날짜 및 시간을 작성해주세요</Notice2>
           </EachTitle>
           <EachDetail>
             <DateFactory
-            userObj={userObj}
-            itemID={itemID}
-            setClicked={setClickedDate}
-          />
+              userObj={userObj}
+              itemID={itemID}
+              setClicked={setClickedDate}
+            />
           </EachDetail>
-          
         </EachContainer>
       )}
 
@@ -358,7 +336,7 @@ const SellingForm = ({ userObj }) => {
           <DetailArea
             id="etc"
             className="openjoin_input"
-            ref={ta}
+            //ref={ta}
             rows={3}
             value={etc}
             onChange={onChange}
@@ -375,7 +353,7 @@ const SellingForm = ({ userObj }) => {
           <DetailArea
             id="notice"
             className="openjoin_input"
-            ref={ta2}
+            //ref={ta2}
             rows={3}
             value={notice}
             onChange={onChange}
@@ -384,6 +362,17 @@ const SellingForm = ({ userObj }) => {
             // maxLength={10000}
           />
         </EachDetail>
+      </EachContainer>
+
+      <EachContainer>
+        <EachTitle>
+          ✔️ 상품목록 <Notice>작성후 하단의 완료버튼을 눌러주세요</Notice>
+        </EachTitle>
+        <SellingItemFactory
+          userObj={userObj}
+          itemID={itemID}
+          setClicked={setClicked}
+        />
       </EachContainer>
 
       <div>

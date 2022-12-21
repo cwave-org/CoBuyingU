@@ -10,7 +10,6 @@ import Detaillist from "../routes/Detaillist";
 import Itemlist from "../routes/Itemlist";
 import Buydetaillist from "../routes/Buydetaillist";
 import JoinDone from "../routes/JoinDone";
-import SellingForm2 from "../routes/SellingForm2";
 
 const AppRouter = ({ refreshUser, isLoggedIn, userObj }) => {
   return (
@@ -62,7 +61,6 @@ const AppRouter = ({ refreshUser, isLoggedIn, userObj }) => {
                 element={<Itemlist userObj={userObj} />}
               />
               <Route exact path="/buying/done" element={<JoinDone />} />
-              <Route exact path="/selling/item" element={<SellingForm2 userObj={userObj}/>} />
               {/* <Route path="*" element={<Home userObj={userObj} />} /> */}
             </>
           ) : (

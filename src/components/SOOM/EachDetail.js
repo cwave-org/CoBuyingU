@@ -53,10 +53,15 @@ const EachDetail=({eachObj})=>{
                     }</>))}
                     <EachTitle>✨ 상세 설명</EachTitle>
                     {each.itemDetails.reverse().map((option)=>(
-                        <Half key={option.id}>
-                            <EachImg src={option.url} alt="옵션이미지" />                                
-                            <EachDetailContent>{option.content}</EachDetailContent>
-                        </Half>
+                        <div>
+                            {option.url.map((imgurl)=>
+                                <div>
+                                <EachImg src={imgurl} alt="옵션이미지" />
+                                </div>
+                            )}
+                        <EachDetailContent>{option.content}</EachDetailContent>
+                        </div>
+                        
                         
                     ))}        
                 </EachSet>
