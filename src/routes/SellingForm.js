@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import SellingItemFactory from "../components/SellingItemFactory";
 import styled from "styled-components";
 import DateFactory from "../components/DateFactory";
+import DateItem from "../components/DateItem";
 
 const EachContainer = styled.div`
   width: 100%;
@@ -41,6 +42,17 @@ const Notice2 = styled.div`
   left: 130px;
   font-size: 7px;
 `;
+const Box = styled.div`
+  position: relative;
+  border-radius: 10px;
+`;
+const Button = styled.button`
+  position: absolute;
+  bottom: 0px;
+  right: 50px;
+  background-color: #d9d9d9;
+  color: #5b5b5b;
+`;
 
 const SellingForm = ({ userObj }) => {
   const [itemname, setItemname] = useState("");
@@ -55,6 +67,18 @@ const SellingForm = ({ userObj }) => {
   const [click, setClick] = useState([false]);
   const [clicked, setClicked] = useState(false);
   const [clickeddate, setClickedDate] = useState(false);
+
+  const [dateId, setDateId] = useState(1);
+  const [data, setData] = useState([]); //전달
+  const [dates, setDates] = useState([
+    <DateItem
+      key={dateId}
+      id={dateId}
+      setData={setData}
+      data={data}
+      uid={userObj.uid}
+    />,
+  ]); //날짜 배열 저장
 
   const [item, setItem] = useState("");
   const [itemID, setItemID] = useState(0);
@@ -78,8 +102,7 @@ const SellingForm = ({ userObj }) => {
       attachmentUrl = await response.ref.getDownloadURL();
     }
     const listObj = {
-      randomidx: itemID,
-      // randomidx: Math.random(), // 어떤 글인지 추가
+      randomidx: itemID, 
       name: name, // 공대표 이름 추가
       itemname: itemname,
       item: item,
@@ -94,9 +117,9 @@ const SellingForm = ({ userObj }) => {
       userName: userObj.displayName,
       currentNum: 0,
       done: false,
+      dates: data,
     };
     await dbService.collection("startlist").add(listObj);
-    // setItemID(listObj.randomidx);
     setItemname("");
     setName("");
     setItem("");
@@ -140,7 +163,6 @@ const SellingForm = ({ userObj }) => {
       }
       setNotice(value);
     }
-    console.log("sdfasdf");
   };
 
   const onRadioClick = (e) => {
@@ -167,17 +189,31 @@ const SellingForm = ({ userObj }) => {
   };
   const onClearAttachment = () => setAttachment(null);
   const onCheckForm = () => {
-    if (click[click.length - 1] && clickeddate) {
+    if (click[click.length - 1]) {
       var result = window.confirm("정말로 폼을 제출하시겠습니까?");
       if (result) {
         onFormSubmit();
       }
     } else if (click[click.length - 1] === false) {
       window.alert("상품추가 완료버튼을 눌러주셔야 제출 가능합니다");
-    } else if (!clickeddate) {
-      window.alert("현장배부 날짜추가 완료버튼을 눌러주셔야 제출 가능합니다");
     }
+    // } else if (!clickeddate) {
+    //   window.alert("현장배부 날짜추가 완료버튼을 눌러주셔야 제출 가능합니다");
+    // }
   };
+  const onClickAddDate = () =>{
+    setDateId(dateId+1);
+    setDates(dates.concat(
+      <DateItem
+        key={id+1}
+        id={id+1}
+        setData={setData}
+        data={data}
+        uid={userObj.uid}
+      />
+    ));
+  }
+
   return (
     <form className="openjoin_container">
       <p>공구 열기</p>
@@ -317,11 +353,18 @@ const SellingForm = ({ userObj }) => {
             <Notice2>현장배부 날짜 및 시간을 작성해주세요</Notice2>
           </EachTitle>
           <EachDetail>
-            <DateFactory
+            {/*<DateFactory
               userObj={userObj}
               itemID={itemID}
               setClicked={setClickedDate}
-            />
+            />*/}
+            <Box>
+              {dates}
+              <Button className="default_Btn_Left" onClick={onClickAddDate}>
+                날짜 추가
+              </Button>
+            </Box>
+            
           </EachDetail>
         </EachContainer>
       )}

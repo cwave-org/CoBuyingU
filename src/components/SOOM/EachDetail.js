@@ -42,7 +42,7 @@ const PostListWrapper = styled.div`
   grid-template-columns: repeat(2, auto);
 `;
 const EachDetail = ({ eachObj }) => {
-  console.log(JSON.stringify(eachObj));
+  // console.log(JSON.stringify(eachObj));
   return (
     <Container>
       {eachObj ? (

@@ -83,6 +83,7 @@ const AppRouter = ({ refreshUser, isLoggedIn, userObj }) => {
                 path="/selling/detail/:id"
                 element={<Detaillist userObj={null} />}
               />
+
             </>
           )}
         </Routes>

@@ -9,7 +9,8 @@ import styled from "styled-components";
 const Buydetaillist = () => {
   const navigate = useNavigate();
   const location = useLocation();
-  const { detailObj } = location.state;
+  const {detailObj} = location.state;
+  const {sellObj} = location.state;
   const [editing, setEditing] = useState(false);
   const [name, setName] = useState(detailObj.name);
   const [phonenumber, setPhonenumber] = useState(detailObj.phonenumber);
@@ -19,30 +20,31 @@ const Buydetaillist = () => {
   const [account_name, setAccount_name] = useState(detailObj.account_name);
   const [account_date, setAccount_date] = useState(detailObj.account_date);
   const [account_re, setAccount_re] = useState(detailObj.account_re);
-  const [receive_date, setReceive_date] = useState(detailObj.date);
+  const [handout_date, setHandout_date] = useState(detailObj.handout_date); //문자열 형식
   const [newDetailObj, setNewDetailObj] = useState(detailObj);
   const [today, setToday] = useState(new Date());
   const [randomidx, setRandomidx] = useState(detailObj.randomidx);
   const [itemdeadline, setItemdeadline] = useState(new Date());
-  const [isDateLodded, setIsDateLodded] = useState(0);
-  const [dates, setDates] = useState([]);
-  const [dateoption, setDateOption] = useState([]);
+  
+  var dates = sellObj.dates
+
   const handout = (event, date, i) => {
-    setDateOption(date);
+    setHandout_date(date);
   };
 
   const onReload = () => {
     window.location.reload();
   };
+
   // 동기화
   useEffect(() => {
-    dbService.doc(`datelist/${detailObj.randomidx}`).onSnapshot((snapshot) => {
-      setDates(snapshot.data().data.reverse());
-      setIsDateLodded(1);
-      for (var i = 0; i < snapshot.data().data.length; i++) {
-        setDateOption((current) => [0, ...current]);
-      }
-    });
+    // dbService.doc(`datelist/${detailObj.randomidx}`).onSnapshot((snapshot) => {
+    //   setDates(snapshot.data().data.reverse());
+    //   setIsDateLodded(1);
+    //   for (var i = 0; i < snapshot.data().data.length; i++) {
+    //     setDateOption((current) => [0, ...current]);
+    //   }
+    // });
     dbService.collection("joinlist").onSnapshot((snapshot) => {
       snapshot.docs.map((doc) => {
         if (doc.id == detailObj.id) {
@@ -51,6 +53,7 @@ const Buydetaillist = () => {
             ...doc.data(),
           };
           setNewDetailObj(item);
+          //console.log(item) 여기수정
         }
       });
     });
@@ -113,7 +116,7 @@ const Buydetaillist = () => {
         account_name: account_date,*/
         phonenumber: phonenumber,
         account_re: account_re,
-        date: dateoption,
+        handout_date: handout_date,
       });
       // window.location.reload();
     } else {
@@ -141,10 +144,9 @@ const Buydetaillist = () => {
       setAccount_date(value);
     } else if (event.target.id === "accountre") {
       setAccount_re(value);
-    } else if (event.target.id === "hadnout_date") {
-      setReceive_date(value);
-    }
+    } 
   };
+
   return (
     <>
       {editing ? (
@@ -176,37 +178,22 @@ const Buydetaillist = () => {
               <EachContainer>
                 <EachTitle>✔️ 현장배부 날짜</EachTitle>
                 <EachDetail>
-                  {isDateLodded &&
-                    dates.map((date, i) => (
-                      <SelectNum key={i}>
-                        {i + 1}. {date.handout_date}
-                        <NumBox>
-                          <Btn
-                            onClick={(event) =>
-                              handout(event, date.handout_date, i)
-                            }
-                          >
-                            <input
-                              type="radio"
-                              value={date.handout_date}
-                              name="hadnout_date"
-                              onChange={onChange}
-                            />
-                          </Btn>
-                        </NumBox>
-                      </SelectNum>
-                    ))}
-                  {/* <input
-              className="openjoin_input"
-              id="receivedate"
-              type="date"
-              placeholder={receive_date}
-              onChange={onChange}
-              value={receive_date}
-              // min="2022-11-30"
-              // max="2022-12-02"
-              required
-              /> */}
+                  {dates.slice(0).reverse().map((date, i) => (
+                    <SelectNum key={i}>
+                      {i + 1}. {date.handout_date}
+                      <NumBox>
+                        <Btn1
+                          onClick={(event) => handout(event, date.handout_date, i)}
+                        >
+                          <input
+                            type="radio"
+                            value={date.handout_date}
+                            name="handout_date"
+                          />
+                        </Btn1>
+                      </NumBox>
+                    </SelectNum>
+                  ))}
                 </EachDetail>
               </EachContainer>
 
@@ -279,7 +266,7 @@ const Buydetaillist = () => {
 
           <EachContainer>
             <EachTitle>✔️ 현장배부 날짜</EachTitle>
-            <EachDetail>{newDetailObj.date}</EachDetail>
+            <EachDetail>{newDetailObj.handout_date}</EachDetail>
           </EachContainer>
 
           <EachContainer>
@@ -365,8 +352,10 @@ const Btn = styled.button`
   border-radius: 5px;
   color: #5b5b5b;
   width: 27px;
-  height: 30px;
   font-size: 15px;
+`;
+const Btn1 = styled(Btn)`
+  height: 30px;
 `;
 const NumBox = styled.div`
   background-color: #b6b6b6;
