@@ -170,7 +170,7 @@ const CobuyingItem = ({ userObj, listObj, isOwner }) => {
               <div className="name">
                 {
                   <>
-                    상품명: {listObj.itemname}
+                    {listObj.itemname}
                     <br />
                   </>
                 }

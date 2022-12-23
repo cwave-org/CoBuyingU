@@ -79,10 +79,12 @@ const BuyingForm = ({ userObj }) => {
     };
 
     await dbService.collection("joinlist").add(BuyingObj);
+    await dbService.doc(`joinlist2/${detailObj.randomidx}`).collection('list').add(BuyingObj);
     const data = items;
     for (var i = 0; i < data.length; i++) {
       data[i].count = 0;
     }
+
     await dbService.doc(`itemlist/${detailObj.randomidx}`).update({
       data,
     });

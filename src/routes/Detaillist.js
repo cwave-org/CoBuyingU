@@ -350,7 +350,7 @@ const Detaillist = ({ userObj }) => {
                 <DetailArea>{itemObj.etc}</DetailArea>
                 <b>✔️ 주의사항</b>
                 <DetailArea>{itemObj.notice}</DetailArea>
-                <b>✔️ 상품 옵션</b>
+                <b>✔️ 상품</b>
                 <EachDetail eachObj={eachObj} />
               </Container>
             </div>
