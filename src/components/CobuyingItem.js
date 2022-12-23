@@ -72,10 +72,14 @@ const CobuyingItem = ({ userObj, listObj, isOwner }) => {
   };
 
   const onDetaillistClick = () => {
-    navigate(`/selling/detail/${listObj.id}`, {
-      replace: false,
-      state: { detailObj: listObj },
-    });
+    if (userObj != null) {
+      navigate(`/selling/detail/${listObj.id}`, {
+        replace: false,
+        state: { detailObj: listObj },
+      });
+    } else {
+      alert("접근 권한이 없습니다.");
+    }
   };
 
   return (

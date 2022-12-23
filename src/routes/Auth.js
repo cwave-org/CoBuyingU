@@ -1,7 +1,8 @@
 import React from "react";
 import { authService, dbService, firebaseInstance } from "../fbase";
-
+import { useLocation, useNavigate } from "react-router-dom";
 const Auth = () => {
+  const navigate = useNavigate();
   const onSocialClick = async (event) => {
     /*const {
       target: { name },
@@ -11,6 +12,7 @@ const Auth = () => {
     await authService.signInWithPopup(provider);
     /*await dbService.collection("user").add(userObj);
      */
+    navigate("/");
   };
   const Submit = () => {
     var result = window.confirm(
@@ -20,6 +22,7 @@ const Auth = () => {
       onSocialClick();
     }
   };
+
   return (
     <div className="formbox" onClick={Submit}>
       <img width="80%" src="/img/loginGoogle.png" />

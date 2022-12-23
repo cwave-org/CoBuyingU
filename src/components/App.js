@@ -23,7 +23,7 @@ function App() {
         if (emailform !== "sookmyung.ac.kr") {
           deleteUser(user);
           setUserObj(null);
-          alert("You can only login using Sookmyung email.");
+          alert("숙명 메일로만 로그인이 가능합니다.");
         } else {
         }
       } else {
