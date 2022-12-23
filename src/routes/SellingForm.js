@@ -105,7 +105,6 @@ const SellingForm = ({ userObj }) => {
       randomidx: itemID, 
       name: name, // 공대표 이름 추가
       itemname: itemname,
-      item: item,
       deadline: deadline,
       datetime: Date.now(),
       creatorId: userObj.uid,
@@ -114,7 +113,7 @@ const SellingForm = ({ userObj }) => {
       notice: notice,
       link: link,
       attachmentUrl,
-      userName: userObj.displayName,
+      // userName: userObj.displayName,
       currentNum: 0,
       done: false,
       dates: data,

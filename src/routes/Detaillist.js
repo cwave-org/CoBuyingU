@@ -340,7 +340,7 @@ const Detaillist = ({ userObj }) => {
               </div>
 
               <Container>
-                <b>✔️ 판매자</b> &nbsp;&nbsp;&nbsp; {itemObj.userName}
+                <b>✔️ 판매자</b> &nbsp;&nbsp;&nbsp; {itemObj.name}
                 <br></br>
                 <b>✔️ 마감기한</b> &nbsp;&nbsp;&nbsp; {itemObj.deadline}
                 <br></br>
