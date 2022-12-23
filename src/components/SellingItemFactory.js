@@ -95,6 +95,7 @@ const SellingItemFactory = (props) => {
             attachmentUrl = await response.ref.getDownloadURL();
             // window.alert(attachmentUrl);
             data[i].itemDetails[j].url[k] = attachmentUrl;
+            data[i].itemDetails[j].beforeurl[k]="";
           }
         }
       }
