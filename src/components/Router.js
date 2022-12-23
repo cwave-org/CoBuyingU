@@ -12,9 +12,17 @@ import Buydetaillist from "../routes/Buydetaillist";
 import JoinDone from "../routes/JoinDone";
 
 const AppRouter = ({ refreshUser, isLoggedIn, userObj }) => {
+  var a = 0;
+
   return (
     <Router>
-      {isLoggedIn && <Navigation userObj={userObj} />}
+      {isLoggedIn ? (
+        <>
+          <Navigation userObj={userObj} />
+        </>
+      ) : (
+        <Navigation userObj={null} />
+      )}
       <div
         style={{
           alignItems: "center",
@@ -27,6 +35,11 @@ const AppRouter = ({ refreshUser, isLoggedIn, userObj }) => {
         <Routes>
           {isLoggedIn ? (
             <>
+              <Route
+                exact
+                path="/selling/detail/:id"
+                element={<Detaillist userObj={userObj} />}
+              />
               <Route exact path="/" element={<Home userObj={userObj} />} />
               <Route
                 exact
@@ -63,6 +76,7 @@ const AppRouter = ({ refreshUser, isLoggedIn, userObj }) => {
             </>
           ) : (
             <>
+              <Route exact path="/auth" element={<Auth />} />
               <Route exact path="/" element={<Home userObj={null} />} />
               <Route
                 exact
