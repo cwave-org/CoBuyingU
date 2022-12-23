@@ -13,6 +13,7 @@ const MyBtn=styled.div`
 `
 const Container = styled.div`
   width: 100%;
+  position: relative;
   margin: auto;
   border: 3px solid #f6f6f6;
   border-radius: 10px;
@@ -24,7 +25,10 @@ const BtnCon = styled.div`
   display: flex;
 `;
 const Btn = styled.button`
-  width: 48%;
+  position: absolute;
+  width: fit-content;
+  bottom: 40px;
+  right: 0px;
   background-color: #d9d9d9;
   border-radius: 5px;
   color: #5b5b5b;

@@ -8,6 +8,7 @@ const EachBox = styled.div`
   border: 2px solid #f6f6f6;
   border-radius: 10px;
   padding: 5px;
+  
   /* border-bottom: ; */
 `;
 const EachTitle = styled.div`
@@ -23,6 +24,15 @@ const EachInput = styled.input`
 const EachId = styled.div`
   font-weight: 600;
   text-align: center;
+`;
+const Notouch=styled.div`
+  width:fit-content;
+  position: fixed;
+  top:0%;
+  left: 0vw;
+  height: 100vh;
+  z-index: 0;
+  background-color:rgba(0, 0, 0, 0.8);
 `;
 const SellingItem = (props) => {
   const [itemname, setItemname] = useState("");
@@ -47,6 +57,7 @@ const SellingItem = (props) => {
   useEffect(() => {
     setItemsDetails(data);
     // setItemsDetails(eachdata,...itemDetails);
+    console.log(props.submit);
   }, [data]);
   useEffect(() => {
     props.setData1([{itemDetails:lostdata},...props.data1,]);
@@ -65,13 +76,16 @@ const SellingItem = (props) => {
       setPrice(value);
     }
     props.click[props.id]=false;
+    // console.log(props.submit)
     // console.log(props.click);
   };
 
   return (
     <>
+
       <EachBox>
         <EachId>{props.id+1}번 상품</EachId>
+
         {/* // <div className="item_container"> */}
         {/* <p className="openjoin_que"> */}
         <EachTitle>✨ 상품 이름</EachTitle>
@@ -110,6 +124,7 @@ const SellingItem = (props) => {
         </EachDetail>
       </EachBox>
     </>
+
   );
 };
 

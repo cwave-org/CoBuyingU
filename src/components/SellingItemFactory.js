@@ -3,6 +3,7 @@ import { dbService, storageService } from "../fbase";
 import SellingItem from "./SellingItem";
 import styled from "styled-components";
 import { v4 as uuidv4 } from "uuid";
+import EachDetail from "./SOOM/EachDetail";
 
 
 const Load = styled.div`
@@ -38,9 +39,10 @@ const Button = styled.button`
 const Button1 = styled(Button)`
   right: 3px;
 `;
+
 const Notouch=styled.div`
   width:fit-content;
-  /* position: fixed; */
+  position: fixed;
   top:0%;
   left: 0vw;
   height: 100vh;
@@ -51,6 +53,8 @@ const Notouch=styled.div`
 const SellingItemFactory = (props) => {
   const [submit,isSubmit]=useState(false);
   // const [id,setId]=useState(1);
+  const [eachObj, setEachObj] = useState();
+
   const [loading,isLoading]=useState(false);
   const [data, setData] = useState([]);
   const [data1,setData1]=useState([]);
@@ -64,6 +68,7 @@ const SellingItemFactory = (props) => {
       data1={data1}
       uid={props.userObj.uid}
       click={props.click}
+      submit={submit}
     />,
   ]);
   useEffect(()=>{
@@ -89,6 +94,7 @@ const SellingItemFactory = (props) => {
           setData={setData}
           data={data}
           uid={props.userObj.uid}
+          submit={submit}
           click={props.click}
         />
       )
@@ -122,9 +128,22 @@ const SellingItemFactory = (props) => {
       await dbService.doc(`itemlist/${props.itemID}`).set({data}).then(()=>{
       });
       isLoading(false);
-      isSubmit(true);
+
+      getData();
       // props.setClicked(true);
     }
+  };
+  const getData=async()=>{
+      await dbService
+        .collection("itemlist")
+        .doc(props.itemID)
+        .get()
+        .then((doc) => {
+          //console.log(doc.data());
+          setEachObj(doc.data().data.reverse());
+        });
+        isSubmit(true);
+
   };
   const onDataSet=()=>{
     props.click[props.id]=true;
@@ -133,10 +152,9 @@ const SellingItemFactory = (props) => {
 
   return (
     <Box>
+      {items}
           {loading&&
-          
             <Load>
-                {items}
               <LoadImg>
                 <img src="img/loading.gif" alt="로딩" />
               </LoadImg>
@@ -144,9 +162,10 @@ const SellingItemFactory = (props) => {
           }{
             submit?(
               <>
-              <Notouch>{items}</Notouch>
-              
+                            {/* <EachDetail eachObj={eachObj} /> */}
+
               </>
+            // <Notouch></Notouch>
             ):(
               <>
                 <Button className="default_Btn_Left" onClick={addItem}>
