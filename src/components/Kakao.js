@@ -6,9 +6,9 @@ export default function Kakao({detailObj, url}){
       {
       templateId: 78627,
       templateArgs: {
-        'THU' : detailObj.attachmentUrl,
-        'item': detailObj.item,
-        'price':detailObj.price,
+        // 'THU' : detailObj.itemname,
+        'item': detailObj.itemname,
+        // 'price':detailObj.price,
         'deadline':detailObj.deadline,
         'detail':url,
         }
