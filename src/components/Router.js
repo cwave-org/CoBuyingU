@@ -31,7 +31,9 @@ const AppRouter = ({ refreshUser, isLoggedIn, userObj }) => {
               <Route
                 exact
                 path="/profile"
-                element={<Profile userObj={userObj} refreshUser={refreshUser} />}
+                element={
+                  <Profile userObj={userObj} refreshUser={refreshUser} />
+                }
               />
               <Route
                 exact
@@ -44,11 +46,7 @@ const AppRouter = ({ refreshUser, isLoggedIn, userObj }) => {
                 element={<SellingForm userObj={userObj} />}
               />
               {/*<Route exact path="/selling/edit" element={<EditForm userObj={userObj} />} />*/}
-              <Route
-                exact
-                path="/selling/detail/:id"
-                element={<Detaillist userObj={userObj} />}
-              />
+
               <Route
                 exact
                 path="/itemlist"
@@ -65,8 +63,12 @@ const AppRouter = ({ refreshUser, isLoggedIn, userObj }) => {
             </>
           ) : (
             <>
-              <Route exact path="/" element={<Auth userObj={userObj}/>} />
-              <Route path="*" element={<Auth replace to="/login"/>} />
+              <Route exact path="/" element={<Home userObj={null} />} />
+              <Route
+                exact
+                path="/selling/detail/:id"
+                element={<Detaillist userObj={null} />}
+              />
             </>
           )}
         </Routes>

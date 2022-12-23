@@ -15,6 +15,7 @@ const PostListWrapper = styled.div`
 const Home = ({ userObj }) => {
   const [lists, setLists] = useState([]);
   const [joinlists, setJoinlists] = useState([]);
+  const [isOwner, setIsOwner] = useState(false);
 
   const [powerseller, setPowerseller] = useState("");
   const [powersellers, setPowersellers] = useState(0);
@@ -59,8 +60,8 @@ const Home = ({ userObj }) => {
           const creator = doc.data().creatorId;
           if (map1.get(creator) == undefined) {
             map1.set(creator, 1);
-          }
-          else { //있으면
+          } else {
+            //있으면
             const creator = doc.data().creatorId;
             const index = map1.get(creator);
             map1.set(creator, index + 1);
@@ -77,7 +78,6 @@ const Home = ({ userObj }) => {
       });
   });
 
-
   return (
     <div className="container">
       {/* <div className="home_power">
@@ -87,9 +87,13 @@ const Home = ({ userObj }) => {
         </p>
       </div> */}
       <div className="home_power">
-        <a style={{textDecorationLine : "none", color:"#000000"}}
-        href="https://instagram.com/cwave_?igshid=YmMyMTA2M2Y=" target="_blank" rel="noreferroer noopener">
-            <span>공구대학교 사용법</span>
+        <a
+          style={{ textDecorationLine: "none", color: "#000000" }}
+          href="https://instagram.com/cwave_?igshid=YmMyMTA2M2Y="
+          target="_blank"
+          rel="noreferroer noopener"
+        >
+          <span>공구대학교 사용법</span>
         </a>
       </div>
       <br></br>
@@ -100,7 +104,10 @@ const Home = ({ userObj }) => {
             key={list.id}
             userObj={userObj}
             listObj={list}
-            isOwner={list.creatorId === userObj.uid}
+            isOwner={() => {
+              if (userObj === null) setIsOwner(false);
+              else setIsOwner(list.creatorId === userObj.uid);
+            }}
             {...list}
           />
         ))}
