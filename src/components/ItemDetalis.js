@@ -1,16 +1,16 @@
 import React, { useEffect, useRef, useState } from "react";
 import styled from "styled-components";
 
-const MyBtn=styled.div`
+const MyBtn = styled.div`
   width: fit-content;
-  margin:3px 0 3px;
+  margin: 3px 0 3px;
   padding: 0 5px;
   text-align: center;
   height: 10%;
   background-color: #d9d9d9;
   border-radius: 5px;
   color: #5b5b5b;
-`
+`;
 const Container = styled.div`
   width: 100%;
   position: relative;
@@ -43,7 +43,7 @@ const ItemDetails = (props) => {
 
   const onChangeImage = (e) => {
     //사진이 선택되면 배열에 사진 채워넣기
-    console.log(fileDataList);
+    // console.log(fileDataList);
     for (const file of e.target.files) {
       //const file of e.target.files
       const theFile = file;
@@ -53,9 +53,9 @@ const ItemDetails = (props) => {
         const {
           currentTarget: { result },
         } = finishedEvent;
-        if(fileDataList==null){
+        if (fileDataList == null) {
           setFileDataList(result);
-        }else{
+        } else {
           setFileDataList((prev) => [...prev, result]);
         }
       };
@@ -78,39 +78,42 @@ const ItemDetails = (props) => {
     }
   };
 
-    useEffect(()=>{ //itemDetails[0]번 데이터만 유의미
-      if (fileDataList===""){
-        props.setData([{id:props.id,url:[],beforeurl:[],content:explain}]);
+  useEffect(() => {
+    //itemDetails[0]번 데이터만 유의미
+    if (fileDataList === "") {
+      props.setData([
+        { id: props.id, url: [], beforeurl: [], content: explain },
+      ]);
       //   props.setLostdata([{beforeurl:[]}]);
-
-      }else{
-        props.setData([{id:props.id,url:[],beforeurl:fileDataList,content:explain}]);
-        props.setLostdata([{beforeurl:fileDataList}]);
-      }
-      // console.log(props.lostdata);
-        //내생각에 explain 바뀔때마다 setData할바에, 걍 onchange일때마다 해당 위치의 파이어베이스에 저장해야될듯
-        // console.log(props.data);
-      },[explain, fileDataList,props.id]);
+    } else {
+      props.setData([
+        { id: props.id, url: [], beforeurl: fileDataList, content: explain },
+      ]);
+      props.setLostdata([{ beforeurl: fileDataList }]);
+    }
+    // console.log(props.lostdata);
+    //내생각에 explain 바뀔때마다 setData할바에, 걍 onchange일때마다 해당 위치의 파이어베이스에 저장해야될듯
+    // console.log(props.data);
+  }, [explain, fileDataList, props.id]);
 
   return (
     <Container>
       <MyBtn>
         <label>
-        파일 업로드
-        <input
-        className="openjoin_input"
-        type="file"
-        accept="image/*"
-        multiple="multiple"
-        onChange={onChangeImage}
-        style={{visibility:'hidden',width:"0px"}}
-      />
-      </label>
+          파일 업로드
+          <input
+            className="openjoin_input"
+            type="file"
+            accept="image/*"
+            multiple="multiple"
+            onChange={onChangeImage}
+            style={{ visibility: "hidden", width: "0px" }}
+          />
+        </label>
       </MyBtn>
-      
-      {attachment && 
-        fileDataList!==""&&
-          <>
+
+      {attachment && fileDataList !== "" && (
+        <>
           {fileDataList.map((file, index) => (
             <div key={index} className="attachment">
               <div>
@@ -122,17 +125,15 @@ const ItemDetails = (props) => {
               </div>
             </div>
           ))}
-          <Btn onClick={onClearAttachment}>
-            &nbsp;&nbsp;X&nbsp;&nbsp;
-          </Btn>
+          <Btn onClick={onClearAttachment}>&nbsp;&nbsp;X&nbsp;&nbsp;</Btn>
         </>
-      } 
+      )}
       <input
         id="explain"
         className="openjoin_input"
         value={explain}
         type="textarea"
-        style={{margin:"3px 0 0"}}
+        style={{ margin: "3px 0 0" }}
         onChange={onChange}
         placeholder="상세 설명을 적어주세요"
         maxLength={300}

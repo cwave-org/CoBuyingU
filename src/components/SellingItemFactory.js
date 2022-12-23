@@ -5,17 +5,16 @@ import styled from "styled-components";
 import { v4 as uuidv4 } from "uuid";
 import EachDetail from "./SOOM/EachDetail";
 
-
 const Load = styled.div`
   width: 100%;
   position: fixed;
-  top:0%;
+  top: 0%;
   left: 0vw;
   height: 100vh;
   z-index: 1;
-  background-color:rgba(0, 0, 0, 0.8);
+  background-color: rgba(0, 0, 0, 0.8);
 `;
-const LoadImg=styled.div`
+const LoadImg = styled.div`
   position: fixed;
   top: 30vh;
   left: 23%;
@@ -47,17 +46,17 @@ const Notouch=styled.div`
   left: 0vw;
   height: 100vh;
   z-index: 0;
-  background-color:rgba(0, 0, 0, 0.8);
+  background-color: rgba(0, 0, 0, 0.8);
 `;
 
 const SellingItemFactory = (props) => {
-  const [submit,isSubmit]=useState(false);
+  const [submit, isSubmit] = useState(false);
   // const [id,setId]=useState(1);
   const [eachObj, setEachObj] = useState();
 
   const [loading,isLoading]=useState(false);
   const [data, setData] = useState([]);
-  const [data1,setData1]=useState([]);
+  const [data1, setData1] = useState([]);
   const [items, setItems] = useState([
     <SellingItem
       key={props.id}
@@ -71,24 +70,24 @@ const SellingItemFactory = (props) => {
       submit={submit}
     />,
   ]);
-  useEffect(()=>{
+  useEffect(() => {
     setData(data);
-  },[data])
+  }, [data]);
 
-  useEffect(()=>{
+  useEffect(() => {
     setData1(data1);
-  },[data1])
+  }, [data1]);
 
   const addItem = () => {
-    props.setId(props.clickid+1);
+    props.setId(props.clickid + 1);
     props.setClick(props.click.concat(false));
 
     // setId(id + 1);
     setItems(
       items.concat(
         <SellingItem
-          key={props.id+1}
-          id={props.id+1}
+          key={props.id + 1}
+          id={props.id + 1}
           setData1={setData1}
           data1={data1}
           setData={setData}
@@ -102,31 +101,39 @@ const SellingItemFactory = (props) => {
   };
 
   const onClickDone = async () => {
-    var an=window.confirm("완료를 누르면 각 상품 목록은 더 이상 수정이 불가합니다. 완료하시겠습니까?")
-    if(an){
+    var an = window.confirm(
+      "완료를 누르면 각 상품 목록은 더 이상 수정이 불가합니다. 완료하시겠습니까?"
+    );
+    if (an) {
       onDataSet();
       isLoading(true);
-      console.log(data1);
-      for (var i=0;i<data.length;i++){
+      // console.log(data1);
+      for (var i = 0; i < data.length; i++) {
         let attachmentUrl = "";
-        for(var j=0; j<data[i].itemDetails.length;j++){
-          console.log(data[i].itemDetails);
-          for(var k=0; k<data1[i].itemDetails[j].beforeurl.length; k++){ //사진 url변경
-            if(data[i].itemDetails[j].beforeurl[k] !==""){
+        for (var j = 0; j < data[i].itemDetails.length; j++) {
+          // console.log(data[i].itemDetails);
+          for (var k = 0; k < data1[i].itemDetails[j].beforeurl.length; k++) {
+            //사진 url변경
+            if (data[i].itemDetails[j].beforeurl[k] !== "") {
               const attachmentRef = storageService
                 .ref()
                 .child(`${props.userObj.uid}/${uuidv4()}`);
-              const response = await attachmentRef.putString(data[i].itemDetails[j].beforeurl[k], "data_url");
+              const response = await attachmentRef.putString(
+                data[i].itemDetails[j].beforeurl[k],
+                "data_url"
+              );
               attachmentUrl = await response.ref.getDownloadURL();
               data[i].itemDetails[j].url[k] = attachmentUrl;
-              data[i].itemDetails[j].beforeurl[k]="";
+              data[i].itemDetails[j].beforeurl[k] = "";
             }
           }
         }
       }
       // console.log(data);
-      await dbService.doc(`itemlist/${props.itemID}`).set({data}).then(()=>{
-      });
+      await dbService
+        .doc(`itemlist/${props.itemID}`)
+        .set({ data })
+        .then(() => {});
       isLoading(false);
 
       getData();
@@ -148,7 +155,7 @@ const SellingItemFactory = (props) => {
   const onDataSet=()=>{
     props.click[props.id]=true;
     // console.log(props.click);
-  }
+  };
 
   return (
     <Box>
