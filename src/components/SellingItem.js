@@ -29,7 +29,7 @@ const SellingItem = (props) => {
   const [price, setPrice] = useState();
   const [itemDetails, setItemsDetails] = useState("");
   const [data, setData] = useState([]);
-
+  const [lostdata,setLostdata]=useState([]);
   useEffect(() => {
     props.setData([
       {
@@ -48,6 +48,12 @@ const SellingItem = (props) => {
     setItemsDetails(data);
     // setItemsDetails(eachdata,...itemDetails);
   }, [data]);
+  useEffect(() => {
+    props.setData1([{itemDetails:lostdata},...props.data1,]);
+    console.log(props.data1);
+    // setItemsDetails(eachdata,...itemDetails);
+  }, [lostdata]);
+
 
   const onChange = (event) => {
     const {
@@ -94,8 +100,11 @@ const SellingItem = (props) => {
         </EachDetail>
         <EachTitle>✨ 상품 상세 설명 (최대 3개)</EachTitle>
         <EachDetail>
-          <ItemDetails id={props.id} 
-          data={data} setData={setData} 
+          <ItemDetails
+            id={props.id} 
+            data={data} setData={setData} 
+            lostdata={lostdata}
+            setLostdata={setLostdata}
           />
           {/*<AddPhoto id={props.id} data={data} setData={setData}/>*/}
         </EachDetail>

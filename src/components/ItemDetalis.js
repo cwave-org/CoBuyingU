@@ -62,6 +62,7 @@ const ItemDetails = (props) => {
   const onClearAttachment = () => {
     setAttachment(false);
     setFileDataList("");
+    // setFileDataList(null);
   };
 
   const onChange = (e) => {
@@ -74,27 +75,28 @@ const ItemDetails = (props) => {
   };
 
     useEffect(()=>{ //itemDetails[0]번 데이터만 유의미
-      if (fileDataList==""){
-        props.setData([{id:props.id,beforeurl:[],url:[],content:explain}]);
+      if (fileDataList===""){
+        props.setData([{id:props.id,url:[],beforeurl:[],content:explain}]);
+      //   props.setLostdata([{beforeurl:[]}]);
 
       }else{
-        props.setData([{id:props.id,beforeurl:fileDataList,url:[],content:explain}]);
+        props.setData([{id:props.id,url:[],beforeurl:fileDataList,content:explain}]);
+        props.setLostdata([{beforeurl:fileDataList}]);
       }
+      // console.log(props.lostdata);
         //내생각에 explain 바뀔때마다 setData할바에, 걍 onchange일때마다 해당 위치의 파이어베이스에 저장해야될듯
-        console.log(props.data);
+        // console.log(props.data);
       },[explain, fileDataList,props.id]);
 
   return (
     <Container>
       <MyBtn>
-        <label for="chooseFile">
+        <label>
         파일 업로드
         <input
         className="openjoin_input"
         type="file"
         accept="image/*"
-        id="chooseFile"
-        name="chooseFile"
         multiple="multiple"
         onChange={onChangeImage}
         style={{visibility:'hidden',width:"0px"}}
@@ -116,9 +118,9 @@ const ItemDetails = (props) => {
               </div>
             </div>
           ))}
-          <button className="delete_Img_Btn" onClick={onClearAttachment}>
+          <Btn onClick={onClearAttachment}>
             &nbsp;&nbsp;X&nbsp;&nbsp;
-          </button>
+          </Btn>
         </>
       } 
       <input
