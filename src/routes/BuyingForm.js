@@ -13,14 +13,11 @@ const BuyingForm = ({ userObj }) => {
   const [address, setAddress] = useState("");
   const [account_name, setAccount_name] = useState("");
   const [account_date, setAccount_date] = useState("");
-  const [receive_date, setReceive_date] = useState("");
   const [account_re, setAccount_re] = useState("");
   const [items, setItems] = useState([]);
   const [isLodded, setIsLodded] = useState(0);
-  const [isDateLodded, setIsDateLodded] = useState(0);
-  const [dates, setDates] = useState([]); //현장배부 날짜
-  const [dateoption, setDateOption] = useState([]);
   const [giving, setGiving] = useState(0);
+  const [handout_date, setHandout_date] = useState("");
   const location = useLocation();
   const navigate = useNavigate();
 
@@ -29,6 +26,8 @@ const BuyingForm = ({ userObj }) => {
   const [total, setTotal] = useState(0);
   const [currentNUm, setCurrentNum] = useState(detailObj.currentNum);
 
+  /*
+  //datelist 구버전
   useEffect(() => {
     dbService.doc(`datelist/${detailObj.randomidx}`).onSnapshot((snapshot) => {
       setDates(snapshot.data().data.reverse());
@@ -38,6 +37,9 @@ const BuyingForm = ({ userObj }) => {
       }
     });
   }, []);
+  */
+
+  var dates = detailObj.dates
 
   useEffect(() => {
     dbService.doc(`itemlist/${detailObj.randomidx}`).onSnapshot((snapshot) => {
@@ -64,10 +66,9 @@ const BuyingForm = ({ userObj }) => {
       phonenumber: phonenumber,
       // count: count,
       totalprice: total,
-      receivedate: receive_date,
+      handout_date : handout_date,
       option: option,
       optionname: optionname,
-      date: dateoption,
       // address: address,
       createdAt: Date.now(),
       creatorId: userObj.uid,
@@ -101,7 +102,7 @@ const BuyingForm = ({ userObj }) => {
     setAddress("");
     setAccount_name("");
     setAccount_date("");
-    setReceive_date("");
+    setHandout_date("");
     setAccount_re("");
     navigate("/buying/done", {
       replace: false,
@@ -140,8 +141,6 @@ const BuyingForm = ({ userObj }) => {
       setAccount_name(value);
     } else if (event.target.id === "accountdateform") {
       setAccount_date(value);
-    } else if (event.target.id === "receivedateform") {
-      setReceive_date(value);
     } else if (event.target.id === "accountreform") {
       setAccount_re(value);
     }
@@ -194,7 +193,7 @@ const BuyingForm = ({ userObj }) => {
   };
 
   const handout = (event, date, i) => {
-    setDateOption(date);
+    setHandout_date(date);
   };
 
   return (
@@ -269,8 +268,7 @@ const BuyingForm = ({ userObj }) => {
         <EachContainer>
           <EachTitle>✔️ 현장배부 날짜</EachTitle>
           <EachDetail>
-            {isDateLodded &&
-              dates.map((date, i) => (
+            {dates.slice(0).reverse().map((date, i) => (
                 <SelectNum key={i}>
                   {i + 1}. {date.handout_date}
                   <NumBox>
@@ -280,7 +278,7 @@ const BuyingForm = ({ userObj }) => {
                       <input
                         type="radio"
                         value={date.handout_date}
-                        name="hadnout_date"
+                        name="handout_date"
                       />
                     </Btn1>
                   </NumBox>

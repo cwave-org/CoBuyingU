@@ -19,7 +19,7 @@ const Buydetaillist = () => {
   const [account_name, setAccount_name] = useState(detailObj.account_name);
   const [account_date, setAccount_date] = useState(detailObj.account_date);
   const [account_re, setAccount_re] = useState(detailObj.account_re);
-  const [receive_date, setReceive_date] = useState(detailObj.date);
+  const [handout_date, setHandout_date] = useState(detailObj.handout);
   const [newDetailObj, setNewDetailObj] = useState(detailObj);
   const [today, setToday] = useState(new Date());
   const [randomidx, setRandomidx] = useState(detailObj.randomidx);
@@ -34,15 +34,16 @@ const Buydetaillist = () => {
   const onReload = () => {
     window.location.reload();
   };
+
   // 동기화
   useEffect(() => {
-    dbService.doc(`datelist/${detailObj.randomidx}`).onSnapshot((snapshot) => {
-      setDates(snapshot.data().data.reverse());
-      setIsDateLodded(1);
-      for (var i = 0; i < snapshot.data().data.length; i++) {
-        setDateOption((current) => [0, ...current]);
-      }
-    });
+    // dbService.doc(`datelist/${detailObj.randomidx}`).onSnapshot((snapshot) => {
+    //   setDates(snapshot.data().data.reverse());
+    //   setIsDateLodded(1);
+    //   for (var i = 0; i < snapshot.data().data.length; i++) {
+    //     setDateOption((current) => [0, ...current]);
+    //   }
+    // });
     dbService.collection("joinlist").onSnapshot((snapshot) => {
       snapshot.docs.map((doc) => {
         if (doc.id == detailObj.id) {
@@ -51,6 +52,7 @@ const Buydetaillist = () => {
             ...doc.data(),
           };
           setNewDetailObj(item);
+          //console.log(item) 여기수정
         }
       });
     });
@@ -141,10 +143,11 @@ const Buydetaillist = () => {
       setAccount_date(value);
     } else if (event.target.id === "accountre") {
       setAccount_re(value);
-    } else if (event.target.id === "hadnout_date") {
-      setReceive_date(value);
+    } else if (event.target.id === "handout_date") {
+      set_date(value);
     }
   };
+
   return (
     <>
       {editing ? (
@@ -189,7 +192,7 @@ const Buydetaillist = () => {
                             <input
                               type="radio"
                               value={date.handout_date}
-                              name="hadnout_date"
+                              name="haout_date"
                               onChange={onChange}
                             />
                           </Btn>
@@ -279,7 +282,7 @@ const Buydetaillist = () => {
 
           <EachContainer>
             <EachTitle>✔️ 현장배부 날짜</EachTitle>
-            <EachDetail>{newDetailObj.date}</EachDetail>
+            <EachDetail>{newDetailObj.handout_date}</EachDetail>
           </EachContainer>
 
           <EachContainer>
