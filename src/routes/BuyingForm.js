@@ -18,6 +18,7 @@ const BuyingForm = ({ userObj }) => {
   const [isLodded, setIsLodded] = useState(0);
   const [giving, setGiving] = useState(0);
   const [handout_date, setHandout_date] = useState("");
+  const [loading, isLoading] = useState(false);
   const location = useLocation();
   const navigate = useNavigate();
 
@@ -59,6 +60,7 @@ const BuyingForm = ({ userObj }) => {
 
   const onSubmit = async (event) => {
     event.preventDefault();
+    isLoading(true);
 
     const BuyingObj = {
       randomidx: detailObj.randomidx,
@@ -80,7 +82,10 @@ const BuyingForm = ({ userObj }) => {
     };
 
     await dbService.collection("joinlist").add(BuyingObj);
-    await dbService.doc(`joinlist2/${detailObj.randomidx}`).collection('list').add(BuyingObj);
+    await dbService
+      .doc(`joinlist2/${detailObj.randomidx}`)
+      .collection("list")
+      .add(BuyingObj);
     const data = items;
     for (var i = 0; i < data.length; i++) {
       data[i].count = 0;
@@ -108,6 +113,7 @@ const BuyingForm = ({ userObj }) => {
       replace: false,
       state: { link: detailObj.link },
     });
+    isLoading(false);
   };
 
   const onCancel = () => {
@@ -197,78 +203,86 @@ const BuyingForm = ({ userObj }) => {
   };
 
   return (
-    <form className="openjoin_container" onSubmit={onSubmit}>
-      <p>공구 참여하기</p>
-      <EachContainer>
-        <EachTitle>✔️ 입금자 명</EachTitle>
-        <EachDetail>
-          <input
-            className="openjoin_input"
-            id="accountnameform"
-            type="text"
-            placeholder="입금자명을 입력해주세요"
-            onChange={onChange}
-            value={account_name}
-            required
-          />
-        </EachDetail>
-      </EachContainer>
-      <EachContainer>
-        <EachTitle>✔️ 전화번호</EachTitle>
-        <EachDetail>
-          <input
-            className="openjoin_input"
-            id="phonenumberform"
-            type="tel"
-            placeholder="01012345678 형식으로 입력해주세요"
-            onChange={onChange}
-            value={phonenumber}
-            pattern="[0-9]{2,3}[0-9]{3,4}[0-9]{3,4}"
-            required
-          />
-        </EachDetail>
-      </EachContainer>
-      <EachContainer>
-        <EachTitle>✔️ 배송여부</EachTitle>
-        <EachDetail>
-          <input
-            type="radio"
-            name="theme"
-            value="site"
-            onClick={onRadioClick}
-          />
-          현장배부{" "}
-          <input
-            type="radio"
-            name="theme"
-            value="parcel"
-            disabled
-            onClick={onRadioClick}
-          />
-          택배배송
-        </EachDetail>
-      </EachContainer>
-      {giving === 0 ? (
-        <EachContainer></EachContainer>
-      ) : giving === 1 ? (
+    <div>
+      {loading && (
+        <Load>
+          <LoadImg>
+            <img src="img/loading.gif" alt="로딩" />
+          </LoadImg>
+        </Load>
+      )}
+      <form className="openjoin_container" onSubmit={onSubmit}>
+        <p>공구 참여하기</p>
         <EachContainer>
-          <EachTitle>✔️ 집주소</EachTitle>
+          <EachTitle>✔️ 입금자 명</EachTitle>
           <EachDetail>
             <input
               className="openjoin_input"
-              id="addressform"
+              id="accountnameform"
               type="text"
-              placeholder="상세주소를 입력하세요"
+              placeholder="입금자명을 입력해주세요"
               onChange={onChange}
-              value={address}
+              value={account_name}
+              required
             />
           </EachDetail>
         </EachContainer>
-      ) : (
         <EachContainer>
-          <EachTitle>✔️ 현장배부 날짜</EachTitle>
+          <EachTitle>✔️ 전화번호</EachTitle>
           <EachDetail>
-            {dates.slice(0).reverse().map((date, i) => (
+            <input
+              className="openjoin_input"
+              id="phonenumberform"
+              type="tel"
+              placeholder="01012345678 형식으로 입력해주세요"
+              onChange={onChange}
+              value={phonenumber}
+              pattern="[0-9]{2,3}[0-9]{3,4}[0-9]{3,4}"
+              required
+            />
+          </EachDetail>
+        </EachContainer>
+        <EachContainer>
+          <EachTitle>✔️ 배송여부</EachTitle>
+          <EachDetail>
+            <input
+              type="radio"
+              name="theme"
+              value="site"
+              onClick={onRadioClick}
+            />
+            현장배부{" "}
+            <input
+              type="radio"
+              name="theme"
+              value="parcel"
+              disabled
+              onClick={onRadioClick}
+            />
+            택배배송
+          </EachDetail>
+        </EachContainer>
+        {giving === 0 ? (
+          <EachContainer></EachContainer>
+        ) : giving === 1 ? (
+          <EachContainer>
+            <EachTitle>✔️ 집주소</EachTitle>
+            <EachDetail>
+              <input
+                className="openjoin_input"
+                id="addressform"
+                type="text"
+                placeholder="상세주소를 입력하세요"
+                onChange={onChange}
+                value={address}
+              />
+            </EachDetail>
+          </EachContainer>
+        ) : (
+          <EachContainer>
+            <EachTitle>✔️ 현장배부 날짜</EachTitle>
+            <EachDetail>
+              {dates.slice(0).reverse().map((date, i) => (
                 <SelectNum key={i}>
                   {i + 1}. {date.handout_date}
                   <NumBox>
@@ -284,67 +298,67 @@ const BuyingForm = ({ userObj }) => {
                   </NumBox>
                 </SelectNum>
               ))}
+            </EachDetail>
+          </EachContainer>
+        )}
+        <EachContainer>
+          <EachTitle>✔️ 입금 날짜 및 시간</EachTitle>
+          <EachDetail>
+            <input
+              className="openjoin_input"
+              id="accountdateform"
+              type="datetime-local"
+              onChange={onChange}
+              value={account_date}
+              required
+            />
           </EachDetail>
         </EachContainer>
-      )}
-      <EachContainer>
-        <EachTitle>✔️ 입금 날짜 및 시간</EachTitle>
-        <EachDetail>
-          <input
-            className="openjoin_input"
-            id="accountdateform"
-            type="datetime-local"
-            onChange={onChange}
-            value={account_date}
-            required
-          />
-        </EachDetail>
-      </EachContainer>
-      <EachContainer>
-        <EachTitle>✔️ 환불계좌</EachTitle>
-        <EachDetail>
-          <input
-            className="openjoin_input"
-            id="accountreform"
-            type="text"
-            placeholder="(은행/계좌번호/입금주명)을 입력해주세요"
-            onChange={onChange}
-            value={account_re}
-            required
-          />
-        </EachDetail>
-      </EachContainer>
-      <EachContainer1>
-        <EachTitle>✔️ 구매 수량 및 금액</EachTitle>
-        <EachDetail>
-          {isLodded &&
-            items.map((item, i) => (
-              <SelectNum key={i}>
-                {i + 1}. {item.itemname} ( {item.price}원 / 1개 ) <br></br>
-                {item.maxNum == 0 ? (
-                  <>
-                    <NumBox>
-                      <Btn onClick={(event) => minus(event, item, i)}>-</Btn>
-                      <Count>{item.count}</Count>
-                      <Btn onClick={(event) => add(event, item, i)}>+</Btn>
-                    </NumBox>
-                  </>
-                ) : (
-                  <>
-                    <NumBox>
-                      <Btn onClick={(event) => minus(event, item, i)}>-</Btn>
-                      <Count>{item.count}</Count>
-                      <Btn onClick={(event) => add(event, item, i)}>+</Btn>
-                    </NumBox>
-                  </>
-                )}
-              </SelectNum>
-            ))}
-        </EachDetail>
-        <Sum>✨ 총 {total} 원</Sum>
-      </EachContainer1>
+        <EachContainer>
+          <EachTitle>✔️ 환불계좌</EachTitle>
+          <EachDetail>
+            <input
+              className="openjoin_input"
+              id="accountreform"
+              type="text"
+              placeholder="(은행/계좌번호/입금주명)을 입력해주세요"
+              onChange={onChange}
+              value={account_re}
+              required
+            />
+          </EachDetail>
+        </EachContainer>
+        <EachContainer1>
+          <EachTitle>✔️ 구매 수량 및 금액</EachTitle>
+          <EachDetail>
+            {isLodded &&
+              items.map((item, i) => (
+                <SelectNum key={i}>
+                  {i + 1}. {item.itemname} ( {item.price}원 / 1개 ) <br></br>
+                  {item.maxNum == 0 ? (
+                    <>
+                      <NumBox>
+                        <Btn onClick={(event) => minus(event, item, i)}>-</Btn>
+                        <Count>{item.count}</Count>
+                        <Btn onClick={(event) => add(event, item, i)}>+</Btn>
+                      </NumBox>
+                    </>
+                  ) : (
+                    <>
+                      <NumBox>
+                        <Btn onClick={(event) => minus(event, item, i)}>-</Btn>
+                        <Count>{item.count}</Count>
+                        <Btn onClick={(event) => add(event, item, i)}>+</Btn>
+                      </NumBox>
+                    </>
+                  )}
+                </SelectNum>
+              ))}
+          </EachDetail>
+          <Sum>✨ 총 {total} 원</Sum>
+        </EachContainer1>
 
-      {/* <p className="openjoin_que">
+        {/* <p className="openjoin_que">
         <span>✔️ 수량: </span>
         <input
           className="openjoin_input"
@@ -357,7 +371,7 @@ const BuyingForm = ({ userObj }) => {
         />
       </p> */}
 
-      {/* <p className="openjoin_que">
+        {/* <p className="openjoin_que">
         <span>✔️ 사이즈: </span>
         <input
           className="openjoin_input"
@@ -369,15 +383,16 @@ const BuyingForm = ({ userObj }) => {
           required
         />
       </p> */}
-      <div>
-        <button className="default_Btn_Right" onClick={onCancel}>
-          취소
-        </button>
-        <button className="default_Btn_Right" type="submit">
-          제출
-        </button>
-      </div>
-    </form>
+        <div>
+          <button className="default_Btn_Right" onClick={onCancel}>
+            취소
+          </button>
+          <button className="default_Btn_Right" type="submit">
+            제출
+          </button>
+        </div>
+      </form>
+    </div>
   );
 };
 
@@ -436,4 +451,20 @@ const Count = styled.div`
   background-color: #f6f6f6;
   width: 30px;
   text-align: center;
+`;
+
+const Load = styled.div`
+  width: 100%;
+  position: fixed;
+  top: 0%;
+  left: 0vw;
+  height: 100vh;
+  z-index: 1;
+  background-color: rgba(0, 0, 0, 0.8);
+`;
+const LoadImg = styled.div`
+  position: fixed;
+  top: 30vh;
+  left: 23%;
+  /* width:30%; */
 `;

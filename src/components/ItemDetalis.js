@@ -1,6 +1,16 @@
 import React, { useEffect, useRef, useState } from "react";
 import styled from "styled-components";
 
+const MyBtn=styled.div`
+  width: fit-content;
+  margin:3px 0 3px;
+  padding: 0 5px;
+  text-align: center;
+  height: 10%;
+  background-color: #d9d9d9;
+  border-radius: 5px;
+  color: #5b5b5b;
+`
 const Container = styled.div`
   width: 100%;
   margin: auto;
@@ -29,6 +39,7 @@ const ItemDetails = (props) => {
 
   const onChangeImage = (e) => {
     //사진이 선택되면 배열에 사진 채워넣기
+    console.log(fileDataList);
     for (const file of e.target.files) {
       //const file of e.target.files
       const theFile = file;
@@ -38,7 +49,11 @@ const ItemDetails = (props) => {
         const {
           currentTarget: { result },
         } = finishedEvent;
-        setFileDataList((prev) => [...prev, result]);
+        if(fileDataList==null){
+          setFileDataList(result);
+        }else{
+          setFileDataList((prev) => [...prev, result]);
+        }
       };
       reader.readAsDataURL(theFile);
     }
@@ -46,7 +61,8 @@ const ItemDetails = (props) => {
   };
   const onClearAttachment = () => {
     setAttachment(false);
-    setFileDataList(null);
+    setFileDataList("");
+    // setFileDataList(null);
   };
 
   const onChange = (e) => {
@@ -59,22 +75,38 @@ const ItemDetails = (props) => {
   };
 
     useEffect(()=>{ //itemDetails[0]번 데이터만 유의미
-        
+      if (fileDataList===""){
+        props.setData([{id:props.id,url:[],beforeurl:[],content:explain}]);
+      //   props.setLostdata([{beforeurl:[]}]);
+
+      }else{
+        props.setData([{id:props.id,url:[],beforeurl:fileDataList,content:explain}]);
+        props.setLostdata([{beforeurl:fileDataList}]);
+      }
+      // console.log(props.lostdata);
         //내생각에 explain 바뀔때마다 setData할바에, 걍 onchange일때마다 해당 위치의 파이어베이스에 저장해야될듯
-        props.setData([{id:props.id,beforeurl:fileDataList,url:[],content:explain}]);
-    },[explain, fileDataList,props.id]);
+        // console.log(props.data);
+      },[explain, fileDataList,props.id]);
 
   return (
     <Container>
-      <input
+      <MyBtn>
+        <label>
+        파일 업로드
+        <input
         className="openjoin_input"
         type="file"
         accept="image/*"
         multiple="multiple"
         onChange={onChangeImage}
+        style={{visibility:'hidden',width:"0px"}}
       />
-      {attachment && (
-        <>
+      </label>
+      </MyBtn>
+      
+      {attachment && 
+        fileDataList!==""&&
+          <>
           {fileDataList.map((file, index) => (
             <div key={index} className="attachment">
               <div>
@@ -84,18 +116,19 @@ const ItemDetails = (props) => {
                   style={{ width: "100px", height: "100px", float: "left" }}
                 />
               </div>
-              <button className="delete_Img_Btn" onClick={onClearAttachment}>
-                &nbsp;&nbsp;X&nbsp;&nbsp;
-              </button>
             </div>
           ))}
+          <Btn onClick={onClearAttachment}>
+            &nbsp;&nbsp;X&nbsp;&nbsp;
+          </Btn>
         </>
-      )}
+      } 
       <input
         id="explain"
         className="openjoin_input"
         value={explain}
         type="textarea"
+        style={{margin:"3px 0 0"}}
         onChange={onChange}
         placeholder="상세 설명을 적어주세요"
         maxLength={300}

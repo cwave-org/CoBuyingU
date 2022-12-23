@@ -42,6 +42,7 @@ const PostListWrapper = styled.div`
   grid-template-columns: repeat(2, auto);
 `;
 const EachDetail = ({ eachObj }) => {
+  console.log(JSON.stringify(eachObj));
   return (
     <Container>
       {eachObj ? (
@@ -49,7 +50,7 @@ const EachDetail = ({ eachObj }) => {
           {eachObj.map((each) => (
             <EachSet key={each.id}>
               <EachTitle>
-                ✨ 옵션 {each.id}. {each.itemname}
+                ✨ 상품 {each.id + 1}. {each.itemname}
               </EachTitle>
               <EachTitle>✨ 가격: {each.price}원</EachTitle>
               {/*((each.maxNum === 0 || each.maxNum==="") ? (<></>) : (<>
