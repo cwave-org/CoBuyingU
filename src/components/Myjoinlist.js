@@ -7,8 +7,10 @@ const Myjoinlist = ({ listObj, isOwner }) => {
   const [name, setName] = useState("");
   const [exist, setExist] = useState(false);
   const [link,setLink]=useState("");
+  const [myObj2, setMyObj2] = useState();
   let navigate = useNavigate();
   let myObj;
+
   useEffect(() => {
     let dblists = dbService
       .collection("startlist")
@@ -23,11 +25,12 @@ const Myjoinlist = ({ listObj, isOwner }) => {
             };
             setExist(true);
             setName(myObj.itemname);
+            setMyObj2(myObj)
           }
         });
       });
   }, []);
-
+  
   const onShowdetailClick = async () => {
     let dblists = await dbService
       .collection("startlist")
@@ -50,7 +53,7 @@ const Myjoinlist = ({ listObj, isOwner }) => {
     const detailObj = "init";
     navigate("/buying/detail", {
       replace: false,
-      state: { detailObj: listObj },
+      state: { detailObj: listObj, sellObj: myObj2 },
     });
   };
 
