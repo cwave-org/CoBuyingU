@@ -1,3 +1,4 @@
+/*
 import React, { useState } from "react";
 import { dbService } from "../fbase";
 import styled from "styled-components";
@@ -20,43 +21,44 @@ const Button1 = styled(Button)`
 
 const DateFactory = (props) => {
   const [id, setId] = useState(1);
-  const [data, setData] = useState([]);
-  const [items, setItems] = useState([
-    <DateItem
-      key={id}
-      id={id}
-      setData={setData}
-      data={data}
-      uid={props.userObj.uid}
-    />,
-  ]);
+  // const [data, setData] = useState([]);
+  // const [items, setItems] = useState([
+  //   <DateItem
+  //     key={id}
+  //     id={id}
+  //     setData={setData}
+  //     data={data}
+  //     uid={props.userObj.uid}
+  //   />,
+  // ]);
 
-  const addDate = () => {
-    setId(id + 1);
-    setItems(
-      items.concat(
-        <DateItem
-          key={id + 1}
-          id={id + 1}
-          setData={setData}
-          data={data}
-          uid={props.userObj.uid}
-        />
-      )
-    );
-  };
+  console.log(props.data)
+
+  const onClickAddDate = () =>{
+    console.log("Add");
+    // setId(id+1);
+    // setItems(items.concat(
+    // <DateItem
+    //   key={id+1}
+    //   id={id+1}
+    //   setData={setData}
+    //   data={data}
+    //   uid={props.userObj.uid}
+    // />
+    // ));
+  }
 
   const onClickDone = async (event) => {
-    event.preventDefault();
-    await dbService.doc(`datelist/${props.itemID}`).set({data});
-    props.setClicked(true);
+    console.log("done")
+    // event.preventDefault();
+    // await dbService.doc(`datelist/${props.itemID}`).set({data});
+    // props.setClicked(true);
   };
 
   return (
     <Box>
-      {items}
-      {/* <div> */}
-      <Button className="default_Btn_Left" onClick={addDate}>
+      {props.data}
+      <Button className="default_Btn_Left" onClick={onClickAddDate}>
         날짜 추가
       </Button>
       <Button1 className="default_Btn_Right" onClick={onClickDone}>
@@ -68,3 +70,4 @@ const DateFactory = (props) => {
 };
 
 export default DateFactory;
+*/
