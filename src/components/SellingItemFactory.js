@@ -90,17 +90,26 @@ const SellingItemFactory = (props) => {
               .ref()
               .child(`${props.userObj.uid}/${uuidv4()}`);
             // console.log(attachmentRef);
-            window.alert(data[i].itemDetails[j].beforeurl[k]);
+            // window.alert(data[i].itemDetails[j].beforeurl[k]);
             const response = await attachmentRef.putString(data[i].itemDetails[j].beforeurl[k], "data_url");
             attachmentUrl = await response.ref.getDownloadURL();
-            window.alert(attachmentUrl);
+            // window.alert(attachmentUrl);
             data[i].itemDetails[j].url[k] = attachmentUrl;
           }
         }
       }
     }
+    window.alert(data[0].itemDetails[0].url[0]);
+    window.alert("됐다");
+    window.alert(props.itemID);
+    // isLoading(false);
+    await dbService.doc(`itemlist/${props.itemID}`).set({data}).then(()=>{
+      // console.log("됐다");
+      window.alert(data[0].itemDetails[0].url[0]);
+      window.alert("찐됐다");
 
-    await dbService.doc(`itemlist/${props.itemID}`).set({data});
+      // window.alert(data);
+    });
     isLoading(false);
     // props.setClicked(true);
     
