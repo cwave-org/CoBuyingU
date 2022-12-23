@@ -30,7 +30,7 @@ const Navigation = ({ userObj }) => {
                 </div>
               </Link>
             ) : (
-              <></>
+              <>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</>
             )}
           </li>
           <li>
@@ -106,10 +106,13 @@ const Navigation = ({ userObj }) => {
                     display: "flex",
                     flexDirection: "row",
                     marginTop: 5,
+                    alignItems: "center",
                   }}
                 >
                   <h1 style={{ fontSize: 20 }}>⍈</h1>
-                  <span>LogIn</span>
+                  <span style={{ fontSize: 10 }} onClick={logOut}>
+                    LogIn
+                  </span>
                 </div>
               </Link>
             )}
