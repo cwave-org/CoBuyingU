@@ -12,9 +12,17 @@ import Buydetaillist from "../routes/Buydetaillist";
 import JoinDone from "../routes/JoinDone";
 
 const AppRouter = ({ refreshUser, isLoggedIn, userObj }) => {
+  var a = 0;
+
   return (
     <Router>
-      {isLoggedIn && <Navigation userObj={userObj} />}
+      {isLoggedIn ? (
+        <>
+          <Navigation userObj={userObj} />
+        </>
+      ) : (
+        <Navigation userObj={null} />
+      )}
       <div
         style={{
           alignItems: "center",
@@ -27,6 +35,11 @@ const AppRouter = ({ refreshUser, isLoggedIn, userObj }) => {
         <Routes>
           {isLoggedIn ? (
             <>
+              <Route
+                exact
+                path="/selling/detail/:id"
+                element={<Detaillist userObj={userObj} />}
+              />
               <Route exact path="/" element={<Home userObj={userObj} />} />
               <Route
                 exact
@@ -46,11 +59,7 @@ const AppRouter = ({ refreshUser, isLoggedIn, userObj }) => {
                 element={<SellingForm userObj={userObj} />}
               />
               {/*<Route exact path="/selling/edit" element={<EditForm userObj={userObj} />} />*/}
-              <Route
-                exact
-                path="/selling/detail/:id"
-                element={<Detaillist userObj={userObj} />}
-              />
+
               <Route
                 exact
                 path="/itemlist"
@@ -67,8 +76,14 @@ const AppRouter = ({ refreshUser, isLoggedIn, userObj }) => {
             </>
           ) : (
             <>
-              <Route exact path="/" element={<Auth userObj={userObj} />} />
-              <Route path="*" element={<Auth replace to="/login" />} />
+              <Route exact path="/auth" element={<Auth />} />
+              <Route exact path="/" element={<Home userObj={null} />} />
+              <Route
+                exact
+                path="/selling/detail/:id"
+                element={<Detaillist userObj={null} />}
+              />
+
             </>
           )}
         </Routes>

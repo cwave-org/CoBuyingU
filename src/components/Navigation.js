@@ -13,21 +13,25 @@ const Navigation = ({ userObj }) => {
       <nav>
         <ul style={{ display: "flex", justifyContent: "center" }}>
           <li>
-            <Link
-              to="/selling"
-              style={{
-                display: "flex",
-                flexDirection: "column",
-                alignItems: "center",
-                fontSize: 12,
-                textDecoration: "none",
-              }}
-            >
-              <div style={{ display: "flex", flexDirection: "column" }}>
-                <h1 style={{ fontSize: 30 }}>📢</h1>
-                <span style={{ fontSize: 10 }}>공구 열기</span>
-              </div>
-            </Link>
+            {userObj != null ? (
+              <Link
+                to="/selling"
+                style={{
+                  display: "flex",
+                  flexDirection: "column",
+                  alignItems: "center",
+                  fontSize: 12,
+                  textDecoration: "none",
+                }}
+              >
+                <div style={{ display: "flex", flexDirection: "column" }}>
+                  <h1 style={{ fontSize: 30 }}>📢</h1>
+                  <span style={{ fontSize: 10 }}>공구 열기</span>
+                </div>
+              </Link>
+            ) : (
+              <></>
+            )}
           </li>
           <li>
             <Link
@@ -37,7 +41,9 @@ const Navigation = ({ userObj }) => {
                 fontSize: 10,
                 textDecoration: "none",
               }}
-            > &nbsp;&nbsp;
+            >
+              {" "}
+              &nbsp;&nbsp;
               <img width="150px" src="img/CBU1.png"></img>
             </Link>
           </li>

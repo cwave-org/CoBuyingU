@@ -9,12 +9,22 @@ const CobuyingItem = ({ userObj, listObj, isOwner }) => {
   let navigate = useNavigate();
   let today = new Date();
   const [checked, setChecked] = useState(true);
-  const checkObj = {
-    check: !checked,
-    createdAt: Date.now(),
-    creatorId: userObj.uid,
-    userName: userObj.displayName,
-  };
+  let checkObj;
+  if (userObj != null) {
+    checkObj = {
+      check: !checked,
+      createdAt: Date.now(),
+      creatorId: userObj.uid,
+      userName: userObj.displayName,
+    };
+  } else {
+    checkObj = {
+      check: !checked,
+      createdAt: Date.now(),
+      creatorId: null,
+      userName: null,
+    };
+  }
 
   let curday = new Date(listObj.deadline);
   curday.setHours(curday.getHours() + 14);
@@ -62,10 +72,14 @@ const CobuyingItem = ({ userObj, listObj, isOwner }) => {
   };
 
   const onDetaillistClick = () => {
-    navigate(`/selling/detail/${listObj.id}`, {
-      replace: false,
-      state: { detailObj: listObj },
-    });
+    if (userObj != null) {
+      navigate(`/selling/detail/${listObj.id}`, {
+        replace: false,
+        state: { detailObj: listObj },
+      });
+    } else {
+      alert("접근 권한이 없습니다.");
+    }
   };
 
   return (
@@ -82,26 +96,30 @@ const CobuyingItem = ({ userObj, listObj, isOwner }) => {
               justify: "center",
             }}
           >
-            <div className="home_scr">
-              {!checked ? (
-                <FontAwesomeIcon
-                  className="fa-globe"
-                  icon={faStar}
-                  onClick={check}
-                  size="2x"
-                  color={"#ffffff"}
-                  aria-hidden="true"
-                ></FontAwesomeIcon>
-              ) : (
-                <FontAwesomeIcon
-                  className="fa-globe"
-                  icon={FaStarRegular}
-                  onClick={check}
-                  size="2x"
-                  color={"#ffffff"}
-                ></FontAwesomeIcon>
-              )}
-            </div>
+            {userObj != null ? (
+              <div className="home_scr">
+                {!checked ? (
+                  <FontAwesomeIcon
+                    className="fa-globe"
+                    icon={faStar}
+                    onClick={check}
+                    size="2x"
+                    color={"#ffffff"}
+                    aria-hidden="true"
+                  ></FontAwesomeIcon>
+                ) : (
+                  <FontAwesomeIcon
+                    className="fa-globe"
+                    icon={FaStarRegular}
+                    onClick={check}
+                    size="2x"
+                    color={"#ffffff"}
+                  ></FontAwesomeIcon>
+                )}
+              </div>
+            ) : (
+              <></>
+            )}
             <div onClick={onDetaillistClick}>
               {listObj.attachmentUrl ? (
                 <img
