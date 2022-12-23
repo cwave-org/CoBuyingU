@@ -40,7 +40,7 @@ const BuyingForm = ({ userObj }) => {
   }, []);
   */
 
-  var dates = detailObj.dates
+  var dates = detailObj.dates;
 
   useEffect(() => {
     dbService.doc(`itemlist/${detailObj.randomidx}`).onSnapshot((snapshot) => {
@@ -68,7 +68,7 @@ const BuyingForm = ({ userObj }) => {
       phonenumber: phonenumber,
       // count: count,
       totalprice: total,
-      handout_date : handout_date,
+      handout_date: handout_date,
       option: option,
       optionname: optionname,
       // address: address,
@@ -203,7 +203,7 @@ const BuyingForm = ({ userObj }) => {
   };
 
   return (
-    <div>
+    <div className="openjoin_container">
       {loading && (
         <Load>
           <LoadImg>
@@ -211,7 +211,7 @@ const BuyingForm = ({ userObj }) => {
           </LoadImg>
         </Load>
       )}
-      <form className="openjoin_container" onSubmit={onSubmit}>
+      <form onSubmit={onSubmit}>
         <p>공구 참여하기</p>
         <EachContainer>
           <EachTitle>✔️ 입금자 명</EachTitle>
@@ -282,22 +282,27 @@ const BuyingForm = ({ userObj }) => {
           <EachContainer>
             <EachTitle>✔️ 현장배부 날짜</EachTitle>
             <EachDetail>
-              {dates.slice(0).reverse().map((date, i) => (
-                <SelectNum key={i}>
-                  {i + 1}. {date.handout_date}
-                  <NumBox>
-                    <Btn1
-                      onClick={(event) => handout(event, date.handout_date, i)}
-                    >
-                      <input
-                        type="radio"
-                        value={date.handout_date}
-                        name="handout_date"
-                      />
-                    </Btn1>
-                  </NumBox>
-                </SelectNum>
-              ))}
+              {dates
+                .slice(0)
+                .reverse()
+                .map((date, i) => (
+                  <SelectNum key={i}>
+                    {i + 1}. {date.handout_date}
+                    <NumBox>
+                      <Btn1
+                        onClick={(event) =>
+                          handout(event, date.handout_date, i)
+                        }
+                      >
+                        <input
+                          type="radio"
+                          value={date.handout_date}
+                          name="handout_date"
+                        />
+                      </Btn1>
+                    </NumBox>
+                  </SelectNum>
+                ))}
             </EachDetail>
           </EachContainer>
         )}

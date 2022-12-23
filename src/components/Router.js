@@ -31,7 +31,9 @@ const AppRouter = ({ refreshUser, isLoggedIn, userObj }) => {
               <Route
                 exact
                 path="/profile"
-                element={<Profile userObj={userObj} refreshUser={refreshUser} />}
+                element={
+                  <Profile userObj={userObj} refreshUser={refreshUser} />
+                }
               />
               <Route
                 exact
@@ -65,8 +67,8 @@ const AppRouter = ({ refreshUser, isLoggedIn, userObj }) => {
             </>
           ) : (
             <>
-              <Route exact path="/" element={<Auth userObj={userObj}/>} />
-              <Route path="*" element={<Auth replace to="/login"/>} />
+              <Route exact path="/" element={<Auth userObj={userObj} />} />
+              <Route path="*" element={<Auth replace to="/login" />} />
             </>
           )}
         </Routes>
