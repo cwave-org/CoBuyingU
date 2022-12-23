@@ -123,7 +123,6 @@ const SellingItemFactory = (props) => {
 
   return (
     <Box>
-
         {items}
           {loading&&
             <Load>
