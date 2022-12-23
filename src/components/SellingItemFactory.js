@@ -90,9 +90,10 @@ const SellingItemFactory = (props) => {
               .ref()
               .child(`${props.userObj.uid}/${uuidv4()}`);
             // console.log(attachmentRef);
-            // console.log(data[i].itemDetails[j].url[k]);
+            window.alert(data[i].itemDetails[j].beforeurl[k]);
             const response = await attachmentRef.putString(data[i].itemDetails[j].beforeurl[k], "data_url");
             attachmentUrl = await response.ref.getDownloadURL();
+            window.alert(attachmentUrl);
             data[i].itemDetails[j].url[k] = attachmentUrl;
           }
         }
