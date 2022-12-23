@@ -13,6 +13,22 @@ const Itemlist = () => {
   const [money, setMoney] = useState(0);
   let money2 = 0;
   let count2 = 0;
+
+  const[participationCount, setParticipationCount] = useState(0);
+
+  //총 입금금액, 참여자 수
+  const [joinlist2, setJoinlist2] = useState([]);
+  useEffect(()=>{
+    dbService.collection("joinlist2").doc(`${buyerindex}`).collection("list").onSnapshot((snapshot) =>{
+      const listArray3 = snapshot.docs.map((doc) => ({
+        id: doc.id,
+        ...doc.data(),
+      }));
+      setJoinlist2(listArray3);
+      setParticipationCount(listArray3.length)
+    })
+  }, []);
+
   useEffect(() => {
     dbService.collection("joinlist").onSnapshot((snapshot) => {
       setLists([]);
@@ -50,6 +66,12 @@ const Itemlist = () => {
     });
   }, []);
 
+
+  var totalMoney = 0;
+  for(var i=0; i<joinlist2.length; i++){
+    totalMoney = totalMoney+joinlist2[i].totalprice;
+  }
+
   return (
     <>
       {lists.length > 0 ? (
@@ -60,10 +82,10 @@ const Itemlist = () => {
             <Excel exceldata={excellist} name={filename} />
             <br />
             <div>
-              총 참여자 : <b>{count}</b>명
+              총 참여자 : <b>{participationCount}</b>명
             </div>
             <div>
-              총 입금금액 : <b>{money}</b>원
+              총 입금금액 : <b>{totalMoney}</b>원
             </div>
             <br />
             <div style={{ marginBottom: "15px", fontSize: 12 }}>
