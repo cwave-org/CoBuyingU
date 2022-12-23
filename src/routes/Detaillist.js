@@ -62,7 +62,7 @@ const Detaillist = ({ userObj }) => {
           .get()
           .then((doc) => {
             //console.log(doc.data());
-            setEachObj(doc.data().data.reverse());
+            setEachObj(doc.data().data);
           });
       });
     let date =
