@@ -55,6 +55,7 @@ const SellingItemFactory = (props) => {
   };
 
   const onClickDone = async () => {
+    alert("업로드클릭");
     props.setClicked(true);
     for (var i=0;i<data.length;i++){
       let attachmentUrl = "";
