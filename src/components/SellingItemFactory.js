@@ -67,7 +67,6 @@ const SellingItemFactory = (props) => {
       data1={data1}
       uid={props.userObj.uid}
       click={props.click}
-      submit={submit}
     />,
   ]);
   useEffect(() => {
@@ -93,7 +92,6 @@ const SellingItemFactory = (props) => {
           setData={setData}
           data={data}
           uid={props.userObj.uid}
-          submit={submit}
           click={props.click}
         />
       )
@@ -129,62 +127,54 @@ const SellingItemFactory = (props) => {
           }
         }
       }
-      // console.log(data);
       await dbService
         .doc(`itemlist/${props.itemID}`)
         .set({ data })
         .then(() => {});
       isLoading(false);
-
       getData();
-      // props.setClicked(true);
     }
   };
   const getData=async()=>{
       await dbService
-        .collection("itemlist")
-        .doc(props.itemID)
+        .doc(`itemlist/${props.itemID}`)
         .get()
         .then((doc) => {
-          //console.log(doc.data());
+          // console.log(doc.data());
           setEachObj(doc.data().data.reverse());
         });
         isSubmit(true);
 
   };
+  
   const onDataSet=()=>{
     props.click[props.id]=true;
-    // console.log(props.click);
   };
 
   return (
     <Box>
-      {items}
-          {loading&&
-            <Load>
-              <LoadImg>
-                <img src="img/loading.gif" alt="로딩" />
-              </LoadImg>
-            </Load>
-          }{
-            submit?(
-              <>
-                            {/* <EachDetail eachObj={eachObj} /> */}
-
-              </>
-            // <Notouch></Notouch>
-            ):(
-              <>
-                <Button className="default_Btn_Left" onClick={addItem}>
-                  상품 추가
-                </Button>
-                <Button1 className="default_Btn_Right" onClick={onClickDone}>
-                  완료
-                </Button1>
-                <br />
-              </>
-            )
-          }
+      {loading&&
+        <Load>
+          <LoadImg>
+            <img src="img/loading.gif" alt="로딩" />
+          </LoadImg>
+        </Load>
+      }{
+        submit?(
+            <EachDetail eachObj={eachObj} />
+        ):(
+          <>
+            {items}
+            <Button className="default_Btn_Left" onClick={addItem}>
+              상품 추가
+            </Button>
+            <Button1 className="default_Btn_Right" onClick={onClickDone}>
+              완료
+            </Button1>
+            <br />
+          </>
+        )
+      }
     </Box>
   );
 };

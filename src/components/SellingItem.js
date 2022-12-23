@@ -57,11 +57,11 @@ const SellingItem = (props) => {
   useEffect(() => {
     setItemsDetails(data);
     // setItemsDetails(eachdata,...itemDetails);
-    console.log(props.submit);
+    // console.log(props.submit);
   }, [data]);
   useEffect(() => {
     props.setData1([{itemDetails:lostdata},...props.data1,]);
-    console.log(props.data1);
+    // console.log(props.data1);
     // setItemsDetails(eachdata,...itemDetails);
   }, [lostdata]);
 
