@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { dbService } from "../fbase";
 import Item from "../components/Item";
 import Excel from "../components/Excel";
@@ -11,6 +11,7 @@ const Itemlist = () => {
   const [excellist, setExcelList] = useState([]);
   const [count,setCount]=useState(0);
   const [money,setMoney]=useState(0);
+  let navigate = useNavigate();
   let money2=0;
   let count2=0;
   useEffect(() => {
@@ -45,11 +46,13 @@ const Itemlist = () => {
           //var m=money;
           m=count;
           money2=money2+Number(doc.data().totalprice);
-          setMoney(money2);
+          setMoney(money2/Number(doc.data().option.length));
           setCount(count2/Number(doc.data().option.length));
           //console.log(money2)
           setLists((prev) => [myobj, ...prev]);
           setExcelList((prev) => [excelobj, ...prev]);
+          //location.reload();
+          //navigate(`/itemlist`);
         }
       });
     });
