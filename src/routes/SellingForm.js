@@ -52,7 +52,7 @@ const SellingForm = ({ userObj }) => {
   const [etc, setEtc] = useState("");
   const [notice, setNotice] = useState("");
   const [giving, setGiving] = useState(0);
-  const [click,setClick]=useState([false]);
+  const [click, setClick] = useState([false]);
   const [clicked, setClicked] = useState(false);
   const [clickeddate, setClickedDate] = useState(false);
 
@@ -127,21 +127,20 @@ const SellingForm = ({ userObj }) => {
     } else if (event.target.id === "link") {
       setLink(value);
     } else if (event.target.id === "etc") {
-      
       if (ta.current.scrollHeight > 90) {
         ta.current.style.height = ta.current.scrollHeight + "px";
       }
-      
+
       setEtc(value);
     } else if (event.target.id === "account") {
       setAccount(value);
     } else if (event.target.id === "notice") {
-      
       if (ta2.current.scrollHeight > 90) {
         ta2.current.style.height = ta2.current.scrollHeight + "px";
       }
       setNotice(value);
     }
+    console.log("sdfasdf");
   };
 
   const onRadioClick = (e) => {
@@ -168,14 +167,14 @@ const SellingForm = ({ userObj }) => {
   };
   const onClearAttachment = () => setAttachment(null);
   const onCheckForm = () => {
-    if (click[click.length-1]&&clickeddate) {
-      var result= window.confirm("정말로 폼을 제출하시겠습니까?");
-      if(result){
+    if (click[click.length - 1] && clickeddate) {
+      var result = window.confirm("정말로 폼을 제출하시겠습니까?");
+      if (result) {
         onFormSubmit();
       }
-    }else if(click[click.length-1]===false) {
+    } else if (click[click.length - 1] === false) {
       window.alert("상품추가 완료버튼을 눌러주셔야 제출 가능합니다");
-    } else if(!clickeddate){
+    } else if (!clickeddate) {
       window.alert("현장배부 날짜추가 완료버튼을 눌러주셔야 제출 가능합니다");
     }
   };
