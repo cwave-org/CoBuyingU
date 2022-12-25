@@ -87,7 +87,8 @@ const CobuyingItem = ({ userObj, listObj, isOwner }) => {
     <div className="cobuyingItem">
       <>
         {today < curday ? (
-          <div
+          listObj.done===false?(
+            <div
             style={{
               width: "100%",
               height: "100%",
@@ -153,6 +154,50 @@ const CobuyingItem = ({ userObj, listObj, isOwner }) => {
               <div className="deadline">{listObj.deadline}까지</div>
             </div>
           </div>
+          ):(
+            <div
+            className="endthing"
+            style={{
+              width: "100%",
+              height: "100%",
+              display: "flex",
+              flexDirection: "column",
+              justify: "center",
+            }}
+          >
+            <div onClick={onDetaillistClick}>
+              {listObj.attachmentUrl ? (
+                <img
+                  style={{
+                    width: "80%",
+                    height: "80px",
+                    marginBottom: 5,
+                    borderRadius: 10,
+                  }}
+                  alt="썸네일"
+                  src={listObj.attachmentUrl}
+                />
+              ) : (
+                <>
+                  <img
+                    style={{ width: "100%", height: "40%", marginBottom: 5 }}
+                    src="img/transparent.png"
+                    alt="로딩"
+                  />
+                </>
+              )}
+              <div>(공구 조기 마감)</div>
+              <div className="name">
+                {
+                  <>
+                    {listObj.itemname}
+                    <br />
+                  </>
+                }
+              </div>
+            </div>
+          </div>
+          )
         ) : (
           <div
             className="endthing"
@@ -185,6 +230,7 @@ const CobuyingItem = ({ userObj, listObj, isOwner }) => {
                   />
                 </>
               )}
+              <div>(공구 마감)</div>
               <div className="name">
                 {
                   <>
@@ -193,7 +239,6 @@ const CobuyingItem = ({ userObj, listObj, isOwner }) => {
                   </>
                 }
               </div>
-              <div className="deadline">{`${listObj.deadline}까지`}</div>
             </div>
           </div>
         )}
