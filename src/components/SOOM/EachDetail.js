@@ -21,9 +21,9 @@ const EachImg = styled.img`
   height: auto;
   max-height: 200px;
   min-height: 100px;
-  display: "flex",
-  flexDirection: "column",
-  justify: "center",
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
 `;
 const Half = styled.div`
   display: flex;
@@ -36,7 +36,7 @@ const Half = styled.div`
 const PostListWrapper = styled.div`
   display: grid;
   place-items: center;
-  justify-content: space-evenly;
+  justify-content: center;
   font-size: small;
   row-gap: 5x;
   grid-template-columns: repeat(2, auto);
