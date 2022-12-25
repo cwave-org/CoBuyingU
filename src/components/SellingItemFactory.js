@@ -12,14 +12,16 @@ const Load = styled.div`
   left: 0vw;
   height: 100vh;
   z-index: 1;
-  background-color: rgba(0, 0, 0, 0.8);
+  background-color: rgba(0, 0, 0, 0.5);
 `;
 const LoadImg = styled.div`
   position: fixed;
   top: 30vh;
-  left: 23%;
+  left: 50%;
+  transform: translate(-50%, 0);
   /* width:30%; */
 `;
+
 
 const Box = styled.div`
   /* border: 2px solid #d9d9d9; */
@@ -37,16 +39,6 @@ const Button = styled.button`
 `;
 const Button1 = styled(Button)`
   right: 3px;
-`;
-
-const Notouch=styled.div`
-  width:fit-content;
-  position: fixed;
-  top:0%;
-  left: 0vw;
-  height: 100vh;
-  z-index: 0;
-  background-color: rgba(0, 0, 0, 0.8);
 `;
 
 const SellingItemFactory = (props) => {
@@ -156,7 +148,7 @@ const SellingItemFactory = (props) => {
       {loading&&
         <Load>
           <LoadImg>
-            <img src="img/loading.gif" alt="로딩" />
+            <img src="img/loading.svg" alt="로딩" />
           </LoadImg>
         </Load>
       }{

@@ -207,7 +207,7 @@ const BuyingForm = ({ userObj }) => {
       {loading && (
         <Load>
           <LoadImg>
-            <img src="img/loading.gif" alt="로딩" />
+            <img src="img/loading.svg" alt="로딩" />
           </LoadImg>
         </Load>
       )}
@@ -465,11 +465,12 @@ const Load = styled.div`
   left: 0vw;
   height: 100vh;
   z-index: 1;
-  background-color: rgba(0, 0, 0, 0.8);
+  background-color: rgba(0, 0, 0, 0.5);
 `;
 const LoadImg = styled.div`
   position: fixed;
   top: 30vh;
-  left: 23%;
+  left: 50%;
+  transform: translate(-50%, 0);
   /* width:30%; */
 `;
