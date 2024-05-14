@@ -5,14 +5,16 @@ body {
   height: 100%;
 }
 
-body {
+.body_box{
+  width:450px;
   background: linear-gradient(to top, #c5e0b4, #bbdcf7, #e0c0f6);
   background-attachment: fixed;
+  align-items: center;
+  margin: 0 auto;
 }
 
 .wrapper {
-  min-height: 100%;
-  padding-bottom: 27px;
+  background-color: #f5f9fa;
 }
 
 .container {
@@ -27,13 +29,15 @@ body {
 }
 
 .footer {
-  width: 100%;
   background-color: #c3dfc0;
   color: white;
   text-align: center;
-  border-top: 1px solid #dee5e7;
+  border-top: 1px solid #f5f9fa;
   height: 27px;
   margin-top: -27px;
+  width: 450px;
+  align-items: center;
+  margin: 0 auto;
 }
 
 .formbox {
@@ -278,6 +282,9 @@ button {
 .ini {
   text-align: center;
   margin-top: 50%;
+  width: 450px;
+  height: 100%;
+  background-color: #f5f9fa;
 }
 
 .fa-globe {
