@@ -26,7 +26,7 @@ function App() {
           alert("숙명 메일로만 로그인이 가능합니다.");
         } else {
         }
-      } else {
+      } else { 
         setUserObj(null);
       }
       setInit(true);
@@ -46,7 +46,8 @@ function App() {
         <AppRouter
           refreshUser={refreshUser}
           isLoggedIn={Boolean(userObj)}
-          userObj={userObj}
+          userObj={userObj} 
+          className="body_box"
         />
       ) : (
         <div className="ini">

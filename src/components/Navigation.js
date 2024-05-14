@@ -10,7 +10,7 @@ const Navigation = ({ userObj }) => {
   };
   return (
     <>
-      <nav>
+      <nav className="body_box">
         <ul style={{ display: "flex", justifyContent: "center" }}>
           <li>
             {userObj != null ? (

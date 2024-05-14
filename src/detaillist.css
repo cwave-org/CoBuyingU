@@ -47,13 +47,13 @@ ul {
 }
 
 .comment_trashbtn{
-  position: absolute;
-  left: 87%;
+ 
+  float:right;
   transform: translateY(-100%);
 }
 .detaillist_trashbtn {
   position: absolute;
-  left: 87%;
+  margin-left:auto;
 }
 
 .detaillist_comment {

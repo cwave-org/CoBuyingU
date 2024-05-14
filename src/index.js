@@ -14,7 +14,9 @@ window.Kakao.init('0dac4f0cc838fab4e0aa05850497272f');
 
 ReactDOM.render(
   <React.StrictMode>
+    <div className="body_box">
     <App />
+    </div>
   </React.StrictMode>,
   document.getElementById("root")
 );
